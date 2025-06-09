@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời - Café Doanh Nhân QUẢNG TRỊ</title>
+    <!-- Favicons -->
+    <link href="/assets/logos/png/dnqt_logo_textdnqt_bgtransparent.png" rel="icon">
+    <link href="/assets/logos/png/dnqt_logo_textdnqt_bgtransparent.png" rel="apple-touch-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Hỗ trợ lịch -->
+    <script type="text/javascript">
+    window.addeventatc = window.addeventatc || {};
+    window.addeventatc.settings = {
+        css: false, // Tắt CSS mặc định để dùng CSS của bạn
+        dropcheck: true // Kiểm tra xem script đã load chưa
+    };
+</script>
+<script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e9ecef 0%, #faf9f8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .card-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .card {
+            width: 210mm;
+            height: 297mm;
+            background: #FFF5FF;
+            padding: 12mm;
+            box-sizing: border-box;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(42, 92, 154, 0.2);
+            overflow: hidden;
+        }
+        .card::before, .card::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #2A5C9A 0%, #E98724 50%, #3A7D44 100%);
+        }
+        .card::before { top: 0; }
+        .card::after { bottom: 0; }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .logo-svg {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+        .club-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2A5C9A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            color: #E98724;
+            text-align: center;
+            margin: 15px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #2A5C9A, #E98724);
+            border-radius: 3px;
+        }
+        .invitation-text {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #555;
+        }
+        .event-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2A5C9A;
+            text-align: center;
+            margin: 20px 0;
+            padding: 8px 0;
+            border-top: 1px dashed #d4d4d4;
+            border-bottom: 1px dashed #d4d4d4;
+        }
+        .main-image {
+            width: 100%;
+            height: 80mm;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .main-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(42, 92, 154, 0.1);
+        }
+        .info-table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        .info-table td {
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+        }
+        .info-table td:first-child, .info-table td:nth-child(2) {
+            color: #d35400;
+        }
+        .info-table td:last-child {
+            color: #2A5C9A;
+            text-align: left;
+            font-weight: 500;
+        }
+        .content-section {
+            display: flex;
+            margin-top: 15px;
+            gap: 15px;
+        }
+        .left-content, .right-content {
+            flex: 1;
+            padding: 12px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        .content-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #2A5C9A;
+            border-bottom: 2px solid #E98724;
+            padding-bottom: 5px;
+        }
+        .content-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .content-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+            line-height: 1.4;
+            font-size: 13px;
+        }
+        .content-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background-color: #E98724;
+            border-radius: 50%;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .signature-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #2A5C9A;
+            margin-top: 5px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+        .footer-item {
+            flex: 1;
+            text-align: center;
+        }
+        .fee {
+            font-weight: 600;
+            color: #2A5C9A;
+            text-align: left;
+        }
+        .qr-code {
+            width:100px;
+            height: 100px;
+            background-color: white;
+            padding: 5px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .contact {
+            text-align: right;
+            font-weight: 500;
+        }
+        .contact strong {
+            color: #2A5C9A;
+        }
+        .corner-decoration {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            opacity: 0.15;
+            /* background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M10 10 C20 10 30 20 30 30 C30 40 20 40 10 40" fill="none" stroke="%232A5C9A" stroke-width="3"/></svg>') no-repeat; */
+        }
+        .corner-1 {
+            top: 20px;
+            left: 20px;
+            border-top: 3px solid #2A5C9A;
+            border-left: 3px solid #2A5C9A;
+        }
+        
+        .corner-2 {
+            top: 20px;
+            right: 20px;
+            border-top: 3px solid #E98724;
+            border-right: 3px solid #E98724;
+        }
+        
+        .corner-3 {
+            bottom: 20px;
+            left: 20px;
+            border-bottom: 3px solid #3A7D44;
+            border-left: 3px solid #3A7D44;
+        }
+        
+        .corner-4 {
+            bottom: 20px;
+            right: 20px;
+            border-bottom: 3px solid #d35400;
+            border-right: 3px solid #d35400;
+        }
+        .export-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+        }
+        .export-buttons button {
+            padding: 10px 20px;
+            background: #2A5C9A;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .export-buttons button:hover {
+            background: #E67E22;
+            transform: translateX(5px);
+        }
+        .contact-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .contact-form.active {
+            display: block;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background: #2A5C9A;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .contact-form button:hover {
+            background: #E67E22;
+        }
+        @media print {
+            body { background: none; }
+            .card { box-shadow: none; border: none; }
+            .export-buttons, .contact-form { display: none; }
+        }
+        @media screen and (max-width: 768px) {
+            .card { width: 100%; height: auto; padding: 10mm; }
+            .info-table { width: 100%; }
+            .content-section { flex-direction: column; }
+            .contact-form { width: 90%; }
+        }
+
+        /* MOBILE ============================================================================ */
+        /* Thêm vào phần media queries hiện có */
+@media screen and (max-width: 1024px) {
+    /* Tablet styles */
+    .card {
+        width: 90%;
+        height: auto;
+        padding: 8mm;
+    }
+    
+    .title {
+        font-size: 26px;
+    }
+    
+    .event-name {
+        font-size: 20px;
+    }
+    
+    .main-image {
+        height: 60mm;
+    }
+    
+    .export-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: relative;
+        top: 0;
+        padding: 10px 0;
+    }
+    
+    .export-buttons button {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Mobile styles */
+    .card-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .card {
+        width: 100%;
+        padding: 5mm;
+        margin-bottom: 20px;
+    }
+    
+    .header img {
+        height: 80px;
+    }
+    
+    .title {
+        font-size: 22px;
+        margin: 10px 0;
+    }
+    
+    .invitation-text {
+        font-size: 13px;
+    }
+    
+    .event-name {
+        font-size: 18px;
+        margin: 15px 0;
+    }
+    
+    .main-image {
+        height: 50mm;
+        margin: 10px 0;
+    }
+    
+    .info-table {
+        width: 100%;
+        font-size: 12px;
+    }
+    
+    .info-table td {
+        padding: 8px 5px;
+        display: block;
+        text-align: left;
+    }
+    
+    .info-table td:first-child, 
+    .info-table td:nth-child(2) {
+        display: inline-block;
+        width: auto;
+        margin-right: 10px;
+    }
+    
+    .content-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .content-title {
+        font-size: 13px;
+    }
+    
+    .content-list li {
+        font-size: 12px;
+        padding-left: 15px;
+    }
+    
+    .footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .footer-item {
+        width: 100%;
+        text-align: center !important;
+    }
+    
+    .qr-code {
+        margin: 0 auto;
+    }
+    
+    .contact {
+        text-align: center !important;
+    }
+    
+    .signature-name {
+        font-size: 14px;
+    }
+    
+    .corner-decoration {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Thêm hiệu ứng cho nút trên mobile */
+.export-buttons button:active {
+    transform: scale(0.95);
+}
+
+/* Tối ưu cho điện thoại xoay ngang */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .card {
+        width: 90%;
+        height: auto;
+    }
+    
+    .main-image {
+        height: 40mm;
+    }
+    
+    .content-section {
+        flex-direction: row;
+    }
+}
+
+
+/* THÊM LỊCH ================================================================================================ */
+/* Thêm vào phần style */
+.add-to-calendar-btn {
+    padding: 10px 20px;
+    background: #2A5C9A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.add-to-calendar-btn:hover {
+    background: #E67E22;
+    transform: translateX(5px);
+}
+
+/* Tùy chỉnh modal thêm vào lịch */
+.atcb-list {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.atcb-item {
+    padding: 10px 15px !important;
+}
+
+@media screen and (max-width: 768px) {
+    .add-to-calendar-btn {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+    
+    .atcb-list {
+        width: 90% !important;
+        left: 5% !important;
+    }
+}
+
+/* Hiệu ứng khi nhấn */
+.add-to-calendar-btn:active {
+    transform: scale(0.95);
+}
+
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="corner-decoration corner-1"></div>
+            <div class="corner-decoration corner-2"></div>
+            <div class="corner-decoration corner-3"></div>
+            <div class="corner-decoration corner-4"></div>
+
+            <div class="header">
+                <img src="/assets/logos/png/dnqt_slogan_bgtransparent.png" height="120px">
+                <!-- <div class="club-name">CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM</div> -->
+            </div>
+
+            <div class="title">THƯ MỜI</div>
+            <div class="invitation-text">
+                CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM<br>
+                Trân trọng kính mời Quý doanh nghiệp tham dự
+            </div>
+            <div class="event-name">CAFÉ DOANH NHÂN QUẢNG TRỊ LẦN 6</div>
+
+            <div class="main-image">
+                <img src="https://blog.unleashresults.com/hubfs/Blog%20Images/Business%20Strategy%20Puzzle.png?ixlib=rb-4.0.3&auto=format&fit=crop&w=595&h=150" alt="Business Networking">
+            </div>
+
+            <table class="info-table">
+                <tr>
+                    <td>Thứ 7, 14/6/2025</td>
+                    <td>9:00</td>
+                    <td><a href="https://maps.app.goo.gl/nHXSbRpjkbjuYoUw8" style="text-decoration: none; color: inherit; font-family: inherit; font-size: inherit;">
+
+                        <img src="/assets/logos/ideas/google_map.png" alt="Map Icon" width="20">
+                        Phòng họp tầng 1, Minh Global<br>146bis Nguyễn Văn Thủ, Phường Đakao, Q1.</a><br>(<i>Xe hơi gửi tại 140 Nguyễn Văn Thủ, Q1</i>)</td>
+                </tr>
+            </table>
+
+            <div class="content-section">
+                <div class="left-content">
+                    <div class="content-title">NỘI DUNG CHƯƠNG TRÌNH</div>
+                    <ul class="content-list">
+                        <li>Giới thiệu ban chủ nhiệm lâm thời.</li>
+                        <li>Họp thành lập CLB DN QT Miền Nam lần 6.</li>
+                        <li>Giao lưu kết nối kinh doanh.</li>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <div class="content-title">THAY MẶT CÂU LẠC BỘ</div>
+                    <p>Trân trọng,<br>CHỦ NHIỆM LÂM THỜI</p>
+                    <div class="signature-name">Nguyễn Đặng Hiến</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="footer-item fee">Tham dự miễn phí</div>
+                <div class="footer-item">
+                    <p>Quét QR đăng ký</p>
+                    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://forms.gle/25vwRL4J9a9GNp5MA" alt="QR Code">
+                </div>
+                <div class="footer-item contact" style="font-size: 14px;">Liên hệ:
+                    <br> <strong>Mr. Lê Minh Phụng </strong><a href="http://zalo.me/0901494666" style="text-decoration: none; color: inherit; font-family: inherit; font-size: inherit;">0901494666</a>
+                    <br> <strong>Ls. Lê Viết Kỳ </strong><a href="http://zalo.me/0964037746" style="text-decoration: none; color: inherit; font-family: inherit; font-size: inherit;">0964037746</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thay đổi phần export-buttons thành -->
+<div class="export-buttons">
+    <button onclick="exportToPNG()">Xuất ảnh</button>
+    <button onclick="exportToPDF()">Xuất PDF</button>
+    <button onclick="exportToVCard()">Xuất vCard</button>
+    
+    <button class="add-to-calendar-btn" id="addToCalendarBtn">Thêm vào lịch</button>
+    <div class="atcb" id="addToCalendarConfig" style="display:none;">
+        {
+            "name":"CAFÉ DOANH NHÂN QUẢNG TRỊ LẦN THỨ 6",
+            "description":"CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\n\nĐịa điểm: Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Q1.\n\nLiên hệ:\n- Mr. Lê Minh Phụng: 0901494666\n- Ls. Lê Viết Kỳ: 0964037746",
+            "startDate":"2025-06-14",
+            "endDate":"2025-06-14",
+            "startTime":"09:00",
+            "endTime":"12:00",
+            "location":"Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP.HCM",
+            "options":["Apple","Google","iCal","Microsoft365","MicrosoftTeams","Outlook.com","Yahoo"],
+            "timeZone":"Asia/Ho_Chi_Minh",
+            "iCalFileName":"Cafe-Doanh-Nhan-Quang-Tri",
+            "listStyle":"modal",
+            "trigger":"click"
+        }
+    </div>
+    
+    <button onclick="shareInvite()">Chia sẻ</button>
+</div>
+
+    <div id="contact" class="contact-form">
+        <form id="contact-form">
+            <input type="text" id="name" placeholder="Họ và tên" required>
+            <input type="tel" id="phone" placeholder="Số điện thoại" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="text" id="title" placeholder="Chủ đề" required>
+            <textarea id="message" placeholder="Tin nhắn" rows="4" required></textarea>
+            <button type="submit" id="submit-btn">Gửi Tin Nhắn</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const { jsPDF } = window.jspdf;
+
+        // Preload images to ensure they are loaded before export
+        function preloadImages(callback) {
+            const images = [
+                'https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=595&h=150',
+                'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://forms.gle/25vwRL4J9a9GNp5MA',
+                '/assets/logos/ideas/google_map.png'
+            ];
+            let loaded = 0;
+            images.forEach(src => {
+                const img = new Image();
+                img.crossOrigin = 'Anonymous'; // Attempt to handle CORS
+                img.src = src;
+                img.onload = img.onerror = () => {
+                    loaded++;
+                    if (loaded === images.length) callback();
+                };
+            });
+        }
+
+        // Toggle contact form
+        function toggleContactForm() {
+            const form = document.getElementById('contact');
+            form.classList.toggle('active');
+        }
+
+        // Handle contact form submission
+        document.getElementById('contact-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const button = document.getElementById('submit-btn');
+            button.textContent = 'Đang gửi...';
+            button.style.background = '#E98724';
+
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('title').value,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                await fetch('https://script.google.com/macros/s/AKfycbz4t2LtIb1In7obXC_EKujEH3ZJGbvrz3uevuqVw4d-zErIj3Tf10QWwxlWH2-5IJ7KqA/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                button.textContent = 'Gửi thành công!';
+                button.style.background = '#3A7D44';
+                setTimeout(() => {
+                    toggleContactForm();
+                    button.textContent = 'Gửi Tin Nhắn';
+                    button.style.background = '#2A5C9A';
+                    document.getElementById('contact-form').reset();
+                }, 2000);
+            } catch (error) {
+                button.textContent = 'Lỗi: Vui lòng thử lại';
+                button.style.background = '#d35400';
+                setTimeout(() => {
+                    button.textContent = 'Gửi Tin Nhắn';
+                    button.style.background = '#2A5C9A';
+                }, 2000);
+            }
+        });
+
+        // Export to PNG
+        function exportToPNG() {
+            preloadImages(() => {
+                html2canvas(document.querySelector('.card'), { 
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'QUẢNG TRỊ_Invite.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            });
+        }
+
+        // Export to PDF
+        function exportToPDF() {
+            preloadImages(() => {
+                html2canvas(document.querySelector('.card'), { 
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                }).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+                    const imgWidth = 210;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                    pdf.save('QUẢNG TRỊ_Invite.pdf');
+                });
+            });
+        }
+
+        // Export to vCard
+        function exportToVCard() {
+            const vCardData = `
+BEGIN:VCARD
+VERSION:3.0
+FN:Mr Lê Minh Phụng
+ORG:QUẢNG TRỊ
+TEL;TYPE=CELL:0901494666
+END:VCARD`;
+            const blob = new Blob([vCardData], { type: 'text/vcard' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Lê Minh Phụng_QUẢNG TRỊ BIZ CLUB.vcf';
+            link.click();
+        }
+
+        // Share Invite
+        function shareInvite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Thiệp Mời Café Doanh Nhân QUẢNG TRỊ',
+                    text: 'Tham gia Café Doanh Nhân QUẢNG TRỊ Lần Thứ 6, ngày 14/6/2025 tại Minh Global, Quận 1.',
+                    url: window.location.href
+                }).catch(err => console.error('Lỗi chia sẻ:', err));
+            } else {
+                alert('Chức năng chia sẻ không được hỗ trợ trên thiết bị này.');
+            }
+        }
+
+        // Fade-in animation on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.querySelector('.card');
+            card.style.opacity = '0';
+            card.style.transition = 'opacity 1s ease';
+            setTimeout(() => {
+                card.style.opacity = '1';
+            }, 100);
+        });
+
+
+        // MOBILE ==============================================================================================
+        // Thêm vào phần script hiện có
+// Kiểm tra thiết bị di động để điều chỉnh hành vi
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
+
+// Điều chỉnh export cho mobile
+function optimizeExportForMobile() {
+    if (isMobileDevice()) {
+        // Thêm lớp để điều chỉnh style khi export trên mobile
+        document.querySelector('.card').classList.add('mobile-export');
+    }
+}
+
+// Gọi hàm khi DOM loaded
+document.addEventListener('DOMContentLoaded', () => {
+    optimizeExportForMobile();
+    
+    // Thêm lớp cho body để biết loại thiết bị
+    if (isMobileDevice()) {
+        document.body.classList.add('mobile');
+    } else {
+        document.body.classList.add('desktop');
+    }
+});
+
+
+// THÊM LỊCH ==============================================================================================================
+// ============ PHẦN XỬ LÝ THÊM VÀO LỊCH ============
+let calendarInitialized = false;
+
+function initializeCalendar() {
+    if (typeof window.addtocalendar === 'function') {
+        calendarInitialized = true;
+        document.getElementById('addToCalendarBtn').addEventListener('click', handleCalendarClick);
+    } else if (!calendarInitialized) {
+        setTimeout(initializeCalendar, 200);
+    }
+}
+
+function handleCalendarClick() {
+    if (typeof window.addtocalendar !== 'function') {
+        console.error('Thư viện lịch chưa sẵn sàng');
+        alert('Vui lòng chờ trong giây lát và thử lại');
+        return;
+    }
+
+    try {
+        const configElement = document.getElementById('addToCalendarConfig');
+        if (configElement) {
+            const config = JSON.parse(configElement.textContent.trim());
+            window.addtocalendar(config);
+        }
+    } catch (e) {
+        console.error('Lỗi khi thêm vào lịch:', e);
+        fallbackCalendar();
+    }
+}
+
+function fallbackCalendar() {
+    // Fallback đến Google Calendar nếu thư viện không hoạt động
+    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('CAFÉ DOANH NHÂN QUẢNG TRỊ LẦN THỨ 6')}&dates=20250614T090000/20250614T120000&details=${encodeURIComponent('CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\nĐịa điểm: Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Q1.')}&location=${encodeURIComponent('Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
+    window.open(url, '_blank');
+}
+
+// Khởi tạo khi DOM sẵn sàng
+document.addEventListener('DOMContentLoaded', function() {
+    // Kiểm tra thư viện mỗi 200ms cho đến khi sẵn sàng
+    const calendarCheckInterval = setInterval(() => {
+        if (typeof window.addtocalendar === 'function') {
+            clearInterval(calendarCheckInterval);
+            initializeCalendar();
+        }
+    }, 200);
+
+    // Timeout sau 5 giây nếu thư viện không tải
+    setTimeout(() => {
+        if (typeof window.addtocalendar !== 'function') {
+            clearInterval(calendarCheckInterval);
+            console.warn('Thư viện AddToCalendar không tải được sau 5 giây');
+            document.getElementById('addToCalendarBtn').addEventListener('click', fallbackCalendar);
+        }
+    }, 5000);
+});
+
+    </script>
+    
+</body>
+</html>
