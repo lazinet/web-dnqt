@@ -82,7 +82,7 @@
             font-size: 30px;
             color: #E98724;
             text-align: center;
-            margin: 15px 0;
+            margin: 10px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
             position: relative;
         }
@@ -100,7 +100,7 @@
         .invitation-text {
             text-align: center;
             font-size: 14px;
-            margin-bottom: 15px;
+            margin-top: 15px;
             line-height: 1.5;
             color: #555;
         }
@@ -216,7 +216,7 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 5px;
-            padding-top: 15px;
+            padding-top: 5px;
             border-top: 1px solid #e0e0e0;
             font-size: 13px;
         }
@@ -610,7 +610,8 @@
                 <div class="footer-item fee">Tham dự miễn phí</div>
                 <div class="footer-item">
                     <p>Quét QR đăng ký</p>
-                    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://forms.gle/25vwRL4J9a9GNp5MA" alt="QR Code">
+                    <p style="font-size: 9px;">(Quét Zalo xong hãy chọn mở bằng trình duyệt)</p>
+                    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://forms.gle/1RHvDfL7WBuN6ju57" alt="QR Code">
                 </div>
                 <div class="footer-item contact" style="font-size: 14px;">Liên hệ:
                     <br> <strong>Mr. Lê Minh Phụng </strong><a href="http://zalo.me/0901494666" style="text-decoration: none; color: inherit; font-family: inherit; font-size: inherit;">0901494666</a>
@@ -621,9 +622,8 @@
 
         <!-- Thay đổi phần export-buttons thành -->
 <div class="export-buttons">
-    <button onclick="exportToPNG()">Xuất ảnh</button>
-    <button onclick="exportToPDF()">Xuất PDF</button>
-    <button onclick="exportToVCard()">Xuất vCard</button>
+    <button onclick="shareInvite()">Chia sẻ</button>
+
     
     <button class="add-to-calendar-btn" id="addToCalendarBtn">Thêm vào lịch</button>
     <div class="atcb" id="addToCalendarConfig" style="display:none;">
@@ -642,8 +642,10 @@
             "trigger":"click"
         }
     </div>
+        <button onclick="exportToPNG()">Xuất ảnh</button>
+    <button onclick="exportToPDF()">Xuất PDF</button>
+    <button onclick="exportToVCard()">Xuất vCard</button>
     
-    <button onclick="shareInvite()">Chia sẻ</button>
 </div>
 
     <div id="contact" class="contact-form">
@@ -666,7 +668,7 @@
         function preloadImages(callback) {
             const images = [
                 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=595&h=150',
-                'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://forms.gle/25vwRL4J9a9GNp5MA',
+                'https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://forms.gle/1RHvDfL7WBuN6ju57',
                 '/assets/logos/ideas/google_map.png'
             ];
             let loaded = 0;
