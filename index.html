@@ -58,6 +58,21 @@
     </script>
     <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
     <style>
+        svg text {
+      font-family: "Arial", sans-serif;
+      fill: #03608F;
+    }
+
+    /* Riêng cho dòng chữ "DNQT" */
+    svg .text-bold {
+      font-family: "Arial Black", sans-serif;
+      font-size: 250px;
+    }
+
+    /* Cho dòng chữ "QUẢNG TRỊ MIỀN NAM" */
+    svg .text-normal {
+      font-size: 110px;
+    }
         @page {
             size: A4;
             margin: 0;
@@ -692,6 +707,7 @@
         .add-to-calendar-btn:active {
             transform: scale(0.95);
         }
+
     </style>
 </head>
 
