@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư Mời - CLB Doanh Nhân Quảng Trị Miền Nam</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2.6.20/dist/add-to-calendar-button.min.js" async defer></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 1s ease-out; }
+        .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .qr-code { max-width: 150px; height: auto; }
+        .header { background: linear-gradient(to right, #1e3a8a, #3b82f6); color: white; }
+        .button { transition: all 0.3s ease; }
+        .button:hover { background-color: #2563eb; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto bg-white shadow-lg rounded-lg p-8 fade-in">
+        <header class="text-center header p-6 rounded-t-lg">
+            <h1 class="text-3xl font-bold">THƯ MỜI</h1>
+            <p class="text-xl mt-2">CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM</p>
+            <p class="mt-2">Trân trọng kính mời Quý doanh nghiệp tham dự</p>
+            <h2 class="text-2xl font-semibold mt-4">HỌP NỘI BỘ BAN ĐIỀU HÀNH LÂM THỜI</h2>
+        </header>
+
+        <section class="mt-6 text-center">
+            <p class="text-lg"><strong>Thời gian:</strong> Thứ 7, 14/06/2025, 9:00</p>
+            <p class="text-lg"><strong>Địa điểm:</strong> Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP.HCM</p>
+            <p class="text-sm italic">(Xe hơi gửi tại 140 Nguyễn Văn Thủ, Quận 1)</p>
+        </section>
+
+        <section class="mt-6">
+            <h3 class="text-xl font-semibold text-center">NỘI DUNG CHƯƠNG TRÌNH</h3>
+            <ul class="list-disc list-inside mt-2 text-lg">
+                <li>Họp thành lập CLB DN QT Miền Nam.</li>
+                <li>Bàn sự kiện ra mắt, ngày 19/07/2025.</li>
+            </ul>
+        </section>
+
+        <section class="mt-6 text-center">
+            <p class="text-lg font-semibold">THAY MẶT CÂU LẠC BỘ</p>
+            <p class="mt-2">Trân trọng,</p>
+            <p class="font-bold">CHỦ NHIỆM LÂM THỜI</p>
+            <p>Nguyễn Đặng Hiến</p>
+        </section>
+
+        <section class="mt-6 text-center">
+            <p class="text-lg"><strong>Tham dự miễn phí</strong></p>
+            <p class="mt-2"><a href="https://dnqt.vn" class="text-blue-600 hover:underline">https://dnqt.vn</a></p>
+            <p><a href="mailto:dnqt.miennam@gmail.com" class="text-blue-600 hover:underline">dnqt.miennam@gmail.com</a></p>
+        </section>
+
+        <section class="mt-6 text-center">
+            <h3 class="text-xl font-semibold">Quét QR đăng ký</h3>
+            <p class="text-sm italic">(Quét Zalo xong hãy chọn mở bằng trình duyệt)</p>
+            <img src="https://via.placeholder.com/150" alt="QR Code" class="qr-code mx-auto mt-4">
+        </section>
+
+        <section class="mt-6 text-center">
+            <h3 class="text-xl font-semibold">Liên hệ</h3>
+            <p>Mr. Lê Minh Phụng: <a href="tel:0901494666" class="text-blue-600 hover:underline">0901494666</a></p>
+            <p>Ls. Lê Viết Kỳ: <a href="tel:0964037746" class="text-blue-600 hover:underline">0964037746</a></p>
+        </section>
+
+        <section class="mt-6 text-center">
+            <add-to-calendar-button
+                name="Thành lập CLB Doanh Nhân QUẢNG TRỊ LẦN THỨ 6"
+                description="CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\n\nĐịa điểm: Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Quận 1.\n\nLiên hệ:\n- Mr. Lê Minh Phụng: 0901494666\n- Ls. Lê Viết Kỳ: 0964037746"
+                startDate="2025-06-14"
+                endDate="2025-06-14"
+                startTime="09:00"
+                endTime="12:00"
+                location="Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP.HCM"
+                options="['Apple','Google','iCal','Microsoft365','MicrosoftTeams','Outlook.com','Yahoo']"
+                timeZone="Asia/Ho_Chi_Minh"
+                iCalFileName="Cafe-Doanh-Nhan-Quang-Tri"
+                listStyle="modal"
+                trigger="click"
+                class="button bg-blue-600 text-white px-4 py-2 rounded hover-scale"
+            ></add-to-calendar-button>
+        </section>
+
+        <section class="mt-6 text-center">
+            <button class="button bg-blue-600 text-white px-4 py-2 rounded hover-scale">Chia sẻ</button>
+            <button class="button bg-blue-600 text-white px-4 py-2 rounded hover-scale ml-2">Xuất ảnh</button>
+            <button class="button bg-blue-600 text-white px-4 py-2 rounded hover-scale ml-2">Xuất PDF</button>
+            <button class="button bg-blue-600 text-white px-4 py-2 rounded hover-scale ml-2">Xuất vCard</button>
+            <button class="button bg-blue-600 text-white px-4 py-2 rounded hover-scale ml-2">Gửi Tin Nhắn</button>
+        </section>
+    </div>
+</body>
+</html>
