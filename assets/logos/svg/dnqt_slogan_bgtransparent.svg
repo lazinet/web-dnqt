@@ -77,8 +77,12 @@
     </g>
 
     <!-- Chiếc tàu (giả định SVG tàu đã được co lại với chiều ngang 900 và đặt dưới cầu) -->
-    <text x="2450" y="600" font-family="Arial" font-size="250" fill="#03608F">CÂU LẠC BỘ DOANH NHÂN</text>
+    <!-- <text x="2450" y="600" font-family="Arial" font-size="250" fill="#03608F">CÂU LẠC BỘ DOANH NHÂN</text>
     <text x="2200" y="1050" font-family="Arial" font-size="350" fill="#03608F">QUẢNG TRỊ MIỀN NAM</text>
     <line x1="2200" y1="1250" x2="6000" y2="1250" stroke="#03608F" stroke-width="30" />
-    <text x="2200" y="1700" font-family="Arial" font-size="350" fill="#03608F">KẾT NỐI - PHÁT TRIỂN</text>
+    <text x="2200" y="1700" font-family="Arial" font-size="350" fill="#03608F">KẾT NỐI - PHÁT TRIỂN</text> -->
+     <text x="2450" y="600" font-family="Arial" font-size="250" fill="white">CÂU LẠC BỘ DOANH NHÂN</text>
+    <text x="2200" y="1050" font-family="Arial" font-size="350" fill="white">QUẢNG TRỊ MIỀN NAM</text>
+    <line x1="2200" y1="1250" x2="6000" y2="1250" stroke="#E98724" stroke-width="30" />
+    <text x="2200" y="1700" font-family="Arial" font-size="350" fill="white">KẾT NỐI - PHÁT TRIỂN</text>
 </svg>
