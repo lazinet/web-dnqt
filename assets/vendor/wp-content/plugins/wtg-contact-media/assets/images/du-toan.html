@@ -1,0 +1,1886 @@
+
+<!DOCTYPE html>
+<!--[if IE 9 ]> <html lang="vi" class="ie9"> <![endif]-->
+<!--[if IE 8 ]> <html lang="vi" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="vi" class=""> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<link rel="profile" href="https://gmpg.org/xfn/11" />
+	<link rel="pingback" href="https://vlook.vn/xmlrpc.php" />
+    <link rel="icon" href="https://vlook.vn/wp-content/themes/newvlook/assets/images/favicon.png" />
+	    <style>
+        .pro-wccp:before {
+            content: "\f160";
+            top: 3px;
+        }
+        .pro-wccp:before{
+            color:#02CA03 !important
+        }
+        .pro-wccp {
+            transform: rotate(45deg);
+        }
+    </style>
+    <script id="wccp_pro_disable_selection">
+
+var image_save_msg = 'You are not allowed to save images!';
+
+var no_menu_msg = 'Context menu disabled!';
+
+var smessage = "";
+
+
+"use strict";
+/* This because search property "includes" does not supported by IE*/
+if (!String.prototype.includes) {
+String.prototype.includes = function(search, start) {
+  if (typeof start !== 'number') {
+	start = 0;
+  }
+
+  if (start + search.length > this.length) {
+	return false;
+  } else {
+	return this.indexOf(search, start) !== -1;
+  }
+};
+}
+/*////////////////////////////////////*/
+let canCall = true;
+
+function call_disable_copy_WithDelay(e) {
+  if (canCall) {
+    canCall = false;
+    disable_copy(e);
+    setTimeout(() => {
+      canCall = true;
+    }, 1000);
+  }
+}
+
+function disable_copy(e)
+{
+	window.wccp_pro_iscontenteditable_flag = false;
+	
+	wccp_pro_log_to_console_if_allowed("function", "disable_copy");
+	
+	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
+  	
+	var target = e.target || e.srcElement;
+
+	var elemtype = e.target.nodeName;
+	
+	elemtype = elemtype.toUpperCase();
+	
+	if (apply_class_exclusion(e) == "Yes") return true;
+
+	if(wccp_pro_iscontenteditable(e) == true) {return true;}
+	
+	if(is_content_editable_element(current_clicked_element) == true)
+	{
+		return true;
+	}
+	else
+	{
+		if (smessage !== "" && e.detail == 2)
+			show_wccp_pro_message(smessage);
+		
+		if (isSafari)
+		{
+			return true;
+		}
+		else
+		{
+			//wccp_pro_clear_any_selection();
+			
+			return false;
+		}
+	}
+	
+	/*disable context menu when shift + right click is pressed*/
+	var shiftPressed = 0;
+	
+	var evt = e?e:window.event;
+	
+	if (parseInt(navigator.appVersion)>3) {
+		
+		if (document.layers && navigator.appName=="Netscape")
+			
+			shiftPressed = (e.modifiers-0>3);
+			
+		else
+			
+			shiftPressed = e.shiftKey;
+			
+		if (shiftPressed) {
+			
+			if (smessage !== "") show_wccp_pro_message(smessage);
+			
+			var isFirefox = typeof InstallTrigger !== 'undefined';   /* Firefox 1.0+ */
+			
+			if (isFirefox) {
+			evt.cancelBubble = true;
+			if (evt.stopPropagation) evt.stopPropagation();
+			if (evt.preventDefault()) evt.preventDefault();
+			show_wccp_pro_message (smessage);
+			wccp_pro_clear_any_selection();
+			return false;
+			}
+			
+			wccp_pro_clear_any_selection();
+			return false;
+		}
+	}
+	
+	if(e.which === 2 ){
+	var clickedTag_a = (e==null) ? event.srcElement.tagName : e.target.tagName;
+	   show_wccp_pro_message(smessage);
+       wccp_pro_clear_any_selection(); return false;
+    }
+	var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+	var checker_IMG = 'checked';
+	if (elemtype == "IMG" && checker_IMG == 'checked' && e.detail == 2) {show_wccp_pro_message(alertMsg_IMG);wccp_pro_clear_any_selection();return false;}
+
+    //elemtype must be merged by elemtype checker on function disable_copy & disable_hot_keys
+	if (is_content_editable_element(elemtype) == false)
+	{
+		if (smessage !== "" && e.detail == 2)
+			show_wccp_pro_message(smessage);
+		
+		if (isSafari)
+		{
+			return true;
+		}
+		else
+		{
+			wccp_pro_clear_any_selection(); return false;
+		}
+	}
+	else
+	{
+		return true;
+	}
+}
+////////////////////////////
+function disable_copy_ie()
+{
+	wccp_pro_log_to_console_if_allowed("function", "disable_copy_ie_function_started");
+	
+	var e = e || window.event;
+	/*also there is no e.target property in IE.*/
+	/*instead IE uses window.event.srcElement*/
+  	var target = e.target || e.srcElement;
+	
+	var elemtype = window.event.srcElement.nodeName;
+	
+	elemtype = elemtype.toUpperCase();
+
+	if(wccp_pro_iscontenteditable(e) == true) return true;
+	
+	if (apply_class_exclusion(e) == "Yes") return true;
+	
+	if (elemtype == "IMG") {show_wccp_pro_message(alertMsg_IMG);return false;}
+	
+	//elemtype must be merged by elemtype checker on function disable_copy & disable_hot_keys
+	if (is_content_editable_element(elemtype) == false)
+	{
+		return false;
+	}
+}
+function disable_drag_text(e)
+{
+	wccp_pro_log_to_console_if_allowed("function", "disable_drag_text");
+	
+	/*var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);*/
+	/*if (isSafari) {show_wccp_pro_message(alertMsg_IMG);return false;}*/
+	
+	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement*/
+  	
+	var target = e.target || e.srcElement;
+	
+	/*For contenteditable tags*/
+	
+	if (apply_class_exclusion(e) == "Yes") return true;
+
+	var elemtype = e.target.nodeName;
+	
+	elemtype = elemtype.toUpperCase();
+	
+	var disable_drag_text_drop = '';
+	
+	if (disable_drag_text_drop != "checked")  return true;
+	
+	if (window.location.href.indexOf("/user/") > -1) {
+      return true; /*To allow users to drag & drop images when editing thier profiles*/
+    }
+	
+	return false;
+}
+
+/*/////////////////special for safari Start////////////////*/
+var onlongtouch;
+
+var timer;
+
+var touchduration = 1000; /*length of time we want the user to touch before we do something*/
+
+var elemtype = "";
+
+function touchstart(e)
+{
+	wccp_pro_log_to_console_if_allowed("function", "touchstart");
+	
+	var e = e || window.event;
+	/*also there is no e.target property in IE.*/
+	/*instead IE uses window.event.srcElement*/
+  	var target = e.target || e.srcElement;
+	
+	elemtype = window.event.srcElement.nodeName;
+	
+	elemtype = elemtype.toUpperCase();
+	
+	if(!wccp_pro_is_passive()) e.preventDefault();
+	if (!timer) {
+		timer = setTimeout(onlongtouch, touchduration);
+	}
+}
+
+function touchend()
+{
+	wccp_pro_log_to_console_if_allowed("function", "touchend");
+	
+    /*stops short touches from firing the event*/
+    if (timer) {
+        clearTimeout(timer);
+        timer = null;
+    }
+	onlongtouch();
+}
+
+onlongtouch = function(e)/*this will clear the current selection if any_not_editable_thing selected*/
+{
+	wccp_pro_log_to_console_if_allowed("function", "onlongtouch");
+	
+	if (is_content_editable_element(elemtype) == false)
+	{
+		if (window.getSelection) {
+			if (window.getSelection().empty) { /*Chrome*/
+			window.getSelection().empty();
+			} else if (window.getSelection().removeAllRanges) {  /*Firefox*/
+			window.getSelection().removeAllRanges();
+			}
+		} else if (document.selection) {  /*IE?*/
+			var textRange = document.body.createTextRange();
+			textRange.moveToElementText(element);
+			textRange.select();
+
+			document.selection.empty();
+		}
+		return false;
+	}
+};
+
+document.addEventListener("DOMContentLoaded", function(event)
+	{ 
+		window.addEventListener("touchstart", touchstart, false);
+		window.addEventListener("touchend", touchend, false);
+	});
+
+
+function wccp_pro_is_passive()
+{
+	wccp_pro_log_to_console_if_allowed("function", "wccp_pro_is_passive");
+	
+	var cold = false,
+	hike = function() {};
+
+	try {
+	var aid = Object.defineProperty({}, 'passive', {
+	get() {cold = true}
+	});
+	window.addEventListener('test', hike, aid);
+	window.removeEventListener('test', hike, aid);
+	} catch (e) {}
+
+	return cold;
+}
+/*/////////////////////////////////////////////////////////////////*/
+function reEnable()
+{
+	return true;
+}
+
+if(navigator.userAgent.indexOf('MSIE')==-1) //If not IE
+{
+	document.ondragstart = disable_drag_text;
+	document.onselectstart = call_disable_copy_WithDelay;
+	document.onselectionchange = call_disable_copy_WithDelay;
+	//document.onmousedown = disable_copy;
+	//document.addEventListener('click', disable_copy, false);
+	//document.addEventListener('click', set_current_clicked_element, false);
+	document.addEventListener('mousedown', set_current_clicked_element, false);
+	//document.onclick = reEnable;
+}else
+{
+	document.onselectstart = disable_copy_ie;
+}
+
+var current_clicked_element = "";
+
+var current_clicked_object = null;
+
+function set_current_clicked_element(e)
+{
+	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
+  	
+	var target = e.target || e.srcElement;
+
+	var elemtype = e.target.nodeName;
+	
+	elemtype = elemtype.toUpperCase();
+	
+	current_clicked_element = elemtype;
+	
+	console.log("current_clicked_element = " + current_clicked_element);
+}
+</script>
+<script id="wccp_pro_disable_hot_keys">
+/*****************For contenteditable tags***************/
+var wccp_pro_iscontenteditable_flag = false;
+
+function wccp_pro_iscontenteditable(e)
+{
+	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
+  	
+	var target = e.target || e.srcElement;
+	
+	var iscontenteditable = "false";
+		
+	if(typeof target.getAttribute!="undefined" )
+	{
+		iscontenteditable = target.getAttribute("contenteditable"); // Return true or false as string
+		
+		if(typeof target.hasAttribute!="undefined")
+		{
+			if(target.hasAttribute("contenteditable"))
+				iscontenteditable = true;
+		}
+	}
+	
+	console.log("iscontenteditable:" + iscontenteditable);
+	
+	var iscontenteditable2 = false;
+	
+	if(typeof target.isContentEditable!="undefined" ) iscontenteditable2 = target.isContentEditable; // Return true or false as boolean
+
+	if(target.parentElement !=null) iscontenteditable2 = target.parentElement.isContentEditable;
+	
+	if (iscontenteditable == "true" || iscontenteditable == true || iscontenteditable2 == true)
+	{
+		if(typeof target.style!="undefined" ) target.style.cursor = "text";
+		
+		//wccp_pro_log_to_console_if_allowed("", iscontenteditable + " " + iscontenteditable2);
+		
+		wccp_pro_iscontenteditable_flag = true;
+		
+		wccp_pro_log_to_console_if_allowed("function", "wccp_pro_iscontenteditable: true");
+		
+		return true;
+	}
+	wccp_pro_log_to_console_if_allowed("function", "wccp_pro_iscontenteditable: false");
+	
+	//wccp_pro_iscontenteditable_flag = false;
+}
+/******************************************************/
+function wccp_pro_clear_any_selection()
+{
+	if(window.wccp_pro_iscontenteditable_flag == true) return;
+	
+	wccp_pro_log_to_console_if_allowed("function", "wccp_pro_clear_any_selection");
+	
+	var myName = wccp_pro_clear_any_selection.caller.toString();
+	
+	myName = myName.substr('function '.length);
+	
+	myName = myName.substr(0, myName.indexOf('('));
+
+	console.log("called_by: " + myName);
+	
+	if (window.getSelection)
+	{
+		if (window.getSelection().empty)
+		{  // Chrome
+			window.getSelection().empty();
+		} else if (window.getSelection().removeAllRanges) 
+		{  // Firefox
+			window.getSelection().removeAllRanges();
+		}
+	} else if (document.selection)
+	{  // IE?
+		document.selection.empty();
+	}
+	
+	//show_wccp_pro_message("You are not allowed to make this operation");
+}
+
+
+/*Is content_editable element*/
+function is_content_editable_element(element_name = "")
+{
+	if (element_name == "TEXT" || element_name == "#TEXT" || element_name == "TEXTAREA" || element_name == "INPUT" || element_name == "PASSWORD" || element_name == "SELECT" || element_name == "OPTION" || element_name == "EMBED" || element_name == "CODE" || element_name == "CODEBLOCK")
+	{
+		wccp_pro_log_to_console_if_allowed("function", "is_content_editable_element: true >>" + element_name);
+		
+		return true;
+	}
+	wccp_pro_log_to_console_if_allowed("function", "is_content_editable_element: false >>" + element_name);
+	
+	return false;
+}
+/*Is selection enabled element*/
+/*
+function is_selection_enabled_element(element_name = "")
+{
+	if (is_content_editable_element == true)
+	{
+		wccp_pro_log_to_console_if_allowed("function", "is_selection_enabled_element: true >>" + element_name);
+		
+		return true;
+	}
+	wccp_pro_log_to_console_if_allowed("function", "is_selection_enabled_element: false >>" + element_name);
+	
+	return false;
+}
+*/
+/*Hot keys function  */
+function disable_hot_keys(e)
+{
+	wccp_pro_log_to_console_if_allowed("function", "disable_hot_keys");
+	
+	e = e || window.event;
+	
+	//console.log(e);
+	
+	if (!e) return;
+	
+	var key;
+
+		if(window.event)
+			  key = window.event.keyCode;     /*IE*/
+		else if (e.hasOwnProperty("which")) key = e.which;     /*firefox (97)*/
+
+	wccp_pro_log_to_console_if_allowed("Data:", key);
+	
+			
+		if (key == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) )//F12 chrome developer key disable
+		{
+			show_wccp_pro_message('');
+			
+			return false;
+		}
+		
+	var elemtype = e.target.tagName;
+	
+	elemtype = elemtype.toUpperCase();
+	
+	var sel = getSelectionTextAndContainerElement();
+	
+	if(elemtype == "BODY" && sel.text != "") elemtype = sel.containerElement.tagName; /* no need for it when tag name is BODY, so we get the selected text tag name */
+
+	/*elemtype must be merged by elemtype checker on function disable_copy & disable_copy_ie*/
+	if (is_content_editable_element(elemtype) == true)
+	{
+		elemtype = 'TEXT';
+	}
+	
+	if(wccp_pro_iscontenteditable(e) == true) elemtype = 'TEXT';
+	
+		
+	if (e.ctrlKey || e.metaKey)
+	{
+		if (elemtype!= 'TEXT' && (key == 97 || key == 99 || key == 120 || key == 26 || key == 43))
+		{
+			 show_wccp_pro_message('');
+			 return false;
+		}
+		if (elemtype!= 'TEXT')
+		{
+						
+			if (key == 65)
+			{
+				show_wccp_pro_message('');
+				return false;
+			}			
+						
+			if (key == 67)
+			{
+				show_wccp_pro_message('');
+				return false;
+			}			
+						
+			if (key == 88)
+			{
+				show_wccp_pro_message('');
+				return false;
+			}			
+						
+			if (key == 86)
+			{
+				show_wccp_pro_message('');
+				return false;
+			}		}
+				
+		if (key == 85)
+		{
+			show_wccp_pro_message('');
+			return false;
+		}		
+				
+				
+		
+					if (key == 73)//F12 chrome developer key disable
+			{
+				show_wccp_pro_message('');
+				return false;
+			}
+				
+				
+		if (key == 83)
+		{
+			show_wccp_pro_message('');
+			return false;
+		}    }
+return true;
+}
+
+
+window.addEventListener('load', function (){
+	if(window.Zepto || !window.jQuery) jQuery =  $;
+	jQuery(document).ready(function() {
+	  jQuery(document).bind("keyup keydown", disable_hot_keys);
+	});
+});
+
+</script>
+<style>
+.wccp_pro_copy_code_button
+{
+	line-height: 6px;
+	width: auto;
+	font-size: 8pt;
+	font-family: tahoma;
+	margin-top: 1px;
+	margin-right: 2px;
+	position:absolute;
+	top:0;
+	right:0;
+	border-radius: 4px;
+	opacity: 100%;
+	margin-top: -30px;
+}
+.wccp_pro_copy_code_button:hover
+{
+	opacity: 100%;
+}
+
+.wccp_pro_copy_code_button[disabled]
+{
+	opacity: 40%;
+	border-color: red;
+}
+code,pre
+{
+	overflow: visible;
+	white-space: pre-line;
+}
+</style>
+<script id="wccp_pro_disable_Right_Click">
+		function nocontext(e) {
+
+			wccp_pro_log_to_console_if_allowed("function", "nocontext");
+			
+			e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
+			
+			if (apply_class_exclusion(e) == 'Yes') return true;
+			
+	    	var exception_tags = 'NOTAG,';
+			
+	        var clickedTag = (e==null) ? event.srcElement.tagName : e.target.tagName;
+			
+			console.log("clickedTag: " + clickedTag);
+			
+			var target = e.target || e.srcElement;
+			
+			var parent_tag = ""; var parent_of_parent_tag = "";
+			
+			if(target.parentElement != null)
+			{
+				parent_tag = target.parentElement.tagName;
+				
+				if(target.parentElement.parentElement != null) parent_of_parent_tag = target.parentElement.parentElement.tagName;
+			}
+			
+	        var checker = 'checked';
+	        if ((clickedTag == "IMG" || clickedTag == "FIGURE" || clickedTag == "SVG" || clickedTag == "PROTECTEDIMGDIV") && checker == 'checked') {
+	            if (alertMsg_IMG != "")show_wccp_pro_message(alertMsg_IMG);
+	            return false;
+	        }else {exception_tags = exception_tags + 'IMG,';}
+			
+			checker = '';
+			if ((clickedTag == "VIDEO" || clickedTag == "PROTECTEDWCCPVIDEO" || clickedTag == "EMBED") && checker == 'checked') {
+	            if (alertMsg_VIDEO != "")show_wccp_pro_message(alertMsg_VIDEO);
+	            return false;
+	        }else {exception_tags = exception_tags + 'VIDEO,PROTECTEDWCCPVIDEO,EMBED,';}
+	        
+	        checker = '';
+	        if ((clickedTag == "A" || clickedTag == "TIME" || parent_tag == "A" || parent_of_parent_tag == "A") && checker == 'checked') {
+	            if (alertMsg_A != "")show_wccp_pro_message(alertMsg_A);
+	            return false;
+	        }else {exception_tags = exception_tags + 'A,';if(parent_tag == "A" || parent_of_parent_tag == "A") clickedTag = "A";}
+
+	        checker = 'checked';
+	        if ((clickedTag == "P" || clickedTag == "B" || clickedTag == "FONT" ||  clickedTag == "LI" || clickedTag == "UL" || clickedTag == "STRONG" || clickedTag == "OL" || clickedTag == "BLOCKQUOTE" || clickedTag == "TH" || clickedTag == "TR" || clickedTag == "TD" || clickedTag == "SPAN" || clickedTag == "EM" || clickedTag == "SMALL" || clickedTag == "I" || clickedTag == "BUTTON") && checker == 'checked') {
+	            if (alertMsg_PB != "")show_wccp_pro_message(alertMsg_PB);
+	            return false;
+	        }else {exception_tags = exception_tags + 'P,B,FONT,LI,UL,STRONG,OL,BLOCKQUOTE,TD,SPAN,EM,SMALL,I,BUTTON,';}
+	        
+	        checker = 'checked';
+	        if ((clickedTag == "INPUT" || clickedTag == "PASSWORD") && checker == 'checked') {
+	            if (alertMsg_INPUT != "")show_wccp_pro_message(alertMsg_INPUT);
+	            return false;
+	        }else {exception_tags = exception_tags + 'INPUT,PASSWORD,';}
+	        
+	        checker = 'checked';
+	        if ((clickedTag == "H1" || clickedTag == "H2" || clickedTag == "H3" || clickedTag == "H4" || clickedTag == "H5" || clickedTag == "H6" || clickedTag == "ASIDE" || clickedTag == "NAV") && checker == 'checked') {
+	            if (alertMsg_H != "")show_wccp_pro_message(alertMsg_H);
+	            return false;
+	        }else {exception_tags = exception_tags + 'H1,H2,H3,H4,H5,H6,';}
+	        
+	        checker = 'checked';
+	        if (clickedTag == "TEXTAREA" && checker == 'checked') {
+	            if (alertMsg_TEXTAREA != "")show_wccp_pro_message(alertMsg_TEXTAREA);
+	            return false;
+	        }else {exception_tags = exception_tags + 'TEXTAREA,';}
+	        
+	        checker = 'checked';
+	        if ((clickedTag == "DIV" || clickedTag == "BODY" || clickedTag == "HTML" || clickedTag == "ARTICLE" || clickedTag == "SECTION" || clickedTag == "NAV" || clickedTag == "HEADER" || clickedTag == "FOOTER") && checker == 'checked') {
+	            if (alertMsg_EmptySpaces != "")show_wccp_pro_message(alertMsg_EmptySpaces);
+	            return false;
+	        }
+	        else
+	        {
+	        	if (exception_tags.indexOf(clickedTag)!=-1)
+	        	{
+		        	return true;
+		        }
+	        	else
+	        	return false;
+	        }
+	    }
+		
+		function disable_drag_images(e)
+		{
+			wccp_pro_log_to_console_if_allowed("function", "disable_drag_images");
+			
+			var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
+			
+			var target = e.target || e.srcElement;
+			
+			//For contenteditable tags
+			if (apply_class_exclusion(e) == "Yes") return true;
+
+			var elemtype = e.target.nodeName;
+			
+			if (elemtype != "IMG") {return;}
+			
+			elemtype = elemtype.toUpperCase();
+			
+			var disable_drag_drop_images = 'checked';
+			
+			if (disable_drag_drop_images != "checked")  return true;
+			
+			if (window.location.href.indexOf("/user/") > -1) {
+			  return true; //To allow users to drag & drop images when editing thier profiles
+			}
+			
+			show_wccp_pro_message(alertMsg_IMG);
+			
+			return false;
+		}
+		
+	    var alertMsg_IMG = "";
+	    var alertMsg_A = "";
+	    var alertMsg_PB = "";
+	    var alertMsg_INPUT = "";
+	    var alertMsg_H = "";
+	    var alertMsg_TEXTAREA = "";
+	    var alertMsg_EmptySpaces = "";
+		var alertMsg_VIDEO = "";
+	    document.oncontextmenu=null;
+		document.oncontextmenu = nocontext;
+		document.addEventListener("contextmenu",nocontext);
+		window.addEventListener("contextmenu",nocontext);
+</script>
+	
+	<script id="wccp_pro_disable_drag_images">
+	document.ondragstart = disable_drag_images;
+		window.addEventListener('load', function (){
+			if(window.Zepto || !window.jQuery) jQuery =  $;
+			jQuery(document).ready(function(){
+				jQuery('img').each(function() {
+					jQuery(this).attr('draggable', false);
+				});
+			});
+		});
+	</script>
+	<style id="wccp_pro_style1">
+		img{
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			-khtml-user-select: none;
+			user-select: none;
+			-webkit-user-drag: none;
+		}
+	</style>
+<style>/* Start your code after this line */
+ 
+/* End your code before this line */</style>	<script id="wccp_pro_css_disable_selection">
+	function wccp_pro_msieversion() 
+		{
+			var ua = window.navigator.userAgent;
+			var msie = ua.indexOf("MSIE");
+			var msie2 = ua.indexOf("Edge");
+			var msie3 = ua.indexOf("Trident");
+
+		if (msie > -1 || msie2 > -1 || msie3 > -1) // If Internet Explorer, return version number
+		{
+			return "IE";
+		}
+		else  // If another browser, return 0
+		{
+			return "otherbrowser";
+		}
+	}
+    
+	var e = document.getElementsByTagName('H1')[0];
+	if(e && wccp_pro_msieversion() == "IE")
+	{
+		e.setAttribute('unselectable',"on");
+	}
+	</script>
+<script id="wccp_pro_class_exclusion">
+function copyToClipboard(elem) {
+	  // create hidden text element, if it doesn't already exist
+    var targetId = "_wccp_pro_hiddenCopyText_";
+    {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+    
+    // copy the selection
+    var succeed;
+    try {
+    	  succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+    
+    
+	// clear temporary content
+	target.textContent = "";
+	document.getElementsByTagName('span')[0].innerHTML = " ";
+    return succeed;
+}
+/**************************************************/
+function wccp_pro_log_to_console_if_allowed(title = "title", data = "")
+{
+	var myName = "";
+	
+	if(wccp_pro_log_to_console_if_allowed.caller != null) myName = wccp_pro_log_to_console_if_allowed.caller.toString();
+	
+	myName = myName.substr('function '.length);
+	
+	myName = myName.substr(0, myName.indexOf('('));
+
+	//console.log("function_name: " + myName);
+	
+	}
+/**************************************************/
+function fallbackCopyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var successful = document.execCommand("copy");
+    var msg = successful ? "successful" : "unsuccessful";
+    console.log("Fallback: Copying text command was " + msg);
+  } catch (err) {
+    console.error("Fallback: Oops, unable to copy", err);
+  }
+
+  document.body.removeChild(textArea);
+}
+/*****************************************/
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(
+    function() {
+      console.log("Async: Copying to clipboard was successful!");
+    },
+    function(err) {
+      console.error("Async: Could not copy text: ", err);
+    }
+  );
+}
+/*****************************************/
+/*getSelectionTextAndContainerElement*/
+function getSelectionTextAndContainerElement()
+{
+    var text = "", containerElement = null;
+    if (typeof window.getSelection != "undefined") {
+        var sel = window.getSelection();
+        if (sel.rangeCount) {
+            var node = sel.getRangeAt(0).commonAncestorContainer;
+            containerElement = node.nodeType == 1 ? node : node.parentNode;
+			if (typeof(containerElement.parentElement) != 'undefined') current_clicked_object = containerElement.parentElement;
+            text = sel.toString();
+        }
+    } else if (typeof document.selection != "undefined" && document.selection.type != "Control")
+	{
+        var textRange = document.selection.createRange();
+        containerElement = textRange.parentElement();
+        text = textRange.text;
+    }
+    
+	return {
+        text: text,
+        containerElement: containerElement
+    };
+}
+
+function getSelectionParentElement() {
+    var parentEl = null, sel;
+	
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.rangeCount) {
+            parentEl = sel.getRangeAt(0).commonAncestorContainer;
+			//sel.getRangeAt(0).startContainer.parentNode;
+            if (parentEl.nodeType != 1) {
+                parentEl = parentEl.parentNode;
+            }
+        }
+    } else if ( (sel = document.selection) && sel.type != "Control") {
+        parentEl = sel.createRange().parentElement();
+    }
+	
+	let arr = new Array();
+	
+	arr["nodeName"] = "cant_find_parent_element";
+	
+	if(parentEl != null)
+		return parentEl;
+	else
+		return arr;
+}
+/*****************************************/
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+/*****************************************/
+</script>
+
+<script id="apply_class_exclusion">
+function apply_class_exclusion(e)
+{
+	wccp_pro_log_to_console_if_allowed("function", "apply_class_exclusion" + e);
+	
+	var my_return = 'No';
+	
+	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
+  	
+	var target = e.target || e.srcElement || 'nothing';
+	
+	//if(target.parentElement != null) console.log (target.parentElement.className);
+	
+	var excluded_classes = '' + '';
+	
+	var class_to_exclude = "";
+	
+	if(target.parentElement != null)
+	{
+		class_to_exclude = target.className + ' ' + target.parentElement.className || '';
+	}else{
+		class_to_exclude = target.className;
+	}
+	
+	var class_to_exclude_array = Array();
+	
+	//console.log(class_to_exclude);
+	
+	if (typeof(class_to_exclude) != 'undefined') class_to_exclude_array = class_to_exclude.split(" ");
+	
+	//console.log (class_to_exclude_array);
+	
+	class_to_exclude_array.forEach(function(item)
+	{
+		if(item != '' && excluded_classes.indexOf(item)>=0)
+		{
+			//target.style.cursor = "text";
+			
+			//console.log ('Yes');
+			
+			my_return = 'Yes';
+		}
+	});
+
+	try {
+		class_to_exclude = target.parentElement.getAttribute('class') || target.parentElement.className || '';
+		}
+	catch(err) 
+		{
+		class_to_exclude = '';
+		}
+	
+	if(class_to_exclude != '' && excluded_classes.indexOf(class_to_exclude)>=0)
+	{
+		//target.style.cursor = "text";
+		my_return = 'Yes';
+	}
+
+	return my_return;
+}
+</script>
+<style id="wccp_pro_style2" data-asas-style="">
+
+	
+	*[contenteditable] , [contenteditable] *,*[contenteditable="true"] , [contenteditable="true"] * { /* for contenteditable tags*/ , /* for tags inside contenteditable tags*/
+	  -webkit-user-select: auto !important;
+	  cursor: text !important;
+	  user-select: text !important;
+	  pointer-events: auto !important;
+	}
+	
+	/*
+	*[contenteditable]::selection, [contenteditable] *::selection, [contenteditable="true"]::selection, [contenteditable="true"] *::selection { background: Highlight !important; color: HighlightText !important;}
+	*[contenteditable]::-moz-selection, [contenteditable="true"] *::-moz-selection { background: Highlight !important; color: HighlightText !important;}
+	input::selection,textarea::selection, code::selection, code > *::selection { background: Highlight !important; color: HighlightText !important;}
+	input::-moz-selection,textarea::-moz-selection, code::-moz-selection, code > *::-moz-selection { background: Highlight !important; color: HighlightText !important;}
+	*/
+	a{ cursor: pointer ; pointer-events: auto !important;}
+
+	</style><style>TEXT,TEXTAREA,input[type="text"] {cursor: text !important; user-select: text !important;}</style><meta name='robots' content='noindex, follow' />
+
+	<!-- This site is optimized with the Yoast SEO Premium plugin v23.6 (Yoast SEO v23.6) - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Page not found - VLOOK | Văn Phòng Cho Thuê TP.HCM</title>
+	<meta property="og:locale" content="vi_VN" />
+	<meta property="og:title" content="Page not found - VLOOK | Văn Phòng Cho Thuê TP.HCM" />
+	<meta property="og:site_name" content="VLOOK | Văn Phòng Cho Thuê TP.HCM" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://vlook.vn/#website","url":"https://vlook.vn/","name":"VLOOK | Văn Phòng Cho Thuê TP.HCM","description":"","publisher":{"@id":"https://vlook.vn/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://vlook.vn/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"vi"},{"@type":"Organization","@id":"https://vlook.vn/#organization","name":"VLOOK | Văn Phòng Cho Thuê TP.HCM","url":"https://vlook.vn/","logo":{"@type":"ImageObject","inLanguage":"vi","@id":"https://vlook.vn/#/schema/logo/image/","url":"https://vlook.vn/wp-content/uploads/2024/10/logo-van-phong-cho-thue-tron-goi-vlook.vn-001.jpg","contentUrl":"https://vlook.vn/wp-content/uploads/2024/10/logo-van-phong-cho-thue-tron-goi-vlook.vn-001.jpg","width":620,"height":620,"caption":"VLOOK | Văn Phòng Cho Thuê TP.HCM"},"image":{"@id":"https://vlook.vn/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/vanphongchothuevlook","https://x.com/vlookvn"]}]}</script>
+	<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel='dns-prefetch' href='//maps.googleapis.com' />
+<link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://vlook.vn/wp-includes/css/dist/block-library/style.min.css?ver=6.6.2' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='kk-star-ratings-css' href='https://vlook.vn/wp-content/plugins/kk-star-ratings/src/core/public/css/kk-star-ratings.min.css?ver=5.4.8' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-shortcode-css' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css?ver=6.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='realdev-author-for-seo-css' href='https://vlook.vn/wp-content/plugins/realdev-author-for-seo/public/css/realdev-author-for-seo-public.css?ver=1.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='sr7css-css' href='//vlook.vn/wp-content/plugins/revslider/public/css/sr7.css?ver=6.7.20' type='text/css' media='all' />
+<link rel='stylesheet' id='vlp-public-css' href='https://vlook.vn/wp-content/plugins/visual-link-preview/dist/public.css?ver=2.2.6' type='text/css' media='all' />
+<link rel='stylesheet' id='wtg-contact-css' href='https://vlook.vn/wp-content/plugins/wtg-contact-media/assets/css/style.css?ver=0.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='jet-popup-frontend-css' href='https://vlook.vn/wp-content/plugins/jet-popup/assets/css/jet-popup-frontend.css?ver=2.0.7' type='text/css' media='all' />
+<link rel='stylesheet' id='dflip-style-css' href='https://vlook.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.3.42' type='text/css' media='all' />
+<link rel='stylesheet' id='css-protect.css-css' href='https://vlook.vn/wp-content/plugins/wccp-pro/css-protect.css?wccp_ver_num=9&#038;ver=10.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='elementor-frontend-css' href='https://vlook.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=3.24.7' type='text/css' media='all' />
+<link rel='stylesheet' id='eael-general-css' href='https://vlook.vn/wp-content/plugins/essential-addons-for-elementor-lite/assets/front-end/css/view/general.min.css?ver=6.0.7' type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-css' href='https://vlook.vn/wp-content/themes/newvlook/assets/bootstrap/css/bootstrap.min.css?ver=6.6.2' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-5-css' href='https://vlook.vn/wp-content/themes/newvlook/assets/font-awesome/css/all.min.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='slick-css' href='https://vlook.vn/wp-content/plugins/happy-elementor-addons/assets/vendor/slick/slick.css?ver=3.12.4' type='text/css' media='all' />
+<link rel='stylesheet' id='nouislider-css' href='https://vlook.vn/wp-content/themes/newvlook/assets/nouislider/jquery.nouislider.min.css?ver=6.6.2' type='text/css' media='all' />
+<link rel='stylesheet' id='mfp-lightbox-css' href='https://vlook.vn/wp-content/themes/newvlook/assets/mfp-lightbox/magnific-popup.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='qpg-theme-css' href='https://vlook.vn/wp-content/themes/newvlook/assets/css/app.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='qpg-style-css' href='https://vlook.vn/wp-content/themes/newvlook/style.css?ver=6.6.2' type='text/css' media='all' />
+<script type="text/javascript" src="https://vlook.vn/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="//vlook.vn/wp-content/plugins/revslider/public/js/libs/tptools.js?ver=6.7.20" id="tp-tools-js" async="async" data-wp-strategy="async"></script>
+<script type="text/javascript" src="//vlook.vn/wp-content/plugins/revslider/public/js/sr7.js?ver=6.7.20" id="sr7-js" async="async" data-wp-strategy="async"></script>
+<link rel="https://api.w.org/" href="https://vlook.vn/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://vlook.vn/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.6.2" />
+<meta name="generator" content="Elementor 3.24.7; features: additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-swap">
+			<style>
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+					background-image: none !important;
+				}
+				@media screen and (max-height: 1024px) {
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+				@media screen and (max-height: 640px) {
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+			</style>
+			<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<meta name="generator" content="Powered by Slider Revolution 6.7.20 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface." />
+<script>
+	window._tpt			??= {};
+	window.SR7			??= {};
+	_tpt.R				??= {};
+	_tpt.R.fonts		??= {};
+	_tpt.R.fonts.customFonts??= {};
+	SR7.devMode			=  false;
+	SR7.F 				??= {};
+	SR7.G				??= {};
+	SR7.LIB				??= {};
+	SR7.E				??= {};
+	SR7.E.gAddons		??= {};
+	SR7.E.php 			??= {};
+	SR7.E.nonce			= '11353ce285';
+	SR7.E.ajaxurl		= 'https://vlook.vn/wp-admin/admin-ajax.php';
+	SR7.E.resturl		= 'https://vlook.vn/wp-json/';
+	SR7.E.slug_path		= 'revslider/revslider.php';
+	SR7.E.slug			= 'revslider';
+	SR7.E.plugin_url	= 'https://vlook.vn/wp-content/plugins/revslider/';
+	SR7.E.wp_plugin_url = 'https://vlook.vn/wp-content/plugins/';
+	SR7.E.revision		= '6.7.20';
+	SR7.E.fontBaseUrl	= '//fonts.googleapis.com/css2?family=';
+	SR7.G.breakPoints 	= [1240,1024,778,480];
+	SR7.E.modules 		= ['module','page','slide','layer','draw','animate','srtools','canvas','defaults','carousel','navigation','media','modifiers','migration'];
+	SR7.E.libs 			= ['WEBGL'];
+	SR7.E.css 			= ['csslp','cssbtns','cssfilters','cssnav','cssmedia'];
+	SR7.E.resources		= {};
+	SR7.JSON			??= {};
+/*! Slider Revolution 7.0 - Page Processor */
+!function(){"use strict";window.SR7??={},window._tpt??={},SR7.version="Slider Revolution 6.7.16",_tpt.getWinDim=function(t){_tpt.screenHeightWithUrlBar??=window.innerHeight;let e=SR7.F?.modal?.visible&&SR7.M[SR7.F.module.getIdByAlias(SR7.F.modal.requested)];_tpt.scrollBar=window.innerWidth!==document.documentElement.clientWidth||e&&window.innerWidth!==e.c.module.clientWidth,_tpt.winW=window.innerWidth-(_tpt.scrollBar||"prepare"==t?_tpt.scrollBarW??_tpt.mesureScrollBar():0),_tpt.winH=window.innerHeight,_tpt.winWAll=document.documentElement.clientWidth},_tpt.getResponsiveLevel=function(t,e){SR7.M[e];return _tpt.closestGE(t,_tpt.winWAll)},_tpt.mesureScrollBar=function(){let t=document.createElement("div");return t.className="RSscrollbar-measure",t.style.width="100px",t.style.height="100px",t.style.overflow="scroll",t.style.position="absolute",t.style.top="-9999px",document.body.appendChild(t),_tpt.scrollBarW=t.offsetWidth-t.clientWidth,document.body.removeChild(t),_tpt.scrollBarW},_tpt.loadCSS=async function(t,e,s){return s?_tpt.R.fonts.required[e].status=1:(_tpt.R[e]??={},_tpt.R[e].status=1),new Promise(((n,i)=>{if(_tpt.isStylesheetLoaded(t))s?_tpt.R.fonts.required[e].status=2:_tpt.R[e].status=2,n();else{const l=document.createElement("link");l.rel="stylesheet";let o="text",r="css";l["type"]=o+"/"+r,l.href=t,l.onload=()=>{s?_tpt.R.fonts.required[e].status=2:_tpt.R[e].status=2,n()},l.onerror=()=>{s?_tpt.R.fonts.required[e].status=3:_tpt.R[e].status=3,i(new Error(`Failed to load CSS: ${t}`))},document.head.appendChild(l)}}))},_tpt.addContainer=function(t){const{tag:e="div",id:s,class:n,datas:i,textContent:l,iHTML:o}=t,r=document.createElement(e);if(s&&""!==s&&(r.id=s),n&&""!==n&&(r.className=n),i)for(const[t,e]of Object.entries(i))"style"==t?r.style.cssText=e:r.setAttribute(`data-${t}`,e);return l&&(r.textContent=l),o&&(r.innerHTML=o),r},_tpt.collector=function(){return{fragment:new DocumentFragment,add(t){var e=_tpt.addContainer(t);return this.fragment.appendChild(e),e},append(t){t.appendChild(this.fragment)}}},_tpt.isStylesheetLoaded=function(t){let e=t.split("?")[0];return Array.from(document.querySelectorAll('link[rel="stylesheet"], link[rel="preload"]')).some((t=>t.href.split("?")[0]===e))},_tpt.preloader={requests:new Map,preloaderTemplates:new Map,show:function(t,e){if(!e||!t)return;const{type:s,color:n}=e;if(s<0||"off"==s)return;const i=`preloader_${s}`;let l=this.preloaderTemplates.get(i);l||(l=this.build(s,n),this.preloaderTemplates.set(i,l)),this.requests.has(t)||this.requests.set(t,{count:0});const o=this.requests.get(t);clearTimeout(o.timer),o.count++,1===o.count&&(o.timer=setTimeout((()=>{o.preloaderClone=l.cloneNode(!0),o.anim&&o.anim.kill(),void 0!==_tpt.gsap?o.anim=_tpt.gsap.fromTo(o.preloaderClone,1,{opacity:0},{opacity:1}):o.preloaderClone.classList.add("sr7-fade-in"),t.appendChild(o.preloaderClone)}),150))},hide:function(t){if(!this.requests.has(t))return;const e=this.requests.get(t);e.count--,e.count<0&&(e.count=0),e.anim&&e.anim.kill(),0===e.count&&(clearTimeout(e.timer),e.preloaderClone&&(e.preloaderClone.classList.remove("sr7-fade-in"),e.anim=_tpt.gsap.to(e.preloaderClone,.3,{opacity:0,onComplete:function(){e.preloaderClone.remove()}})))},state:function(t){if(!this.requests.has(t))return!1;return this.requests.get(t).count>0},build:(t,e="#ffffff",s="")=>{if(t<0||"off"===t)return null;const n=parseInt(t);if(t="prlt"+n,isNaN(n))return null;if(_tpt.loadCSS(SR7.E.plugin_url+"public/css/preloaders/t"+n+".css","preloader_"+t),isNaN(n)||n<6){const i=`background-color:${e}`,l=1===n||2==n?i:"",o=3===n||4==n?i:"",r=_tpt.collector();["dot1","dot2","bounce1","bounce2","bounce3"].forEach((t=>r.add({tag:"div",class:t,datas:{style:o}})));const d=_tpt.addContainer({tag:"sr7-prl",class:`${t} ${s}`,datas:{style:l}});return r.append(d),d}{let i={};if(7===n){let t;e.startsWith("#")?(t=e.replace("#",""),t=`rgba(${parseInt(t.substring(0,2),16)}, ${parseInt(t.substring(2,4),16)}, ${parseInt(t.substring(4,6),16)}, `):e.startsWith("rgb")&&(t=e.slice(e.indexOf("(")+1,e.lastIndexOf(")")).split(",").map((t=>t.trim())),t=`rgba(${t[0]}, ${t[1]}, ${t[2]}, `),t&&(i.style=`border-top-color: ${t}0.65); border-bottom-color: ${t}0.15); border-left-color: ${t}0.65); border-right-color: ${t}0.15)`)}else 12===n&&(i.style=`background:${e}`);const l=[10,0,4,2,5,9,0,4,4,2][n-6],o=_tpt.collector(),r=o.add({tag:"div",class:"sr7-prl-inner",datas:i});Array.from({length:l}).forEach((()=>r.appendChild(o.add({tag:"span",datas:{style:`background:${e}`}}))));const d=_tpt.addContainer({tag:"sr7-prl",class:`${t} ${s}`});return o.append(d),d}}},SR7.preLoader={show:(t,e)=>{"off"!==(SR7.M[t]?.settings?.pLoader?.type??"off")&&_tpt.preloader.show(e||SR7.M[t].c.module,SR7.M[t]?.settings?.pLoader??{color:"#fff",type:10})},hide:(t,e)=>{"off"!==(SR7.M[t]?.settings?.pLoader?.type??"off")&&_tpt.preloader.hide(e||SR7.M[t].c.module)},state:(t,e)=>_tpt.preloader.state(e||SR7.M[t].c.module)},_tpt.prepareModuleHeight=function(t){window.SR7.M??={},window.SR7.M[t.id]??={},"ignore"==t.googleFont&&(SR7.E.ignoreGoogleFont=!0);let e=window.SR7.M[t.id];if(null==_tpt.scrollBarW&&_tpt.mesureScrollBar(),e.c??={},e.states??={},e.settings??={},e.settings.size??={},t.fixed&&(e.settings.fixed=!0),e.c.module=document.getElementById(t.id),e.c.adjuster=e.c.module.getElementsByTagName("sr7-adjuster")[0],e.c.content=e.c.module.getElementsByTagName("sr7-content")[0],"carousel"==t.type&&(e.c.carousel=e.c.content.getElementsByTagName("sr7-carousel")[0]),null==e.c.module||null==e.c.module)return;t.plType&&t.plColor&&(e.settings.pLoader={type:t.plType,color:t.plColor}),void 0!==t.plType&&"off"!==t.plType&&SR7.preLoader.show(t.id,e.c.module),_tpt.winW||_tpt.getWinDim("prepare"),_tpt.getWinDim();let s=""+e.c.module.dataset?.modal;"modal"==s||"true"==s||"undefined"!==s&&"false"!==s||(e.settings.size.fullWidth=t.size.fullWidth,e.LEV??=_tpt.getResponsiveLevel(window.SR7.G.breakPoints,t.id),t.vpt=_tpt.fillArray(t.vpt,5),e.settings.vPort=t.vpt[e.LEV],void 0!==t.el&&"720"==t.el[4]&&t.gh[4]!==t.el[4]&&"960"==t.el[3]&&t.gh[3]!==t.el[3]&&"768"==t.el[2]&&t.gh[2]!==t.el[2]&&delete t.el,e.settings.size.height=null==t.el||null==t.el[e.LEV]||0==t.el[e.LEV]||"auto"==t.el[e.LEV]?_tpt.fillArray(t.gh,5,-1):_tpt.fillArray(t.el,5,-1),e.settings.size.width=_tpt.fillArray(t.gw,5,-1),e.settings.size.minHeight=_tpt.fillArray(t.mh??[0],5,-1),e.cacheSize={fullWidth:e.settings.size?.fullWidth,fullHeight:e.settings.size?.fullHeight},void 0!==t.off&&(t.off?.t&&(e.settings.size.m??={})&&(e.settings.size.m.t=t.off.t),t.off?.b&&(e.settings.size.m??={})&&(e.settings.size.m.b=t.off.b),t.off?.l&&(e.settings.size.p??={})&&(e.settings.size.p.l=t.off.l),t.off?.r&&(e.settings.size.p??={})&&(e.settings.size.p.r=t.off.r),e.offsetPrepared=!0),_tpt.updatePMHeight(t.id,t,!0))},_tpt.updatePMHeight=(t,e,s)=>{let n=SR7.M[t];var i=n.settings.size.fullWidth?_tpt.winW:n.c.module.parentNode.offsetWidth;i=0===i||isNaN(i)?_tpt.winW:i;let l=n.settings.size.width[n.LEV]||n.settings.size.width[n.LEV++]||n.settings.size.width[n.LEV--]||i,o=n.settings.size.height[n.LEV]||n.settings.size.height[n.LEV++]||n.settings.size.height[n.LEV--]||0,r=n.settings.size.minHeight[n.LEV]||n.settings.size.minHeight[n.LEV++]||n.settings.size.minHeight[n.LEV--]||0;if(o="auto"==o?0:o,o=parseInt(o),"carousel"!==e.type&&(i-=parseInt(e.onw??0)||0),n.MP=!n.settings.size.fullWidth&&i<l||_tpt.winW<l?Math.min(1,i/l):1,e.size.fullScreen||e.size.fullHeight){let t=parseInt(e.fho)||0,s=(""+e.fho).indexOf("%")>-1;e.newh=_tpt.winH-(s?_tpt.winH*t/100:t)}else e.newh=n.MP*Math.max(o,r);if(e.newh+=(parseInt(e.onh??0)||0)+(parseInt(e.carousel?.pt)||0)+(parseInt(e.carousel?.pb)||0),void 0!==e.slideduration&&(e.newh=Math.max(e.newh,parseInt(e.slideduration)/3)),e.shdw&&_tpt.buildShadow(e.id,e),n.c.adjuster.style.height=e.newh+"px",n.c.module.style.height=e.newh+"px",n.c.content.style.height=e.newh+"px",n.states.heightPrepared=!0,n.dims??={},n.dims.moduleRect=n.c.module.getBoundingClientRect(),n.c.content.style.left="-"+n.dims.moduleRect.left+"px",!n.settings.size.fullWidth)return s&&requestAnimationFrame((()=>{i!==n.c.module.parentNode.offsetWidth&&_tpt.updatePMHeight(e.id,e)})),void _tpt.bgStyle(e.id,e,window.innerWidth==_tpt.winW,!0);_tpt.bgStyle(e.id,e,window.innerWidth==_tpt.winW,!0),requestAnimationFrame((function(){s&&requestAnimationFrame((()=>{i!==n.c.module.parentNode.offsetWidth&&_tpt.updatePMHeight(e.id,e)}))})),n.earlyResizerFunction||(n.earlyResizerFunction=function(){requestAnimationFrame((function(){_tpt.getWinDim(),_tpt.moduleDefaults(e.id,e),_tpt.updateSlideBg(t,!0)}))},window.addEventListener("resize",n.earlyResizerFunction))},_tpt.buildShadow=function(t,e){let s=SR7.M[t];null==s.c.shadow&&(s.c.shadow=document.createElement("sr7-module-shadow"),s.c.shadow.classList.add("sr7-shdw-"+e.shdw),s.c.content.appendChild(s.c.shadow))},_tpt.bgStyle=async(t,e,s,n,i)=>{const l=SR7.M[t];if((e=e??l.settings).fixed&&!l.c.module.classList.contains("sr7-top-fixed")&&(l.c.module.classList.add("sr7-top-fixed"),l.c.module.style.position="fixed",l.c.module.style.width="100%",l.c.module.style.top="0px",l.c.module.style.left="0px",l.c.module.style.pointerEvents="none",l.c.module.style.zIndex=5e3,l.c.content.style.pointerEvents="none"),null==l.c.bgcanvas){let t=document.createElement("sr7-module-bg"),o=!1;if("string"==typeof e?.bg?.color&&e?.bg?.color.includes("{"))if(_tpt.gradient&&_tpt.gsap)e.bg.color=_tpt.gradient.convert(e.bg.color);else try{let t=JSON.parse(e.bg.color);(t?.orig||t?.string)&&(e.bg.color=JSON.parse(e.bg.color))}catch(t){return}let r="string"==typeof e?.bg?.color?e?.bg?.color||"transparent":e?.bg?.color?.string??e?.bg?.color?.orig??e?.bg?.color?.color??"transparent";if(t.style["background"+(String(r).includes("grad")?"":"Color")]=r,("transparent"!==r||i)&&(o=!0),l.offsetPrepared&&(t.style.visibility="hidden"),e?.bg?.image?.src&&(t.style.backgroundImage=`url(${e?.bg?.image.src})`,t.style.backgroundSize=""==(e.bg.image?.size??"")?"cover":e.bg.image.size,t.style.backgroundPosition=e.bg.image.position,t.style.backgroundRepeat=""==e.bg.image.repeat||null==e.bg.image.repeat?"no-repeat":e.bg.image.repeat,o=!0),!o)return;l.c.bgcanvas=t,e.size.fullWidth?t.style.width=_tpt.winW-(s&&_tpt.winH<document.body.offsetHeight?_tpt.scrollBarW:0)+"px":n&&(t.style.width=l.c.module.offsetWidth+"px"),e.sbt?.use?l.c.content.appendChild(l.c.bgcanvas):l.c.module.appendChild(l.c.bgcanvas)}l.c.bgcanvas.style.height=void 0!==e.newh?e.newh+"px":("carousel"==e.type?l.dims.module.h:l.dims.content.h)+"px",l.c.bgcanvas.style.left=!s&&e.sbt?.use||l.c.bgcanvas.closest("SR7-CONTENT")?"0px":"-"+(l?.dims?.moduleRect?.left??0)+"px"},_tpt.updateSlideBg=function(t,e){const s=SR7.M[t];let n=s.settings;s?.c?.bgcanvas&&(n.size.fullWidth?s.c.bgcanvas.style.width=_tpt.winW-(e&&_tpt.winH<document.body.offsetHeight?_tpt.scrollBarW:0)+"px":preparing&&(s.c.bgcanvas.style.width=s.c.module.offsetWidth+"px"))},_tpt.moduleDefaults=(t,e)=>{let s=SR7.M[t];null!=s&&null!=s.c&&null!=s.c.module&&(s.dims??={},s.dims.moduleRect=s.c.module.getBoundingClientRect(),s.c.content.style.left="-"+s.dims.moduleRect.left+"px",s.c.content.style.width=_tpt.winW-_tpt.scrollBarW+"px","carousel"==e.type&&(s.c.module.style.overflow="visible"),_tpt.bgStyle(t,e,window.innerWidth==_tpt.winW))},_tpt.getOffset=t=>{var e=t.getBoundingClientRect(),s=window.pageXOffset||document.documentElement.scrollLeft,n=window.pageYOffset||document.documentElement.scrollTop;return{top:e.top+n,left:e.left+s}},_tpt.fillArray=function(t,e){let s,n;t=Array.isArray(t)?t:[t];let i=Array(e),l=t.length;for(n=0;n<t.length;n++)i[n+(e-l)]=t[n],null==s&&"#"!==t[n]&&(s=t[n]);for(let t=0;t<e;t++)void 0!==i[t]&&"#"!=i[t]||(i[t]=s),s=i[t];return i},_tpt.closestGE=function(t,e){let s=Number.MAX_VALUE,n=-1;for(let i=0;i<t.length;i++)t[i]-1>=e&&t[i]-1-e<s&&(s=t[i]-1-e,n=i);return++n}}();</script>
+		<style type="text/css" id="wp-custom-css">
+			:root {
+  --primary-color: #3d3d3d;
+}		</style>
+		
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-63336272-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+<body data-rsssl=1 class="error404 unselectable elementor-default elementor-kit-46548">
+    
+    <header class="header">
+        
+        <div class="container">
+            <div class="header-main">
+                <div class="left">
+                    <a title="VLOOK | Văn Phòng Cho Thuê TP.HCM" class="brand" href="https://vlook.vn">
+                        <img src="https://vlook.vn/wp-content/themes/newvlook/assets/images/logod.png" alt="VLOOK | Văn Phòng Cho Thuê TP.HCM">
+                        <img class="logo-mb" src="https://vlook.vn/wp-content/themes/newvlook/assets/images/logod.png" alt="VLOOK | Văn Phòng Cho Thuê TP.HCM">
+                    </a>
+                </div>
+                <div class="right">
+                    <ul id="primary-menu" class="navbar"><li id="menu-item-46495" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-46495"><a href="https://vlook.vn/">Trang chủ</a></li>
+<li id="menu-item-46498" class="listing menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-46498"><span class="title"><a href="https://vlook.vn/van-phong-cho-thue-hcm/">Văn phòng cho thuê</span><div class="menu-description"> </div></a>
+<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+	<li id="menu-item-67447" class="sub-left sub-head menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67447"><a href="#">Văn phòng cho thuê theo quận</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-46954" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46954"><span class="title"><a href="https://vlook.vn/quan-1/">Quận 1</span><div class="menu-description">Tổng hợp >396 tòa nhà, cao ốc building cho thuê văn phòng Quận 1 giá rẻ ⭐ Hỗ trợ đăng tin &#038; tư vấn miễn phí ✅ Hotline cho thuê ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-46960" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46960"><span class="title"><a href="https://vlook.vn/quan-2/">Quận 2</span><div class="menu-description">Với dữ liệu hơn 150 tòa cao ốc văn phòng cho thuê tại Quận 2 (cập nhật 2023), Vlook tự hào là đơn vị tiên phong trong lĩnh vực tư vấn cho thuê văn phòng tại Quận 2, TP.HCM .</div></a></li>
+		<li id="menu-item-46957" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46957"><span class="title"><a href="https://vlook.vn/quan-3/">Quận 3</span><div class="menu-description">Tổng hợp >225 tòa nhà, cao ốc building cho thuê văn phòng Quận 3 giá rẻ ⭐ Hỗ trợ đăng tin ☆ Tư vấn miễn phí ✅ Hotline cho thuê ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-46963" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46963"><span class="title"><a href="https://vlook.vn/quan-4/">Quận 4</span><div class="menu-description">Tổng hợp >39 cao ốc cho thuê văn phòng Quận 4 giá rẻ ⭐ Báo giá ngay, chính xác &#038; 100% miễn phí | ✅ Hotline cho thuê ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-46965" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46965"><span class="title"><a href="https://vlook.vn/quan-5/">Quận 5</span><div class="menu-description">Giá thuê và các khu vực tập trung văn phòng cho thuê tại Quận 5:   ✓ Hotline cho thuê ☎ 0909.170.387   ✓ Trần Hưng Đạo $10 – $15/m2 Xem danh sách   ✓ Nguyễn Trãi $10 – $17/m2 Xem danh sách   ✓ Trần Bình Trọng $7 – $10/m2 Xem danh sách   ✓ Tuyến đường khác $10 – $22/m2 Xem danh sách Với dữ liệu gần 100 tòa cao ốc văn phòng cho thuê tại Quận 5 (cập nhật năm 2023), Vlook tự hào là đơn vị tiên phong trong lĩnh vực tư vấn cho thuê văn phòng tại Quận 5, TP.HCM ⭐ Hotline  ☎ Hotline tư vấn: 0909.170.387 ⭐ Kịp thời ⭕ Nhận báo giá nhanh sau 15 phút liên hệ ⭐ Chính xác ⭕ Giá thuê &#038; diện tích văn phòng cho thuê Quận 5 được cập nhật liên tục ⭐ Chi phí ⭕ Miễn phí 100% mọi chi phí ⭐ Email ⭕ contact@vlook.vn ⭐ Ký gửi ⭕ Nhận ký gửi miễn phí văn phòng Quận 5</div></a></li>
+		<li id="menu-item-46964" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46964"><span class="title"><a href="https://vlook.vn/quan-6/">Quận 6</span><div class="menu-description">Với dữ liệu gần 10 tòa cao ốc văn phòng cho thuê tại Quận 6 (cập nhật năm 2023) ✅ Vlook tự hào là đơn vị tiên phong trong lĩnh vực tư vấn cho thuê văn phòng tại Quận 6, TP.HCM</div></a></li>
+		<li id="menu-item-46962" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46962"><span class="title"><a href="https://vlook.vn/quan-7/">Quận 7</span><div class="menu-description">Giá thuê và các khu vực tập trung văn phòng cho thuê tại Quận 7:     ✓ Hotline cho thuê ☎ 0909.170.387   ✓ Phú Mỹ Hưng $13 – $28/m2 Xem danh sách   ✓ Nguyễn Văn Linh $15 – $25/m2 Xem danh sách   ✓ Nguyễn Thị Thập $7 – $15/m2 Xem danh sách   ✓ Nguyễn Lương Bằng $11 – $22/m2 Xem danh sách Với dữ liệu gần 100 tòa cao ốc văn phòng cho thuê tại Quận 7 (cập nhật năm 2023), Vlook tự hào là đơn vị tiên phong trong lĩnh vực tư vấn cho thuê văn phòng tại Quận 7, TP.HCM ⭐ Hotline  ☎ Hotline tư vấn: 0909.170.387 ⭐ Kịp thời ⭕ Nhận báo giá nhanh sau 15 phút liên hệ ⭐ Chính xác ⭕ Giá thuê &#038; diện tích văn phòng cho thuê Quận 5 được cập nhật liên tục ⭐ Chi phí ⭕ Miễn phí 100% mọi chi phí ⭐ Email ⭕ contact@vlook.vn ⭐ Ký gửi ⭕ Nhận ký gửi miễn phí văn phòng Quận 7</div></a></li>
+		<li id="menu-item-46966" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46966"><span class="title"><a href="https://vlook.vn/quan-8/">Quận 8</span><div class="menu-description">Tổng hợp >10 tòa nhà, cao ốc building cho thuê văn phòng Quận 8 giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✅ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-54202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54202"><a href="https://vlook.vn/quan-9/">Quận 9</a></li>
+		<li id="menu-item-46961" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46961"><span class="title"><a href="https://vlook.vn/quan-10/">Quận 10</span><div class="menu-description">Tổng hợp >68 tòa nhà, cao ốc building cho thuê văn phòng Quận 10 giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-54230" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54230"><a href="https://vlook.vn/quan-11/">Quận 11</a></li>
+		<li id="menu-item-54231" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54231"><a href="https://vlook.vn/quan-12/">Quận 12</a></li>
+		<li id="menu-item-46956" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46956"><span class="title"><a href="https://vlook.vn/quan-binh-thanh/">Quận Bình Thạnh</span><div class="menu-description">Tổng hợp >178 tòa nhà, cao ốc cho thuê văn phòng quận Bình Thạnh giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-46955" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46955"><span class="title"><a href="https://vlook.vn/quan-tan-binh/">Quận Tân Bình</span><div class="menu-description">Tổng hợp >267 tòa nhà, cao ốc cho thuê văn phòng quận Tân Bình giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-46959" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46959"><span class="title"><a href="https://vlook.vn/quan-phu-nhuan/">Quận Phú Nhuận</span><div class="menu-description">Tổng hợp >125 tòa nhà, cao ốc cho thuê văn phòng quận Phú Nhuận giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-55290" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55290"><a href="https://vlook.vn/quan-thu-duc">Quận Thủ Đức</a></li>
+		<li id="menu-item-46967" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46967"><span class="title"><a href="https://vlook.vn/quan-go-vap/">Quận Gò Vấp</span><div class="menu-description">Tổng hợp >15 tòa nhà, cao ốc cho thuê văn phòng quận Gò Vấp giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-46968" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46968"><span class="title"><a href="https://vlook.vn/quan-binh-tan/">Quận Bình Tân</span><div class="menu-description">Tổng hợp >8 tòa nhà, cao ốc cho thuê văn phòng quận Bình Tân giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-46969" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46969"><span class="title"><a href="https://vlook.vn/quan-tan-phu/">Quận Tân Phú</span><div class="menu-description">Tổng hợp >23 tòa nhà, cao ốc cho thuê văn phòng quận Tân Phú giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-46958" class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46958"><span class="title"><a href="https://vlook.vn/thanh-pho-thu-duc/">Thành Phố Thủ Đức</span><div class="menu-description">Tổng hợp >100 tòa nhà, cao ốc cho thuê văn phòng tại Thành Phố Thủ Đức giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li id="menu-item-54232" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54232"><a href="https://vlook.vn/huyen-binh-chanh">Huyện Bình Chánh</a></li>
+		<li id="menu-item-54233" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54233"><a href="https://vlook.vn/huyen-nha-be/">Huyện Nhà Bè</a></li>
+		<li id="menu-item-54287" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54287"><a href="https://vlook.vn/huyen-hoc-mon/">Huyện Hóc Môn</a></li>
+		<li id="menu-item-68124" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-68124"><a href="https://vlook.vn/huyen-cu-chi/">Huyện Củ Chi</a></li>
+		<li id="menu-item-54234" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54234"><a href="https://vlook.vn/bien-hoa-dong-nai/">Biên Hoà &#8211; Đồng Nai</a></li>
+		<li id="menu-item-54235" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54235"><a href="https://vlook.vn/binh-duong/">Bình Dương</a></li>
+		<li id="menu-item-58041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-58041"><a href="https://vlook.vn/cac-quan-con-lai/">Các quận còn lại</a></li>
+	</ul></div></div>
+</li>
+	<li id="menu-item-67448" class="sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67448"><a>Văn phòng cho thuê theo khu vực</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-67530" class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-67530"><span class="title"><a href="https://vlook.vn/duong/phu-my-hung/">Văn phòng cho thuê khu Phú Mỹ Hưng, Quận 7</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-cho-thue-khu-phu-my-hung-quan-7-tphcm-vlook.vn_.jpg" /></div></a></li>
+		<li id="menu-item-67449" class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-67449"><span class="title"><a href="https://vlook.vn/duong/san-bay-tan-son-nhat/">Văn phòng cho thuê khu vực sân bay Tân Sơn Nhất</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-cho-thue-khu-san-bay-tan-son-nhat-quan-tan-binh-tphcm-vlook.vn_.jpg" /></div></a></li>
+		<li id="menu-item-67450" class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-67450"><span class="title"><a href="https://vlook.vn/duong/khu-do-thi-sala/">Văn phòng cho thuê khu đô thị Sala</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-cho-thue-khu-do-thi-sala-quan-2-tp-thu-duc-tphcm-vlook.vn-02.jpg" /></div></a></li>
+		<li id="menu-item-67550" class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-67550"><span class="title"><a href="https://vlook.vn/duong/cong-vien-phan-mem-quang-trung/">Văn phòng cho thuê khu công viên phần mềm Quang Trung</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/cong-vien-phan-mem-quang-trung-quan-12-vlook.vn-cover.jpg" /></div></a></li>
+	</ul></div></div>
+</li>
+	<li id="menu-item-67451" class="sub-string sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67451"><a>Văn phòng cho thuê theo chuỗi</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-67557" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67557"><span class="title"><a href="https://vlook.vn/lmak/">L’Mak</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/logo-lmak-vlook.vn-1.png" /></div></a></li>
+		<li id="menu-item-67595" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67595"><span class="title"><a href="https://vlook.vn/zeta/">Zeta</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/logo-zeta-vlook.vn-1.png" /></div></a></li>
+		<li id="menu-item-67559" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67559"><span class="title"><a href="https://vlook.vn/win-home/">Winhome</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-win-home-vlook.vn-1.png" /></div></a></li>
+		<li id="menu-item-67560" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67560"><span class="title"><a href="https://vlook.vn/gic/">GIC</span><div class="menu-description">  <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-gic-vlook.vn_.png" /></div></a></li>
+		<li id="menu-item-67561" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67561"><span class="title"><a href="https://vlook.vn/halo/">Halo</span><div class="menu-description">  <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-halo-vlook.vn-1.png" /></div></a></li>
+		<li id="menu-item-67562" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67562"><span class="title"><a href="https://vlook.vn/sabay/">Sabay</span><div class="menu-description">   <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-sabay-vlook.vn-1.png" /></div></a></li>
+		<li id="menu-item-67563" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67563"><span class="title"><a href="https://vlook.vn/moc-gia/">Mộc Gia</span><div class="menu-description">   <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-moc-gia-vlook.vn_-1.png" /></div></a></li>
+		<li id="menu-item-67564" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67564"><span class="title"><a href="https://vlook.vn/vno/">VNO</span><div class="menu-description">    <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-vno-vlook.vn-1.png" /></div></a></li>
+		<li id="menu-item-67596" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67596"><span class="title"><a href="https://vlook.vn/tsa/">TSA</span><div class="menu-description">    <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-tsa-vlook.vn_-1.png" /></div></a></li>
+		<li id="menu-item-67597" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67597"><span class="title"><a href="https://vlook.vn/cityhouse/">City House</span><div class="menu-description">    <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-city-house-vlook.vn_.png" /></div></a></li>
+		<li id="menu-item-67598" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67598"><span class="title"><a href="https://vlook.vn/more/">M.O.R.E</span><div class="menu-description">    <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-more-vlook.vn-1.png" /></div></a></li>
+		<li id="menu-item-67599" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67599"><span class="title"><a href="https://vlook.vn/do-dau/">Đỗ Đầu</span><div class="menu-description">     <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-do-dau-vlook.vn_.png" /></div></a></li>
+		<li id="menu-item-70587" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-70587"><span class="title"><a href="https://vlook.vn/pax-sky/">Pax Sky</span><div class="menu-description">     <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-pax-sky-vlook.vn_.png" /></div></a></li>
+		<li id="menu-item-67600" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67600"><span class="title"><a href="https://vlook.vn/gems/">Gems</span><div class="menu-description">     <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-gems-vlook.vn-1.png" /></div></a></li>
+		<li id="menu-item-67601" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67601"><span class="title"><a href="https://vlook.vn/holistay/">Holistay</span><div class="menu-description">      <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-holistay-vlook.vn_.png" /></div></a></li>
+		<li id="menu-item-67602" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67602"><span class="title"><a href="https://vlook.vn/pls/">PLS</span><div class="menu-description">      <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-pls-vlook.vn-2.png" /></div></a></li>
+		<li id="menu-item-67603" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67603"><span class="title"><a href="https://vlook.vn/bcons/">Bcons</span><div class="menu-description">      <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-bcons-vlook.vn_.png" /></div></a></li>
+	</ul></div></div>
+</li>
+</ul></div></div>
+</li>
+<li id="menu-item-71028" class="listing menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-71028"><a href="/van-phong-tron-goi">Văn phòng trọn gói</a>
+<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+	<li id="menu-item-71029" class="sub-left sub-head menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-71029"><a href="#">Văn phòng trọn gói theo quận</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-71033" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71033"><a href="https://vlook.vn/van-phong-tron-goi/quan-1/">Quận 1</a></li>
+		<li id="menu-item-71034" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71034"><a href="https://vlook.vn/van-phong-tron-goi/quan-2/">Quận 2</a></li>
+		<li id="menu-item-71035" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71035"><a href="https://vlook.vn/van-phong-tron-goi/quan-3/">Quận 3</a></li>
+		<li id="menu-item-71036" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71036"><a href="https://vlook.vn/van-phong-tron-goi/quan-4/">Quận 4</a></li>
+		<li id="menu-item-71037" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71037"><a href="https://vlook.vn/van-phong-tron-goi/quan-5/">Quận 5</a></li>
+		<li id="menu-item-71038" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71038"><a href="https://vlook.vn/van-phong-tron-goi/quan-6/">Quận 6</a></li>
+		<li id="menu-item-71039" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71039"><a href="https://vlook.vn/van-phong-tron-goi/quan-7/">Quận 7</a></li>
+		<li id="menu-item-71040" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71040"><a href="https://vlook.vn/van-phong-tron-goi/quan-8/">Quận 8</a></li>
+		<li id="menu-item-71041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71041"><a href="https://vlook.vn/van-phong-tron-goi/quan-9/">Quận 9</a></li>
+		<li id="menu-item-71042" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71042"><a href="https://vlook.vn/van-phong-tron-goi/quan-10/">Quận 10</a></li>
+		<li id="menu-item-71043" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71043"><a href="https://vlook.vn/van-phong-tron-goi/quan-11/">Quận 11</a></li>
+		<li id="menu-item-71044" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71044"><a href="https://vlook.vn/van-phong-tron-goi/quan-12/">Quận 12</a></li>
+		<li id="menu-item-71045" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71045"><a href="https://vlook.vn/van-phong-tron-goi/quan-binh-thanh/">Quận Bình Thạnh</a></li>
+		<li id="menu-item-71046" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71046"><a href="https://vlook.vn/van-phong-tron-goi/quan-phu-nhuan/">Quận Phú Nhuận</a></li>
+		<li id="menu-item-71047" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71047"><a href="https://vlook.vn/van-phong-tron-goi/quan-go-vap/">Quận Gò Vấp</a></li>
+		<li id="menu-item-71048" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71048"><a href="https://vlook.vn/van-phong-tron-goi/quan-tan-binh/">Quận Tân Bình</a></li>
+		<li id="menu-item-71049" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71049"><a href="https://vlook.vn/van-phong-tron-goi/quan-tan-phu/">Quận Tân Phú</a></li>
+		<li id="menu-item-71050" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71050"><a href="https://vlook.vn/van-phong-tron-goi/quan-thu-duc/">Quận Thủ Đức</a></li>
+		<li id="menu-item-71051" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71051"><a href="https://vlook.vn/van-phong-tron-goi/quan-binh-tan/">Quận Bình Tân</a></li>
+		<li id="menu-item-71052" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71052"><a href="https://vlook.vn/van-phong-tron-goi/thanh-pho-thu-duc/">Thành phố Thủ Đức</a></li>
+		<li id="menu-item-71053" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71053"><a href="https://vlook.vn/van-phong-tron-goi/huyen-nha-be/">Huyện Nhà Bè</a></li>
+		<li id="menu-item-71054" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71054"><a href="https://vlook.vn/van-phong-tron-goi/huyen-hoc-mon/">Huyện Hóc Môn</a></li>
+		<li id="menu-item-71055" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71055"><a href="https://vlook.vn/van-phong-tron-goi/huyen-can-gio/">Huyện Cần Giờ</a></li>
+		<li id="menu-item-71056" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71056"><a href="https://vlook.vn/van-phong-tron-goi/huyen-cu-chi/">Huyện Củ Chi</a></li>
+		<li id="menu-item-71057" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71057"><a href="https://vlook.vn/van-phong-tron-goi/huyen-binh-chanh/">Huyện Bình Chánh</a></li>
+	</ul></div></div>
+</li>
+	<li id="menu-item-71030" class="sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-71030"><a href="#">Dịch vụ văn phòng trọn gói đầy đủ nội thất</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-71238" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-71238"><span class="title"><a href="https://vlook.vn/van-phong-tron-goi-tphcm/">Dịch vụ văn phòng trọn gói • Coworking space TP.HCM</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/10/van-phong-tron-goi-tphcm-vlook.vn-360x360-1.jpg" /></div></a></li>
+		<li id="menu-item-71239" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-71239"><span class="title"><a href="https://vlook.vn/thi-cong-thiet-ke-noi-that/">Thi công nội thất văn phòng trọn gói. Miễn phí thiết kế 2D, 3D</span><div class="menu-description"><img src=" https://vlook.vn/wp-content/uploads/2024/10/trang-tri-thiet-ke-noi-that-van-phong-mien-phi-2d-3d-vlook.vn-400x400-1.jpg" /></div></a></li>
+	</ul></div></div>
+</li>
+	<li id="menu-item-71058" class="sub-head hide-mb sub-1-img menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-71058"><a href="#">Văn phòng trọn gói theo chuỗi tại TP.HCM</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-71059" class="sub-img menu-item menu-item-type-custom menu-item-object-custom menu-item-71059"><span class="title"><a href="#">Văn phòng trọn gói theo chuỗi</span><div class="menu-description"><img src="https://vlook.vn/van-phong-tron-goi/wp-content/uploads/2024/09/logo-van-phong-tron-goi-2.png" /></div></a></li>
+	</ul></div></div>
+</li>
+</ul></div></div>
+</li>
+<li id="menu-item-67865" class="listing menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-67865"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/">Văn phòng ảo</span><div class="menu-description"> </div></a>
+<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+	<li id="menu-item-67866" class="sub-left sub-head menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67866"><a href="#">Cho thuê văn phòng ảo tại các quận</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-67870" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67870"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-1/">Quận 1</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67874" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67874"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-2/">Quận 2</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67875" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67875"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-3/">Quận 3</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67876" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67876"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-4/">Quận 4</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67877" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67877"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-5/">Quận 5</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67878" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67878"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-6/">Quận 6</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67879" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67879"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-7/">Quận 7</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67880" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67880"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-8/">Quận 8</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67881" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67881"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-9/">Quận 9</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67871" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67871"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-10/">Quận 10</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67872" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67872"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-11/">Quận 11</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67873" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67873"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-12/">Quận 12</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67883"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-binh-thanh/">Quận Bình Thạnh</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67885" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67885"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-phu-nhuan/">Quận Phú Nhuận</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67884" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67884"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-go-vap/">Quận Gò Vấp</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67886" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67886"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-tan-binh/">Quận Tân Bình</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67887" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67887"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-tan-phu/">Quận Tân Phú</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-68163" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-68163"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-thu-duc/">Quận Thủ Đức</a></li>
+		<li id="menu-item-67882" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67882"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-binh-tan/">Quận Bình Tân</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67888" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67888"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/thanh-pho-thu-duc/">Thành phố Thủ Đức</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67869" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67869"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/huyen-nha-be/">Huyện Nhà Bè</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67868" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67868"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/huyen-hoc-mon/">Huyện Hóc Môn</span><div class="menu-description"> </div></a></li>
+		<li id="menu-item-67867" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67867"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/huyen-binh-chanh/">Huyện Bình Chánh</span><div class="menu-description"> </div></a></li>
+	</ul></div></div>
+</li>
+	<li id="menu-item-67892" class="sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67892"><a>Dịch vụ cho thuê văn phòng ảo tại TP.HCM</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-67894" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-post menu-item-67894"><span class="title"><a href="https://vlook.vn/the-nao-la-van-phong-ao/">Văn phòng ảo là gì? Tính pháp lý của việc thuê văn phòng ảo?</span><div class="menu-description">  <img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-ao-la-gi-tinh-phap-ly-cua-van-phong-ao-cover.jpg" /></div></a></li>
+		<li id="menu-item-67893" class="sub-img2 menu-item menu-item-type-post_type menu-item-object-post menu-item-67893"><span class="title"><a href="https://vlook.vn/su-dung-van-phong-ao-co-vi-pham-phap-luat-khong/">Sử dụng văn phòng ảo có vi phạm pháp luật không?</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/07/doanh-nghiep-su-dung-van-phong-ao-co-vi-pham-phap-luat-khong-vlook.vn-cover.jpg" /></div></a></li>
+		<li id="menu-item-68101" class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-68101"><span class="title"><a href="https://vlook.vn/officetel-la-gi-giai-dap-moi-van-de-ve-mo-hinh-office-tel-tai-viet-nam/">Officetel là gì?</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/07/officetel-la-gi-vlook.vn-cover.jpg" /></div></a></li>
+		<li id="menu-item-68102" class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-68102"><span class="title"><a href="https://vlook.vn/van-phong-chia-se-la-gi/">Văn phòng chia sẻ là gì?</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-chia-se-la-gi-vlook.vn-cover.jpg" /></div></a></li>
+	</ul></div></div>
+</li>
+	<li id="menu-item-67897" class="sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67897"><a href="#">Dịch vụ đăng ký thành lập doanh nghiệp</a>
+	<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+		<li id="menu-item-67896" class="sub-img menu-item menu-item-type-custom menu-item-object-custom menu-item-67896"><span class="title"><a href="https://vlook.vn/dich-vu-thanh-lap-doanh-nghiep/">Dịch vụ thành lập doanh nghiệp • Thay đổi địa chỉ kinh doanh</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/dich-vu-thanh-lap-doanh-nghiep-vlook.vn-01.jpg" /></div></a></li>
+		<li id="menu-item-67900" class="sub-img menu-item menu-item-type-custom menu-item-object-custom menu-item-67900"><span class="title"><a href="https://vlook.vn/dich-vu-ke-toan-tron-goi/">Dịch vụ kế toán trọn gói • Báo cáo thuế</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/dich-vu-thanh-lap-doanh-nghiep-vlook.vn-02.jpg" /></div></a></li>
+	</ul></div></div>
+</li>
+</ul></div></div>
+</li>
+<li id="menu-item-68107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68107"><span class="title"><a href="https://vlook.vn/ky-gui-van-phong-cho-thue/">Ký gửi</span><div class="menu-description"> </div></a></li>
+<li id="menu-item-46496" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-46496"><span class="title"><a href="https://vlook.vn/tin-tuc/">Tin tức</span><div class="menu-description"> </div></a>
+<div class='sub-menu-wrp'><div class='container'><ul class='sub-menu'>
+	<li id="menu-item-47126" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47126"><span class="title"><a href="https://vlook.vn/chuyen-muc/tin-tuc-noi-bat/">Tin tức nổi bật</span><div class="menu-description">Chuyên trang về thị trường văn phòng cho thuê tại TP.HCM ⭐</div></a></li>
+	<li id="menu-item-47120" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47120"><span class="title"><a href="https://vlook.vn/chuyen-muc/blog/">Bản tin VLOOK</span><div class="menu-description">Bản tin VLOOK – Tổng hợp những thông tin về thị trường văn phòng cho thuê, bất động sản, những thông tin liên quan đến dịch vụ, nội thất, phong thủy văn phòng</div></a></li>
+	<li id="menu-item-47122" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47122"><span class="title"><a href="https://vlook.vn/chuyen-muc/phong-thuy-van-phong/">Phong thủy văn phòng</span><div class="menu-description">Hiểu biết về phong thủy văn phòng có thể giúp chúng ta tự đặt mình vào những vị trí có lợi nhất cho môi trường sống của mình. Việc chọn nơi làm văn phòng cũng như các thiết kế nội thất sẽ ảnh hưởng đến mỗi chúng ta theo chiều hướng tích cực hoặc tiêu cực.</div></a></li>
+	<li id="menu-item-47124" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47124"><span class="title"><a href="https://vlook.vn/chuyen-muc/thi-truong-van-phong-cho-thue/">Thị trường văn phòng cho thuê</span><div class="menu-description">Tổng hợp tin tức về thị trường văn phòng cho thuê Việt Nam. Bên cạnh đấy là những kinh nghiệm và những mẹo giúp khách thuê tìm được văn phòng ưng ý nhất</div></a></li>
+	<li id="menu-item-47123" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47123"><span class="title"><a href="https://vlook.vn/chuyen-muc/thi-truong-bat-dong-san/">Thị trường bất động sản</span><div class="menu-description">Tổng hợp tin tức về thị trường bất động sản trong và ngoài nước</div></a></li>
+	<li id="menu-item-47121" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47121"><span class="title"><a href="https://vlook.vn/chuyen-muc/inspiration/">Những câu chuyện truyền cảm hứng</span><div class="menu-description">“Nếu một ngày kia, khi mà xã hội mình người ta dám hành động thật sự, thay vì chỉ ca thán nhưng lại hùa theo số đông sai trái để yên thân mình, để không bị thiệt thòi, thì may ra mới có một sự thay đổi. Có những câu chuyện cho tôi niềm tin rằng, có những người cũng đã hành động, và tôi muốn chia sẻ câu chuyện này để những người cũng đang muốn hành động cho một sự thay đổi biết rằng, họ không cô đơn. Và tôi gọi những người dám hành động là Những kẻ mộng mơ.” – Phanxine</div></a></li>
+	<li id="menu-item-47125" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47125"><span class="title"><a href="https://vlook.vn/chuyen-muc/thiet-ke-noi-that/">Thiết kế nội thất</span><div class="menu-description">Chuyên trang về nội thất văn phòng, căn hộ, phòng ngủ ✅ Giải thích các khái niệm, thuật ngữ ⭐ Tổng hợp các mẫu thiết kế đẹp – độc – lạ  </div></a></li>
+	<li id="menu-item-68923" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-68923"><span class="title"><a href="https://vlook.vn/chuyen-muc/thu-vien/">Tra cứu thông tin</span><div class="menu-description"><p>Tổng hợp thông tin hữu ích về thị trường cao ốc cho thuê văn phòng tại Sài Gòn, TP.HCM ✅ Tin tức đa dạng ⭐⭐⭐⭐⭐ | Hotline liên hê ☎ 0909.170.387</p>
+</div></a></li>
+	<li id="menu-item-47127" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47127"><span class="title"><a href="https://vlook.vn/chuyen-muc/van-phong-do-day/">Văn phòng đó đây</span><div class="menu-description">Cùng VLOOK điểm qua những văn phòng nổi bật trên thế giới</div></a></li>
+</ul></div></div>
+</li>
+</ul>                    
+                    <div class="mobile-nav">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="header-search ">
+					<div class="open-search-button" id="open-search-button"><span>Tìm kiếm...</span><i class="far fa-search"></i></div>
+                    <div class="open-search">
+						<div class="container">
+							<form action="/property-search" type="GET" class="live-search">
+								<div class="live-search-item">
+									<input name="location" type="hidden" value="">
+									<input name="price_range_min" type="hidden" value="0">
+									<input name="price_range_max" type="hidden" value="100">
+									<input name="sqr" id="s_name" type="text" placeholder="Tìm kiếm tên tòa nhà, địa chỉ..." value="">
+									<span class="field-icon property-name"><i class="fal fa-search"></i></span>
+									<input type="submit" class="btn btn-secondary" value="Tìm kiếm">
+									<a href="#" class="btn btn-primary close-search-button" >Đóng</a>
+								</div>
+							</form>
+							<div class="live-search-result d-none" id="s_name-result">
+								<div class="scroll">
+									<ul class="vpct"></ul>
+									<div id="vptg-result">
+										<ul class="vptg"></ul>
+									</div>
+								</div>
+								<div id="street-result" class="street-result"><div class="list"></div></div>
+							</div>
+						</div>
+					</div>
+                </div>
+                <div class="header-custom">
+                    <div class="open-search-button mb"><span>Tìm...</span><i class="far fa-search"></i></div>
+					<!--
+                    <a class="btn btn-secondary" href="tel:0909170387"><i class="fad fa-calendar-check"></i> Đặt lịch<span class="d-none d-xl-inline"> xem VP</span></a>
+					-->
+				</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <div class="mobile-menu-inner">
+            <a href="javascript:;" class="mobile-menu-close"><i class="fal fa-times"></i></a>
+            <a class="brand" href="https://vlook.vn">
+                <img src="https://vlook.vn/wp-content/themes/newvlook/assets/images/logo.png" alt="VLOOK | Văn Phòng Cho Thuê TP.HCM">
+            </a>
+            <ul id="primary-menu-mobile" class="navbar"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-46495"><a href="https://vlook.vn/">Trang chủ</a></li>
+<li class="listing menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-46498"><span class="title"><a href="https://vlook.vn/van-phong-cho-thue-hcm/">Văn phòng cho thuê</span><div class="menu-description"> </div></a>
+<ul class="sub-menu">
+	<li class="sub-left sub-head menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67447"><a href="#">Văn phòng cho thuê theo quận</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46954"><span class="title"><a href="https://vlook.vn/quan-1/">Quận 1</span><div class="menu-description">Tổng hợp >396 tòa nhà, cao ốc building cho thuê văn phòng Quận 1 giá rẻ ⭐ Hỗ trợ đăng tin &#038; tư vấn miễn phí ✅ Hotline cho thuê ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46960"><span class="title"><a href="https://vlook.vn/quan-2/">Quận 2</span><div class="menu-description">Với dữ liệu hơn 150 tòa cao ốc văn phòng cho thuê tại Quận 2 (cập nhật 2023), Vlook tự hào là đơn vị tiên phong trong lĩnh vực tư vấn cho thuê văn phòng tại Quận 2, TP.HCM .</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46957"><span class="title"><a href="https://vlook.vn/quan-3/">Quận 3</span><div class="menu-description">Tổng hợp >225 tòa nhà, cao ốc building cho thuê văn phòng Quận 3 giá rẻ ⭐ Hỗ trợ đăng tin ☆ Tư vấn miễn phí ✅ Hotline cho thuê ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46963"><span class="title"><a href="https://vlook.vn/quan-4/">Quận 4</span><div class="menu-description">Tổng hợp >39 cao ốc cho thuê văn phòng Quận 4 giá rẻ ⭐ Báo giá ngay, chính xác &#038; 100% miễn phí | ✅ Hotline cho thuê ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46965"><span class="title"><a href="https://vlook.vn/quan-5/">Quận 5</span><div class="menu-description">Giá thuê và các khu vực tập trung văn phòng cho thuê tại Quận 5:   ✓ Hotline cho thuê ☎ 0909.170.387   ✓ Trần Hưng Đạo $10 – $15/m2 Xem danh sách   ✓ Nguyễn Trãi $10 – $17/m2 Xem danh sách   ✓ Trần Bình Trọng $7 – $10/m2 Xem danh sách   ✓ Tuyến đường khác $10 – $22/m2 Xem danh sách Với dữ liệu gần 100 tòa cao ốc văn phòng cho thuê tại Quận 5 (cập nhật năm 2023), Vlook tự hào là đơn vị tiên phong trong lĩnh vực tư vấn cho thuê văn phòng tại Quận 5, TP.HCM ⭐ Hotline  ☎ Hotline tư vấn: 0909.170.387 ⭐ Kịp thời ⭕ Nhận báo giá nhanh sau 15 phút liên hệ ⭐ Chính xác ⭕ Giá thuê &#038; diện tích văn phòng cho thuê Quận 5 được cập nhật liên tục ⭐ Chi phí ⭕ Miễn phí 100% mọi chi phí ⭐ Email ⭕ contact@vlook.vn ⭐ Ký gửi ⭕ Nhận ký gửi miễn phí văn phòng Quận 5</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46964"><span class="title"><a href="https://vlook.vn/quan-6/">Quận 6</span><div class="menu-description">Với dữ liệu gần 10 tòa cao ốc văn phòng cho thuê tại Quận 6 (cập nhật năm 2023) ✅ Vlook tự hào là đơn vị tiên phong trong lĩnh vực tư vấn cho thuê văn phòng tại Quận 6, TP.HCM</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46962"><span class="title"><a href="https://vlook.vn/quan-7/">Quận 7</span><div class="menu-description">Giá thuê và các khu vực tập trung văn phòng cho thuê tại Quận 7:     ✓ Hotline cho thuê ☎ 0909.170.387   ✓ Phú Mỹ Hưng $13 – $28/m2 Xem danh sách   ✓ Nguyễn Văn Linh $15 – $25/m2 Xem danh sách   ✓ Nguyễn Thị Thập $7 – $15/m2 Xem danh sách   ✓ Nguyễn Lương Bằng $11 – $22/m2 Xem danh sách Với dữ liệu gần 100 tòa cao ốc văn phòng cho thuê tại Quận 7 (cập nhật năm 2023), Vlook tự hào là đơn vị tiên phong trong lĩnh vực tư vấn cho thuê văn phòng tại Quận 7, TP.HCM ⭐ Hotline  ☎ Hotline tư vấn: 0909.170.387 ⭐ Kịp thời ⭕ Nhận báo giá nhanh sau 15 phút liên hệ ⭐ Chính xác ⭕ Giá thuê &#038; diện tích văn phòng cho thuê Quận 5 được cập nhật liên tục ⭐ Chi phí ⭕ Miễn phí 100% mọi chi phí ⭐ Email ⭕ contact@vlook.vn ⭐ Ký gửi ⭕ Nhận ký gửi miễn phí văn phòng Quận 7</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46966"><span class="title"><a href="https://vlook.vn/quan-8/">Quận 8</span><div class="menu-description">Tổng hợp >10 tòa nhà, cao ốc building cho thuê văn phòng Quận 8 giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✅ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54202"><a href="https://vlook.vn/quan-9/">Quận 9</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46961"><span class="title"><a href="https://vlook.vn/quan-10/">Quận 10</span><div class="menu-description">Tổng hợp >68 tòa nhà, cao ốc building cho thuê văn phòng Quận 10 giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54230"><a href="https://vlook.vn/quan-11/">Quận 11</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54231"><a href="https://vlook.vn/quan-12/">Quận 12</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46956"><span class="title"><a href="https://vlook.vn/quan-binh-thanh/">Quận Bình Thạnh</span><div class="menu-description">Tổng hợp >178 tòa nhà, cao ốc cho thuê văn phòng quận Bình Thạnh giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46955"><span class="title"><a href="https://vlook.vn/quan-tan-binh/">Quận Tân Bình</span><div class="menu-description">Tổng hợp >267 tòa nhà, cao ốc cho thuê văn phòng quận Tân Bình giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46959"><span class="title"><a href="https://vlook.vn/quan-phu-nhuan/">Quận Phú Nhuận</span><div class="menu-description">Tổng hợp >125 tòa nhà, cao ốc cho thuê văn phòng quận Phú Nhuận giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55290"><a href="https://vlook.vn/quan-thu-duc">Quận Thủ Đức</a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46967"><span class="title"><a href="https://vlook.vn/quan-go-vap/">Quận Gò Vấp</span><div class="menu-description">Tổng hợp >15 tòa nhà, cao ốc cho thuê văn phòng quận Gò Vấp giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46968"><span class="title"><a href="https://vlook.vn/quan-binh-tan/">Quận Bình Tân</span><div class="menu-description">Tổng hợp >8 tòa nhà, cao ốc cho thuê văn phòng quận Bình Tân giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46969"><span class="title"><a href="https://vlook.vn/quan-tan-phu/">Quận Tân Phú</span><div class="menu-description">Tổng hợp >23 tòa nhà, cao ốc cho thuê văn phòng quận Tân Phú giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-taxonomy menu-item-object-property-location menu-item-46958"><span class="title"><a href="https://vlook.vn/thanh-pho-thu-duc/">Thành Phố Thủ Đức</span><div class="menu-description">Tổng hợp >100 tòa nhà, cao ốc cho thuê văn phòng tại Thành Phố Thủ Đức giá rẻ ⭐ Báo giá ngay &#038; 100% miễn phí ✔️ Hotline tư vấn ☎ 0909.170.387</div></a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54232"><a href="https://vlook.vn/huyen-binh-chanh">Huyện Bình Chánh</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54233"><a href="https://vlook.vn/huyen-nha-be/">Huyện Nhà Bè</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54287"><a href="https://vlook.vn/huyen-hoc-mon/">Huyện Hóc Môn</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-68124"><a href="https://vlook.vn/huyen-cu-chi/">Huyện Củ Chi</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54234"><a href="https://vlook.vn/bien-hoa-dong-nai/">Biên Hoà &#8211; Đồng Nai</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-54235"><a href="https://vlook.vn/binh-duong/">Bình Dương</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-58041"><a href="https://vlook.vn/cac-quan-con-lai/">Các quận còn lại</a></li>
+	</ul>
+</li>
+	<li class="sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67448"><a>Văn phòng cho thuê theo khu vực</a>
+	<ul class="sub-menu">
+		<li class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-67530"><span class="title"><a href="https://vlook.vn/duong/phu-my-hung/">Văn phòng cho thuê khu Phú Mỹ Hưng, Quận 7</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-cho-thue-khu-phu-my-hung-quan-7-tphcm-vlook.vn_.jpg" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-67449"><span class="title"><a href="https://vlook.vn/duong/san-bay-tan-son-nhat/">Văn phòng cho thuê khu vực sân bay Tân Sơn Nhất</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-cho-thue-khu-san-bay-tan-son-nhat-quan-tan-binh-tphcm-vlook.vn_.jpg" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-67450"><span class="title"><a href="https://vlook.vn/duong/khu-do-thi-sala/">Văn phòng cho thuê khu đô thị Sala</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-cho-thue-khu-do-thi-sala-quan-2-tp-thu-duc-tphcm-vlook.vn-02.jpg" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-67550"><span class="title"><a href="https://vlook.vn/duong/cong-vien-phan-mem-quang-trung/">Văn phòng cho thuê khu công viên phần mềm Quang Trung</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/cong-vien-phan-mem-quang-trung-quan-12-vlook.vn-cover.jpg" /></div></a></li>
+	</ul>
+</li>
+	<li class="sub-string sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67451"><a>Văn phòng cho thuê theo chuỗi</a>
+	<ul class="sub-menu">
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67557"><span class="title"><a href="https://vlook.vn/lmak/">L’Mak</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/logo-lmak-vlook.vn-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67595"><span class="title"><a href="https://vlook.vn/zeta/">Zeta</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/logo-zeta-vlook.vn-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67559"><span class="title"><a href="https://vlook.vn/win-home/">Winhome</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-win-home-vlook.vn-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67560"><span class="title"><a href="https://vlook.vn/gic/">GIC</span><div class="menu-description">  <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-gic-vlook.vn_.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67561"><span class="title"><a href="https://vlook.vn/halo/">Halo</span><div class="menu-description">  <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-halo-vlook.vn-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67562"><span class="title"><a href="https://vlook.vn/sabay/">Sabay</span><div class="menu-description">   <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-sabay-vlook.vn-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67563"><span class="title"><a href="https://vlook.vn/moc-gia/">Mộc Gia</span><div class="menu-description">   <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-moc-gia-vlook.vn_-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67564"><span class="title"><a href="https://vlook.vn/vno/">VNO</span><div class="menu-description">    <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-vno-vlook.vn-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67596"><span class="title"><a href="https://vlook.vn/tsa/">TSA</span><div class="menu-description">    <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-tsa-vlook.vn_-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67597"><span class="title"><a href="https://vlook.vn/cityhouse/">City House</span><div class="menu-description">    <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-city-house-vlook.vn_.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67598"><span class="title"><a href="https://vlook.vn/more/">M.O.R.E</span><div class="menu-description">    <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-more-vlook.vn-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67599"><span class="title"><a href="https://vlook.vn/do-dau/">Đỗ Đầu</span><div class="menu-description">     <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-do-dau-vlook.vn_.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-70587"><span class="title"><a href="https://vlook.vn/pax-sky/">Pax Sky</span><div class="menu-description">     <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-pax-sky-vlook.vn_.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67600"><span class="title"><a href="https://vlook.vn/gems/">Gems</span><div class="menu-description">     <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-gems-vlook.vn-1.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67601"><span class="title"><a href="https://vlook.vn/holistay/">Holistay</span><div class="menu-description">      <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-holistay-vlook.vn_.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67602"><span class="title"><a href="https://vlook.vn/pls/">PLS</span><div class="menu-description">      <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-pls-vlook.vn-2.png" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-67603"><span class="title"><a href="https://vlook.vn/bcons/">Bcons</span><div class="menu-description">      <img src="https://vlook.vn/wp-content/uploads/2024/07/logo-bcons-vlook.vn_.png" /></div></a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="listing menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-71028"><a href="/van-phong-tron-goi">Văn phòng trọn gói</a>
+<ul class="sub-menu">
+	<li class="sub-left sub-head menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-71029"><a href="#">Văn phòng trọn gói theo quận</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71033"><a href="https://vlook.vn/van-phong-tron-goi/quan-1/">Quận 1</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71034"><a href="https://vlook.vn/van-phong-tron-goi/quan-2/">Quận 2</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71035"><a href="https://vlook.vn/van-phong-tron-goi/quan-3/">Quận 3</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71036"><a href="https://vlook.vn/van-phong-tron-goi/quan-4/">Quận 4</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71037"><a href="https://vlook.vn/van-phong-tron-goi/quan-5/">Quận 5</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71038"><a href="https://vlook.vn/van-phong-tron-goi/quan-6/">Quận 6</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71039"><a href="https://vlook.vn/van-phong-tron-goi/quan-7/">Quận 7</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71040"><a href="https://vlook.vn/van-phong-tron-goi/quan-8/">Quận 8</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71041"><a href="https://vlook.vn/van-phong-tron-goi/quan-9/">Quận 9</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71042"><a href="https://vlook.vn/van-phong-tron-goi/quan-10/">Quận 10</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71043"><a href="https://vlook.vn/van-phong-tron-goi/quan-11/">Quận 11</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71044"><a href="https://vlook.vn/van-phong-tron-goi/quan-12/">Quận 12</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71045"><a href="https://vlook.vn/van-phong-tron-goi/quan-binh-thanh/">Quận Bình Thạnh</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71046"><a href="https://vlook.vn/van-phong-tron-goi/quan-phu-nhuan/">Quận Phú Nhuận</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71047"><a href="https://vlook.vn/van-phong-tron-goi/quan-go-vap/">Quận Gò Vấp</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71048"><a href="https://vlook.vn/van-phong-tron-goi/quan-tan-binh/">Quận Tân Bình</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71049"><a href="https://vlook.vn/van-phong-tron-goi/quan-tan-phu/">Quận Tân Phú</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71050"><a href="https://vlook.vn/van-phong-tron-goi/quan-thu-duc/">Quận Thủ Đức</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71051"><a href="https://vlook.vn/van-phong-tron-goi/quan-binh-tan/">Quận Bình Tân</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71052"><a href="https://vlook.vn/van-phong-tron-goi/thanh-pho-thu-duc/">Thành phố Thủ Đức</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71053"><a href="https://vlook.vn/van-phong-tron-goi/huyen-nha-be/">Huyện Nhà Bè</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71054"><a href="https://vlook.vn/van-phong-tron-goi/huyen-hoc-mon/">Huyện Hóc Môn</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71055"><a href="https://vlook.vn/van-phong-tron-goi/huyen-can-gio/">Huyện Cần Giờ</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71056"><a href="https://vlook.vn/van-phong-tron-goi/huyen-cu-chi/">Huyện Củ Chi</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71057"><a href="https://vlook.vn/van-phong-tron-goi/huyen-binh-chanh/">Huyện Bình Chánh</a></li>
+	</ul>
+</li>
+	<li class="sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-71030"><a href="#">Dịch vụ văn phòng trọn gói đầy đủ nội thất</a>
+	<ul class="sub-menu">
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-71238"><span class="title"><a href="https://vlook.vn/van-phong-tron-goi-tphcm/">Dịch vụ văn phòng trọn gói • Coworking space TP.HCM</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/10/van-phong-tron-goi-tphcm-vlook.vn-360x360-1.jpg" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-page menu-item-71239"><span class="title"><a href="https://vlook.vn/thi-cong-thiet-ke-noi-that/">Thi công nội thất văn phòng trọn gói. Miễn phí thiết kế 2D, 3D</span><div class="menu-description"><img src=" https://vlook.vn/wp-content/uploads/2024/10/trang-tri-thiet-ke-noi-that-van-phong-mien-phi-2d-3d-vlook.vn-400x400-1.jpg" /></div></a></li>
+	</ul>
+</li>
+	<li class="sub-head hide-mb sub-1-img menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-71058"><a href="#">Văn phòng trọn gói theo chuỗi tại TP.HCM</a>
+	<ul class="sub-menu">
+		<li class="sub-img menu-item menu-item-type-custom menu-item-object-custom menu-item-71059"><span class="title"><a href="#">Văn phòng trọn gói theo chuỗi</span><div class="menu-description"><img src="https://vlook.vn/van-phong-tron-goi/wp-content/uploads/2024/09/logo-van-phong-tron-goi-2.png" /></div></a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="listing menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-67865"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/">Văn phòng ảo</span><div class="menu-description"> </div></a>
+<ul class="sub-menu">
+	<li class="sub-left sub-head menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67866"><a href="#">Cho thuê văn phòng ảo tại các quận</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67870"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-1/">Quận 1</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67874"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-2/">Quận 2</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67875"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-3/">Quận 3</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67876"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-4/">Quận 4</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67877"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-5/">Quận 5</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67878"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-6/">Quận 6</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67879"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-7/">Quận 7</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67880"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-8/">Quận 8</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67881"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-9/">Quận 9</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67871"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-10/">Quận 10</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67872"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-11/">Quận 11</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67873"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-12/">Quận 12</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67883"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-binh-thanh/">Quận Bình Thạnh</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67885"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-phu-nhuan/">Quận Phú Nhuận</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67884"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-go-vap/">Quận Gò Vấp</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67886"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-tan-binh/">Quận Tân Bình</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67887"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-tan-phu/">Quận Tân Phú</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-68163"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-thu-duc/">Quận Thủ Đức</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67882"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/quan-binh-tan/">Quận Bình Tân</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67888"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/thanh-pho-thu-duc/">Thành phố Thủ Đức</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67869"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/huyen-nha-be/">Huyện Nhà Bè</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67868"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/huyen-hoc-mon/">Huyện Hóc Môn</span><div class="menu-description"> </div></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67867"><span class="title"><a href="https://vlook.vn/van-phong-ao-tphcm/huyen-binh-chanh/">Huyện Bình Chánh</span><div class="menu-description"> </div></a></li>
+	</ul>
+</li>
+	<li class="sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67892"><a>Dịch vụ cho thuê văn phòng ảo tại TP.HCM</a>
+	<ul class="sub-menu">
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-post menu-item-67894"><span class="title"><a href="https://vlook.vn/the-nao-la-van-phong-ao/">Văn phòng ảo là gì? Tính pháp lý của việc thuê văn phòng ảo?</span><div class="menu-description">  <img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-ao-la-gi-tinh-phap-ly-cua-van-phong-ao-cover.jpg" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-post_type menu-item-object-post menu-item-67893"><span class="title"><a href="https://vlook.vn/su-dung-van-phong-ao-co-vi-pham-phap-luat-khong/">Sử dụng văn phòng ảo có vi phạm pháp luật không?</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/07/doanh-nghiep-su-dung-van-phong-ao-co-vi-pham-phap-luat-khong-vlook.vn-cover.jpg" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-68101"><span class="title"><a href="https://vlook.vn/officetel-la-gi-giai-dap-moi-van-de-ve-mo-hinh-office-tel-tai-viet-nam/">Officetel là gì?</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/07/officetel-la-gi-vlook.vn-cover.jpg" /></div></a></li>
+		<li class="sub-img2 menu-item menu-item-type-custom menu-item-object-custom menu-item-68102"><span class="title"><a href="https://vlook.vn/van-phong-chia-se-la-gi/">Văn phòng chia sẻ là gì?</span><div class="menu-description"> <img src="https://vlook.vn/wp-content/uploads/2024/07/van-phong-chia-se-la-gi-vlook.vn-cover.jpg" /></div></a></li>
+	</ul>
+</li>
+	<li class="sub-head hide-mb menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-67897"><a href="#">Dịch vụ đăng ký thành lập doanh nghiệp</a>
+	<ul class="sub-menu">
+		<li class="sub-img menu-item menu-item-type-custom menu-item-object-custom menu-item-67896"><span class="title"><a href="https://vlook.vn/dich-vu-thanh-lap-doanh-nghiep/">Dịch vụ thành lập doanh nghiệp • Thay đổi địa chỉ kinh doanh</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/dich-vu-thanh-lap-doanh-nghiep-vlook.vn-01.jpg" /></div></a></li>
+		<li class="sub-img menu-item menu-item-type-custom menu-item-object-custom menu-item-67900"><span class="title"><a href="https://vlook.vn/dich-vu-ke-toan-tron-goi/">Dịch vụ kế toán trọn gói • Báo cáo thuế</span><div class="menu-description"><img src="https://vlook.vn/wp-content/uploads/2024/07/dich-vu-thanh-lap-doanh-nghiep-vlook.vn-02.jpg" /></div></a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68107"><span class="title"><a href="https://vlook.vn/ky-gui-van-phong-cho-thue/">Ký gửi</span><div class="menu-description"> </div></a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-46496"><span class="title"><a href="https://vlook.vn/tin-tuc/">Tin tức</span><div class="menu-description"> </div></a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47126"><span class="title"><a href="https://vlook.vn/chuyen-muc/tin-tuc-noi-bat/">Tin tức nổi bật</span><div class="menu-description">Chuyên trang về thị trường văn phòng cho thuê tại TP.HCM ⭐</div></a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47120"><span class="title"><a href="https://vlook.vn/chuyen-muc/blog/">Bản tin VLOOK</span><div class="menu-description">Bản tin VLOOK – Tổng hợp những thông tin về thị trường văn phòng cho thuê, bất động sản, những thông tin liên quan đến dịch vụ, nội thất, phong thủy văn phòng</div></a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47122"><span class="title"><a href="https://vlook.vn/chuyen-muc/phong-thuy-van-phong/">Phong thủy văn phòng</span><div class="menu-description">Hiểu biết về phong thủy văn phòng có thể giúp chúng ta tự đặt mình vào những vị trí có lợi nhất cho môi trường sống của mình. Việc chọn nơi làm văn phòng cũng như các thiết kế nội thất sẽ ảnh hưởng đến mỗi chúng ta theo chiều hướng tích cực hoặc tiêu cực.</div></a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47124"><span class="title"><a href="https://vlook.vn/chuyen-muc/thi-truong-van-phong-cho-thue/">Thị trường văn phòng cho thuê</span><div class="menu-description">Tổng hợp tin tức về thị trường văn phòng cho thuê Việt Nam. Bên cạnh đấy là những kinh nghiệm và những mẹo giúp khách thuê tìm được văn phòng ưng ý nhất</div></a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47123"><span class="title"><a href="https://vlook.vn/chuyen-muc/thi-truong-bat-dong-san/">Thị trường bất động sản</span><div class="menu-description">Tổng hợp tin tức về thị trường bất động sản trong và ngoài nước</div></a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47121"><span class="title"><a href="https://vlook.vn/chuyen-muc/inspiration/">Những câu chuyện truyền cảm hứng</span><div class="menu-description">“Nếu một ngày kia, khi mà xã hội mình người ta dám hành động thật sự, thay vì chỉ ca thán nhưng lại hùa theo số đông sai trái để yên thân mình, để không bị thiệt thòi, thì may ra mới có một sự thay đổi. Có những câu chuyện cho tôi niềm tin rằng, có những người cũng đã hành động, và tôi muốn chia sẻ câu chuyện này để những người cũng đang muốn hành động cho một sự thay đổi biết rằng, họ không cô đơn. Và tôi gọi những người dám hành động là Những kẻ mộng mơ.” – Phanxine</div></a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47125"><span class="title"><a href="https://vlook.vn/chuyen-muc/thiet-ke-noi-that/">Thiết kế nội thất</span><div class="menu-description">Chuyên trang về nội thất văn phòng, căn hộ, phòng ngủ ✅ Giải thích các khái niệm, thuật ngữ ⭐ Tổng hợp các mẫu thiết kế đẹp – độc – lạ  </div></a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-68923"><span class="title"><a href="https://vlook.vn/chuyen-muc/thu-vien/">Tra cứu thông tin</span><div class="menu-description"><p>Tổng hợp thông tin hữu ích về thị trường cao ốc cho thuê văn phòng tại Sài Gòn, TP.HCM ✅ Tin tức đa dạng ⭐⭐⭐⭐⭐ | Hotline liên hê ☎ 0909.170.387</p>
+</div></a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47127"><span class="title"><a href="https://vlook.vn/chuyen-muc/van-phong-do-day/">Văn phòng đó đây</span><div class="menu-description">Cùng VLOOK điểm qua những văn phòng nổi bật trên thế giới</div></a></li>
+</ul>
+</li>
+</ul>        </div>
+    </div><div id="main" class="main">
+    <section class="section">
+        <div class="container">
+            <div class="error-404 text-center">
+                <h1>404 - Page not found</h1>
+                <a href="https://vlook.vn" class="btn btn-primary">Back to home page</a>
+            </div>
+        </div>
+    </section>
+</div>
+    <section id="section-cta" class="section section-cta">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                
+                <div class="col-md-6">
+                    <div class="box-text text-center">
+                        
+
+                        <div class="b-hotline">
+                            <a rel="nofollow" href="tel:0909170387">
+                                <img src="/wp-content/uploads/2015/03/call-4.png" alt="liên hệ VLOOK">
+                                <div class="hotline">0909.170.387</div>
+                                <div class="hotline-sub">MIỄN PHÍ DỊCH VỤ</div>
+                            </a>
+                        </div>
+
+                        <div class="cta-title">Nhanh chóng tìm được<br>văn phòng phù hợp nhất</div>
+                        <p>Bạn chỉ cần để lại lời nhắn, Vlook sẽ liên hệ hỗ trợ bạn trong thời gian sớm nhất.<p>
+
+                        <a href="#" class="btn btn-secondary has-icon">Đăng ký gọi lại</a>
+                    </div>
+                    <!-- <img class="footer-logo" src="https://vlook.vn/wp-content/themes/newvlook/assets/images/logod.png" alt="VLOOK | Văn Phòng Cho Thuê TP.HCM"> -->
+                </div>
+                <div class="col-md-6">
+                    <div class="cta-box">
+                        <div class="image-box">
+                        <img src="https://vlook.vn/wp-content/themes/newvlook/assets/images/cta.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-primary">
+                    <div class="footer-widget">
+                        <p class="widget-title">VĂN PHÒNG CHO THUÊ <span>VLOOK</span></p>
+                        <div class="widget-content">
+                            <p class="has-icon w-100"><i class="fas fa-map-marker-alt"></i> Indochina Park Tower, 04 Nguyễn Đình Chiểu, Q1, TPHCM</p>
+							<p class="has-icon"><i class="fas fa-phone-office"></i> (028) 22 008 090</p>
+                            <p class="has-icon"><i class="fal fa-phone-alt"></i> Hotline: 0909 170 387</p>
+                            <p class="has-icon"><i class="fal fa-envelope"></i> contact@vlook.vn</p>
+                        </div>
+                        <div class="social">
+                                                                                        <a target="_blank" rel="nofollow" href="https://www.facebook.com/vanphongchothuevlook" class="social-item"><i class="fab fa-facebook"></i></a>
+                                                            <a target="_blank" rel="nofollow" href="https://www.instagram.com/vlookvn/" class="social-item"><i class="fab fa-instagram"></i></a>
+                                                            <a target="_blank" rel="nofollow" href="https://twitter.com/vlookvn" class="social-item"><i class="fab fa-twitter-square"></i></a>
+                                                                                </div>
+                        
+                    </div>
+                    <div class="footer-widget">
+                        <p class="widget-title">Văn phòng</p>
+                        <ul id="footer-menu-1" class="footer-menu"><li id="menu-item-68913" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-68913"><span class="title"><a href="https://vlook.vn/">Văn phòng cho thuê</span><div class="menu-description"> </div></a></li>
+<li id="menu-item-56899" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-56899"><a href="https://vlook.vn/van-phong-ao-tphcm/">Văn phòng ảo TP.HCM</a></li>
+<li id="menu-item-71245" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71245"><a href="https://vlook.vn/van-phong-tron-goi">Văn phòng trọn gói TP.HCM</a></li>
+<li id="menu-item-54333" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-54333"><a href="https://vlook.vn/ky-gui-van-phong-cho-thue/">Ký gửi văn phòng cho thuê</a></li>
+<li id="menu-item-68915" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68915"><span class="title"><a href="https://vlook.vn/dich-vu-thanh-lap-doanh-nghiep/">Thành lập doanh nghiệp</span><div class="menu-description"> </div></a></li>
+<li id="menu-item-68914" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68914"><span class="title"><a href="https://vlook.vn/dich-vu-ke-toan-tron-goi/">Dịch vụ kế toán trọn gói</span><div class="menu-description"> </div></a></li>
+</ul>                    </div>
+
+                    <div class="footer-widget">
+                        <p class="widget-title">Thông tin</p>
+                        <ul id="footer-menu-2" class="footer-menu"><li id="menu-item-71246" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-71246"><a href="https://vlook.vn/thi-cong-thiet-ke-noi-that/">Miễn phí thiết kế văn phòng</a></li>
+<li id="menu-item-54343" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-54343"><a href="https://vlook.vn/about-us/">Về VLOOK</a></li>
+<li id="menu-item-54345" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-54345"><span class="title"><a href="https://vlook.vn/lien-he/">Liên hệ</span><div class="menu-description"> </div></a></li>
+<li id="menu-item-56903" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-56903"><span class="title"><a href="https://vlook.vn/chuyen-muc/tin-tuc-noi-bat/">Tin tức nổi bật</span><div class="menu-description">Chuyên trang về thị trường văn phòng cho thuê tại TP.HCM ⭐</div></a></li>
+<li id="menu-item-56901" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-56901"><span class="title"><a href="https://vlook.vn/chuyen-muc/thi-truong-bat-dong-san/">Thị trường bất động sản</span><div class="menu-description">Tổng hợp tin tức về thị trường bất động sản trong và ngoài nước</div></a></li>
+<li id="menu-item-56902" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-56902"><span class="title"><a href="https://vlook.vn/chuyen-muc/inspiration/">Câu chuyện truyền cảm hứng</span><div class="menu-description">“Nếu một ngày kia, khi mà xã hội mình người ta dám hành động thật sự, thay vì chỉ ca thán nhưng lại hùa theo số đông sai trái để yên thân mình, để không bị thiệt thòi, thì may ra mới có một sự thay đổi. Có những câu chuyện cho tôi niềm tin rằng, có những người cũng đã hành động, và tôi muốn chia sẻ câu chuyện này để những người cũng đang muốn hành động cho một sự thay đổi biết rằng, họ không cô đơn. Và tôi gọi những người dám hành động là Những kẻ mộng mơ.” – Phanxine</div></a></li>
+</ul>                    </div>
+
+                    <div class="footer-widget">
+                        <p class="widget-title">Cẩm nang</p>
+                        <ul id="footer-menu-3" class="footer-menu"><li id="menu-item-56895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-56895"><a href="https://vlook.vn/tin-tuc/">Bản tin VLOOK</a></li>
+<li id="menu-item-54348" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-54348"><span class="title"><a href="https://vlook.vn/chuyen-muc/thi-truong-van-phong-cho-thue/">Thị trường văn phòng cho thuê</span><div class="menu-description">Tổng hợp tin tức về thị trường văn phòng cho thuê Việt Nam. Bên cạnh đấy là những kinh nghiệm và những mẹo giúp khách thuê tìm được văn phòng ưng ý nhất</div></a></li>
+<li id="menu-item-54346" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-54346"><span class="title"><a href="https://vlook.vn/chuyen-muc/phap-ly-bat-dong-san-cho-thue-van-phong/">Pháp lý cho thuê văn phòng</span><div class="menu-description">Chuyên trang về pháp lý ❤️ Cổng thông tin về các vấn đề liên quan đến thủ tục hành chính ✓ pháp lý ✓ hợp đồng mẫu ✓ các giấy tờ liên quan đến vấn đề thuê văn phòng</div></a></li>
+<li id="menu-item-54347" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-54347"><span class="title"><a href="https://vlook.vn/chuyen-muc/phong-thuy-van-phong/">Phong thủy văn phòng</span><div class="menu-description">Hiểu biết về phong thủy văn phòng có thể giúp chúng ta tự đặt mình vào những vị trí có lợi nhất cho môi trường sống của mình. Việc chọn nơi làm văn phòng cũng như các thiết kế nội thất sẽ ảnh hưởng đến mỗi chúng ta theo chiều hướng tích cực hoặc tiêu cực.</div></a></li>
+<li id="menu-item-56896" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-56896"><span class="title"><a href="https://vlook.vn/chuyen-muc/thiet-ke-noi-that/">Thiết kế nội thất</span><div class="menu-description">Chuyên trang về nội thất văn phòng, căn hộ, phòng ngủ ✅ Giải thích các khái niệm, thuật ngữ ⭐ Tổng hợp các mẫu thiết kế đẹp – độc – lạ  </div></a></li>
+</ul>                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        
+    </footer>
+    <div class="bottom-bar">
+        <div class="container">
+            <div class="inner">
+                <div class="info">CÔNG TY TNHH VLOOK<br>GPĐKKD số 0313232986 do Sở KHĐT TP.HCM cấp ngày 27/04/2015.</div>
+                <div class="copyright">
+                    © Văn phòng cho thuê VLOOK ❤️ Since 2014
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        var price_range_min = 0;
+        var price_range_max = 100;
+        var stylesheet_directory_uri = 'https://vlook.vn/wp-content/themes/newvlook';
+    </script>
+    <!-- START SUBIZ PLUGIN 4.5 -->
+<!-- WIDGET SETTINGS: acryqbarfyfvqmfyxwvo 1 -->
+<script>
+!function(s,u,b,i,z){var o,t,r,y;s[i]||(s._sbzaccid=z,s[i]=function(){s[i].q.push(arguments)},s[i].q=[],s[i]("setAccount",z),r=["widget.subiz.net","storage.googleapis"+(t=".com"),"app.sbz.workers.dev",i+"a"+(o=function(k,t){var n=t<=6?5:o(k,t-1)+o(k,t-3);return k!==t?n:n.toString(32)})(20,20)+t,i+"b"+o(30,30)+t,i+"c"+o(40,40)+t],(y=function(k){var t,n;s._subiz_init_2094850928430||r[k]&&(t=u.createElement(b),n=u.getElementsByTagName(b)[0],t.async=1,t.src="https://"+r[k]+"/sbz/app.js?accid="+z,n.parentNode.insertBefore(t,n),setTimeout(y,2e3,k+1))})(0))}(window,document,"script","subiz", "acryqbarfyfvqmfyxwvo")
+</script>
+
+		<style>
+			.wtg-contact-list{}
+			.wtg-contact-list-item{border-radius:50%;width:50px;height:50px;line-height:34px;}
+			.wtg-contact-list-item a{border-radius:50%;}
+			.wtg-contact-list-item img{border-radius:50%;width:50px;}
+		</style><div class="wtg-contact right"><div class="wtg-contact-list"><div class="wtg-contact-list-item phone" title="Gọi ngay 0909170387"><span class="label">Gọi ngay</span><a rel="nofollow" href="tel:0909170387"></a></div><div class="wtg-contact-list-item zalo" title="Chat zalo 0909170387"><span class="label">Chat zalo</span><a rel="nofollow" target="_blank" href="//zalo.me/0909170387"></a></div><div class="wtg-contact-list-item"><span class="label">FB Chat</span>
+<a target="_blank" href="//m.me/vanphongchothuevlook"><img width="110" height="110" src="/wp-content/uploads/2023/12/messenger.png" alt="fb"></a></div></div></div>	<script id="wccp_pro_alert_message">
+	window.addEventListener('DOMContentLoaded', function() {}); //This line to stop JS deffer function in wp-rockt pluign
+	
+	window.addEventListener('load', function (){
+		// Create the first div element with the "oncontextmenu" attribute
+		const wccp_pro_mask = document.createElement('div');
+		wccp_pro_mask.setAttribute('oncontextmenu', 'return false;');
+		wccp_pro_mask.setAttribute('id', 'wccp_pro_mask');
+
+		// Create the second div element with the "msgmsg-box-wpcp hideme" classes
+		const wpcp_error_message = document.createElement('div');
+		wpcp_error_message.setAttribute('id', 'wpcp-error-message');
+		wpcp_error_message.setAttribute('class', 'msgmsg-box-wpcp hideme');
+
+		// Add a span element with the "error: " text inside the second div
+		const error_span = document.createElement('span');
+		error_span.innerText = 'error: ';
+		wpcp_error_message.appendChild(error_span);
+
+		// Add the error message text inside the second div
+		const error_text = document.createTextNode('');
+		wpcp_error_message.appendChild(error_text);
+
+		// Add the div elements to the document body
+		document.body.appendChild(wccp_pro_mask);
+		document.body.appendChild(wpcp_error_message);
+	});
+
+	var timeout_result;
+	function show_wccp_pro_message(smessage="", style="")
+	{
+		wccp_pro_log_to_console_if_allowed("function", "show_wccp_pro_message" + smessage);
+				
+		timeout = 3000;
+		
+		if(style == "") style = "warning-wpcp";
+		
+		if (smessage !== "" && timeout!=0)
+		{
+			var smessage_text = smessage;
+			jquery_fadeTo();
+			document.getElementById("wpcp-error-message").innerHTML = smessage_text;
+			document.getElementById("wpcp-error-message").className = "msgmsg-box-wpcp showme " + style;
+			clearTimeout(timeout_result);
+			timeout_result = setTimeout(hide_message, timeout);
+		}
+		else
+		{
+			clearTimeout(timeout_result);
+			timeout_result = setTimeout(hide_message, timeout);
+		}
+	}
+	function hide_message()
+	{
+		jquery_fadeOut();
+		document.getElementById("wpcp-error-message").className = "msgmsg-box-wpcp warning-wpcp hideme";
+	}
+	function jquery_fadeTo()
+	{
+		try {
+			jQuery("#wccp_pro_mask").fadeTo("slow", 0.3);
+		}
+		catch(err) {
+			//alert(err.message);
+			}
+	}
+	function jquery_fadeOut()
+	{
+		try {
+			jQuery("#wccp_pro_mask").fadeOut( "slow" );
+		}
+		catch(err) {}
+	}
+	</script>
+	<style>
+	#wccp_pro_mask
+	{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+		background-color: #000;
+		pointer-events: none;
+		display: none;
+		z-index: 10000;
+		animation: 0.5s ease 0s normal none 1 running ngdialog-fadein;
+		background: rgba(0, 0, 0, 0.4) none repeat scroll 0 0;
+	}
+	#wpcp-error-message {
+	    direction: ltr;
+	    text-align: center;
+	    transition: opacity 900ms ease 0s;
+		pointer-events: none;
+	    z-index: 99999999;
+	}
+	.hideme {
+    	opacity:0;
+    	visibility: hidden;
+	}
+	.showme {
+    	opacity:1;
+    	visibility: visible;
+	}
+	.msgmsg-box-wpcp {
+		border-radius: 10px;
+		color: #555555;
+		font-family: Tahoma;
+		font-size: 12px;
+		margin: 10px;
+		padding: 10px 36px;
+		position: fixed;
+		width: 255px;
+		top: 50%;
+  		left: 50%;
+  		margin-top: -10px;
+  		margin-left: -130px;
+	}
+	.msgmsg-box-wpcp b {
+		font-weight:bold;
+		text-transform:uppercase;
+	}
+		.warning-wpcp {
+		background:#ffecec url('https://vlook.vn/wp-content/plugins/wccp-pro/images/warning.png') no-repeat 10px 50%;
+		border:1px solid #f2bfbf;
+		-webkit-box-shadow: 0px 0px 34px 2px #f2bfbf;
+		-moz-box-shadow: 0px 0px 34px 2px #f2bfbf;
+		box-shadow: 0px 0px 34px 2px #f2bfbf;
+	}
+	.success-wpcp {
+		background: #fafafa url('https://vlook.vn/wp-content/plugins/wccp-pro/images/success.png') no-repeat 10px 50%;
+		border: 1px solid #00b38f;
+		box-shadow: 0px 0px 34px 2px #adc;
+	}
+    </style>
+			<script type='text/javascript'>
+				const lazyloadRunObserver = () => {
+					const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
+					const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
+						entries.forEach( ( entry ) => {
+							if ( entry.isIntersecting ) {
+								let lazyloadBackground = entry.target;
+								if( lazyloadBackground ) {
+									lazyloadBackground.classList.add( 'e-lazyloaded' );
+								}
+								lazyloadBackgroundObserver.unobserve( entry.target );
+							}
+						});
+					}, { rootMargin: '200px 0px 200px 0px' } );
+					lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
+						lazyloadBackgroundObserver.observe( lazyloadBackground );
+					} );
+				};
+				const events = [
+					'DOMContentLoaded',
+					'elementor/lazyload/observe',
+				];
+				events.forEach( ( event ) => {
+					document.addEventListener( event, lazyloadRunObserver );
+				} );
+			</script>
+			<script type="text/javascript" id="kk-star-ratings-js-extra">
+/* <![CDATA[ */
+var kk_star_ratings = {"action":"kk-star-ratings","endpoint":"https:\/\/vlook.vn\/wp-admin\/admin-ajax.php","nonce":"5be3ff3fd5"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/kk-star-ratings/src/core/public/js/kk-star-ratings.min.js?ver=5.4.8" id="kk-star-ratings-js"></script>
+<script type="text/javascript" id="realdev-author-for-seo-js-extra">
+/* <![CDATA[ */
+var readMoreLess = {"expand":"Xem th\u00eam","collapse":"R\u00fat g\u1ecdn"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/realdev-author-for-seo/public/js/realdev-author-for-seo-public.js?ver=1.0.0" id="realdev-author-for-seo-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/wtg-contact-media/assets/js/app.js?ver=0.1.1" id="wtg-contact-js"></script>
+<script type="text/javascript" id="rocket-browser-checker-js-after">
+/* <![CDATA[ */
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+/* ]]> */
+</script>
+<script type="text/javascript" id="rocket-preload-links-js-extra">
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/(index.php\/)?(.*)wp-json(\/.*|$)|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/vlook.vn","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="rocket-preload-links-js-after">
+/* <![CDATA[ */
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/jet-popup/assets/js/lib/jet-plugins/jet-plugins.js?ver=2.0.7" id="jet-plugins-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/jet-popup/assets/js/lib/anime-js/anime.min.js?ver=2.0.2" id="jet-anime-js-js"></script>
+<script type="text/javascript" id="jet-popup-frontend-js-extra">
+/* <![CDATA[ */
+var jetPopupData = {"version":"2.0.7","ajax_url":"https:\/\/vlook.vn\/wp-admin\/admin-ajax.php","isElementor":"true"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/jet-popup/assets/js/jet-popup-frontend.js?ver=2.0.7" id="jet-popup-frontend-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/js/dflip.min.js?ver=2.3.42" id="dflip-script-js"></script>
+<script type="text/javascript" id="wccp_pro_admin_bar_ajax-js-extra">
+/* <![CDATA[ */
+var ajax_object = {"ajaxurl":"https:\/\/vlook.vn\/wp-admin\/admin-ajax.php","link":"https:\/\/vlook.vn\/wp-content\/plugins\/wtg-contact-media\/assets\/images\/du-toan.png"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/wccp-pro/js/admin_bar_ajax.js?ver=6.6.2" id="wccp_pro_admin_bar_ajax-js"></script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?render=6LdfeT8pAAAAAEE0Qgiz2F_TtjNhGSxay5nYfdmj&amp;ver=3.0" id="google-recaptcha-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0" id="wp-polyfill-js"></script>
+<script type="text/javascript" id="wpcf7-recaptcha-js-extra">
+/* <![CDATA[ */
+var wpcf7_recaptcha = {"sitekey":"6LdfeT8pAAAAAEE0Qgiz2F_TtjNhGSxay5nYfdmj","actions":{"homepage":"homepage","contactform":"contactform"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/contact-form-7/modules/recaptcha/index.js?ver=5.9.8" id="wpcf7-recaptcha-js"></script>
+<script type="text/javascript" id="eael-general-js-extra">
+/* <![CDATA[ */
+var localize = {"ajaxurl":"https:\/\/vlook.vn\/wp-admin\/admin-ajax.php","nonce":"7fec9bbef1","i18n":{"added":"Added ","compare":"Compare","loading":"Loading..."},"eael_translate_text":{"required_text":"is a required field","invalid_text":"Invalid","billing_text":"Billing","shipping_text":"Shipping","fg_mfp_counter_text":"of"},"page_permalink":"https:\/\/vlook.vn\/danh-sach-cong-ty-thue-van-phong-tai-vietphone-hoang-van-thu-quan-phu-nhuan\/","cart_redirectition":"","cart_page_url":"","el_breakpoints":{"mobile":{"label":"Ch\u1ebf \u0111\u1ed9 d\u1ecdc di \u0111\u1ed9ng","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Ch\u1ebf \u0111\u1ed9 ngang di \u0111\u1ed9ng","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet D\u1ecdc","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Ngang","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Trang r\u1ed9ng","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"ParticleThemesData":{"default":"{\"particles\":{\"number\":{\"value\":160,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":false,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":true,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":6,\"direction\":\"none\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"repulse\"},\"onclick\":{\"enable\":true,\"mode\":\"push\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","nasa":"{\"particles\":{\"number\":{\"value\":250,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":1,\"random\":true,\"anim\":{\"enable\":true,\"speed\":1,\"opacity_min\":0,\"sync\":false}},\"size\":{\"value\":3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":4,\"size_min\":0.3,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":1,\"direction\":\"none\",\"random\":true,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":600}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"bubble\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":250,\"size\":0,\"duration\":2,\"opacity\":0,\"speed\":3},\"repulse\":{\"distance\":400,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","bubble":"{\"particles\":{\"number\":{\"value\":15,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#1b1e34\"},\"shape\":{\"type\":\"polygon\",\"stroke\":{\"width\":0,\"color\":\"#000\"},\"polygon\":{\"nb_sides\":6},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.3,\"random\":true,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":50,\"random\":false,\"anim\":{\"enable\":true,\"speed\":10,\"size_min\":40,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":200,\"color\":\"#ffffff\",\"opacity\":1,\"width\":2},\"move\":{\"enable\":true,\"speed\":8,\"direction\":\"none\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":false,\"mode\":\"grab\"},\"onclick\":{\"enable\":false,\"mode\":\"push\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","snow":"{\"particles\":{\"number\":{\"value\":450,\"density\":{\"enable\":true,\"value_area\":800}},\"color\":{\"value\":\"#fff\"},\"shape\":{\"type\":\"circle\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"img\/github.svg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":true,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":5,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":500,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":2},\"move\":{\"enable\":true,\"speed\":6,\"direction\":\"bottom\",\"random\":false,\"straight\":false,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":true,\"mode\":\"bubble\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":400,\"line_linked\":{\"opacity\":0.5}},\"bubble\":{\"distance\":400,\"size\":4,\"duration\":0.3,\"opacity\":1,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}","nyan_cat":"{\"particles\":{\"number\":{\"value\":150,\"density\":{\"enable\":false,\"value_area\":800}},\"color\":{\"value\":\"#ffffff\"},\"shape\":{\"type\":\"star\",\"stroke\":{\"width\":0,\"color\":\"#000000\"},\"polygon\":{\"nb_sides\":5},\"image\":{\"src\":\"http:\/\/wiki.lexisnexis.com\/academic\/images\/f\/fb\/Itunes_podcast_icon_300.jpg\",\"width\":100,\"height\":100}},\"opacity\":{\"value\":0.5,\"random\":false,\"anim\":{\"enable\":false,\"speed\":1,\"opacity_min\":0.1,\"sync\":false}},\"size\":{\"value\":4,\"random\":true,\"anim\":{\"enable\":false,\"speed\":40,\"size_min\":0.1,\"sync\":false}},\"line_linked\":{\"enable\":false,\"distance\":150,\"color\":\"#ffffff\",\"opacity\":0.4,\"width\":1},\"move\":{\"enable\":true,\"speed\":14,\"direction\":\"left\",\"random\":false,\"straight\":true,\"out_mode\":\"out\",\"bounce\":false,\"attract\":{\"enable\":false,\"rotateX\":600,\"rotateY\":1200}}},\"interactivity\":{\"detect_on\":\"canvas\",\"events\":{\"onhover\":{\"enable\":false,\"mode\":\"grab\"},\"onclick\":{\"enable\":true,\"mode\":\"repulse\"},\"resize\":true},\"modes\":{\"grab\":{\"distance\":200,\"line_linked\":{\"opacity\":1}},\"bubble\":{\"distance\":400,\"size\":40,\"duration\":2,\"opacity\":8,\"speed\":3},\"repulse\":{\"distance\":200,\"duration\":0.4},\"push\":{\"particles_nb\":4},\"remove\":{\"particles_nb\":2}}},\"retina_detect\":true}"},"eael_login_nonce":"c9755b2e0c","eael_register_nonce":"9b05ac3f43","eael_lostpassword_nonce":"b962737c11","eael_resetpassword_nonce":"f431c3dbbb"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/plugins/essential-addons-for-elementor-lite/assets/front-end/js/view/general.min.js?ver=6.0.7" id="eael-general-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/themes/newvlook/assets/bootstrap/js/bootstrap.min.js?ver=5.0.2" id="bootstrap-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/themes/newvlook/assets/slick/slick.min.js?ver=1.8.1" id="slick-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/themes/newvlook/assets/mfp-lightbox/jquery.magnific-popup.min.js?ver=5.0.2" id="mfp-lightbox-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/themes/newvlook/assets/aos/aos.js?ver=1.0" id="aos-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/themes/newvlook/assets/nouislider/jquery.nouislider.all.min.js?ver=0.1.2" id="nouislider-js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBm_9HTxRSPtvQHM9LErCBff8sZZQ--4lM&amp;libraries=geometry%2Cplaces&amp;ver=1.0.1" id="maps-js"></script>
+<script type="text/javascript" src="https://vlook.vn/wp-content/themes/newvlook/assets/js/app.js?ver=1.0" id="script-js"></script>
+<script data-cfasync="false"> var dFlipLocation = "https://vlook.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/"; var dFlipWPGlobal = {"text":{"toggleSound":"Turn on\/off Sound","toggleThumbnails":"Toggle Thumbnails","toggleOutline":"Toggle Outline\/Bookmark","previousPage":"Previous Page","nextPage":"Next Page","toggleFullscreen":"Toggle Fullscreen","zoomIn":"Zoom In","zoomOut":"Zoom Out","toggleHelp":"Toggle Help","singlePageMode":"Single Page Mode","doublePageMode":"Double Page Mode","downloadPDFFile":"Download PDF File","gotoFirstPage":"Goto First Page","gotoLastPage":"Goto Last Page","share":"Share","mailSubject":"I wanted you to see this FlipBook","mailBody":"Check out this site {{url}}","loading":"DearFlip: Loading "},"viewerType":"flipbook","moreControls":"download,pageMode,startPage,endPage,sound","hideControls":"","scrollWheel":"false","backgroundColor":"#777","backgroundImage":"","height":"auto","paddingLeft":"20","paddingRight":"20","controlsPosition":"bottom","duration":800,"soundEnable":"true","enableDownload":"true","showSearchControl":"false","showPrintControl":"false","enableAnnotation":false,"enableAnalytics":"false","webgl":"true","hard":"none","maxTextureSize":"1600","rangeChunkSize":"524288","zoomRatio":1.5,"stiffness":3,"pageMode":"0","singlePageMode":"0","pageSize":"0","autoPlay":"false","autoPlayDuration":5000,"autoPlayStart":"false","linkTarget":"2","sharePrefix":"flipbook-"};</script></body>
+</html>

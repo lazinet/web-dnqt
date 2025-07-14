@@ -1,0 +1,10 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path 
+    d="M70.6131 1.85419L25.9368 12.3648C8.20647 16.536 -2.52185 33.5307 2.02922 50.2837L22.099 124.162L22.5915 124.047C20.9747 106.109 36.7842 83.2956 67.0384 76.178L89.3766 70.9227C107.107 66.7515 117.844 49.7907 113.293 33.037L111.013 24.6442C106.461 7.89115 88.3431 -2.31697 70.6131 1.85419Z" 
+    fill="#EE0033" 
+    transform="translate(175, 155) scale(6.4)" 
+  />
+   <text x="532" y="462" font-family="Arial, sans-serif" font-size="200" fill="white" text-anchor="middle" alignment-baseline="middle">
+    AMS
+  </text>
+</svg>
