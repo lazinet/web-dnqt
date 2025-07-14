@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://script.google.com">
+  <!-- Favicons -->
+  <link href="/assets/img/lazinet_LogoOnly.png" rel="icon">
+  <link href="/assets/img/lazinet_LogoOnly.png" rel="apple-touch-icon">
+  <title>INTERNATIONAL KIM LONG DAI A CORPORATION: PRODUCT CATEGORIES</title>
+  <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <style>
+    body {
+      background-color: #E6ECF5;
+      color: #0A3161;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+    }
+    .container {
+      width: 100%;
+      padding: 0 0.25rem;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #FFFFFF;
+      color: #0A3161;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid #0A3161;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      width: 95%;
+      max-width: 600px;
+      padding: 1rem;
+    }
+    .popup.active {
+      display: block;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    .overlay.active {
+      display: block;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+    }
+    table {
+      background-color: #FFFFFF;
+      color: #0A3161;
+      table-layout: fixed;
+      width: 100%;
+      min-width: 500px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #0A3161;
+      padding: 6px;
+      text-align: left;
+      font-size: clamp(0.75rem, 1vw, 0.9rem);
+    }
+    th {
+      background-color: #0A3161;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: clamp(0.8rem, 1.1vw, 1rem);
+    }
+    .image-cell {
+      /* display: flex; cần bật để align hoạt động */
+      justify-content: center; /* căn giữa theo chiều ngang */
+      align-items: center;     /* căn giữa theo chiều dọc */
+      text-align: center;
+      height: 100%;
+      padding: 2px;
+      max-width: 8vw;
+      /* border: none; */
+    }
+
+    .table-img {
+      max-width: 60px;
+      max-height: 60px;
+      object-fit: contain;
+      border: none;
+      border-radius: 4px;
+    }
+    .popup-img {
+      width: 100%;
+      /* max-height: 300px; */
+      object-fit: contain;
+      margin: 0 auto;
+      display: block;
+    }
+    .hover\:bg-red-700:hover {
+      background-color: #B31942;
+      color: #FFFFFF;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .pagination button, .pagination select {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid #0A3161;
+      border-radius: 4px;
+      background-color: white;
+      cursor: pointer;
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+    }
+    .pagination button.active {
+      background-color: #0A3161;
+      color: white;
+    }
+    .pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .error-message {
+      color: #B31942;
+      text-align: center;
+      margin: 1rem 0;
+      font-weight: bold;
+      font-size: clamp(0.8rem, 1vw, 0.9rem);
+    }
+    .rating-display {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+    }
+    .rating-star {
+      font-size: clamp(0.8rem, 1vw, 0.9rem);
+      color: #f59e0b;
+    }
+    .origin-filter-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .origin-all {
+      width: 100%;
+      padding: 0.5rem;
+      background-color: #0A3161;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      text-align: center;
+      font-size: clamp(0.8rem, 1vw, 0.9rem);
+    }
+    .origin-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .origin-option {
+      flex: 1;
+      min-width: 100px;
+      padding: 0.4rem;
+      background-color: #A3C4F3;
+      color: #0A3161;
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      text-align: center;
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+    }
+    .origin-option.active {
+      background-color: #0A3161;
+      color: white;
+    }
+    .category-filter-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .category-all {
+      width: 100%;
+      padding: 0.5rem;
+      background-color: #B31942;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      text-align: center;
+      font-size: clamp(0.8rem, 1vw, 0.9rem);
+    }
+    .category-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .category-option {
+      flex: 1;
+      min-width: 100px;
+      padding: 0.4rem;
+      background-color: #F4A4B3;
+      color: #B31942;
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      text-align: center;
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+    }
+    .category-option.active {
+      background-color: #B31942;
+      color: white;
+    }
+    .search-container {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .search-input {
+      flex: 1;
+      padding: 0.4rem;
+      border: 1px solid #0A3161;
+      border-radius: 4px;
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+    }
+    .search-button {
+      padding: 0.4rem 0.8rem;
+      background-color: #0A3161;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+    }
+    .barcode-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .barcode-svg {
+      /* height: 28px;
+      max-width: 150px; */
+      width: 100%;
+      /* min-width: 150px; */
+    }
+    #popup-barcode {
+      transform: scale(1.5);
+      transform-origin: top left;
+    }
+    .barcode-number {
+      white-space: nowrap;
+      font-size: clamp(0.75rem, 1vw, 0.95rem);
+    }
+    .barcode-number-large {
+      white-space: nowrap;
+      font-size: clamp(0.8rem, 1vw, 0.9rem);
+    }
+    #popup-details table {
+      table-layout: auto;
+      width: 100%;
+      margin: 0 auto;
+    }
+    #popup-details td:first-child {
+      width: auto;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    #popup-details td:nth-child(2) {
+      padding: 0.5rem;
+      word-break: break-word;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      .origin-option, .category-option {
+        flex: 1 0 calc(50% - 0.5rem);
+      }
+      th, td {
+        padding: 4px;
+      }
+      .table-img {
+        max-width: 50px;
+        max-height: 50px;
+      }
+      /* .barcode-svg {
+        height: 24px;
+      } */
+      th:nth-child(8), td:nth-child(8),
+      th:nth-child(9), td:nth-child(9),
+      th:nth-child(10), td:nth-child(10) {
+        display: none;
+      }
+      table {
+        min-width: 500px;
+      }
+    }
+    @media (max-width: 480px) {
+      .origin-option, .category-option {
+        flex: 1 0 100%;
+      }
+      .search-container {
+        flex-direction: column;
+      }
+      .search-button {
+        width: 100%;
+      }
+      .popup {
+        padding: 0.75rem;
+        width: 98%;
+      }
+      /* .popup-img {
+        max-height: 200px;
+      } */
+      h1 {
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+      }
+    }
+    @media (max-width: 320px) {
+      .pagination button, .pagination select {
+        padding: 0.2rem 0.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div style="padding: 1vw">
+    <h1 class="text-center font-bold mb-4 text-[#0A3161]">INTERNATIONAL KIM LONG DAI A CORPORATION: PRODUCT CATEGORIES</h1>
+    <div id="origin-filters" class="origin-filter-row">
+      <button id="all-origins" class="origin-all">All Origins</button>
+      <div id="origin-options" class="origin-options"></div>
+    </div>
+    <div id="category-filters" class="category-filter-row">
+      <button id="all-categories" class="category-all">All Categories</button>
+      <div id="category-options" class="category-options"></div>
+    </div>
+    <div class="search-container">
+      <input type="text" id="search-input" class="search-input" placeholder="Search by product name...">
+      <button id="search-button" class="search-button">Search</button>
+    </div>
+    <div id="tab-contents" class="mt-2">
+      <div class="table-wrapper"></div>
+      <div id="pagination-container" class="pagination-container"></div>
+    </div>
+    <div id="popup-overlay" class="overlay"></div>
+    <div id="popup" class="popup">
+      <button id="close-popup" class="absolute top-1 right-1 text-[#B31942] font-bold text-lg">×</button>
+      <h2 id="popup-title" class="font-bold mb-2 text-lg"></h2>
+      <div id="rating-display" class="rating-display"></div>
+      <img id="popup-image" class="popup-img mb-2" src="" alt="Product Image" style="display: none;">
+      <div id="popup-details" class="space-y-1">
+        <table style="width: 100%; min-width: 200px;">
+          <tbody id="popup-details-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxhxNuS-jp70oyke_nwsEKlueIQorpNbnggL6pZ1w5SLXE6sDtU8rIsxrrBNoIKFkw6iA/exec';
+    let allProducts = [];
+    let filteredProducts = [];
+    let currentProductIndex = -1;
+    let paginationConfig = {
+      currentPage: 1,
+      itemsPerPage: 10,
+      itemsPerPageOptions: [10, 20, 30, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000]
+    };
+    let currentFilters = {
+      origin: null,
+      category: null,
+      search: null
+    };
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        await loadProducts();
+        setupEventListeners();
+      } catch (error) {
+        showError('Failed to initialize application: ' + error.message);
+      }
+    });
+    async function loadProducts() {
+      try {
+        const response = await fetch(`${API_URL}?action=getProducts`);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        if (data.error) throw new Error(data.error);
+        allProducts = Array.isArray(data) ? data : [];
+        filteredProducts = [...allProducts];
+        initializeFilters();
+        displayProducts();
+      } catch (error) {
+        console.error('Error loading products:', error);
+        showError('Error loading products: ' + error.message);
+      }
+    }
+    function initializeFilters() {
+      const origins = [...new Set(allProducts.map(p => p.origin || 'Unknown'))];
+      const originOptions = document.getElementById('origin-options');
+      origins.forEach(origin => {
+        const button = document.createElement('button');
+        button.className = 'origin-option';
+        button.textContent = origin;
+        button.onclick = () => {
+          currentFilters.origin = origin;
+          updateActiveFilterButtons();
+          applyFilters();
+        };
+        originOptions.appendChild(button);
+      });
+      const categories = [...new Set(allProducts.map(p => p.category || 'Unknown'))];
+      const categoryOptions = document.getElementById('category-options');
+      categories.forEach(category => {
+        const button = document.createElement('button');
+        button.className = 'category-option';
+        button.textContent = category;
+        button.onclick = () => {
+          currentFilters.category = category;
+          updateActiveFilterButtons();
+          applyFilters();
+        };
+        categoryOptions.appendChild(button);
+      });
+      document.getElementById('all-origins').onclick = () => {
+        currentFilters.origin = null;
+        updateActiveFilterButtons();
+        applyFilters();
+      };
+      document.getElementById('all-categories').onclick = () => {
+        currentFilters.category = null;
+        updateActiveFilterButtons();
+        applyFilters();
+      };
+    }
+    function updateActiveFilterButtons() {
+      const originOptions = document.querySelectorAll('.origin-option');
+      originOptions.forEach(button => {
+        button.className = button.textContent === currentFilters.origin ? 'origin-option active' : 'origin-option';
+      });
+      const categoryOptions = document.querySelectorAll('.category-option');
+      categoryOptions.forEach(button => {
+        button.className = button.textContent === currentFilters.category ? 'category-option active' : 'category-option';
+      });
+    }
+    function applyFilters() {
+      filteredProducts = [...allProducts];
+      if (currentFilters.origin) {
+        filteredProducts = filteredProducts.filter(p => (p.origin || 'Unknown') === currentFilters.origin);
+      }
+      if (currentFilters.category) {
+        filteredProducts = filteredProducts.filter(p => (p.category || 'Unknown') === currentFilters.category);
+      }
+      if (currentFilters.search) {
+        const searchTerm = currentFilters.search.toLowerCase();
+        filteredProducts = filteredProducts.filter(p => p.product_name && p.product_name.toLowerCase().includes(searchTerm));
+      }
+      paginationConfig.currentPage = 1;
+      displayProducts();
+    }
+    function displayProducts() {
+      const tableWrapper = document.querySelector('.table-wrapper');
+      const paginationContainer = document.getElementById('pagination-container');
+      tableWrapper.innerHTML = '';
+      paginationContainer.innerHTML = '';
+      if (filteredProducts.length === 0) {
+        tableWrapper.innerHTML = '<p class="text-center py-4">No products found matching your criteria</p>';
+        return;
+      }
+      const totalPages = Math.ceil(filteredProducts.length / paginationConfig.itemsPerPage);
+      const startIndex = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage;
+      const endIndex = Math.min(startIndex + paginationConfig.itemsPerPage, filteredProducts.length);
+      const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+      renderTable(tableWrapper, paginatedProducts);
+      renderPagination(paginationContainer, filteredProducts.length, totalPages);
+    }
+    function renderTable(container, products) {
+      const table = document.createElement('table');
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th style="width: 5%">ID</th>
+            <th style="width: 8%">Image</th>
+            <th style="width: 8%">Code</th>
+            <th style="width: 12%">Name</th>
+            <th style="width: 9%">Category</th>
+            <th style="width: 7%">Weight</th>
+            <th style="width: 7%">Case Qty</th>
+            <th style="width: 7%">Unit Price</th>
+            <th style="width: 7%">Case Price</th>
+            <th style="width: 7%">Case Stock</th>
+            <th style="width: 8%">Origin</th>
+            <th style="min-width: 150px;">Barcode</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${products.map(product => `
+            <tr class="hover:bg-red-700 cursor-pointer" onclick="showProductDetail(${allProducts.indexOf(product)})">
+              <td class="text-center">${product.id || '-'}</td>
+              <td class="image-cell">
+                ${product.image_url ? `<img src="${product.image_url}" alt="${product.product_name}" class="table-img" style="max-height: 100%; max-width: 100%;" onerror="this.style.display='none'">` : 'No Image'}
+              </td>
+              <td>${product.product_code || '-'}</td>
+              <td>${product.product_name || '-'}</td>
+              <td>${product.category || '-'}</td>
+              <td>${product.net_weight || '-'}</td>
+              <td>${product.case_quantity || '-'}</td>
+              <td>${product.unit_price || '-'}</td>
+              <td>${product.case_price || '-'}</td>
+              <td>${product.case_stock || '-'}</td>
+              <td>${product.origin || '-'}</td>
+              <td class="text-left">
+                ${product.barcode ? `
+                <div class="barcode-container">
+                <svg class="barcode-svg" id="barcode-${product.id}"></svg>
+                <span class="barcode-number">${product.barcode}</span>
+                </div>
+                ` : '-'}
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      `;
+      container.appendChild(table);
+      products.forEach(product => {
+        if (product.barcode) {
+          try {
+            JsBarcode(`#barcode-${product.id}`, product.barcode, {
+              format: "CODE128",
+              lineColor: "#0A3161",
+              width: 1,
+              height: 28,
+              displayValue: false
+            });
+          } catch (e) {
+            console.error("Barcode generation error:", e);
+          }
+        }
+      });
+    }
+    function renderPagination(container, totalItems, totalPages) {
+      const paginationDiv = document.createElement('div');
+      paginationDiv.className = 'pagination';
+      const select = document.createElement('select');
+      select.className = 'mr-4';
+        // Áp dụng độ rộng
+      select.style.width = '120px';
+      select.innerHTML = paginationConfig.itemsPerPageOptions.map(option => 
+        `<option value="${option}" ${option === paginationConfig.itemsPerPage ? 'selected' : ''}>${option} per page</option>`
+      ).join('');
+      select.addEventListener('change', (e) => {
+        paginationConfig.itemsPerPage = parseInt(e.target.value);
+        paginationConfig.currentPage = 1;
+        displayProducts();
+      });
+      const prevButton = document.createElement('button');
+      prevButton.textContent = 'Previous';
+      prevButton.disabled = paginationConfig.currentPage === 1;
+      prevButton.addEventListener('click', () => {
+        if (paginationConfig.currentPage > 1) {
+          paginationConfig.currentPage--;
+          displayProducts();
+        }
+      });
+      const pageButtons = [];
+      const startPage = Math.max(1, paginationConfig.currentPage - 1);
+      const endPage = Math.min(totalPages, paginationConfig.currentPage + 1);
+      for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.className = i === paginationConfig.currentPage ? 'active' : '';
+        pageButton.addEventListener('click', () => {
+          paginationConfig.currentPage = i;
+          displayProducts();
+        });
+        pageButtons.push(pageButton);
+      }
+      const nextButton = document.createElement('button');
+      nextButton.textContent = 'Next';
+      nextButton.disabled = paginationConfig.currentPage === totalPages;
+      nextButton.addEventListener('click', () => {
+        if (paginationConfig.currentPage < totalPages) {
+          paginationConfig.currentPage++;
+          displayProducts();
+        }
+      });
+      const infoText = document.createElement('span');
+      const startItem = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage + 1;
+      const endItem = Math.min(paginationConfig.currentPage * paginationConfig.itemsPerPage, totalItems);
+      infoText.textContent = `Showing ${startItem}-${endItem} of ${totalItems}`;
+      infoText.className = 'ml-4';
+      paginationDiv.appendChild(select);
+      paginationDiv.appendChild(prevButton);
+      pageButtons.forEach(button => paginationDiv.appendChild(button));
+      paginationDiv.appendChild(nextButton);
+      paginationDiv.appendChild(infoText);
+      container.appendChild(paginationDiv);
+    }
+    function showProductDetail(index) {
+      currentProductIndex = index;
+      const product = allProducts[index];
+      const popup = document.getElementById('popup');
+      const overlay = document.getElementById('popup-overlay');
+      const popupTitle = document.getElementById('popup-title');
+      const popupImage = document.getElementById('popup-image');
+      const popupDetailsTable = document.getElementById('popup-details-table');
+      const ratingDisplay = document.getElementById('rating-display');
+      popupTitle.textContent = product.product_name || 'Unknown Product';
+      popupImage.src = product.image_url || '';
+      popupImage.style.display = product.image_url ? 'block' : 'none';
+      const averageRating = parseFloat(product.average_rating) || 0;
+      const totalRatingCount = parseInt(product.total_rating_count) || 0;
+      ratingDisplay.innerHTML = `
+        <span>${averageRating.toFixed(1)}</span>
+        ${[...Array(5)].map((_, i) => `
+          <span class="rating-star">${i < Math.round(averageRating) ? '★' : '☆'}</span>
+        `).join('')}
+        <span>(${totalRatingCount} reviews)</span>
+      `;
+      popupDetailsTable.innerHTML = Object.entries(product)
+        // .filter(([key, value]) => value !== undefined && value !== '' && !['id', 'image_url', 'product_name'].includes(key))
+        .filter(([key, value]) => value !== undefined && value !== '' && !['id', 'image_url'].includes(key))
+        .map(([key, value]) => {
+          if (key === 'barcode' && value) {
+            return `
+              <tr>
+                <td class="font-medium py-1">${formatKey(key)}</td>
+                <td class="py-1">
+                  <div class="barcode-container">
+                    <svg class="barcode-svg" id="popup-barcode"></svg>
+                    <span class="barcode-number-large">${value}</span>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }
+          return `
+            <tr>
+              <td class="font-medium py-1">${formatKey(key)}</td>
+              <td class="py-1">${formatValue(value)}</td>
+            </tr>
+          `;
+        }).join('');
+      if (product.barcode) {
+        try {
+          JsBarcode('#popup-barcode', product.barcode, {
+            format: "CODE128",
+            lineColor: "#0A3161",
+            width: 1,
+            height: 28,
+            displayValue: false
+          });
+        } catch (e) {
+          console.error("Barcode generation error:", e);
+        }
+      }
+      popup.className = 'popup active';
+      overlay.className = 'overlay active';
+    }
+    function formatKey(key) {
+      return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+    function formatValue(value) {
+      if (typeof value === 'string' && value.match(/^https?:\/\//)) {
+        return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">Link</a>`;
+      }
+      return value || '-';
+    }
+    function closePopup() {
+      document.getElementById('popup').className = 'popup';
+      document.getElementById('popup-overlay').className = 'overlay';
+      currentProductIndex = -1;
+    }
+    function showError(message) {
+      const tabContents = document.getElementById('tab-contents');
+      tabContents.innerHTML = `<div class="error-message">${message}</div>`;
+    }
+    function setupEventListeners() {
+      document.getElementById('close-popup').addEventListener('click', closePopup);
+      document.getElementById('popup-overlay').addEventListener('click', closePopup);
+      document.getElementById('search-button').addEventListener('click', () => {
+        const searchTerm = document.getElementById('search-input').value.trim();
+        currentFilters.search = searchTerm || null;
+        applyFilters();
+      });
+      document.getElementById('search-input').addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+          const searchTerm = document.getElementById('search-input').value.trim();
+          currentFilters.search = searchTerm || null;
+          applyFilters();
+        }
+      });
+      window.showProductDetail = showProductDetail;
+    }
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c9274708cfbcaa',t:'MTc0NjcwOTM2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93cd407afb19adf4',t:'MTc0Njc1MjM0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
