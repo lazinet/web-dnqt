@@ -792,16 +792,16 @@
             <button class="add-to-calendar-btn" id="addToCalendarBtn">Thêm vào lịch</button>
             <div class="atcb" id="addToCalendarConfig" style="display:none;">
                 {
-                "name":"HỌP BAN ĐIỀU HÀNH: v/v Thành lập CLB Doanh Nhân QUẢNG TRỊ",
-                "description":"CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\n\nĐịa điểm: Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Q1.\n\nLiên hệ:\n- Mr. Lê Minh Phụng: 0901494666\n- Ls. Lê Viết Kỳ: 0964037746",
-                "startDate":"2025-06-14",
-                "endDate":"2025-06-14",
-                "startTime":"014:00",
-                "endTime":"12:00",
-                "location":"Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP.HCM",
+                "name":"SỰ KIỆN GIAO THƯƠNG VÀ RA MẮT BAN ĐIỀU HÀNH CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM",
+                "description":"CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\n\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.\n\nLiên hệ:\n- Mr. Lê Minh Phụng: 0901494666\n- Ls. Lê Viết Kỳ: 0964037746",
+                "startDate":"2025-08-03",
+                "endDate":"2025-08-03",
+                "startTime":"14:00",
+                "endTime":"22:00",
+                "location":"Diamond Place – 15 Hồ Văn Huê – TP.HCM",
                 "options":["Apple","Google","iCal","Microsoft365","MicrosoftTeams","Outlook.com","Yahoo"],
                 "timeZone":"Asia/Ho_Chi_Minh",
-                "iCalFileName":"Cafe-Doanh-Nhan-Quang-Tri",
+                "iCalFileName":"Ra-Mat-CLB-DNQT-MienNam",
                 "listStyle":"modal",
                 "trigger":"click"
                 }
@@ -928,8 +928,8 @@ END:VCARD`;
         function shareInvite() {
             if (navigator.share) {
                 navigator.share({
-                    title: 'Thiệp Mời Thành lập CLB Doanh Nhân QUẢNG TRỊ',
-                    text: 'HỌP BAN ĐIỀU HÀNH, về việc thành lập CLB Doanh Nhân QUẢNG TRỊ, ngày 14/6/2025 tại Minh Global, Quận 1.',
+                    title: 'Thiệp Mời Ra Mắt CLB Doanh Nhân Quảng Trị Miền Nam',
+                    text: 'SỰ KIỆN GIAO THƯƠNG VÀ RA MẮT BAN ĐIỀU HÀNH CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM, 14:00 Chủ Nhật 03/08/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM',
                     url: window.location.href
                 }).catch(err => console.error('Lỗi chia sẻ:', err));
             } else {
@@ -950,7 +950,7 @@ END:VCARD`;
                         window.addtocalendar(config);
                     } else {
                         // Fallback to Google Calendar
-                        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('HỌP BAN ĐIỀU HÀNH, về việc thành lập CLB Doanh Nhân QUẢNG TRỊ')}&dates=20250614T090000/20250614T120000&details=${encodeURIComponent('CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\nĐịa điểm: Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Q1.')}&location=${encodeURIComponent('Phòng họp tầng 1, Minh Global, 146bis Nguyễn Văn Thủ, Phường Đakao, Quận 1, TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
+                        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('SỰ KIỆN GIAO THƯƠNG VÀ RA MẮT BAN ĐIỀU HÀNH CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM, 14:00 Chủ Nhật 03/08/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&dates=20250614T090000/20250614T120000&details=${encodeURIComponent('CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.')}&location=${encodeURIComponent('Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
                         window.open(url, '_blank');
                     }
                 } catch (e) {
