@@ -920,7 +920,7 @@ video {
   background: color-mix(in srgb, var(--accent-color), transparent 25%);
   /* font-family: var(--heading-font); */
   /* font-weight: 400; */
-  font-size: 16px;
+  font-size: 20px;
   /* letter-spacing: 1px; */
   display: inline-block;
   padding: 12px 30px;
@@ -999,10 +999,17 @@ video {
   padding: 50px 30px;
   transition: all ease-in-out 0.4s;
   height: 100%;
+  text-align: center; /* Thêm dòng này để căn giữa nội dung */
+  display: flex; /* Thêm flexbox */
+  flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+  align-items: center; /* Căn giữa theo chiều ngang */
 }
 
 .featured-services .service-item .icon {
   margin-bottom: 10px;
+  display: flex; /* Thêm flexbox cho icon */
+  justify-content: center; /* Căn giữa icon */
+  width: 100%; /* Đảm bảo icon chiếm toàn bộ chiều rộng */
 }
 
 .featured-services .service-item .icon i {
@@ -1015,6 +1022,8 @@ video {
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 20px;
+  text-align: center; /* Đảm bảo tiêu đề căn giữa */
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
 }
 
 .featured-services .service-item h4 a {
@@ -1026,6 +1035,8 @@ video {
   line-height: 24px;
   font-size: 14px;
   margin-bottom: 0;
+  text-align: center; /* Căn giữa đoạn văn bản */
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
 }
 
 .featured-services .service-item:hover {
