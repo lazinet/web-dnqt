@@ -204,21 +204,22 @@
             color: #19658F;
         }
         .invitation-text {
-            text-align: center;
+            text-align: left;
             font-weight: 600;
             font-size: 14px;
             margin-top: 10px;
             line-height: 1;
             color: #19658F;
-            text-decoration: underline;
+            font-style: italic;
         }
         .recipient {
-            text-align: center;
-            font-size: 14px;
+            text-align: left;
+            font-size: 16px;
             font-weight: 600;
             color: #F15E22;
             margin: 5px 0;
-            font-style: italic;
+            text-decoration: underline;
+            
         }
 
         .event-name {
@@ -347,7 +348,6 @@
             margin-bottom: 3px;
         }
 
-
         .signature-section {
             display: flex;
             justify-content: center; /* Căn giữa theo chiều ngang */
@@ -358,8 +358,8 @@
         }
 
         .signature-image {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
             margin-right: 20px;
@@ -372,6 +372,7 @@
         }
 
         .signature-text {
+            text-align: center;
             font-style: italic;
             margin-bottom: 5px;
         }
@@ -386,6 +387,34 @@
         .signature-position {
             font-size: 14px;
             color: #555;
+        }
+
+        .guest-input {
+            width: 100%;
+            padding: 5px;
+            margin: 2px 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+
+        .image-upload-btn {
+            padding: 5px 10px;
+            margin-top: 5px;
+            background: #2A5C9A;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* Ẩn các input khi xuất file */
+        @media print {
+            .guest-input, .image-upload-btn {
+                display: none !important;
+            }
         }
 
         .footer {
@@ -413,7 +442,7 @@
             width: 100px;
             height: 100px;
             background-color: white;
-            padding: 5px;
+            padding: 2px;
             border: 1px solid #e0e0e0;
             border-radius: 5px;
             transition: transform 0.3s ease;
@@ -692,8 +721,19 @@
 
             <div class="title">THƯ MỜI</div>
             <div class="club-text">CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM</div>
-            <div class="recipient">Trân trọng kính mời: Quý Anh/Chị/Em Doanh Nhân</div>
-            <div class="invitation-text">Tham dự sự kiện</div>
+
+            <div class="signature-section">
+                <img id="guestImagePreview" src="/assets/placeholder.png" alt="Khách mời" class="signature-image">
+                <input type="file" id="guestImageInput" accept="image/*" style="display: none;">
+                <div class="signature-content">
+                    <div class="recipient">Trân trọng kính mời:</div>
+                    <div class="signature-name"><span id="guestNameDisplay">[Tên khách mời]</span></div>
+                    <div class="signature-position"><span id="companyNameDisplay">[Tên doanh nghiệp]</span></div>
+                    <div class="invitation-text">Tham dự sự kiện</div>
+                </div>
+                
+            </div>
+
             <div class="event-name">SỰ KIỆN GIAO THƯƠNG VÀ RA MẮT BAN ĐIỀU HÀNH<br>CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM</div>
 
             <table class="info-table">
@@ -748,17 +788,17 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div>                
 
             <div class="signature-section">
-                <img src="/assets/team/NDH.jpg" alt="Logo CLB" class="signature-image">
+                <!-- <img src="/assets/team/NDH.jpg" alt="Logo CLB" class="signature-image"> -->
                 <div class="signature-content">
                     <div class="signature-text">Trân trọng,</div>
                     <div class="signature-name">NGUYỄN ĐẶNG HIẾN</div>
                     <div class="signature-position">Chủ nhiệm CLB lâm thời</div>
                 </div>
             </div>
-
+         
             <div class="footer">
                 <div class="footer-item fee">Thông tin tham dự
                     <br><br><i class="bi bi-globe flex-shrink-0 icon-orange" style="color: #d35400;"></i> <a
@@ -810,9 +850,9 @@
             <button onclick="exportToPDF()">Xuất PDF</button>
             <button onclick="exportToVCard()">Xuất vCard</button>
             <button onclick="window.open('https://lazinet.com/bizcards/phung-hoang.html', '_blank', 'noopener,noreferrer')">Góp ý</button>
-            <button onclick="window.open('https://dnqt.vn/invitation-20250803vip.html', '_blank', 'noopener,noreferrer')"
-            style="background-color: #F15E22; color: #fff; padding: 12px 24px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-            MỜI KHÁCH</button>            
+            <input type="text" id="guestNameInput" placeholder="Nhập tên khách mời" class="guest-input">
+            <input type="text" id="companyNameInput" placeholder="Nhập tên doanh nghiệp" class="guest-input">
+            <button onclick="document.getElementById('guestImageInput').click()" class="image-upload-btn">Chọn hình</button>
         </div>
     </div>
 
@@ -958,6 +998,27 @@ END:VCARD`;
                     alert('Có lỗi xảy ra khi thêm vào lịch. Vui lòng thử lại.');
                 }
             });
+        });
+    </script>
+    <script>
+        // Thêm vào phần script hiện có
+        document.getElementById('guestImageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('guestImagePreview').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('guestNameInput').addEventListener('input', function(e) {
+            document.getElementById('guestNameDisplay').textContent = e.target.value || '[Tên khách mời]';
+        });
+
+        document.getElementById('companyNameInput').addEventListener('input', function(e) {
+            document.getElementById('companyNameDisplay').textContent = e.target.value || '[Tên doanh nghiệp]';
         });
     </script>
 </body>

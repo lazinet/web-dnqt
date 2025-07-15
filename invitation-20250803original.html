@@ -81,7 +81,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #e9ecef 0%, #faf9f8 100%);
+            background: linear-gradient(135deg, #e9ecef 0%, white 20%, #faf9f8 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -108,7 +108,7 @@
             width: 210mm;
             height: 297mm;
             /* background: #FFE8FF; */
-            background: linear-gradient(to bottom,#d6e4e9 0%, white 20%, #FFE0FF 100%);
+            background: linear-gradient(0deg, #FFE8FF, #ece8d1);
             padding: 12mm;
             box-sizing: border-box;
             position: relative;
@@ -234,7 +234,7 @@
 
         .info-table {
             width: 100%;
-            margin: 0px auto;
+            margin: 20px auto;
             border-collapse: collapse;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -267,11 +267,11 @@
 
         /* Phần nội dung chương trình */
         .program-container {
-            margin-top: 10px;
+            margin-top: 20px;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            padding: 5px;
+            padding: 15px;
         }
 
         .program-title {
@@ -347,33 +347,43 @@
             margin-bottom: 3px;
         }
 
-
-        .signature-section {
+        /* Phần chữ ký */
+        /* .signature-section {
             display: flex;
-            justify-content: center; /* Căn giữa theo chiều ngang */
-            align-items: center; /* Căn giữa theo chiều dọc */
             margin-top: 10px;
-            width: 100%;
-            gap: 20px; /* Khoảng cách giữa hình và nội dung */
+            align-items: center;
         }
 
         .signature-image {
             width: 120px;
             height: 120px;
-            border-radius: 50%;
+            border-radius: 5px;
             object-fit: cover;
             margin-right: 20px;
-            border: 5px solid #F15E22;
+            border: 1px solid #e0e0e0;
         }
-
 
         .signature-content {
-            text-align: left; /* Căn trái nội dung */
-        }
+            flex: 1;
+            text-align: right;
+        } */
+
+        .signature-section {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    margin-top: 10px;
+    text-align: center; /* Căn giữa nội dung text */
+    width: 100%; /* Chiếm toàn bộ chiều ngang */
+}
+
+.signature-content {
+    /* Bỏ flex: 1 và text-align: right */
+    max-width: 100%; /* Đảm bảo nội dung không tràn */
+}
 
         .signature-text {
             font-style: italic;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .signature-name {
@@ -381,6 +391,7 @@
             font-size: 16px;
             color: #19658F;
             margin-top: 5px;
+            position: relative;
         }
 
         .signature-position {
@@ -392,7 +403,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 0px;
+            margin-top: 10px;
             padding-top: 0px;
             border-top: 1px solid #e0e0e0;
             font-size: 13px;
@@ -573,11 +584,8 @@
             }
 
             .signature-image {
-                width: 80px;
-                height: 80px;
-                object-fit: cover;
-                border-radius: 50%;
-                border: 2px solid #ccc;
+                margin-right: 0;
+                margin-bottom: 0px;
             }
 
             .export-buttons {
@@ -692,7 +700,7 @@
 
             <div class="title">THƯ MỜI</div>
             <div class="club-text">CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM</div>
-            <div class="recipient">Trân trọng kính mời: Quý Anh/Chị/Em Doanh Nhân</div>
+            <div class="recipient">Trân trọng kính mời: Quý Anh/Chị Doanh Nhân</div>
             <div class="invitation-text">Tham dự sự kiện</div>
             <div class="event-name">SỰ KIỆN GIAO THƯƠNG VÀ RA MẮT BAN ĐIỀU HÀNH<br>CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM</div>
 
@@ -751,7 +759,7 @@
             </div>
 
             <div class="signature-section">
-                <img src="/assets/team/NDH.jpg" alt="Logo CLB" class="signature-image">
+                <!-- <img src="/assets/logos/Logo-bgWhite.png" alt="Chữ ký" class="signature-image"> -->
                 <div class="signature-content">
                     <div class="signature-text">Trân trọng,</div>
                     <div class="signature-name">NGUYỄN ĐẶNG HIẾN</div>
@@ -810,9 +818,6 @@
             <button onclick="exportToPDF()">Xuất PDF</button>
             <button onclick="exportToVCard()">Xuất vCard</button>
             <button onclick="window.open('https://lazinet.com/bizcards/phung-hoang.html', '_blank', 'noopener,noreferrer')">Góp ý</button>
-            <button onclick="window.open('https://dnqt.vn/invitation-20250803vip.html', '_blank', 'noopener,noreferrer')"
-            style="background-color: #F15E22; color: #fff; padding: 12px 24px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-            MỜI KHÁCH</button>            
         </div>
     </div>
 
