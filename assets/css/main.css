@@ -859,14 +859,31 @@ section,
 
 .hero {
   width: 100%;
-  min-height: 75vh;
+  min-height: 110vh;
   position: relative;
   padding: 20px 0; /* Giữ padding nếu cần thiết, bạn có thể điều chỉnh */
   display: flex;
   flex-direction: column; /* Thay đổi hướng sắp xếp thành cột */
   justify-content: flex-start; /* Căn nội dung lên trên */
   /* background: url("../img/hero-bg.jpg") top left; */
+  background-color: #19658F;
   background-size: cover;
+}
+/* .video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1; 
+}
+   */
+
+video {
+  min-width: 100%; 
+  min-height: 100%; 
+  object-fit: cover;
 }
 .video-background {
   position: absolute;
@@ -875,15 +892,30 @@ section,
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 1; /* Để video nằm dưới nội dung */
+  z-index: 1;
 }
 
-video {
-  min-width: 100%; /* Đảm bảo video lấp đầy chiều rộng */
-  min-height: 100%; /* Đảm bảo video lấp đầy chiều cao */
-  object-fit: cover; /* Đảm bảo video không bị bóp méo */
+.video-background iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;  /* Chiếm full viewport */
+  height: 120%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;  /* Cắt video vừa khung */
 }
 
+/* Ẩn các phần thừa (tuỳ chỉnh theo tỉ lệ video) */
+@media (min-aspect-ratio: 16/9) {
+  .video-background iframe {
+    height: 56.25vw;  /* 9/16 = 0.5625 */
+  }
+}
+@media (max-aspect-ratio: 16/9) {
+  .video-background iframe {
+    width: 177.78vh; /* 16/9 = 1.7778 */
+  }
+}
 .hero:before {
   content: "";
   background: color-mix(in srgb, var(--background-color), transparent 90%);
@@ -3062,4 +3094,25 @@ video {
   padding-left: 5px;
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
+}
+
+.text-2layer {
+  color: red; /* Màu chữ bên trong */
+  text-shadow: 
+    -1px -1px 0 white,  
+     1px -1px 0 white,
+    -1px  1px 0 white,
+     1px  1px 0 white; /* Viền trắng 4 hướng */
+}
+
+
+/* Ép chữ logo */
+.logo-upper {
+  font-size: clamp(12px, 1.8vw, 24px) !important; 
+  color: #19658F !important;
+}
+
+.logo-lower {
+  font-size: clamp(10px, 1.5vw, 20px) !important; 
+  color: #F15E22 !important;
 }
