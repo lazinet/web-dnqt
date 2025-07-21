@@ -1,11 +1,11 @@
-<!-- GoJS modified by ENCITY. -->
+<!-- GoJS modified by CLB DNQTMN. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"/>
-<meta name="description" content="ENCITY organization chart live-editable"/> 
-<title>ENCITY OrgChart V2.2 (Live-editing)</title>
+<meta name="description" content="CLB DNQTMN organization chart live-editable"/> 
+<title>CLB DNQTMN OrgChart V2.2 (Live-editing)</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gojs@2.3.10/assets/css/style.min.css"/>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -114,7 +114,7 @@
 
 <body>
   <div style="position: absolute; top: 25px; left: 25px; width: 200px; height: 70px; background-color: #f0f0f0; z-index: 9999;">
-    <img src="/assets/logos/Logo-bgWhiteFull.png" alt="Encity's Logo">
+    <img src="/assets/logos/Logo-bgWhiteFull.png" alt="CLB DNQTMN's Logo">
   </div>
 
   <!-- <script src="../Configs/go.js"></script> -->
@@ -501,7 +501,7 @@ function init() {
 // Hàm xuất ảnh png
 function myCallbackPNG(blob) {
       var url = window.URL.createObjectURL(blob);
-      var filename = "enCity OrgChartV2 " + timeNow() + ".png";
+      var filename = "CLB DNQTMN OrgChartV2 " + timeNow() + ".png";
 
       var a = document.createElement("a");
       a.style = "display: none";
@@ -530,7 +530,7 @@ function myCallbackPNG(blob) {
     // Ảnh svg
     function myCallback(blob) {
       var url = window.URL.createObjectURL(blob);
-      var filename = "enCity OrgChartV2 " + timeNow() + ".svg";
+      var filename = "CLB DNQTMN OrgChartV2 " + timeNow() + ".svg";
 
       var a = document.createElement("a");
       a.style = "display: none";
@@ -751,7 +751,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   <!-- <div id="myDiagramDiv" style="background-color: linear-gradient(to bottom, #a8d7c9, #6db1d1); border: solid 1px black; height: 700px;"></div> -->
   
   <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h3 style="color: darkgreen;">Hướng dẫn sử dụng enCity OrgChart V2.2 (enSightful)</h2>
+    <h3 style="color: darkgreen;">Hướng dẫn sử dụng CLB DNQTMN OrgChart V2.2</h2>
     <div>
       <p>
         <button style="width: 210px;" id="zoomToFit">Căn vừa màn hình</button>
@@ -770,7 +770,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
   <h4 class="gradient-text"><i>2. Cập nhật toàn bộ tổ chức:</i></h4><br>
   Nếu chưa có bảng dữ liệu thì hãy tải xuống 
-    <a href="https://www.dropbox.com/scl/fi/o52iy9zxe4lqpee7qqyld/OrgChartV2.1_Data_Template.xlsm?rlkey=j65rmal6b9vaetkf38fn3xdjm&dl=1" download> mẫu Excel </a>
+    <a href="/OrgChartV2.1_Data_Template.xlsm" download> mẫu Excel </a>
     để chuẩn bị dữ liệu theo mẫu và lưu tệp lại, rồi bấm vào duyệt đến tệp đó để cập nhật sơ đồ tổ chức theo dữ liệu mới. 
     <input type="file" id="excelFile" accept=".xlsx, .xlsm, .xls"/>
     
@@ -785,7 +785,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     <ul>
       <li>Cấu trúc dữ liệu phải đúng theo mẫu, cần có các trường thông tin đúng với mô tả hướng dẫn</li>
       <li>Ô C5 chứa mã màu của hình nền. Hãy bôi màu nó sau đó bấm tổ hợp phím Ctrl + Shift + M để chương trình tự tạo đúng mã màu đã bôi.</li>
-      <li>Ô C6 chứa đường dẫn đến ảnh của hình nền cho sơ đồ tổ chức. Nếu điền thì hình nền là ưu tiên, nếu không thì thông tin mã màu ở ô C5 sẽ làm màu nền, nếu C5 để trống thì mã màu mặc định phong cách enCity sẽ làm màu nền.</li>
+      <li>Ô C6 chứa đường dẫn đến ảnh của hình nền cho sơ đồ tổ chức. Nếu điền thì hình nền là ưu tiên, nếu không thì thông tin mã màu ở ô C5 sẽ làm màu nền, nếu C5 để trống thì mã màu mặc định phong cách CLB DNQTMN sẽ làm màu nền.</li>
       <li>Ô C7 chứa đường dẫn đến ảnh của hình nhân mặc định, dạng vẽ biểu tượng. Nó dùng để chèn vào cho các nhân viên có trường ảnh chân dung (Portrait_URL) để trống.</li>
       <li>Key được hiểu như là số định danh (ID, STT) của mỗi nhân viên trong tổ chức. Key cần phải duy nhất.</li>
       <li>Full Name nên ngắn gọn để hiển thị cho đẹp vừa vặn trong khung (20 ký tự trở xuống)</li>
@@ -835,46 +835,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
       Sơ đồ tổ chức dạng text JSON từ các chỉnh sửa:
     </div>
     <textarea id="mySavedModel" style="width:100%; height:270px;">
-      { "class": "TreeModel",
-  "nodeDataArray": [
-{"key":1,"Full_Name":"Dzung Nguyen","Professional_Title":"Senior Principal, Planning + Urban Design","Department_Team":"BoD","Lead_Title":"Co-founder + CEO, Managing Director SG&ID","Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Dung-Do-Nguyen-1-1.png","Profile_URL":"https://encity.co/dzung-do-nguyen-senior-principal-planning-urban-design-co-founder-ceo/"},
-{"key":2,"Full_Name":"Heng C. Kiang","Professional_Title":"Professor, Planning + Urban Design","Department_Team":"BoD","Lead_Title":"Advisor, Singapore","parent":1,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/05/Prof-Heng-1-1.png","Profile_URL":"https://encity.co/heng-chye-kiang/"},
-{"key":3,"Full_Name":"Trang Vuong","Professional_Title":"Principal, Strategic Planning","Department_Team":"BoD","Lead_Title":"Managing Director, Vietnam","parent":1,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/05/Trang-Vuong-1.png","Profile_URL":"https://encity.co/trang-vuong/"},
-{"key":4,"Full_Name":"BD","Professional_Title":"BUSINESS DEVELOPMENT","Department_Team":"BD","parent":3,"Portrait_URL":"https://github.com/AlienHMP/OrgChartGoJS/blob/main/BD.jpg?raw=true"},
-{"key":5,"Full_Name":"Quan Le","Professional_Title":"Senior Associate, Partnerships","Department_Team":"BD","Lead_Title":"BD Manager","parent":4,"Portrait_URL":"https://encity.co/wp-content/uploads/2021/03/z4330271595823_67f8ca22b62f2f00a8ea0e99b5df9dbb-scaled-e1683620396427.jpg","Profile_URL":"https://encity.co/quan-tran/","isTreeExpanded":true},
-{"key":6,"Full_Name":"Hong Do","Professional_Title":"Associate, Partnerships","Department_Team":"BD","parent":5,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Hong-Do_1.jpg","Profile_URL":"https://encity.co/hong-do/","isTreeExpanded":false},
-{"key":7,"Full_Name":"SP","Professional_Title":"STRATEGIC PLANNING","Department_Team":"SP","parent":3,"Portrait_URL":"https://github.com/AlienHMP/OrgChartGoJS/blob/main/SP.png?raw=true"},
-{"key":8,"Full_Name":"Hai Cao","Professional_Title":"Senior Associate, Water Resources, Environment, GIS","Department_Team":"SP","Lead_Title":"Senior Manager, SP Dept.","parent":7,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Hai-Cao-1.png","Profile_URL":"https://encity.co/hai-cao/","isTreeExpanded":true},
-{"key":9,"Full_Name":"Hieu Ha","Professional_Title":"Associate, Planning + Policy","Department_Team":"SP","parent":8,"Portrait_URL":"https://encity.co/wp-content/uploads/2020/07/Hieu-Ha-1.png","Profile_URL":"https://encity.co/hieu-ha/","isTreeExpanded":false},
-{"key":10,"Full_Name":"Kimberly Lum","Professional_Title":"Associate, Planning + Policy","Department_Team":"SP","parent":8,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Kimberly-1-scaled.jpg","Profile_URL":"https://encity.co/kimberly-lum/","isTreeExpanded":false},
-{"key":11,"Full_Name":"Ngoc Pham","Professional_Title":"Junior Associate, Planning + Policy","Department_Team":"SP","parent":8,"Portrait_URL":"https://encity.co/wp-content/uploads/2019/04/Ngoc-Pham-2.png","isTreeExpanded":false},
-{"key":12,"Full_Name":"MP","Professional_Title":"MASTER PLANNING","Department_Team":"MP","parent":3,"Portrait_URL":"https://github.com/AlienHMP/OrgChartGoJS/blob/main/MP.jpg?raw=true"},
-{"key":13,"Full_Name":"Hai Pham","Professional_Title":"Principal, Planning + Infrastructure","Department_Team":"MP","Lead_Title":"Senior Manager, MP Dept.","parent":12,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/05/Hai-Pham-1.png","Profile_URL":"https://encity.co/hai-pham/","isTreeExpanded":true},
-{"key":14,"Full_Name":"Van Do","Professional_Title":"Associate, Urban Planning","Department_Team":"MP/ Planning","Lead_Title":"Team Lead, Planning","parent":13,"Portrait_URL":"https://encity.co/wp-content/uploads/2019/09/Van-Do-1x1-1.png","Profile_URL":"https://encity.co/van-do/","isTreeExpanded":true},
-{"key":15,"Full_Name":"Dzung Quang","Professional_Title":"Associate, Urban Planning","Department_Team":"MP/ Planning","parent":14,"Portrait_URL":"https://encity.co/wp-content/uploads/2021/10/Dzung-Quang-1.png","Profile_URL":"https://encity.co/dzung-quang/","isTreeExpanded":false},
-{"key":16,"Full_Name":"Nam Vo","Professional_Title":"Associate, Planning and Urban Design","Department_Team":"MP/ Planning","parent":14,"isTreeExpanded":false},
-{"key":17,"Full_Name":"Tuan Vu","Professional_Title":"Dr, ABC XYZ","Department_Team":"MP/ Transport","Lead_Title":"Team Lead, Transport","parent":13,"isTreeExpanded":true},
-{"key":18,"Full_Name":"Nen Nguyen","Professional_Title":"Senior Associate, Transport Planning","Department_Team":"MP/ Transport","parent":17,"isTreeExpanded":false},
-{"key":19,"Full_Name":"Nguyen Vu","Professional_Title":"Associate, Planning + Infrastructure","Department_Team":"MP/ Transport","parent":17,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Nguyen-Vu-1.png","Profile_URL":"https://encity.co/nguyen-vu/","isTreeExpanded":false},
-{"key":20,"Full_Name":"Giang Dinh","Professional_Title":"Senior Associate, Water Resources Management","Department_Team":"MP/ Hydrology","Lead_Title":"Team Lead, Hydrology","parent":13,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Giang-Dinh_1.jpg","Profile_URL":"https://encity.co/giang-dinh/","isTreeExpanded":true},
-{"key":21,"Full_Name":"Van Nguyen","Professional_Title":"ABC, XYZ","Department_Team":"MP/ Hydrology","parent":20,"isTreeExpanded":false},
-{"key":22,"Full_Name":"AUD","Professional_Title":"ARCHITECTURE & URBAN DESIGN","Department_Team":"","parent":3,"Portrait_URL":"https://github.com/AlienHMP/OrgChartGoJS/blob/main/AD.jpg?raw=true"},
-{"key":23,"Full_Name":"Marco Buinhas","Professional_Title":"Principal, Architecture & Urban Design","Department_Team":"AUD","Lead_Title":"Director","parent":22,"Portrait_URL":"https://henninglarsen.com/media/10438/marco-alexandre-ramos-de-azevedo-buinhas-marques-1.jpg","isTreeExpanded":true},
-{"key":24,"Full_Name":"Phuc Tran","Professional_Title":"Associate, Architecture","Department_Team":"AUD/ Architecture","parent":23,"isTreeExpanded":false},
-{"key":25,"Full_Name":"Duong Vuong","Professional_Title":"Senior Associate, Planning + Urban Design","Department_Team":"AUD/ Design","Lead_Title":"Team Lead, VN Design","parent":23,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Duong-Vuong-1.png","Profile_URL":"https://encity.co/duong-vuong/","isTreeExpanded":true},
-{"key":26,"Full_Name":"Quynh Nguyen","Professional_Title":"Associate, Urban Design + Architecture","Department_Team":"AUD/ Design","parent":25,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Quynh-Nguyen-1.png","Profile_URL":"https://encity.co/quynh-nguyen/","isTreeExpanded":false},
-{"key":27,"Full_Name":"Nguyet Vi","Professional_Title":"Junior Associate, Urban Design + Architecture","Department_Team":"AUD/ Design","parent":25,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Nguyet-Vi-1.png","Profile_URL":"https://encity.co/nguyet-vi/","isTreeExpanded":false},
-{"key":28,"Full_Name":"Tuan Tran","Professional_Title":"Technician, Urban Design + Architecture","Department_Team":"AUD/ Design","parent":25,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Tuan-Tran-2.png","Profile_URL":"https://encity.co/tuan-tran/","isTreeExpanded":false},
-{"key":29,"Full_Name":"Elizelle T. David","Professional_Title":"Associate, Planning + Urban Design","Department_Team":"AUD/ Design","Lead_Title":"Team Lead, SG & ID Design","parent":23,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Eli-1.png","Profile_URL":"https://encity.co/elizelle-david/","isTreeExpanded":true},
-{"key":30,"Full_Name":"Maulana Reddy F.","Professional_Title":"Associate, Urban Design + Architecture","Department_Team":"AUD/ Design","parent":29,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/06/Maulana-scaled.jpg","Profile_URL":"https://encity.co/maulana-reddy/","isTreeExpanded":false},
-{"key":31,"Full_Name":"Reny Revariah","Professional_Title":"Associate, Planning + Urban Design","Department_Team":"AUD/ Design","parent":29,"isTreeExpanded":false},
-{"key":32,"Full_Name":"Icha","Department_Team":"AUD/ Design","parent":29,"isTreeExpanded":false},
-{"key":33,"Full_Name":"Phi Ho","Professional_Title":"Technology (enSightful)","Department_Team":"BOD","Lead_Title":"Senior Advisor","parent":1,"Portrait_URL":"https://encity.co/wp-content/uploads/2022/05/Phi-Ho-1.JPG.png","Profile_URL":"https://encity.co/phi-ho/"},
-{"key":34,"Full_Name":"TECH","Professional_Title":"ENSIGHTFUL TECHNOLOGY","Department_Team":"Tech","parent":33,"Portrait_URL":"https://github.com/AlienHMP/OrgChartGoJS/blob/main/TECH.jpg?raw=true"}
-]}
+      {"class":"go.TreeModel","nodeDataArray":[{"key":1,"Full_Name":"NGUYỄN ĐẶNG HIẾN","Professional_Title":"Chủ nhiệm","Department_Team":"Ban Điều hành","Lead_Title":"CLB DNQT Miền Nam","Portrait_URL":"https://dnqt.vn/assets/team/NDH.jpg"},{"key":2,"Full_Name":"HOÀNG TOÀN","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"Ban Điều hành","Lead_Title":"CLB DNQT Miền Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Toan.jpg"},{"key":3,"Full_Name":"LÊ PHƯỚC TRUNG","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"Ban Điều hành","Lead_Title":"CLB DNQT Miền Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},{"key":4,"Full_Name":"HỒ XUÂN DŨNG","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"Ban Điều hành","Lead_Title":"CLB DNQT Miền Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":5,"Full_Name":"LÊ PHƯỚC BÌNH","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"Ban Điều hành","Lead_Title":"CLB DNQT Miền Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Binh.jpg"},{"key":6,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Tổng thư ký","Department_Team":"Ban Thư ký","Lead_Title":"CLB DNQT Miền Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":7,"Full_Name":"LÊ MINH PHỤNG","Professional_Title":"Trưởng ban","Department_Team":"Ban Tài chính","Lead_Title":"CLB DNQT Miền Nam","parent":2,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},{"key":8,"Full_Name":"LÊ MINH PHỤNG","Professional_Title":"Tài chính","Department_Team":"Ban Tài chính","Lead_Title":"CLB DNQT Miền Nam","parent":7,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},{"key":9,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Hành chính","Department_Team":"Ban Tài chính","Lead_Title":"CLB DNQT Miền Nam","parent":7,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":10,"Full_Name":"NGUYỄN QUANG THẮNG","Professional_Title":"Trưởng ban","Department_Team":"Ban Văn hóa Thể thao","Lead_Title":"CLB DNQT Miền Nam","parent":2,"Portrait_URL":"https://dnqt.vn/assets/team/Thang.jpg"},{"key":11,"Full_Name":"NGUYỄN QUANG THẮNG","Professional_Title":"Tổ Golf & Bóng đá","Department_Team":"Ban Văn hóa Thể thao","Lead_Title":"CLB DNQT Miền Nam","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Thang.jpg"},{"key":12,"Full_Name":"LÊ VĂN CẦU","Professional_Title":"Tổ Tennis","Department_Team":"Ban Văn hóa Thể thao","Lead_Title":"CLB DNQT Miền Nam","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Cau.jpg"},{"key":13,"Full_Name":"LÊ PHƯỚC TRUNG","Professional_Title":"Trưởng ban","Department_Team":"Ban Kết nối Giao thương","Lead_Title":"CLB DNQT Miền Nam","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},{"key":14,"Full_Name":"LÊ MINH PHỤNG","Professional_Title":"Ký kết Hợp đồng","Department_Team":"Ban Kết nối Giao thương","Lead_Title":"CLB DNQT Miền Nam","parent":13,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},{"key":15,"Full_Name":"HOÀNG MINH PHỤNG","Professional_Title":"Xúc tiến Giao thương","Department_Team":"Ban Kết nối Giao thương","Lead_Title":"CLB DNQT Miền Nam","parent":13,"Portrait_URL":"https://dnqt.vn/assets/team/PhungHoang.png"},{"key":16,"Full_Name":"LÊ VĂN CẦU","Professional_Title":"Trưởng ban","Department_Team":"Ban Hội viên","Lead_Title":"CLB DNQT Miền Nam","parent":4,"Portrait_URL":"https://dnqt.vn/assets/team/Cau.jpg"},{"key":17,"Full_Name":"LÊ MINH PHỤNG","Professional_Title":"Xét duyệt Thành viên","Department_Team":"Ban Hội viên","Lead_Title":"CLB DNQT Miền Nam","parent":16,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},{"key":18,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Tư vấn Pháp lý DN","Department_Team":"Ban Hội viên","Lead_Title":"CLB DNQT Miền Nam","parent":16,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":19,"Full_Name":"LÊ PHƯỚC TRUNG","Professional_Title":"Phát triển Hội viên","Department_Team":"Ban Hội viên","Lead_Title":"CLB DNQT Miền Nam","parent":16,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},{"key":20,"Full_Name":"LÊ PHƯỚC BÌNH","Professional_Title":"Trưởng ban","Department_Team":"Ban Đối ngoại","Lead_Title":"CLB DNQT Miền Nam","parent":5,"Portrait_URL":"https://dnqt.vn/assets/team/Binh.jpg"},{"key":21,"Full_Name":"NGUYỄN NGỌC TÝ","Professional_Title":"Truyền thông Báo chí","Department_Team":"Ban Đối ngoại","Lead_Title":"CLB DNQT Miền Nam","parent":20,"Portrait_URL":"https://dnqt.vn/assets/team/Ty.jpeg"},{"key":22,"Full_Name":"TRẦN BÁ ĐIỀN","Professional_Title":"Tổ chức Sự kiện","Department_Team":"Ban Đối ngoại","Lead_Title":"CLB DNQT Miền Nam","parent":20,"Portrait_URL":"https://dnqt.vn/assets/team/Dien.jpeg"}]}
     </textarea>
     <p class="gradient-text">
-      <b>ENCITY Group</b> &copy; 2018-<script>document.write(new Date().getFullYear());</script></span>. Built on GoJS by <a href="mailto:phung.hoang@ensightful.co">digital@encity.co</a>
+      <b>CLB DNQTMN Group</b> &copy; 2018-<script>document.write(new Date().getFullYear());</script></span>. Built on GoJS by <a href="mailto:phung.hoang@CLB DNQTMN.co">digital@CLB DNQTMN.co</a>
     </p>
   </div>
 
