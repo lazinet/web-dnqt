@@ -1,0 +1,681 @@
+<!-- GoJS modified by CLB DNQTMN. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
+  <!-- Tiêu đề trang -->
+  <title>SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM</title>
+  
+  <!-- Mã hóa ký tự -->
+  <meta charset="UTF-8">
+  
+  <!-- Mô tả trang (SEO) -->
+  <meta name="description"
+    content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM - Kết nối doanh nghiệp, chia sẻ cơ hội, phát triển bền vững.">
+  
+  <!-- Từ khóa (SEO) -->
+  <meta name="keywords"
+    content="DNQT, CLB DNQT Miền Nam, Café Doanh Nhân, Quảng Trị, sự kiện doanh nhân, kết nối doanh nghiệp, networking">
+  
+  <!-- Tác giả -->
+  <meta name="author"
+    content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM, Hoàng Minh Phụng, CEO HATHYO, CEO LAZINET">
+  
+  <!-- Robots (cho phép các công cụ tìm kiếm lập chỉ mục) -->
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph (hiển thị tốt trên mạng xã hội như Facebook) -->
+  <meta property="og:title" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM">
+  <meta property="og:description" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dnqt.vn">
+  <meta property="og:image" content="https://dnqt.vn/assets/logos/Logo-bgWhite.png">
+  <!-- Thay bằng URL hình ảnh thực tế -->
+  
+  <!-- Twitter Card (hiển thị trên Twitter) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM">
+  <meta name="twitter:description" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM.">
+  <meta name="twitter:image" content="https://dnqt.vn/assets/logos/Logo-bgWhite.png">
+  
+  <!-- Favicons -->
+  <link href="/assets/logos/Logo-bgWhite.png" rel="icon">
+  <link href="/assets/logos/Logo-bgWhite.png" rel="apple-touch-icon">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gojs@2.3.10/assets/css/style.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    h2 {
+      text-align: center;
+      /* Căn giữa nội dung của h2 */
+    }
+
+    .background-div {
+      height: 80vh;
+      /* 700px */
+      /* width: 99vw; */
+      background: linear-gradient(to top, #f7b891, #6db1d1);
+      border: solid 3px #ff6302
+    }
+
+    .main-text {
+      color: #19658F;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #f7b891, #ff6302);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline;
+      padding: 10px;
+      /* Thêm padding cho phần nội dung text */
+    }
+
+    /* Thiết lập các kiểu dáng chung cho bảng */
+    table {
+      /* width: 100%; */
+      /* border-collapse: collapse; */
+      font-family: Arial, sans-serif;
+      margin-bottom: 20px;
+    }
+
+    /* Kiểu dáng cho header row */
+    th {
+      background: linear-gradient(to bottom, #f7b891, #ff6302);
+      text-align: left;
+      padding: 10px;
+      border: 1px solid #dddddd;
+    }
+
+    /* Kiểu dáng cho dòng lẻ */
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    /* Kiểu dáng cho dòng chẵn */
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+
+    /* Kiểu dáng cho cell (td) */
+    td {
+      padding: 10px;
+      border: 1px solid #dddddd;
+    }
+
+    /* Hiển thị border cho bảng */
+    table,
+    th,
+    td {
+      border: 1px solid #dddddd;
+      border-collapse: collapse;
+    }
+
+    /* Màu chữ cho header row */
+    th {
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    /* Hover effect cho các dòng */
+    tr:hover {
+      background-color: #d4d4d4;
+    }
+
+    /* Tạo background gradient từ xanh lá cây đậm đến xanh lá cây nhạt */
+    input[type="file"],
+    button {
+      background: linear-gradient(to bottom, #19658F, #0000ff);
+      color: #fff;
+      /* Màu chữ trắng để tương phản */
+      padding: 10px 20px;
+      /* Điều chỉnh khoảng cách xung quanh và kích thước nút */
+      border: none;
+      /* Loại bỏ viền */
+      cursor: pointer;
+    }
+
+    /* Hover effect khi di chuột qua nút */
+    button:hover {
+      background: linear-gradient(to bottom, #f58b61, #ff6302);
+      /* Màu gradient khi hover */
+    }
+  </style>
+
+  <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+
+</head>
+
+<body>
+  <div
+    style="position: absolute; top: 25px; left: 25px; width: 200px; height: 70px; background-color: #f0f0f0; z-index: 9999;">
+    <img src="/assets/logos/Logo-bgWhiteFull.png" alt="CLB DNQTMN's Logo">
+  </div>
+
+
+  <!-- <script src="../Configs/go.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/gojs@2.3.10/release/go.min.js"></script>
+
+  <div id="allSampleContent" class="p-4 w-full">
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gojs@2.3.10/extensions/DataInspector.css" /> -->
+    <script src="https://cdn.jsdelivr.net/npm/gojs@2.3.10/extensions/DataInspector.js"></script>
+
+
+    <script id="code">
+      let myDiagram;
+
+      function init() {
+
+        // Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
+        // For details, see https://gojs.net/latest/intro/buildingObjects.html
+        const $ = go.GraphObject.make;  // for conciseness in defining templates
+
+        myDiagram =
+          new go.Diagram("myDiagramDiv", // must be the ID or reference to div
+            {
+              allowCopy: false,
+              allowDelete: false,
+              //initialAutoScale: go.Diagram.Uniform,
+              maxSelectionCount: 1, // users can select only one part at a time
+              validCycle: go.Diagram.CycleDestinationTree, // make sure users can only create trees
+              "clickCreatingTool.archetypeNodeData": { // allow double-click in background to create a new node
+                Full_Name: "Thành viên CLB",
+                Professional_Title: "",
+                Department_Team: "",
+                Lead_Title: "",
+                parent: "",
+                Portrait_URL: "",
+                Profile_URL: "",
+                Remarks: ""
+              },
+              "clickCreatingTool.insertPart": function (loc) {  // method override must be function, not =>
+                const node = go.ClickCreatingTool.prototype.insertPart.call(this, loc);
+                if (node !== null) {
+                  this.diagram.select(node);
+                  this.diagram.commandHandler.scrollToPart(node);
+                  this.diagram.commandHandler.editTextBlock(node.findObject("NAMETB"));
+                }
+                return node;
+              },
+              layout:
+                $(go.TreeLayout,
+                  {
+                    treeStyle: go.TreeLayout.StyleLastParents,
+                    arrangement: go.TreeLayout.ArrangementHorizontal,
+                    // properties for most of the tree:
+                    angle: 90,
+                    layerSpacing: 35,
+                    // properties for the "last parents":
+                    alternateAngle: 90,
+                    alternateLayerSpacing: 35,
+                    alternateAlignment: go.TreeLayout.AlignmentBus,
+                    alternateNodeSpacing: 20
+                  }),
+              "undoManager.isEnabled": true // enable undo & redo
+            });
+
+        // when the document is modified, add a "*" to the Professional_Title and enable the "Save" button
+        myDiagram.addDiagramListener("Modified", e => {
+          const button = document.getElementById("SaveButton");
+          if (button) button.disabled = !myDiagram.isModified;
+          const idx = document.title.indexOf("*");
+          if (myDiagram.isModified) {
+            if (idx < 0) document.title += "*";
+          } else {
+            if (idx >= 0) document.title = document.title.slice(0, idx);
+          }
+        });
+
+        const levelColors = ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#FFC0CB", "#FFFFFF", "#808080"];
+
+        // override TreeLayout.commitNodes to also modify the background brush based on the tree depth level
+        myDiagram.layout.commitNodes = function () {  // method override must be function, not =>
+          go.TreeLayout.prototype.commitNodes.call(this);  // do the standard behavior
+          // then go through all of the vertexes and set their corresponding node's Shape.fill
+          // to a brush dependent on the TreeVertex.level value
+          myDiagram.layout.network.vertexes.each(v => {
+            if (v.node) {
+              const level = v.level % (levelColors.length);
+              const color = levelColors[level];
+              const shape = v.node.findObject("SHAPE");
+              if (shape) shape.stroke = $(go.Brush, "Linear", { 0: color, 1: go.Brush.lightenBy(color, 0.05), start: go.Spot.Left, end: go.Spot.Right });
+            }
+          });
+        };
+
+        // this is used to determine feedback during drags
+        function mayWorkFor(node1, node2) {
+          if (!(node1 instanceof go.Node)) return false;  // must be a Node
+          if (node1 === node2) return false;  // cannot work for yourself
+          if (node2.isInTreeOf(node1)) return false;  // cannot work for someone who works for you
+          return true;
+        }
+
+        // This function provides a common style for most of the TextBlocks.
+        // Some of these values may be overridden in a particular TextBlock.
+        function textStyle() {
+          return { font: "9pt  Segoe UI,sans-serif", stroke: "white" };
+        }
+
+        // This converter is used by the Portrait Picture.
+        function findHeadShot(Portrait_URL) {
+          return Portrait_URL || "https://cdn-icons-png.flaticon.com/128/4122/4122823.png";
+        }
+
+        // define the Node template
+        myDiagram.nodeTemplate =
+          $(go.Node, "Spot",
+            {
+              selectionObjectName: "BODY",
+              mouseEnter: (e, node) => node.findObject("BUTTON").opacity = node.findObject("BUTTONX").opacity = 1,
+              mouseLeave: (e, node) => node.findObject("BUTTON").opacity = node.findObject("BUTTONX").opacity = 0,
+              // handle dragging a Node onto a Node to (maybe) change the reporting relationship
+              mouseDragEnter: (e, node, prev) => {
+                const diagram = node.diagram;
+                const selnode = diagram.selection.first();
+                if (!mayWorkFor(selnode, node)) return;
+                const shape = node.findObject("SHAPE");
+                if (shape) {
+                  shape._prevFill = shape.fill;  // remember the original brush
+                  shape.fill = "darkred";
+                }
+              },
+              mouseDragLeave: (e, node, next) => {
+                const shape = node.findObject("SHAPE");
+                if (shape && shape._prevFill) {
+                  shape.fill = shape._prevFill;  // restore the original brush
+                }
+              },
+              mouseDrop: (e, node) => {
+                const diagram = node.diagram;
+                const selnode = diagram.selection.first();  // assume just one Node in selection
+                if (mayWorkFor(selnode, node)) {
+                  // find any existing link into the selected node
+                  const link = selnode.findTreeParentLink();
+                  if (link !== null) {  // reconnect any existing link
+                    link.fromNode = node;
+                  } else {  // else create a new link
+                    diagram.toolManager.linkingTool.insertLink(node, node.port, selnode, selnode.port);
+                  }
+                }
+              }
+            },
+            // for sorting, have the Node.text be the data.Full_Name
+            new go.Binding("text", "Full_Name"),
+            // bind the Part.layerName to control the Node's layer depending on whether it isSelected
+            new go.Binding("layerName", "isSelected", sel => sel ? "Foreground" : "").ofObject(),
+            $(go.Panel, "Auto",
+              { name: "BODY" },
+              // define the node's outer shape
+              $(go.Shape, "Rectangle",
+                { name: "SHAPE", fill: "#19658F", stroke: 'white', strokeWidth: 3.5, portId: "" }), // Thay đổi màu nền của node ở đây 1e6847 "linear-gradient(to top, #a8d7c9, #6db1d1)"
+              $(go.Panel, "Horizontal",
+                $(go.Picture,
+                  {
+                    name: "Picture",
+                    desiredSize: new go.Size(70, 70),
+                    margin: 1.5,
+                    source: "https://cdn-icons-png.flaticon.com/128/4122/4122823.png" // the default image
+                  },
+                  new go.Binding("source", "Portrait_URL", findHeadShot)),
+
+                // define the panel where the text will appear
+                $(go.Panel, "Table",
+                  {
+                    minSize: new go.Size(130, NaN),
+                    maxSize: new go.Size(150, NaN),
+                    margin: new go.Margin(6, 10, 0, 6),
+                    defaultAlignment: go.Spot.Left
+                  },
+                  $(go.RowColumnDefinition, { column: 2, width: 4 }),
+
+                  // Trường Full_Name
+                  $(go.TextBlock, textStyle(),  // the name
+                    {
+                      name: "NAMETB",
+                      row: 0, column: 0, columnSpan: 5,
+                      font: "bold 11pt Segoe UI,sans-serif",
+                      editable: true, isMultiline: false,
+                      minSize: new go.Size(50, 16),
+                      click: function (e, tb) {
+                        const node = tb.part;
+                        const Profile_URL = node.data.Profile_URL;
+                        if (Profile_URL) {
+                          window.open(Profile_URL, "_blank");
+                        }
+                      }
+                    },
+                    new go.Binding("text", "Full_Name").makeTwoWay()),
+
+                  // Trường Professional
+                  $(go.TextBlock, textStyle(),
+                    {
+                      row: 1, column: 0, columnSpan: 4,
+                      editable: true, isMultiline: false,
+                      minSize: new go.Size(50, 14),
+                      // margin: new go.Margin(0, 0, 0, 0)
+                    },
+                    new go.Binding("text", "Professional_Title").makeTwoWay()),
+
+                  $(go.TextBlock, textStyle(),  // Chỉ hiển thị
+                    {
+                      row: 2, column: 0, columnSpan: 5,
+                      font: "italic 8pt Segoe UI,sans-serif",
+                      wrap: go.TextBlock.WrapFit,
+                      editable: true,  // by default newlines are allowed
+                      minSize: new go.Size(100, 14)
+                    },
+                    new go.Binding("text", function (node) {
+                      // Kiểm tra nếu trường "Lead_Title" không trống
+                      if (node.data.Lead_Title !== "") {
+                        // Trả về giá trị của trường "Lead_Title"                  
+                        return node.data.Lead_Title;
+                      } else {
+                        // Trả về giá trị của trường "Department_Team"
+                        return node.data.Department_Team;
+                      }
+                    }).ofObject()
+                  ),
+                ) // end Table Panel
+              ) // end Horizontal Panel
+            ), // end Auto Panel
+            $("Button",
+              $(go.Shape, "PlusLine", { width: 10, height: 10 }),
+              {
+                name: "BUTTON", alignment: go.Spot.Right, opacity: 0,  // initially not visible
+                click: (e, button) => addEmployee(button.part)
+              },
+              // button is visible either when node is selected or on mouse-over
+              new go.Binding("opacity", "isSelected", s => s ? 1 : 0).ofObject()
+            ),
+            new go.Binding("isTreeExpanded").makeTwoWay(),
+            $("TreeExpanderButton",
+              {
+                name: "BUTTONX", alignment: go.Spot.Bottom, opacity: 0,  // initially not visible
+                "_treeExpandedFigure": "TriangleUp",
+                "_treeCollapsedFigure": "TriangleDown"
+              },
+              // button is visible either when node is selected or on mouse-over
+              new go.Binding("opacity", "isSelected", s => s ? 1 : 0).ofObject()
+            )
+          );  // end Node, a Spot Panel
+
+        function addEmployee(node) {
+          if (!node) return;
+          const thisemp = node.data;
+          myDiagram.startTransaction("add employee");
+          const newemp = {
+            Full_Name: "Thành viên CLB", Professional_Title: "Professional_Title", Department_Team: "", Lead_Title: "if Lead",
+            Portrait_URL: "https://cdn-icons-png.flaticon.com/128/4122/4122823.png", Profile_URL: "", Remarks: "", parent: thisemp.key
+          };
+      
+          myDiagram.model.addNodeData(newemp);
+          const newnode = myDiagram.findNodeForData(newemp);
+          if (newnode) newnode.location = node.location;
+          myDiagram.commitTransaction("add employee");
+          myDiagram.commandHandler.scrollToPart(newnode);
+        }
+
+        // the context menu allows users to make a position vacant,
+        // remove a role and reassign the subtree, or remove a Department_Team
+        myDiagram.nodeTemplate.contextMenu =
+          $("ContextMenu",
+            $("ContextMenuButton",
+              $(go.TextBlock, "Add Employee"),
+              {
+                click: (e, button) => addEmployee(button.part.adornedPart)
+              }
+            ),
+            $("ContextMenuButton",
+              $(go.TextBlock, "Vacate Position"),
+              {
+                click: (e, button) => {
+                  const node = button.part.adornedPart;
+                  if (node !== null) {
+                    const thisemp = node.data;
+                    myDiagram.startTransaction("vacate");
+                    // update the key, Full_Name, picture, and Remarks, but leave the Professional_Title
+                    myDiagram.model.setDataProperty(thisemp, "Full_Name", "(Vacant)");
+                    myDiagram.model.setDataProperty(thisemp, "Portrait_URL", "");
+                    myDiagram.model.setDataProperty(thisemp, "Remarks", "");
+                    myDiagram.commitTransaction("vacate");
+                  }
+                }
+              }
+            ),
+            $("ContextMenuButton",
+              $(go.TextBlock, "Remove Role"),
+              {
+                click: (e, button) => {
+                  // reparent the subtree to this node's boss, then remove the node
+                  const node = button.part.adornedPart;
+                  if (node !== null) {
+                    myDiagram.startTransaction("reparent remove");
+                    const chl = node.findTreeChildrenNodes();
+                    // iterate through the children and set their parent key to our selected node's parent key
+                    while (chl.next()) {
+                      const emp = chl.value;
+                      myDiagram.model.setParentKeyForNodeData(emp.data, node.findTreeParentNode().data.key);
+                    }
+                    // and now remove the selected node itself
+                    myDiagram.model.removeNodeData(node.data);
+                    myDiagram.commitTransaction("reparent remove");
+                  }
+                }
+              }
+            ),
+            $("ContextMenuButton",
+              $(go.TextBlock, "Remove Department_Team"),
+              {
+                click: (e, button) => {
+                  // remove the whole subtree, including the node itself
+                  const node = button.part.adornedPart;
+                  if (node !== null) {
+                    myDiagram.startTransaction("remove dept");
+                    myDiagram.removeParts(node.findTreeParts());
+                    myDiagram.commitTransaction("remove dept");
+                  }
+                }
+              }
+            )
+          );
+
+        // define the Link template
+        myDiagram.linkTemplate =
+          $(go.Link, go.Link.Orthogonal,
+            { layerName: "Background", corner: 5 },
+            $(go.Shape, { strokeWidth: 2, stroke: "#DDDDDD" }));  // the link shape
+
+        // read in the JSON-format data from the "mySavedModel" element
+        load();
+
+
+
+        // Căn chỉnh tự động
+        document.getElementById('zoomToFit').addEventListener('click', () => myDiagram.commandHandler.zoomToFit());
+
+        document.getElementById('centerRoot').addEventListener('click', () => {
+          myDiagram.scale = 1;
+          myDiagram.commandHandler.scrollToPart(myDiagram.findNodeForKey(1));
+        });
+
+        // Lắng nghe chuột xuất hình
+        document.getElementById("exportToSVG").addEventListener("click", makeSvgWithEmbeddedImages);
+        // Hoặc sử dụng sự kiện diagram đã khởi tạo xong
+        myDiagram.addDiagramListener("InitialLayoutCompleted", function(e) {
+          e.diagram.zoomToFit();
+        });
+      } // Kế thúc hàm init
+
+      // Ảnh svg
+      function myCallback(blob) {
+        var url = window.URL.createObjectURL(blob);
+        var filename = "CLB DNQTMN OrgChartV2 " + timeNow() + ".svg";
+
+        var a = document.createElement("a");
+        a.style = "display: none";
+        a.href = url;
+        a.download = filename;
+
+        // IE 11
+        if (window.navigator.msSaveBlob !== undefined) {
+          window.navigator.msSaveBlob(blob, filename);
+          return;
+        }
+
+        document.body.appendChild(a);
+        requestAnimationFrame(() => {
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        });
+      }
+
+      function makeSvg() {
+        var svg = myDiagram.makeSvg({ scale: 1, background: "transparent" });
+        var svgstr = new XMLSerializer().serializeToString(svg);
+        var blob = new Blob([svgstr], { type: "image/svg+xml" });
+        myCallback(blob);
+      }
+
+      async function makeSvgWithEmbeddedImages() {
+        // Bước 1: Thu thập tất cả URL ảnh chân dung từ dữ liệu diagram
+        const imageUrls = [];
+        myDiagram.model.nodeDataArray.forEach(node => {
+          if (node.Portrait_URL) imageUrls.push(node.Portrait_URL);
+        });
+
+        // Bước 2: Tải ảnh và chuyển đổi sang Base64
+        const imageBase64Map = {};
+        for (const url of imageUrls) {
+          const base64 = await fetchImageAsBase64(url);
+          imageBase64Map[url] = base64;
+        }
+
+        // Bước 3: Tạo SVG và thay thế URL bằng Base64
+        var svg = myDiagram.makeSvg({ scale: 1, background: "white" });
+        var svgstr = new XMLSerializer().serializeToString(svg);
+
+        for (const [url, base64] of Object.entries(imageBase64Map)) {
+          svgstr = svgstr.replace(new RegExp(url, 'g'), base64);
+        }
+
+        // Bước 4: Xuất file
+        var blob = new Blob([svgstr], { type: "image/svg+xml" });
+        myCallback(blob);
+      }
+
+      // Hàm hỗ trợ: Tải ảnh và trả về Base64
+      function fetchImageAsBase64(url) {
+        return fetch(url)
+          .then(response => response.blob())
+          .then(blob => new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+          }));
+      }
+
+      // Show the diagram's model in JSON format
+      function save() {
+        document.getElementById("mySavedModel").value = myDiagram.model.toJson();
+        myDiagram.isModified = false;
+      }
+      function load() {
+        myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
+        // make sure new data keys are unique positive integers
+        let lastkey = 1;
+        myDiagram.model.makeUniqueKeyFunction = (model, data) => {
+          let k = data.key || lastkey;
+          while (model.findNodeDataForKey(k)) k++;
+          data.key = lastkey = k;
+          return k;
+        };
+      }
+
+      function timeNow() {
+        var currentTime = new Date();
+
+        // Định dạng thời gian
+        var year = currentTime.getFullYear();
+        var month = ('0' + (currentTime.getMonth() + 1)).slice(-2);
+        var day = ('0' + currentTime.getDate()).slice(-2);
+        var hours = ('0' + currentTime.getHours()).slice(-2);
+        var minutes = ('0' + currentTime.getMinutes()).slice(-2);
+        var seconds = ('0' + currentTime.getSeconds()).slice(-2);
+
+        // Tạo chuỗi định dạng yyyyMMMdd_hhmmss
+        var formattedTime = year + month + day + '_' + hours + minutes + seconds;
+        return formattedTime;
+      }
+    
+      window.addEventListener('DOMContentLoaded', init);
+    </script>
+
+    <div id="sample">
+      <!-- <div id="myDiagramDiv" class="background-div" style="background-color: #34343C; border: solid 1px black; height: 700px;"></div> -->
+      <div id="myDiagramDiv" class="background-div"></div>
+
+      <!-- <div id="myDiagramDiv" style="background-color: linear-gradient(to bottom, #a8d7c9, #6db1d1); border: solid 1px black; height: 700px;"></div> -->
+
+      <div style="text-align: center;">
+        <h3 class="main-text">SƠ ĐỒ TỔ CHỨC CLB DOANH NHÂN QUẢNG TRỊ MIỀN NAM</h3>
+        <div style="
+          display: inline-flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+          max-width: 100%;
+          margin: 10px auto;
+          padding: 10px;
+          box-sizing: border-box;
+        ">
+          <p>
+            <button style="width: 210px;" id="zoomToFit">Căn vừa màn hình</button>
+            <button style="width: 210px;" id="centerRoot">Căn giữa theo sếp</button>
+            <button style="width: 210px;" id="exportToSVG">Xuất ảnh SVG</button>
+          </p>
+        </div>
+        <p class="main-text">
+          <b>CLB DNQTMN Group</b> &copy; 2025-
+          <script>document.write(new Date().getFullYear());</script>. Built on GoJS by
+          <a href="mailto:email@lazinet.com"><span style="color: #ff6302;"><b>LAZI</b></span><span
+              style="color: #0000ff;"><b>NET</b></span></a>
+        </p>
+      </div>
+
+      <div>
+        <textarea id="mySavedModel" style="width:100%; height:270px; display: none;">
+          { "class": "TreeModel", "nodeDataArray": [
+            {"key":1,"Full_Name":"CH\u1ee6 NHI\u1ec6M","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","Portrait_URL":"https://dnqt.vn/assets/team/NDH.jpg"},
+            {"key":2,"Full_Name":"PH\u00d3 CH\u1ee6 NHI\u1ec6M TH\u01af\u1edcNG TR\u1ef0C","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Toan.jpg"},
+            {"key":3,"Full_Name":"PH\u00d3 CH\u1ee6 NHI\u1ec6M TH\u01af\u1edcNG TR\u1ef0C","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},
+            {"key":4,"Full_Name":"PH\u00d3 CH\u1ee6 NHI\u1ec6M TH\u01af\u1edcNG TR\u1ef0C","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Dung.jpg"},
+            {"key":5,"Full_Name":"PH\u00d3 CH\u1ee6 NHI\u1ec6M TH\u01af\u1edcNG TR\u1ef0C","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Binh.jpg"},
+            {"key":6,"Full_Name":"BAN TH\u01af K\u00dd","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},
+            {"key":7,"Full_Name":"BAN T\u00c0I CH\u00cdNH","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":2,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},
+            {"key":8,"Full_Name":"BAN V\u0102N H\u00d3A TH\u1ec2 THAO","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":2,"Portrait_URL":"https://dnqt.vn/assets/team/Thang.jpg"},
+            {"key":9,"Full_Name":"BAN K\u1ebeT N\u1ed0I GIAO TH\u01af\u01a0NG","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},
+            {"key":10,"Full_Name":"BAN H\u1ed8I VI\u00caN","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":4,"Portrait_URL":"https://dnqt.vn/assets/team/Cau.jpg"},
+            {"key":11,"Full_Name":"BAN \u0110\u1ed0I NGO\u1ea0I","Professional_Title":"CLB DNQT Mi\u1ec1n Nam","parent":5,"Portrait_URL":"https://dnqt.vn/assets/team/Binh.jpg"}
+            ]}
+        </textarea>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>

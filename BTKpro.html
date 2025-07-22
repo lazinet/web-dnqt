@@ -560,7 +560,7 @@ function myCallbackPNG(blob) {
     }
 
     function makeSvg() {
-      var svg = myDiagram.makeSvg({ scale: 1, background: "#a8d7c9"});
+      var svg = myDiagram.makeSvg({ scale: 1, background: "#555555"});
       var svgstr = new XMLSerializer().serializeToString(svg);
       var blob = new Blob([svgstr], { type: "image/svg+xml" });
       myCallback(blob);
