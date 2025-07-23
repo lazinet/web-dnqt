@@ -1,0 +1,19 @@
+<svg width="6774.514286" height="1200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6774.514286 1200">
+<style>
+    @font-face {
+      font-family: 'Arial Black';
+      src: url('data:font/ttf;base64,...') format('truetype');
+    }
+    text {
+      font-family: 'Arial Black';
+    }
+  </style>
+  <rect x="0" y="0" width="6774.514286" height="1200" fill="#6284F3"/>
+  <circle cx="900" cy="602" r="502" fill="#FFaa00" />
+  <circle cx="900" cy="702" r="402" fill="white" />
+  <circle cx="900" cy="802" r="302" fill="#FFaa00" />
+  <circle cx="900" cy="902" r="202" fill="white" />
+  <circle cx="900" cy="982" r="122" fill="#ff6302" />
+  <text x="1535" y="950" font-family="Arial Black" font-size="1000" fill="#FFaa00">LAZI</text>
+  <text x="4040" y="950" font-family="Arial Black" font-size="1000" fill="#66FFFF">NET</text>
+</svg>
