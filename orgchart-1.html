@@ -515,7 +515,29 @@
         document.getElementById("exportToSVG").addEventListener("click", makeSvgWithEmbeddedImages);
         // Hoặc sử dụng sự kiện diagram đã khởi tạo xong
         myDiagram.addDiagramListener("InitialLayoutCompleted", function(e) {
-          e.diagram.zoomToFit();
+          const diagram = e.diagram;
+          
+          // 1. Zoom to fit
+          diagram.zoomToFit();
+
+          // 2. Căn giữa dọc (nếu cần)
+          const viewBounds = diagram.viewportBounds;
+          const docBounds = diagram.documentBounds;
+
+          if (docBounds.height < viewBounds.height) {
+            const padding = (viewBounds.height - docBounds.height) / 2;
+            diagram.scrollToRect(new go.Rect(  // <-- Sửa thành go.Rect
+              docBounds.x,
+              docBounds.y - padding,
+              docBounds.width,
+              docBounds.height + padding * 2
+            ));
+          }
+
+          // 3. Giới hạn phóng to (tùy chọn)
+          if (diagram.scale > 1) {
+            diagram.scale = 1;
+          }
         });
       } // Kế thúc hàm init
 
