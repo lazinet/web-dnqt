@@ -859,7 +859,8 @@ section,
 
 .hero {
   width: 100%;
-  min-height: 100vh;
+  min-height: 60vw;
+  max-height: 100vw;
   position: relative;
   padding: 1px 0; 
   display: flex;
@@ -992,12 +993,7 @@ video {
 }
 
 
-/* Đảm bảo section hero có chiều cao phù hợp */
-.hero {
-  position: relative;
-  min-height: 100vh; /* Hoặc chiều cao bạn muốn */
-  overflow: hidden;
-}
+
 
 /* Style cho nội dung trên background */
 .hero-content {
