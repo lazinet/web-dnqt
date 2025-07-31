@@ -740,3 +740,167 @@ body {
         max-width: 120px;
       }
     }
+
+
+    /* LOGO NHÀ TÀI TRỢ */
+        /* Sponsor Prefix CSS */
+    .sponsor-main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      width: 100%;
+    }
+    
+    .sponsor-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+    
+    .sponsor-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .sponsor-title {
+      font-size: 2rem;
+      color: #19658F;
+      margin-bottom: 15px;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .sponsor-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: #F15E22;
+    }
+    
+    .sponsor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 25px;
+      justify-items: center;
+    }
+    
+    .sponsor-item {
+      width: 100%;
+      max-width: 180px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px #19658F;;
+      transition: all 0.3s ease;
+    }
+    
+    .sponsor-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px #F15E22;
+    }
+    
+    .sponsor-img {
+      max-width: 100%;
+      max-height: 80px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      /* filter: grayscale(5%);
+      opacity: 0.7; */
+      transition: all 0.3s ease;
+    }
+    
+    .sponsor-item:hover .sponsor-img {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+    
+    .sponsor-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 0;
+    }
+    
+    .sponsor-spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(25, 101, 143, 0.2);
+      border-radius: 50%;
+      border-top-color: #19658F;
+      animation: sponsor-spin 1s linear infinite;
+    }
+    
+    .sponsor-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 0;
+    }
+    
+    .sponsor-error-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 20px;
+      color: #F15E22;
+    }
+    
+    .sponsor-retry-btn {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background-color: #19658F;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    
+    .sponsor-retry-btn:hover {
+      background-color: #13496b;
+    }
+    
+    @media (max-width: 992px) {
+      .sponsor-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .sponsor-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 15px;
+      }
+      
+      .sponsor-item {
+        height: 100px;
+        padding: 10px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .sponsor-title {
+        font-size: 1.5rem;
+      }
+      
+      .sponsor-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @keyframes sponsor-spin {
+      to { transform: rotate(360deg); }
+    }

@@ -384,112 +384,237 @@
 
 <section id="clients" class="clients section">
   <div class="container" data-aos="fade-up">
-    <h2 class="text-center">TỔ CHỨC & DOANH NGHIỆP KHỞI TẠO CẦU NỐI VÀ NHÀ TÀI TRỢ!</h2>
-    <br>
-    <div class="row gy-4" id="client-list">
-      <!-- Client logos will be dynamically inserted here -->
-    </div>
-  </div>
-</section>
-
-<script>
-  // Optimized client loading with lazy loading and caching
-  (function() {
-    // Cache DOM elements
-    const clientList = document.getElementById('client-list');
-    const loadingHTML = `
-      <div class="col-12 text-center py-5">
-        <div class="spinner-border" style="width: 3rem; height: 3rem; color: #F15E22;" role="status">
-          <span class="visually-hidden">Loading...</span>
+  <div class="sponsor-main-container">
+    <section class="sponsor-section">
+      <div class="sponsor-header">
+        <h2 class="sponsor-title">TỔ CHỨC & DOANH NGHIỆP KHỞI TẠO CẦU NỐI VÀ NHÀ TÀI TRỢ</h2>
+      </div>
+      
+      <div class="sponsor-grid" id="sponsor-list">
+        <div class="sponsor-loading">
+          <div class="sponsor-spinner"></div>
+          <p style="margin-top: 15px; color: #19658F;">Đang tải danh sách đối tác...</p>
         </div>
-        <p class="mt-3" style="color: #F15E22;">Đang tải danh sách tổ chức và doanh nghiệp dẫn đầu ...</p>
       </div>
-    `;
+    </section>
+  </div>
+
+  <script>
+  (function() {
+    // Cấu hình với prefix sponsor
+    const SPONSOR_CONFIG = {
+      apiUrl: 'https://script.google.com/macros/s/AKfycbwQ8jH7FF4FeVK9acTnB1zxDfP3QfTynvsb5yFwEpE-1xhqpUQt9kDlDE5vEMSUlmGjmw/exec',
+      cacheKey: 'sponsor_data_v1',
+      cacheExpiry: 24 * 60 * 60 * 1000,
+      timeout: 8000,
+      maxRetries: 2,
+      retryDelay: 2000
+    };
     
-    const errorHTML = `
-      <div class="col-12 text-center py-5">
-        <i class="bi bi-exclamation-triangle fs-1" style="color: #F15E22;"></i>
-        <p class="mt-2">Không thể tải danh sách đối tác</p>
-        <button onclick="loadClients()" class="btn btn-sm" style="background-color: #F15E22; color: white;">
-          <i class="bi bi-arrow-clockwise"></i> Thử lại
-        </button>
-      </div>
-    `;
+    // DOM elements với prefix
+    const sponsorList = document.getElementById('sponsor-list');
+    let sponsorController = null;
+    let sponsorRetryCount = 0;
     
-    // Use IntersectionObserver for lazy loading
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        loadClients();
-        observer.unobserve(clientList);
+    // Khởi tạo
+    sponsorInit();
+    
+    function sponsorInit() {
+      const cachedData = sponsorGetCachedData();
+      if (cachedData) {
+        sponsorRenderClients(cachedData);
+      } else {
+        sponsorLoadClients();
       }
-    }, { threshold: 0.1 });
-    
-    // Start observing when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      clientList.innerHTML = loadingHTML;
-      observer.observe(clientList);
-      AOS.init();
-    });
-    
-    // Cache for client data
-    let clientsCache = null;
-    let lastFetchTime = 0;
-    const CACHE_DURATION = 3600000; // 1 hour cache
-    
-    // Main loading function
-    window.loadClients = async function() {
-      try {
-        clientList.innerHTML = loadingHTML;
-        
-        // Use cache if available and not expired
-        if (clientsCache && Date.now() - lastFetchTime < CACHE_DURATION) {
-          renderClients(clientsCache);
-          return;
+      
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          sponsorLoadClients();
+          observer.unobserve(sponsorList);
         }
+      }, { threshold: 0.1 });
+      
+      observer.observe(sponsorList);
+    }
+    
+    // Hàm chính để tải dữ liệu
+    async function sponsorLoadClients() {
+      try {
+        if (sponsorController) sponsorController.abort();
         
-        // Fetch with timeout
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        sponsorController = new AbortController();
+        const timeoutId = setTimeout(() => {
+          sponsorController.abort();
+          throw new Error('Request timeout');
+        }, SPONSOR_CONFIG.timeout);
         
-        const response = await fetch('https://script.google.com/macros/s/AKfycbwQ8jH7FF4FeVK9acTnB1zxDfP3QfTynvsb5yFwEpE-1xhqpUQt9kDlDE5vEMSUlmGjmw/exec', {
-          signal: controller.signal
+        sponsorShowLoadingState();
+        
+        const response = await fetch(SPONSOR_CONFIG.apiUrl, {
+          signal: sponsorController.signal,
+          cache: 'default'
         });
         
         clearTimeout(timeoutId);
         
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
         
         const clients = await response.json();
-        clientsCache = clients;
-        lastFetchTime = Date.now();
-        renderClients(clients);
+        
+        sponsorCacheData(clients);
+        sponsorRenderClients(clients);
+        sponsorPreloadImages(clients);
+        
       } catch (error) {
-        console.error('Error fetching clients:', error);
-        clientList.innerHTML = errorHTML;
+        console.error('Sponsor load error:', error);
+        sponsorHandleLoadError(error);
+      } finally {
+        sponsorController = null;
       }
-    };
+    }
     
-    // Efficient rendering with document fragment
-    function renderClients(clients) {
+    // Xử lý lỗi
+    async function sponsorHandleLoadError(error) {
+      if (sponsorRetryCount < SPONSOR_CONFIG.maxRetries) {
+        sponsorRetryCount++;
+        console.log(`Sponsor retrying (${sponsorRetryCount}/${SPONSOR_CONFIG.maxRetries})...`);
+        await new Promise(resolve => setTimeout(resolve, SPONSOR_CONFIG.retryDelay));
+        return sponsorLoadClients();
+      }
+      
+      sponsorShowErrorState(
+        error.name === 'AbortError' 
+          ? 'Tải dữ liệu quá thời gian chờ' 
+          : 'Không thể tải danh sách đối tác'
+      );
+      
+      const cachedData = sponsorGetCachedData();
+      if (cachedData) {
+        sponsorRenderClients(cachedData);
+      }
+    }
+    
+    // Cache functions
+    function sponsorGetCachedData() {
+      try {
+        const cached = localStorage.getItem(SPONSOR_CONFIG.cacheKey);
+        if (!cached) return null;
+        
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp > SPONSOR_CONFIG.cacheExpiry) {
+          localStorage.removeItem(SPONSOR_CONFIG.cacheKey);
+          return null;
+        }
+        
+        return data;
+      } catch {
+        return null;
+      }
+    }
+    
+    function sponsorCacheData(data) {
+      localStorage.setItem(SPONSOR_CONFIG.cacheKey, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }));
+    }
+    
+    // Render functions
+    function sponsorRenderClients(clients) {
       const fragment = document.createDocumentFragment();
       
       clients.forEach(client => {
-        const col = document.createElement('div');
-        col.className = 'col-xl-2 col-md-3 col-6 client-logo';
-        col.innerHTML = `
-          <a target="_blank" href="${client.website || '#'}">
-            <img src="${client.logo}" class="img-fluid" alt="${client.name}" loading="lazy">
-          </a>
-        `;
-        fragment.appendChild(col);
+        const item = document.createElement('div');
+        item.className = 'sponsor-item';
+        
+        const link = document.createElement('a');
+        link.href = client.website || '#';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.title = client.name || 'Đối tác';
+        
+        const img = document.createElement('img');
+        img.className = 'sponsor-img';
+        img.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iOTAiIHZpZXdCb3g9IjAgMCAxNjAgOTAiPjxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iOTAiIGZpbGw9IiNmNWY1ZjUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjY2NjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5Mb2dvPC90ZXh0Pjwvc3ZnPg==';
+        img.dataset.src = client.logo;
+        img.alt = client.name || '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        
+        link.appendChild(img);
+        item.appendChild(link);
+        fragment.appendChild(item);
       });
       
-      clientList.innerHTML = '';
-      clientList.appendChild(fragment);
+      sponsorList.innerHTML = '';
+      sponsorList.appendChild(fragment);
+      
+      sponsorLazyLoadImages();
     }
-  })();
-</script>
     
+    function sponsorLazyLoadImages() {
+      const lazyImages = document.querySelectorAll('.sponsor-img[data-src]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
+        });
+      }, { rootMargin: '100px' });
+      
+      lazyImages.forEach(img => observer.observe(img));
+    }
+    
+    function sponsorPreloadImages(clients) {
+      clients.forEach(client => {
+        const img = new Image();
+        img.src = client.logo;
+      });
+    }
+    
+    // UI states
+    function sponsorShowLoadingState() {
+      sponsorList.innerHTML = `
+        <div class="sponsor-loading">
+          <div class="sponsor-spinner"></div>
+          <p style="margin-top: 15px; color: #19658F;">Đang tải danh sách đối tác...</p>
+        </div>
+      `;
+    }
+    
+    function sponsorShowErrorState(message) {
+      sponsorList.innerHTML = `
+        <div class="sponsor-error">
+          <svg class="sponsor-error-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <p>${message}</p>
+          <button class="sponsor-retry-btn" onclick="window.sponsorRetryLoad()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 5px;">
+              <path d="M23 4v6h-6M1 20v-6h6"></path>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            Thử lại
+          </button>
+        </div>
+      `;
+    }
+    
+    // Global retry function với prefix
+    window.sponsorRetryLoad = function() {
+      sponsorRetryCount = 0;
+      sponsorLoadClients();
+    };
+  })();
+  </script>
+  </div>
+</section>
+
+
     <!-- /Clients Section -->
 
   <!-- <div>
