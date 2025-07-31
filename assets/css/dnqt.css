@@ -658,7 +658,7 @@ body {
     
     .bizman-modal-body .bizman-info-table th {
       font-weight: bold;
-      color: var(--bizman-primary);
+      color: var(--bizman-primary-light);
       width: 30%;
     }
     
