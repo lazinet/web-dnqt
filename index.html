@@ -399,218 +399,7 @@
     </section>
   </div>
 
-  <script>
-  (function() {
-    // Cấu hình với prefix sponsor
-    const SPONSOR_CONFIG = {
-      apiUrl: 'https://script.google.com/macros/s/AKfycbwQ8jH7FF4FeVK9acTnB1zxDfP3QfTynvsb5yFwEpE-1xhqpUQt9kDlDE5vEMSUlmGjmw/exec',
-      cacheKey: 'sponsor_data_v1',
-      cacheExpiry: 24 * 60 * 60 * 1000,
-      timeout: 8000,
-      maxRetries: 2,
-      retryDelay: 2000
-    };
-    
-    // DOM elements với prefix
-    const sponsorList = document.getElementById('sponsor-list');
-    let sponsorController = null;
-    let sponsorRetryCount = 0;
-    
-    // Khởi tạo
-    sponsorInit();
-    
-    function sponsorInit() {
-      const cachedData = sponsorGetCachedData();
-      if (cachedData) {
-        sponsorRenderClients(cachedData);
-      } else {
-        sponsorLoadClients();
-      }
-      
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          sponsorLoadClients();
-          observer.unobserve(sponsorList);
-        }
-      }, { threshold: 0.1 });
-      
-      observer.observe(sponsorList);
-    }
-    
-    // Hàm chính để tải dữ liệu
-    async function sponsorLoadClients() {
-      try {
-        if (sponsorController) sponsorController.abort();
-        
-        sponsorController = new AbortController();
-        const timeoutId = setTimeout(() => {
-          sponsorController.abort();
-          throw new Error('Request timeout');
-        }, SPONSOR_CONFIG.timeout);
-        
-        sponsorShowLoadingState();
-        
-        const response = await fetch(SPONSOR_CONFIG.apiUrl, {
-          signal: sponsorController.signal,
-          cache: 'default'
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-        
-        const clients = await response.json();
-        
-        sponsorCacheData(clients);
-        sponsorRenderClients(clients);
-        sponsorPreloadImages(clients);
-        
-      } catch (error) {
-        console.error('Sponsor load error:', error);
-        sponsorHandleLoadError(error);
-      } finally {
-        sponsorController = null;
-      }
-    }
-    
-    // Xử lý lỗi
-    async function sponsorHandleLoadError(error) {
-      if (sponsorRetryCount < SPONSOR_CONFIG.maxRetries) {
-        sponsorRetryCount++;
-        console.log(`Sponsor retrying (${sponsorRetryCount}/${SPONSOR_CONFIG.maxRetries})...`);
-        await new Promise(resolve => setTimeout(resolve, SPONSOR_CONFIG.retryDelay));
-        return sponsorLoadClients();
-      }
-      
-      sponsorShowErrorState(
-        error.name === 'AbortError' 
-          ? 'Tải dữ liệu quá thời gian chờ' 
-          : 'Không thể tải danh sách đối tác'
-      );
-      
-      const cachedData = sponsorGetCachedData();
-      if (cachedData) {
-        sponsorRenderClients(cachedData);
-      }
-    }
-    
-    // Cache functions
-    function sponsorGetCachedData() {
-      try {
-        const cached = localStorage.getItem(SPONSOR_CONFIG.cacheKey);
-        if (!cached) return null;
-        
-        const { data, timestamp } = JSON.parse(cached);
-        if (Date.now() - timestamp > SPONSOR_CONFIG.cacheExpiry) {
-          localStorage.removeItem(SPONSOR_CONFIG.cacheKey);
-          return null;
-        }
-        
-        return data;
-      } catch {
-        return null;
-      }
-    }
-    
-    function sponsorCacheData(data) {
-      localStorage.setItem(SPONSOR_CONFIG.cacheKey, JSON.stringify({
-        data,
-        timestamp: Date.now()
-      }));
-    }
-    
-    // Render functions
-    function sponsorRenderClients(clients) {
-      const fragment = document.createDocumentFragment();
-      
-      clients.forEach(client => {
-        const item = document.createElement('div');
-        item.className = 'sponsor-item';
-        
-        const link = document.createElement('a');
-        link.href = client.website || '#';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.title = client.name || 'Đối tác';
-        
-        const img = document.createElement('img');
-        img.className = 'sponsor-img';
-        img.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iOTAiIHZpZXdCb3g9IjAgMCAxNjAgOTAiPjxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iOTAiIGZpbGw9IiNmNWY1ZjUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjY2NjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5Mb2dvPC90ZXh0Pjwvc3ZnPg==';
-        img.dataset.src = client.logo;
-        img.alt = client.name || '';
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        
-        link.appendChild(img);
-        item.appendChild(link);
-        fragment.appendChild(item);
-      });
-      
-      sponsorList.innerHTML = '';
-      sponsorList.appendChild(fragment);
-      
-      sponsorLazyLoadImages();
-    }
-    
-    function sponsorLazyLoadImages() {
-      const lazyImages = document.querySelectorAll('.sponsor-img[data-src]');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-            observer.unobserve(img);
-          }
-        });
-      }, { rootMargin: '100px' });
-      
-      lazyImages.forEach(img => observer.observe(img));
-    }
-    
-    function sponsorPreloadImages(clients) {
-      clients.forEach(client => {
-        const img = new Image();
-        img.src = client.logo;
-      });
-    }
-    
-    // UI states
-    function sponsorShowLoadingState() {
-      sponsorList.innerHTML = `
-        <div class="sponsor-loading">
-          <div class="sponsor-spinner"></div>
-          <p style="margin-top: 15px; color: #19658F;">Đang tải danh sách đối tác...</p>
-        </div>
-      `;
-    }
-    
-    function sponsorShowErrorState(message) {
-      sponsorList.innerHTML = `
-        <div class="sponsor-error">
-          <svg class="sponsor-error-icon" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <p>${message}</p>
-          <button class="sponsor-retry-btn" onclick="window.sponsorRetryLoad()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 5px;">
-              <path d="M23 4v6h-6M1 20v-6h6"></path>
-              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-            </svg>
-            Thử lại
-          </button>
-        </div>
-      `;
-    }
-    
-    // Global retry function với prefix
-    window.sponsorRetryLoad = function() {
-      sponsorRetryCount = 0;
-      sponsorLoadClients();
-    };
-  })();
-  </script>
+
   </div>
 </section>
 
@@ -662,152 +451,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    // Initialize AOS
-    AOS.init();
 
-    // Function to get YouTube video ID from URL
-    function getYouTubeId(url) {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-      const match = url.match(regExp);
-      return match && match[2].length === 11 ? match[2] : null;
-    }
-
-    // Function to fetch and render team members
-    async function fetchTeamMembers() {
-      try {
-        // Get Group Code from URL parameter or default to 1
-        const urlParams = new URLSearchParams(window.location.search);
-        const groupCode = urlParams.get('GroupCode') || '1';
-
-        // Update group title based on Group Code
-        const groupTitle = document.getElementById('bizman-group-title');
-        groupTitle.textContent = groupCode === '1' ? 'Ban Điều Hành CLB' : `Nhóm ${groupCode}`;
-
-        // Use CORS proxy for local testing
-        // const corsProxy = 'http://localhost:8080/'; // Or use 'https://cors-anywhere.herokuapp.com/' for public proxy
-        const response = await fetch(`https://script.google.com/macros/s/AKfycbzF3yR4dpLgprufwHiav7Cj0SfWTWYWtQzHtoTBjrN4DqCOBNcyddp4u6IZyMpdpMV_/exec?GroupCode=${groupCode}`);
-        const members = await response.json();
-
-        const teamList = document.getElementById('bizman-team-list');
-        teamList.innerHTML = ''; // Clear existing content
-
-        members.forEach((member, index) => {
-          const memberCard = document.createElement('div');
-          memberCard.className = 'bizman-team-member';
-          memberCard.setAttribute('data-aos', 'zoom-in');
-          memberCard.setAttribute('data-aos-delay', (200 + index * 100).toString());
-          memberCard.innerHTML = `
-            <div class="bizman-member-img">
-              <img src="${member.image}" class="img-fluid" alt="${member.name}" loading="lazy">
-            </div>
-            <div class="bizman-member-info">
-              <div class="bizman-social">
-                ${member.businessCard ? `<a href="${member.businessCard}" target="_blank"><i class="bi bi-card-text"></i></a>` : ''}
-                ${member.facebook ? `<a href="${member.facebook}" target="_blank"><i class="bi bi-facebook"></i></a>` : ''}
-                ${member.zalo ? `<a href="${member.zalo}" target="_blank"><i class="bi bi-chat-dots"></i></a>` : ''}
-              </div>
-              <h4>${member.name}</h4>
-              <span>${member.position || 'Thành viên'}</span>
-              ${member.description || member.video || member.sector || member.memberType || member.joinDate || member.organizerMessage || member.businessSuggestions || member.partnerSuggestions || member.optional1 || member.optional2 || member.optional3 || member.optional4 || member.qrCodeText ? 
-                `<button class="bizman-read-more-btn" data-bs-toggle="modal" data-bs-target="#bizman-memberModal" data-member='${JSON.stringify(member).replace(/'/g, "&apos;").replace(/"/g, '&quot;')}'>Đọc thêm</button>` : ''}
-            </div>
-          `;
-          teamList.appendChild(memberCard);
-        });
-
-        // Add event listeners for modal buttons
-        document.querySelectorAll('.bizman-read-more-btn').forEach(button => {
-          button.addEventListener('click', () => {
-            const member = JSON.parse(button.dataset.member.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
-            document.getElementById('bizman-memberModalLabel').textContent = member.name;
-            document.getElementById('bizman-modal-image').src = member.image;
-            document.getElementById('bizman-modal-image').alt = member.name;
-            document.getElementById('bizman-modal-member-id').textContent = member.memberId ? `Mã Doanh Nhân: ${member.memberId}` : '';
-            document.getElementById('bizman-modal-position').textContent = member.position || 'Thành viên';
-            document.getElementById('bizman-modal-description').textContent = member.description || '';
-
-            // Embed YouTube video if available
-            const videoContainer = document.getElementById('bizman-modal-video');
-            if (member.video) {
-              const videoId = getYouTubeId(member.video);
-              if (videoId) {
-                videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-              } else {
-                videoContainer.innerHTML = '';
-              }
-            } else {
-              videoContainer.innerHTML = '';
-            }
-
-            // Generate QR code if available
-            const qrCodeContainer = document.getElementById('bizman-modal-qr-code');
-            qrCodeContainer.innerHTML = '';
-            if (member.qrCodeText) {
-              const qrDiv = document.createElement('div');
-              qrCodeContainer.appendChild(qrDiv);
-              new QRCode(qrDiv, {
-                text: member.qrCodeText,
-                width: 150,
-                height: 150,
-                colorDark: '#000000',
-                colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.H
-              });
-            }
-
-            // Populate info table
-            const infoTable = document.getElementById('bizman-modal-info-table');
-            infoTable.innerHTML = '';
-            const fields = [
-              { label: 'Lĩnh vực kinh doanh', value: member.sector },
-              { label: 'Phân loại thành viên', value: member.memberType },
-              { label: 'Ngày tham gia CLB', value: member.joinDate },
-              { label: 'Lời nhắn từ Ban tổ chức', value: member.organizerMessage },
-              { label: 'Gợi ý cho doanh nghiệp', value: member.businessSuggestions },
-              { label: 'Gợi ý cho khách hàng/đối tác', value: member.partnerSuggestions },
-              { label: 'Tùy chọn 1', value: member.optional1 },
-              { label: 'Tùy chọn 2', value: member.optional2 },
-              { label: 'Tùy chọn 3', value: member.optional3 },
-              { label: 'Tùy chọn 4', value: member.optional4 }
-            ];
-            fields.forEach(field => {
-              if (field.value) {
-                const row = document.createElement('tr');
-                row.innerHTML = `<th>${field.label}</th><td>${field.value}</td>`;
-                infoTable.appendChild(row);
-              }
-            });
-          });
-        });
-
-        // Adjust modal width based on screen size
-        function adjustModalWidth() {
-          const modal = document.querySelector('#bizman-memberModal .modal-dialog');
-          if (window.innerWidth < 768) { // Mobile
-            modal.style.maxWidth = '100%';
-            modal.style.margin = '10px';
-          } else if (window.innerWidth < 992) { // Tablet
-            modal.style.maxWidth = '90%';
-          } else { // Desktop
-            modal.style.maxWidth = '80%';
-          }
-        }
-
-        // Initial adjustment
-        adjustModalWidth();
-        
-        // Adjust on window resize
-        window.addEventListener('resize', adjustModalWidth);
-
-      } catch (error) {
-        console.error('Error fetching team members:', error);
-      }
-    }
-
-    // Fetch team members when the page loads
-    window.onload = fetchTeamMembers;
-  </script>
 <!-- <div>
   <iframe id="myIframe" src="doanhnhanqtmn.html" style="background-color: #ffffff; width:100%; height: auto; border:none;"></iframe>
 </div>
@@ -859,7 +503,7 @@
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>DOANH NGHIỆP QUẢNG TRỊ: SẢN PHẨM & DỊCH VỤ (Đang cập nhật, chờ chút nhé))</h2>
+        <h2>DOANH NGHIỆP QUẢNG TRỊ: SẢN PHẨM & DỊCH VỤ (Đang cập nhật, chờ chút nhé)</h2>
       </div><!-- End Section Title -->
 
 
@@ -894,352 +538,6 @@
       </div>
     </div>
   </div>
-  <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxhxNuS-jp70oyke_nwsEKlueIQorpNbnggL6pZ1w5SLXE6sDtU8rIsxrrBNoIKFkw6iA/exec';
-    let allProducts = [];
-    let filteredProducts = [];
-    let currentProductIndex = -1;
-    let paginationConfig = {
-      currentPage: 1,
-      itemsPerPage: 10,
-      itemsPerPageOptions: [10, 20, 30, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000]
-    };
-    let currentFilters = {
-      origin: null,
-      category: null,
-      search: null
-    };
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        await loadProducts();
-        setupEventListeners();
-      } catch (error) {
-        showError('Failed to initialize application: ' + error.message);
-      }
-    });
-    async function loadProducts() {
-      try {
-        const response = await fetch(`${API_URL}?action=getProducts`);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
-        allProducts = Array.isArray(data) ? data : [];
-        filteredProducts = [...allProducts];
-        initializeFilters();
-        displayProducts();
-      } catch (error) {
-        console.error('Error loading products:', error);
-        showError('Error loading products: ' + error.message);
-      }
-    }
-    function initializeFilters() {
-      const origins = [...new Set(allProducts.map(p => p.origin || 'Unknown'))];
-      const originOptions = document.getElementById('origin-options');
-      origins.forEach(origin => {
-        const button = document.createElement('button');
-        button.className = 'origin-option';
-        button.textContent = origin;
-        button.onclick = () => {
-          currentFilters.origin = origin;
-          updateActiveFilterButtons();
-          applyFilters();
-        };
-        originOptions.appendChild(button);
-      });
-      const categories = [...new Set(allProducts.map(p => p.category || 'Unknown'))];
-      const categoryOptions = document.getElementById('category-options');
-      categories.forEach(category => {
-        const button = document.createElement('button');
-        button.className = 'category-option';
-        button.textContent = category;
-        button.onclick = () => {
-          currentFilters.category = category;
-          updateActiveFilterButtons();
-          applyFilters();
-        };
-        categoryOptions.appendChild(button);
-      });
-      document.getElementById('all-origins').onclick = () => {
-        currentFilters.origin = null;
-        updateActiveFilterButtons();
-        applyFilters();
-      };
-      document.getElementById('all-categories').onclick = () => {
-        currentFilters.category = null;
-        updateActiveFilterButtons();
-        applyFilters();
-      };
-    }
-    function updateActiveFilterButtons() {
-      const originOptions = document.querySelectorAll('.origin-option');
-      originOptions.forEach(button => {
-        button.className = button.textContent === currentFilters.origin ? 'origin-option active' : 'origin-option';
-      });
-      const categoryOptions = document.querySelectorAll('.category-option');
-      categoryOptions.forEach(button => {
-        button.className = button.textContent === currentFilters.category ? 'category-option active' : 'category-option';
-      });
-    }
-    function applyFilters() {
-      filteredProducts = [...allProducts];
-      if (currentFilters.origin) {
-        filteredProducts = filteredProducts.filter(p => (p.origin || 'Unknown') === currentFilters.origin);
-      }
-      if (currentFilters.category) {
-        filteredProducts = filteredProducts.filter(p => (p.category || 'Unknown') === currentFilters.category);
-      }
-      if (currentFilters.search) {
-        const searchTerm = currentFilters.search.toLowerCase();
-        filteredProducts = filteredProducts.filter(p => p.product_name && p.product_name.toLowerCase().includes(searchTerm));
-      }
-      paginationConfig.currentPage = 1;
-      displayProducts();
-    }
-    function displayProducts() {
-      const tableWrapper = document.querySelector('.table-wrapper');
-      const paginationContainer = document.getElementById('pagination-container');
-      tableWrapper.innerHTML = '';
-      paginationContainer.innerHTML = '';
-      if (filteredProducts.length === 0) {
-        tableWrapper.innerHTML = '<p class="text-center py-4">No products found matching your criteria</p>';
-        return;
-      }
-      const totalPages = Math.ceil(filteredProducts.length / paginationConfig.itemsPerPage);
-      const startIndex = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage;
-      const endIndex = Math.min(startIndex + paginationConfig.itemsPerPage, filteredProducts.length);
-      const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-      renderTable(tableWrapper, paginatedProducts);
-      renderPagination(paginationContainer, filteredProducts.length, totalPages);
-    }
-    function renderTable(container, products) {
-      const table = document.createElement('table');
-      table.innerHTML = `
-        <thead>
-          <tr>
-            <th style="width: 5%">STT</th>
-            <th style="width: 8%">Ảnh</th>
-            <th style="width: 8%">Mã sản phẩm</th>
-            <th style="width: 12%">Tên sản phẩm</th>
-            <th style="width: 9%">Danh mục sản phẩm</th>
-            <th style="width: 7%">Khối lượng (gr)</th>
-            <th style="width: 7%">SL mỗi thùng</th>
-            <th style="width: 7%">Giá lẻ</th>
-            <th style="width: 7%">Giá thùng</th>
-            <th style="width: 7%">Số thùng sẵn</th>
-            <th style="width: 8%">Nguồn gốc</th>
-            <th style="min-width: 150px;">QR/ Barcode</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${products.map(product => `
-            <tr class="hover:bg-red-700 cursor-pointer" onclick="showProductDetail(${allProducts.indexOf(product)})">
-              <td class="text-center">${product.id || '-'}</td>
-              <td class="image-cell">
-                ${product.image_url ? `<img src="${product.image_url}" alt="${product.product_name}" class="table-img" style="max-height: 100%; max-width: 100%;" onerror="this.style.display='none'">` : 'No Image'}
-              </td>
-              <td>${product.product_code || '-'}</td>
-              <td>${product.product_name || '-'}</td>
-              <td>${product.category || '-'}</td>
-              <td>${product.net_weight || '-'}</td>
-              <td>${product.case_quantity || '-'}</td>
-              <td>${product.unit_price || '-'}</td>
-              <td>${product.case_price || '-'}</td>
-              <td>${product.case_stock || '-'}</td>
-              <td>${product.origin || '-'}</td>
-              <td class="text-left">
-                ${product.barcode ? `
-                <div class="barcode-container">
-                <svg class="barcode-svg" id="barcode-${product.id}"></svg>
-                <span class="barcode-number">${product.barcode}</span>
-                </div>
-                ` : '-'}
-              </td>
-            </tr>
-          `).join('')}
-        </tbody>
-      `;
-      container.appendChild(table);
-      products.forEach(product => {
-        if (product.barcode) {
-          try {
-            JsBarcode(`#barcode-${product.id}`, product.barcode, {
-              format: "CODE128",
-              lineColor: "#0A3161",
-              width: 1,
-              height: 28,
-              displayValue: false
-            });
-          } catch (e) {
-            console.error("Barcode generation error:", e);
-          }
-        }
-      });
-    }
-    function renderPagination(container, totalItems, totalPages) {
-      const paginationDiv = document.createElement('div');
-      paginationDiv.className = 'pagination';
-      const select = document.createElement('select');
-      select.className = 'mr-4';
-      select.style.cssText = `
-        width: 150px !important;
-        min-width: 150px !important;
-        max-width: 150px !important;
-        // box-sizing: border-box !important;
-      `;
-      select.innerHTML = paginationConfig.itemsPerPageOptions.map(option => 
-        `<option value="${option}" ${option === paginationConfig.itemsPerPage ? 'selected' : ''}>${option} per page</option>`
-      ).join('');
-      select.addEventListener('change', (e) => {
-        paginationConfig.itemsPerPage = parseInt(e.target.value);
-        paginationConfig.currentPage = 1;
-        displayProducts();
-      });
-      const prevButton = document.createElement('button');
-      prevButton.textContent = 'Previous';
-      prevButton.disabled = paginationConfig.currentPage === 1;
-      prevButton.addEventListener('click', () => {
-        if (paginationConfig.currentPage > 1) {
-          paginationConfig.currentPage--;
-          displayProducts();
-        }
-      });
-      const pageButtons = [];
-      const startPage = Math.max(1, paginationConfig.currentPage - 1);
-      const endPage = Math.min(totalPages, paginationConfig.currentPage + 1);
-      for (let i = startPage; i <= endPage; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.textContent = i;
-        pageButton.className = i === paginationConfig.currentPage ? 'active' : '';
-        pageButton.addEventListener('click', () => {
-          paginationConfig.currentPage = i;
-          displayProducts();
-        });
-        pageButtons.push(pageButton);
-      }
-      const nextButton = document.createElement('button');
-      nextButton.textContent = 'Next';
-      nextButton.disabled = paginationConfig.currentPage === totalPages;
-      nextButton.addEventListener('click', () => {
-        if (paginationConfig.currentPage < totalPages) {
-          paginationConfig.currentPage++;
-          displayProducts();
-        }
-      });
-      const infoText = document.createElement('span');
-      const startItem = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage + 1;
-      const endItem = Math.min(paginationConfig.currentPage * paginationConfig.itemsPerPage, totalItems);
-      infoText.textContent = `Showing ${startItem}-${endItem} of ${totalItems}`;
-      infoText.className = 'ml-4';
-      paginationDiv.appendChild(select);
-      paginationDiv.appendChild(prevButton);
-      pageButtons.forEach(button => paginationDiv.appendChild(button));
-      paginationDiv.appendChild(nextButton);
-      paginationDiv.appendChild(infoText);
-      container.appendChild(paginationDiv);
-    }
-    function showProductDetail(index) {
-      currentProductIndex = index;
-      const product = allProducts[index];
-      const popup = document.getElementById('popup');
-      const overlay = document.getElementById('popup-overlay');
-      const popupTitle = document.getElementById('popup-title');
-      const popupImage = document.getElementById('popup-image');
-      const popupDetailsTable = document.getElementById('popup-details-table');
-      const ratingDisplay = document.getElementById('rating-display');
-      popupTitle.textContent = product.product_name || 'Unknown Product';
-      popupImage.src = product.image_url || '';
-      popupImage.style.display = product.image_url ? 'block' : 'none';
-      const averageRating = parseFloat(product.average_rating) || 0;
-      const totalRatingCount = parseInt(product.total_rating_count) || 0;
-      ratingDisplay.innerHTML = `
-        <span>${averageRating.toFixed(1)}</span>
-        ${[...Array(5)].map((_, i) => `
-          <span class="rating-star">${i < Math.round(averageRating) ? '★' : '☆'}</span>
-        `).join('')}
-        <span>(${totalRatingCount} reviews)</span>
-      `;
-      popupDetailsTable.innerHTML = Object.entries(product)
-        // .filter(([key, value]) => value !== undefined && value !== '' && !['id', 'image_url', 'product_name'].includes(key))
-        .filter(([key, value]) => value !== undefined && value !== '' && !['id', 'image_url'].includes(key))
-        .map(([key, value]) => {
-          if (key === 'barcode' && value) {
-            return `
-              <tr>
-                <td class="font-medium py-1">${formatKey(key)}</td>
-                <td class="py-1">
-                  <div class="barcode-container">
-                    <svg class="barcode-svg" id="popup-barcode"></svg>
-                    <span class="barcode-number-large">${value}</span>
-                  </div>
-                </td>
-              </tr>
-            `;
-          }
-          return `
-            <tr>
-              <td class="font-medium py-1">${formatKey(key)}</td>
-              <td class="py-1">${formatValue(value)}</td>
-            </tr>
-          `;
-        }).join('');
-      if (product.barcode) {
-        try {
-          JsBarcode('#popup-barcode', product.barcode, {
-            format: "CODE128",
-            lineColor: "#0A3161",
-            width: 1,
-            height: 28,
-            displayValue: false
-          });
-        } catch (e) {
-          console.error("Barcode generation error:", e);
-        }
-      }
-      popup.className = 'popup active';
-      overlay.className = 'overlay active';
-    }
-    function formatKey(key) {
-      return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    }
-    function formatValue(value) {
-      if (typeof value === 'string' && value.match(/^https?:\/\//)) {
-        return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">Link</a>`;
-      }
-      return value || '-';
-    }
-    function closePopup() {
-      document.getElementById('popup').className = 'popup';
-      document.getElementById('popup-overlay').className = 'overlay';
-      currentProductIndex = -1;
-    }
-    function showError(message) {
-      const tabContents = document.getElementById('tab-contents');
-      tabContents.innerHTML = `<div class="error-message">${message}</div>`;
-    }
-    function setupEventListeners() {
-      document.getElementById('close-popup').addEventListener('click', closePopup);
-      document.getElementById('popup-overlay').addEventListener('click', closePopup);
-      document.getElementById('search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
-        currentFilters.search = searchTerm || null;
-        applyFilters();
-      });
-      document.getElementById('search-input').addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-          const searchTerm = document.getElementById('search-input').value.trim();
-          currentFilters.search = searchTerm || null;
-          applyFilters();
-        }
-      });
-      window.showProductDetail = showProductDetail;
-    }
-  </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c9274708cfbcaa',t:'MTc0NjcwOTM2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93cd407afb19adf4',t:'MTc0Njc1MjM0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-      <!-- END PORFOLIO -->
-
-
-  
   </section><!-- /Portfolio Section -->
 
 
@@ -1940,6 +1238,715 @@ const bgImages = [
   // setInterval(setRandomBackground, 10000);
 });
 </script>
+
+
+<!-- SCRIPT DOANH NGHIỆP CẦU NỐI -->
+   <script>
+  (function() {
+    // Cấu hình với prefix sponsor
+    const SPONSOR_CONFIG = {
+      apiUrl: 'https://script.google.com/macros/s/AKfycbwQ8jH7FF4FeVK9acTnB1zxDfP3QfTynvsb5yFwEpE-1xhqpUQt9kDlDE5vEMSUlmGjmw/exec',
+      cacheKey: 'sponsor_data_v1',
+      cacheExpiry: 24 * 60 * 60 * 1000,
+      timeout: 8000,
+      maxRetries: 2,
+      retryDelay: 2000
+    };
+    
+    // DOM elements với prefix
+    const sponsorList = document.getElementById('sponsor-list');
+    let sponsorController = null;
+    let sponsorRetryCount = 0;
+    
+    // Khởi tạo
+    sponsorInit();
+    
+    function sponsorInit() {
+      const cachedData = sponsorGetCachedData();
+      if (cachedData) {
+        sponsorRenderClients(cachedData);
+      } else {
+        sponsorLoadClients();
+      }
+      
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          sponsorLoadClients();
+          observer.unobserve(sponsorList);
+        }
+      }, { threshold: 0.1 });
+      
+      observer.observe(sponsorList);
+    }
+    
+    // Hàm chính để tải dữ liệu
+    async function sponsorLoadClients() {
+      try {
+        if (sponsorController) sponsorController.abort();
+        
+        sponsorController = new AbortController();
+        const timeoutId = setTimeout(() => {
+          sponsorController.abort();
+          throw new Error('Request timeout');
+        }, SPONSOR_CONFIG.timeout);
+        
+        sponsorShowLoadingState();
+        
+        const response = await fetch(SPONSOR_CONFIG.apiUrl, {
+          signal: sponsorController.signal,
+          cache: 'default'
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        
+        const clients = await response.json();
+        
+        sponsorCacheData(clients);
+        sponsorRenderClients(clients);
+        sponsorPreloadImages(clients);
+        
+      } catch (error) {
+        console.error('Sponsor load error:', error);
+        sponsorHandleLoadError(error);
+      } finally {
+        sponsorController = null;
+      }
+    }
+    
+    // Xử lý lỗi
+    async function sponsorHandleLoadError(error) {
+      if (sponsorRetryCount < SPONSOR_CONFIG.maxRetries) {
+        sponsorRetryCount++;
+        console.log(`Sponsor retrying (${sponsorRetryCount}/${SPONSOR_CONFIG.maxRetries})...`);
+        await new Promise(resolve => setTimeout(resolve, SPONSOR_CONFIG.retryDelay));
+        return sponsorLoadClients();
+      }
+      
+      sponsorShowErrorState(
+        error.name === 'AbortError' 
+          ? 'Tải dữ liệu quá thời gian chờ' 
+          : 'Không thể tải danh sách đối tác'
+      );
+      
+      const cachedData = sponsorGetCachedData();
+      if (cachedData) {
+        sponsorRenderClients(cachedData);
+      }
+    }
+    
+    // Cache functions
+    function sponsorGetCachedData() {
+      try {
+        const cached = localStorage.getItem(SPONSOR_CONFIG.cacheKey);
+        if (!cached) return null;
+        
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp > SPONSOR_CONFIG.cacheExpiry) {
+          localStorage.removeItem(SPONSOR_CONFIG.cacheKey);
+          return null;
+        }
+        
+        return data;
+      } catch {
+        return null;
+      }
+    }
+    
+    function sponsorCacheData(data) {
+      localStorage.setItem(SPONSOR_CONFIG.cacheKey, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }));
+    }
+    
+    // Render functions
+    function sponsorRenderClients(clients) {
+      const fragment = document.createDocumentFragment();
+      
+      clients.forEach(client => {
+        const item = document.createElement('div');
+        item.className = 'sponsor-item';
+        
+        const link = document.createElement('a');
+        link.href = client.website || '#';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.title = client.name || 'Đối tác';
+        
+        const img = document.createElement('img');
+        img.className = 'sponsor-img';
+        img.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iOTAiIHZpZXdCb3g9IjAgMCAxNjAgOTAiPjxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iOTAiIGZpbGw9IiNmNWY1ZjUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjY2NjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5Mb2dvPC90ZXh0Pjwvc3ZnPg==';
+        img.dataset.src = client.logo;
+        img.alt = client.name || '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        
+        link.appendChild(img);
+        item.appendChild(link);
+        fragment.appendChild(item);
+      });
+      
+      sponsorList.innerHTML = '';
+      sponsorList.appendChild(fragment);
+      
+      sponsorLazyLoadImages();
+    }
+    
+    function sponsorLazyLoadImages() {
+      const lazyImages = document.querySelectorAll('.sponsor-img[data-src]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
+        });
+      }, { rootMargin: '100px' });
+      
+      lazyImages.forEach(img => observer.observe(img));
+    }
+    
+    function sponsorPreloadImages(clients) {
+      clients.forEach(client => {
+        const img = new Image();
+        img.src = client.logo;
+      });
+    }
+    
+    // UI states
+    function sponsorShowLoadingState() {
+      sponsorList.innerHTML = `
+        <div class="sponsor-loading">
+          <div class="sponsor-spinner"></div>
+          <p style="margin-top: 15px; color: #19658F;">Đang tải danh sách đối tác...</p>
+        </div>
+      `;
+    }
+    
+    function sponsorShowErrorState(message) {
+      sponsorList.innerHTML = `
+        <div class="sponsor-error">
+          <svg class="sponsor-error-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <p>${message}</p>
+          <button class="sponsor-retry-btn" onclick="window.sponsorRetryLoad()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 5px;">
+              <path d="M23 4v6h-6M1 20v-6h6"></path>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            Thử lại
+          </button>
+        </div>
+      `;
+    }
+    
+    // Global retry function với prefix
+    window.sponsorRetryLoad = function() {
+      sponsorRetryCount = 0;
+      sponsorLoadClients();
+    };
+  })();
+  </script>
+
+  <!-- SCRIPT DOANH NHÂN TIÊU BIỂU -->
+  <script>
+    // Initialize AOS
+    AOS.init();
+
+    // Function to get YouTube video ID from URL
+    function getYouTubeId(url) {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regExp);
+      return match && match[2].length === 11 ? match[2] : null;
+    }
+
+    // Function to fetch and render team members
+    async function fetchTeamMembers() {
+      try {
+        // Get Group Code from URL parameter or default to 1
+        const urlParams = new URLSearchParams(window.location.search);
+        const groupCode = urlParams.get('GroupCode') || '1';
+
+        // Update group title based on Group Code
+        const groupTitle = document.getElementById('bizman-group-title');
+        groupTitle.textContent = groupCode === '1' ? 'Ban Điều Hành CLB' : `Nhóm ${groupCode}`;
+
+        // Use CORS proxy for local testing
+        // const corsProxy = 'http://localhost:8080/'; // Or use 'https://cors-anywhere.herokuapp.com/' for public proxy
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbzF3yR4dpLgprufwHiav7Cj0SfWTWYWtQzHtoTBjrN4DqCOBNcyddp4u6IZyMpdpMV_/exec?GroupCode=${groupCode}`);
+        const members = await response.json();
+
+        const teamList = document.getElementById('bizman-team-list');
+        teamList.innerHTML = ''; // Clear existing content
+
+        members.forEach((member, index) => {
+          const memberCard = document.createElement('div');
+          memberCard.className = 'bizman-team-member';
+          memberCard.setAttribute('data-aos', 'zoom-in');
+          memberCard.setAttribute('data-aos-delay', (200 + index * 100).toString());
+          memberCard.innerHTML = `
+            <div class="bizman-member-img">
+              <img src="${member.image}" class="img-fluid" alt="${member.name}" loading="lazy">
+            </div>
+            <div class="bizman-member-info">
+              <div class="bizman-social">
+                ${member.businessCard ? `<a href="${member.businessCard}" target="_blank"><i class="bi bi-card-text"></i></a>` : ''}
+                ${member.facebook ? `<a href="${member.facebook}" target="_blank"><i class="bi bi-facebook"></i></a>` : ''}
+                ${member.zalo ? `<a href="${member.zalo}" target="_blank"><i class="bi bi-chat-dots"></i></a>` : ''}
+              </div>
+              <h4>${member.name}</h4>
+              <span>${member.position || 'Thành viên'}</span>
+              ${member.description || member.video || member.sector || member.memberType || member.joinDate || member.organizerMessage || member.businessSuggestions || member.partnerSuggestions || member.optional1 || member.optional2 || member.optional3 || member.optional4 || member.qrCodeText ? 
+                `<button class="bizman-read-more-btn" data-bs-toggle="modal" data-bs-target="#bizman-memberModal" data-member='${JSON.stringify(member).replace(/'/g, "&apos;").replace(/"/g, '&quot;')}'>Đọc thêm</button>` : ''}
+            </div>
+          `;
+          teamList.appendChild(memberCard);
+        });
+
+        // Add event listeners for modal buttons
+        document.querySelectorAll('.bizman-read-more-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const member = JSON.parse(button.dataset.member.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
+            document.getElementById('bizman-memberModalLabel').textContent = member.name;
+            document.getElementById('bizman-modal-image').src = member.image;
+            document.getElementById('bizman-modal-image').alt = member.name;
+            document.getElementById('bizman-modal-member-id').textContent = member.memberId ? `Mã Doanh Nhân: ${member.memberId}` : '';
+            document.getElementById('bizman-modal-position').textContent = member.position || 'Thành viên';
+            document.getElementById('bizman-modal-description').textContent = member.description || '';
+
+            // Embed YouTube video if available
+            const videoContainer = document.getElementById('bizman-modal-video');
+            if (member.video) {
+              const videoId = getYouTubeId(member.video);
+              if (videoId) {
+                videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+              } else {
+                videoContainer.innerHTML = '';
+              }
+            } else {
+              videoContainer.innerHTML = '';
+            }
+
+            // Generate QR code if available
+            const qrCodeContainer = document.getElementById('bizman-modal-qr-code');
+            qrCodeContainer.innerHTML = '';
+            if (member.qrCodeText) {
+              const qrDiv = document.createElement('div');
+              qrCodeContainer.appendChild(qrDiv);
+              new QRCode(qrDiv, {
+                text: member.qrCodeText,
+                width: 150,
+                height: 150,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+              });
+            }
+
+            // Populate info table
+            const infoTable = document.getElementById('bizman-modal-info-table');
+            infoTable.innerHTML = '';
+            const fields = [
+              { label: 'Lĩnh vực kinh doanh', value: member.sector },
+              { label: 'Phân loại thành viên', value: member.memberType },
+              { label: 'Ngày tham gia CLB', value: member.joinDate },
+              { label: 'Lời nhắn từ Ban tổ chức', value: member.organizerMessage },
+              { label: 'Gợi ý cho doanh nghiệp', value: member.businessSuggestions },
+              { label: 'Gợi ý cho khách hàng/đối tác', value: member.partnerSuggestions },
+              { label: 'Tùy chọn 1', value: member.optional1 },
+              { label: 'Tùy chọn 2', value: member.optional2 },
+              { label: 'Tùy chọn 3', value: member.optional3 },
+              { label: 'Tùy chọn 4', value: member.optional4 }
+            ];
+            fields.forEach(field => {
+              if (field.value) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<th>${field.label}</th><td>${field.value}</td>`;
+                infoTable.appendChild(row);
+              }
+            });
+          });
+        });
+
+        // Adjust modal width based on screen size
+        function adjustModalWidth() {
+          const modal = document.querySelector('#bizman-memberModal .modal-dialog');
+          if (window.innerWidth < 768) { // Mobile
+            modal.style.maxWidth = '100%';
+            modal.style.margin = '10px';
+          } else if (window.innerWidth < 992) { // Tablet
+            modal.style.maxWidth = '90%';
+          } else { // Desktop
+            modal.style.maxWidth = '80%';
+          }
+        }
+
+        // Initial adjustment
+        adjustModalWidth();
+        
+        // Adjust on window resize
+        window.addEventListener('resize', adjustModalWidth);
+
+      } catch (error) {
+        console.error('Error fetching team members:', error);
+      }
+    }
+
+    // Fetch team members when the page loads
+    window.onload = fetchTeamMembers;
+  </script>
+
+  <!-- SCRIPT DANH MỤC SẢN PHẨM VÀ DỊCH VỤ -->
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxhxNuS-jp70oyke_nwsEKlueIQorpNbnggL6pZ1w5SLXE6sDtU8rIsxrrBNoIKFkw6iA/exec';
+    let allProducts = [];
+    let filteredProducts = [];
+    let currentProductIndex = -1;
+    let paginationConfig = {
+      currentPage: 1,
+      itemsPerPage: 10,
+      itemsPerPageOptions: [10, 20, 30, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000]
+    };
+    let currentFilters = {
+      origin: null,
+      category: null,
+      search: null
+    };
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        await loadProducts();
+        setupEventListeners();
+      } catch (error) {
+        showError('Failed to initialize application: ' + error.message);
+      }
+    });
+    async function loadProducts() {
+      try {
+        const response = await fetch(`${API_URL}?action=getProducts`);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        if (data.error) throw new Error(data.error);
+        allProducts = Array.isArray(data) ? data : [];
+        filteredProducts = [...allProducts];
+        initializeFilters();
+        displayProducts();
+      } catch (error) {
+        console.error('Error loading products:', error);
+        showError('Error loading products: ' + error.message);
+      }
+    }
+    function initializeFilters() {
+      const origins = [...new Set(allProducts.map(p => p.origin || 'Unknown'))];
+      const originOptions = document.getElementById('origin-options');
+      origins.forEach(origin => {
+        const button = document.createElement('button');
+        button.className = 'origin-option';
+        button.textContent = origin;
+        button.onclick = () => {
+          currentFilters.origin = origin;
+          updateActiveFilterButtons();
+          applyFilters();
+        };
+        originOptions.appendChild(button);
+      });
+      const categories = [...new Set(allProducts.map(p => p.category || 'Unknown'))];
+      const categoryOptions = document.getElementById('category-options');
+      categories.forEach(category => {
+        const button = document.createElement('button');
+        button.className = 'category-option';
+        button.textContent = category;
+        button.onclick = () => {
+          currentFilters.category = category;
+          updateActiveFilterButtons();
+          applyFilters();
+        };
+        categoryOptions.appendChild(button);
+      });
+      document.getElementById('all-origins').onclick = () => {
+        currentFilters.origin = null;
+        updateActiveFilterButtons();
+        applyFilters();
+      };
+      document.getElementById('all-categories').onclick = () => {
+        currentFilters.category = null;
+        updateActiveFilterButtons();
+        applyFilters();
+      };
+    }
+    function updateActiveFilterButtons() {
+      const originOptions = document.querySelectorAll('.origin-option');
+      originOptions.forEach(button => {
+        button.className = button.textContent === currentFilters.origin ? 'origin-option active' : 'origin-option';
+      });
+      const categoryOptions = document.querySelectorAll('.category-option');
+      categoryOptions.forEach(button => {
+        button.className = button.textContent === currentFilters.category ? 'category-option active' : 'category-option';
+      });
+    }
+    function applyFilters() {
+      filteredProducts = [...allProducts];
+      if (currentFilters.origin) {
+        filteredProducts = filteredProducts.filter(p => (p.origin || 'Unknown') === currentFilters.origin);
+      }
+      if (currentFilters.category) {
+        filteredProducts = filteredProducts.filter(p => (p.category || 'Unknown') === currentFilters.category);
+      }
+      if (currentFilters.search) {
+        const searchTerm = currentFilters.search.toLowerCase();
+        filteredProducts = filteredProducts.filter(p => p.product_name && p.product_name.toLowerCase().includes(searchTerm));
+      }
+      paginationConfig.currentPage = 1;
+      displayProducts();
+    }
+    function displayProducts() {
+      const tableWrapper = document.querySelector('.table-wrapper');
+      const paginationContainer = document.getElementById('pagination-container');
+      tableWrapper.innerHTML = '';
+      paginationContainer.innerHTML = '';
+      if (filteredProducts.length === 0) {
+        tableWrapper.innerHTML = '<p class="text-center py-4">No products found matching your criteria</p>';
+        return;
+      }
+      const totalPages = Math.ceil(filteredProducts.length / paginationConfig.itemsPerPage);
+      const startIndex = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage;
+      const endIndex = Math.min(startIndex + paginationConfig.itemsPerPage, filteredProducts.length);
+      const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+      renderTable(tableWrapper, paginatedProducts);
+      renderPagination(paginationContainer, filteredProducts.length, totalPages);
+    }
+    function renderTable(container, products) {
+      const table = document.createElement('table');
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th style="width: 5%">STT</th>
+            <th style="width: 8%">Ảnh</th>
+            <th style="width: 8%">Mã sản phẩm</th>
+            <th style="width: 12%">Tên sản phẩm</th>
+            <th style="width: 9%">Danh mục sản phẩm</th>
+            <th style="width: 7%">Khối lượng (gr)</th>
+            <th style="width: 7%">SL mỗi thùng</th>
+            <th style="width: 7%">Giá lẻ</th>
+            <th style="width: 7%">Giá thùng</th>
+            <th style="width: 7%">Số thùng sẵn</th>
+            <th style="width: 8%">Nguồn gốc</th>
+            <th style="min-width: 150px;">QR/ Barcode</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${products.map(product => `
+            <tr class="hover:bg-red-700 cursor-pointer" onclick="showProductDetail(${allProducts.indexOf(product)})">
+              <td class="text-center">${product.id || '-'}</td>
+              <td class="image-cell">
+                ${product.image_url ? `<img src="${product.image_url}" alt="${product.product_name}" class="table-img" style="max-height: 100%; max-width: 100%;" onerror="this.style.display='none'">` : 'No Image'}
+              </td>
+              <td>${product.product_code || '-'}</td>
+              <td>${product.product_name || '-'}</td>
+              <td>${product.category || '-'}</td>
+              <td>${product.net_weight || '-'}</td>
+              <td>${product.case_quantity || '-'}</td>
+              <td>${product.unit_price || '-'}</td>
+              <td>${product.case_price || '-'}</td>
+              <td>${product.case_stock || '-'}</td>
+              <td>${product.origin || '-'}</td>
+              <td class="text-left">
+                ${product.barcode ? `
+                <div class="barcode-container">
+                <svg class="barcode-svg" id="barcode-${product.id}"></svg>
+                <span class="barcode-number">${product.barcode}</span>
+                </div>
+                ` : '-'}
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      `;
+      container.appendChild(table);
+      products.forEach(product => {
+        if (product.barcode) {
+          try {
+            JsBarcode(`#barcode-${product.id}`, product.barcode, {
+              format: "CODE128",
+              lineColor: "#0A3161",
+              width: 1,
+              height: 28,
+              displayValue: false
+            });
+          } catch (e) {
+            console.error("Barcode generation error:", e);
+          }
+        }
+      });
+    }
+    function renderPagination(container, totalItems, totalPages) {
+      const paginationDiv = document.createElement('div');
+      paginationDiv.className = 'pagination';
+      const select = document.createElement('select');
+      select.className = 'mr-4';
+      select.style.cssText = `
+        width: 150px !important;
+        min-width: 150px !important;
+        max-width: 150px !important;
+        // box-sizing: border-box !important;
+      `;
+      select.innerHTML = paginationConfig.itemsPerPageOptions.map(option => 
+        `<option value="${option}" ${option === paginationConfig.itemsPerPage ? 'selected' : ''}>${option} per page</option>`
+      ).join('');
+      select.addEventListener('change', (e) => {
+        paginationConfig.itemsPerPage = parseInt(e.target.value);
+        paginationConfig.currentPage = 1;
+        displayProducts();
+      });
+      const prevButton = document.createElement('button');
+      prevButton.textContent = 'Previous';
+      prevButton.disabled = paginationConfig.currentPage === 1;
+      prevButton.addEventListener('click', () => {
+        if (paginationConfig.currentPage > 1) {
+          paginationConfig.currentPage--;
+          displayProducts();
+        }
+      });
+      const pageButtons = [];
+      const startPage = Math.max(1, paginationConfig.currentPage - 1);
+      const endPage = Math.min(totalPages, paginationConfig.currentPage + 1);
+      for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.className = i === paginationConfig.currentPage ? 'active' : '';
+        pageButton.addEventListener('click', () => {
+          paginationConfig.currentPage = i;
+          displayProducts();
+        });
+        pageButtons.push(pageButton);
+      }
+      const nextButton = document.createElement('button');
+      nextButton.textContent = 'Next';
+      nextButton.disabled = paginationConfig.currentPage === totalPages;
+      nextButton.addEventListener('click', () => {
+        if (paginationConfig.currentPage < totalPages) {
+          paginationConfig.currentPage++;
+          displayProducts();
+        }
+      });
+      const infoText = document.createElement('span');
+      const startItem = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage + 1;
+      const endItem = Math.min(paginationConfig.currentPage * paginationConfig.itemsPerPage, totalItems);
+      infoText.textContent = `Showing ${startItem}-${endItem} of ${totalItems}`;
+      infoText.className = 'ml-4';
+      paginationDiv.appendChild(select);
+      paginationDiv.appendChild(prevButton);
+      pageButtons.forEach(button => paginationDiv.appendChild(button));
+      paginationDiv.appendChild(nextButton);
+      paginationDiv.appendChild(infoText);
+      container.appendChild(paginationDiv);
+    }
+    function showProductDetail(index) {
+      currentProductIndex = index;
+      const product = allProducts[index];
+      const popup = document.getElementById('popup');
+      const overlay = document.getElementById('popup-overlay');
+      const popupTitle = document.getElementById('popup-title');
+      const popupImage = document.getElementById('popup-image');
+      const popupDetailsTable = document.getElementById('popup-details-table');
+      const ratingDisplay = document.getElementById('rating-display');
+      popupTitle.textContent = product.product_name || 'Unknown Product';
+      popupImage.src = product.image_url || '';
+      popupImage.style.display = product.image_url ? 'block' : 'none';
+      const averageRating = parseFloat(product.average_rating) || 0;
+      const totalRatingCount = parseInt(product.total_rating_count) || 0;
+      ratingDisplay.innerHTML = `
+        <span>${averageRating.toFixed(1)}</span>
+        ${[...Array(5)].map((_, i) => `
+          <span class="rating-star">${i < Math.round(averageRating) ? '★' : '☆'}</span>
+        `).join('')}
+        <span>(${totalRatingCount} reviews)</span>
+      `;
+      popupDetailsTable.innerHTML = Object.entries(product)
+        // .filter(([key, value]) => value !== undefined && value !== '' && !['id', 'image_url', 'product_name'].includes(key))
+        .filter(([key, value]) => value !== undefined && value !== '' && !['id', 'image_url'].includes(key))
+        .map(([key, value]) => {
+          if (key === 'barcode' && value) {
+            return `
+              <tr>
+                <td class="font-medium py-1">${formatKey(key)}</td>
+                <td class="py-1">
+                  <div class="barcode-container">
+                    <svg class="barcode-svg" id="popup-barcode"></svg>
+                    <span class="barcode-number-large">${value}</span>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }
+          return `
+            <tr>
+              <td class="font-medium py-1">${formatKey(key)}</td>
+              <td class="py-1">${formatValue(value)}</td>
+            </tr>
+          `;
+        }).join('');
+      if (product.barcode) {
+        try {
+          JsBarcode('#popup-barcode', product.barcode, {
+            format: "CODE128",
+            lineColor: "#0A3161",
+            width: 1,
+            height: 28,
+            displayValue: false
+          });
+        } catch (e) {
+          console.error("Barcode generation error:", e);
+        }
+      }
+      popup.className = 'popup active';
+      overlay.className = 'overlay active';
+    }
+    function formatKey(key) {
+      return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+    function formatValue(value) {
+      if (typeof value === 'string' && value.match(/^https?:\/\//)) {
+        return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">Link</a>`;
+      }
+      return value || '-';
+    }
+    function closePopup() {
+      document.getElementById('popup').className = 'popup';
+      document.getElementById('popup-overlay').className = 'overlay';
+      currentProductIndex = -1;
+    }
+    function showError(message) {
+      const tabContents = document.getElementById('tab-contents');
+      tabContents.innerHTML = `<div class="error-message">${message}</div>`;
+    }
+    function setupEventListeners() {
+      document.getElementById('close-popup').addEventListener('click', closePopup);
+      document.getElementById('popup-overlay').addEventListener('click', closePopup);
+      document.getElementById('search-button').addEventListener('click', () => {
+        const searchTerm = document.getElementById('search-input').value.trim();
+        currentFilters.search = searchTerm || null;
+        applyFilters();
+      });
+      document.getElementById('search-input').addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+          const searchTerm = document.getElementById('search-input').value.trim();
+          currentFilters.search = searchTerm || null;
+          applyFilters();
+        }
+      });
+      window.showProductDetail = showProductDetail;
+    }
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c9274708cfbcaa',t:'MTc0NjcwOTM2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93cd407afb19adf4',t:'MTc0Njc1MjM0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+      <!-- END PORFOLIO -->
+
 </body>
 
 </html>
