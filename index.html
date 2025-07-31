@@ -418,7 +418,7 @@
       <h2>DOANH NHÂN TIÊU BIỂU CỦA CLB DNQT MIỀN NAM</h2>
     </div>
     <div class="container" data-aos="fade-up" data-aos-delay="100">
-      <h3 class="text-center"><u id="bizman-group-title">Ban Điều Hành CLB</u></h3>
+      <h3 class="text-center"><u id="bizman-group-title">KẾT NỐI TINH HOA - CHUNG TAY KIẾN TẠO CỘNG ĐỒNG DOANH NHÂN BỀN VỮNG</u></h3>
       <br>
       <div class="bizman-team-container" id="bizman-team-list">
         <!-- Team members will be dynamically inserted here -->
@@ -501,14 +501,12 @@
       
   
     <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
+    <!-- <section id="portfolio" class="portfolio section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>DOANH NGHIỆP QUẢNG TRỊ: SẢN PHẨM & DỊCH VỤ (Đang cập nhật, chờ chút nhé)</h2>
-      </div><!-- End Section Title -->
-
-
+        <h2>DOANH NGHIỆP QUẢNG TRỊ: SẢN PHẨM & DỊCH VỤ</h2>
+      </div>
       <div style="padding: 1vw">
-    <h1 class="text-center font-bold mb-4 text-[#0A3161]">DƯỚI ĐÂY LÀ DANH MỤC SẢN PHẨM & DỊCH VỤ CỦA DOANH NGHIỆP QUẢNG TRỊ ĐÃ ĐĂNG KÝ VỚI CLB</h1>
+    <h1 class="text-center font-bold mb-4 text-[#0A3161]">(Đang cập nhật) DƯỚI ĐÂY LÀ DANH MỤC SẢN PHẨM & DỊCH VỤ CỦA DOANH NGHIỆP QUẢNG TRỊ ĐÃ ĐĂNG KÝ VỚI CLB</h1>
     <div id="origin-filters" class="origin-filter-row">
       <button id="all-origins" class="origin-all">TẤT CẢ CÁC NGUỒN GỐC</button>
       <div id="origin-options" class="origin-options"></div>
@@ -538,7 +536,8 @@
       </div>
     </div>
   </div>
-  </section><!-- /Portfolio Section -->
+  </section> -->
+  <!-- /Portfolio Section -->
 
 
     <!-- Services Section -->
@@ -1018,148 +1017,33 @@
   <!-- Preloader -->
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
-  <!-- <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <!-- Mở cửa sổ Google Maps lên -->
-  <script>
-    function openMap() {
-      // Kích thước cửa sổ bạn muốn mở
-      var width = 800;
-      var height = 600;
-  
-      // Lấy kích thước màn hình
-      var screenWidth = window.innerWidth;
-      var screenHeight = window.innerHeight;
-  
-      // Tính toán vị trí để cửa sổ mở ở chính giữa màn hình
-      var left = (screenWidth - width) / 2;
-      var top = (screenHeight - height) / 2;
-  
-      // Mở cửa sổ mới với vị trí và kích thước đã tính toán
-      window.open(
-        "https://www.google.com/maps/d/edit?mid=10WfTWNuTLEUYGzLKOWBoURigk5G9TKI&usp=sharing", 
-        "mapWindow", 
-        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
-      );
-    }
-  </script>
-
-<script type="text/javascript">
-  function openReport() {
-      // Kích thước cửa sổ bạn muốn mở
-      var width = 1000;
-      var height = 1000;
-  
-      // Lấy kích thước màn hình
-      var screenWidth = window.innerWidth;
-      var screenHeight = window.innerHeight;
-  
-      // Tính toán vị trí để cửa sổ mở ở chính giữa màn hình
-      var left = (screenWidth - width) / 2;
-      var top = (screenHeight - height) / 2;
-  
-      // Mở cửa sổ mới với vị trí và kích thước đã tính toán
-      window.open(
-        "https://script.google.com/macros/s/AKfycbxYkTFTKBgo8zl26gX0h6-C-WE-vHo1lM_dZF8ve3H-GmoK1mG-32xgldDDA1gh3RTa/exec", 
-        "reportWindow", 
-        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
-      );
-    }
-</script>
-
+<!-- SCRIPT SLIDER ẢNH NỀN TRANG CHỦ -->
 <script>
-  document.getElementById('contact-form').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Ngăn hành vi mặc định của form
-    button = document.getElementById('submit-btn');
-    button.textContent = 'Đang gửi ...';
-    button.style.color = '#ffff00'; // Màu vàng
-
-    // Lấy dữ liệu từ form
-    const formData = {
-      name: document.getElementById('name').value,
-      userType: document.getElementById('user-type').value,
-      otherType: document.getElementById('other-type').value,
-      phone: document.getElementById('phone').value,
-      email: document.getElementById('email').value,
-      subject: document.getElementById('subject').value,
-      message: document.getElementById('message').value,
-    };
-
-    try {
-      // Gửi yêu cầu POST với no-cors
-      await fetch('ABChttps://script.google.com/macros/s/AKfycbzKZEhvRQxAC5SRh6TKVEtH5sS8au3fjCXCaprbZU0bXNhKqQbN3vThf41-n6ekFH4f/exec', {
-        method: 'POST',
-        mode: 'no-cors', // Bỏ qua kiểm tra CORS
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      // Hiển thị thông báo thành công
-      button.textContent = 'Đã nhận thông tin, cám ơn bạn đã liên hệ!';
-      button.style.color = '#99FFCC'; // Màu Aqua
-      button.disabled = true; // Khóa nút để tránh gửi lại
-    } catch (error) {
-      // Hiển thị thông báo lỗi
-      button.textContent = 'Có lỗi xảy ra, thử lại!';
-      button.style.color = '#FFFF00'; // Màu đỏ
-    }
+// Hàm kiểm tra hình ảnh có tải được không
+function checkImageLoad(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
   });
-</script>
+}
 
-<script>
-window.addEventListener('DOMContentLoaded', function() {
-    const userTypeSelect = document.getElementById('user-type');
-   
-    // Kiểm tra nếu giá trị mặc định là ""
-    function updateSelectColor() {
-        if (userTypeSelect.value === "") {
-            userTypeSelect.style.color = "#595959"; // Màu của placeholder
-        } else {
-            userTypeSelect.style.color = ""; // Đặt lại màu khi chọn giá trị khác
-        }
-    }
+// Hàm preload và quản lý background
+async function initBackground() {
+  // 1. Ảnh mặc định được preload ngay lập tức
+  const defaultBg = {
+    src: '/assets/background/saigon8.jpg',
+    color: '#7a9ed2'
+  };
+  
+  // Đặt ảnh mặc định trước
+  const bgElement = document.getElementById('random-bg');
+  bgElement.src = defaultBg.src;
+  document.documentElement.style.setProperty('--primary-color', defaultBg.color);
 
-    // Cập nhật màu khi load trang
-    updateSelectColor();
-
-    // Thêm sự kiện khi người dùng chọn một giá trị khác
-    userTypeSelect.addEventListener('change', function() {
-        updateSelectColor(); // Cập nhật màu khi chọn thay đổi
-    });
-});
-
-</script>
-<script>
-  document.getElementById('user-type').addEventListener('change', function () {
-    const otherInputContainer = document.getElementById('other-input-container');
-    const userType = document.getElementById('user-type');
-    if (this.value === 'Khác') {
-      otherInputContainer.style.display = 'block'; // Hiển thị trường nhập liệu
-    } else {
-      otherInputContainer.style.display = 'none'; // Ẩn trường nhập liệu
-    }
-  });
-
-
-  // Kiểm tra ngôn ngữ trình duyệt
-  const userLang = navigator.language || navigator.userLanguage;
-    switchLanguage(userLang.startsWith('vi') ? 'vi' : 'en');
-</script>
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-const bgImages = [
+  // 2. Danh sách ảnh có thể dùng cho slide
+  const bgImages = [
   { src: 'assets/background/banhcanh1.webp', color: '#e6b980' }, // Màu vàng nâu
   { src: 'assets/background/banhloc2.jpeg', color: '#d4a373' }, // Màu nâu nhạt
   { src: 'assets/background/benthanh1.jpg', color: '#1a3e72' }, // Xanh dương đậm
@@ -1208,37 +1092,54 @@ const bgImages = [
   { src: 'assets/background/tacon1.jpg', color: '#98c1d9' }, // Xanh pastel
   { src: 'assets/background/taodan1.jpg', color: '#b8d1e9' }, // Xanh pastel nhạt
   { src: 'assets/background/thanhco3.jpg', color: '#d8e1f9' }  // Xanh pastel rất nhạt
-];
+  ];
 
-  // Preload hình ảnh
-  function preloadImages() {
-    bgImages.forEach(img => {
-      const image = new Image();
-      image.src = img.src;
-    });
+  // 3. Hàm chọn ảnh ngẫu nhiên có kiểm tra tồn tại
+  async function getRandomAvailableImages(count) {
+    const availableImages = [];
+    const shuffled = [...bgImages].sort(() => 0.5 - Math.random());
+    
+    for (const img of shuffled) {
+      if (availableImages.length >= count) break;
+      const isAvailable = await checkImageLoad(img.src);
+      if (isAvailable) {
+        availableImages.push(img);
+      }
+    }
+    
+    return availableImages;
   }
 
-  // Chọn hình ngẫu nhiên
-  function setRandomBackground() {
-    const randomIndex = Math.floor(Math.random() * bgImages.length);
-    const selected = bgImages[randomIndex];
-    
-    const bgElement = document.getElementById('random-bg');
-    bgElement.src = selected.src;
-    
-    // (Tùy chọn) Thay đổi màu chủ đề theo hình
-    document.documentElement.style.setProperty('--primary-color', selected.color);
+  // 4. Tạo slide với 4 ảnh ngẫu nhiên + ảnh mặc định
+  async function setupBackgroundSlide() {
+    const availableImages = await getRandomAvailableImages(4);
+    const allImages = [defaultBg, ...availableImages];
+    let currentIndex = 0;
+
+    function changeBackground() {
+      currentIndex = (currentIndex + 1) % allImages.length;
+      const selected = allImages[currentIndex];
+      
+      bgElement.style.opacity = 0;
+      
+      setTimeout(() => {
+        bgElement.src = selected.src;
+        document.documentElement.style.setProperty('--primary-color', selected.color);
+        bgElement.style.opacity = 1;
+      }, 500);
+    }
+
+    // Đổi hình mỗi 8 giây
+    setInterval(changeBackground, 8000);
   }
 
-  // Khởi chạy
-  preloadImages();
-  setRandomBackground();
-  
-  // (Tùy chọn) Đổi hình mới mỗi 10 giây
-  // setInterval(setRandomBackground, 10000);
-});
+  // Khởi chạy slide sau khi ảnh mặc định đã load
+  bgElement.onload = setupBackgroundSlide;
+}
+
+// Khởi chạy ngay khi DOM sẵn sàng
+document.addEventListener('DOMContentLoaded', initBackground);
 </script>
-
 
 <!-- SCRIPT DOANH NGHIỆP CẦU NỐI -->
    <script>
@@ -1603,7 +1504,7 @@ const bgImages = [
   </script>
 
   <!-- SCRIPT DANH MỤC SẢN PHẨM VÀ DỊCH VỤ -->
-  <script>
+  <!-- <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbxhxNuS-jp70oyke_nwsEKlueIQorpNbnggL6pZ1w5SLXE6sDtU8rIsxrrBNoIKFkw6iA/exec';
     let allProducts = [];
     let filteredProducts = [];
@@ -1944,8 +1845,147 @@ const bgImages = [
     }
   </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c9274708cfbcaa',t:'MTc0NjcwOTM2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93cd407afb19adf4',t:'MTc0Njc1MjM0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93cd407afb19adf4',t:'MTc0Njc1MjM0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script> -->
       <!-- END PORFOLIO -->
+
+<!-- CÁC SCRIPT KHÁC -->
+
+  <!-- Vendor JS Files -->
+  <!-- <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <!-- Mở cửa sổ Google Maps lên -->
+  <script>
+    function openMap() {
+      // Kích thước cửa sổ bạn muốn mở
+      var width = 800;
+      var height = 600;
+  
+      // Lấy kích thước màn hình
+      var screenWidth = window.innerWidth;
+      var screenHeight = window.innerHeight;
+  
+      // Tính toán vị trí để cửa sổ mở ở chính giữa màn hình
+      var left = (screenWidth - width) / 2;
+      var top = (screenHeight - height) / 2;
+  
+      // Mở cửa sổ mới với vị trí và kích thước đã tính toán
+      window.open(
+        "https://www.google.com/maps/d/edit?mid=10WfTWNuTLEUYGzLKOWBoURigk5G9TKI&usp=sharing", 
+        "mapWindow", 
+        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
+      );
+    }
+  </script>
+
+<script type="text/javascript">
+  function openReport() {
+      // Kích thước cửa sổ bạn muốn mở
+      var width = 1000;
+      var height = 1000;
+  
+      // Lấy kích thước màn hình
+      var screenWidth = window.innerWidth;
+      var screenHeight = window.innerHeight;
+  
+      // Tính toán vị trí để cửa sổ mở ở chính giữa màn hình
+      var left = (screenWidth - width) / 2;
+      var top = (screenHeight - height) / 2;
+  
+      // Mở cửa sổ mới với vị trí và kích thước đã tính toán
+      window.open(
+        "https://script.google.com/macros/s/AKfycbxYkTFTKBgo8zl26gX0h6-C-WE-vHo1lM_dZF8ve3H-GmoK1mG-32xgldDDA1gh3RTa/exec", 
+        "reportWindow", 
+        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
+      );
+    }
+</script>
+
+<script>
+  document.getElementById('contact-form').addEventListener('submit', async (event) => {
+    event.preventDefault(); // Ngăn hành vi mặc định của form
+    button = document.getElementById('submit-btn');
+    button.textContent = 'Đang gửi ...';
+    button.style.color = '#ffff00'; // Màu vàng
+
+    // Lấy dữ liệu từ form
+    const formData = {
+      name: document.getElementById('name').value,
+      userType: document.getElementById('user-type').value,
+      otherType: document.getElementById('other-type').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+      subject: document.getElementById('subject').value,
+      message: document.getElementById('message').value,
+    };
+
+    try {
+      // Gửi yêu cầu POST với no-cors
+      await fetch('ABChttps://script.google.com/macros/s/AKfycbzKZEhvRQxAC5SRh6TKVEtH5sS8au3fjCXCaprbZU0bXNhKqQbN3vThf41-n6ekFH4f/exec', {
+        method: 'POST',
+        mode: 'no-cors', // Bỏ qua kiểm tra CORS
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      // Hiển thị thông báo thành công
+      button.textContent = 'Đã nhận thông tin, cám ơn bạn đã liên hệ!';
+      button.style.color = '#99FFCC'; // Màu Aqua
+      button.disabled = true; // Khóa nút để tránh gửi lại
+    } catch (error) {
+      // Hiển thị thông báo lỗi
+      button.textContent = 'Có lỗi xảy ra, thử lại!';
+      button.style.color = '#FFFF00'; // Màu đỏ
+    }
+  });
+</script>
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    const userTypeSelect = document.getElementById('user-type');
+   
+    // Kiểm tra nếu giá trị mặc định là ""
+    function updateSelectColor() {
+        if (userTypeSelect.value === "") {
+            userTypeSelect.style.color = "#595959"; // Màu của placeholder
+        } else {
+            userTypeSelect.style.color = ""; // Đặt lại màu khi chọn giá trị khác
+        }
+    }
+
+    // Cập nhật màu khi load trang
+    updateSelectColor();
+
+    // Thêm sự kiện khi người dùng chọn một giá trị khác
+    userTypeSelect.addEventListener('change', function() {
+        updateSelectColor(); // Cập nhật màu khi chọn thay đổi
+    });
+});
+
+</script>
+<script>
+  document.getElementById('user-type').addEventListener('change', function () {
+    const otherInputContainer = document.getElementById('other-input-container');
+    const userType = document.getElementById('user-type');
+    if (this.value === 'Khác') {
+      otherInputContainer.style.display = 'block'; // Hiển thị trường nhập liệu
+    } else {
+      otherInputContainer.style.display = 'none'; // Ẩn trường nhập liệu
+    }
+  });
+
+
+  // Kiểm tra ngôn ngữ trình duyệt
+  const userLang = navigator.language || navigator.userLanguage;
+    switchLanguage(userLang.startsWith('vi') ? 'vi' : 'en');
+</script>
 
 </body>
 
