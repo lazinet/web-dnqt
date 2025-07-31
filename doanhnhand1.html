@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Members</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- QRCode.js -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --bizman-primary: #19658F;
+      --bizman-secondary: #F15E22;
+      --bizman-primary-light: #E1ECF2;
+      --bizman-secondary-light: #FEE8E0;
+    }
+    
+    .bizman-team-section {
+      padding: 60px 0;
+      background-color: #f8f9fa;
+    }
+    
+    .bizman-section-title h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--bizman-primary);
+    }
+    
+    .bizman-team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+    }
+    
+    .bizman-team-member {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .bizman-team-member:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+    
+    .bizman-member-img {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+    }
+    
+    .bizman-member-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.3s ease;
+    }
+    
+    .bizman-team-member:hover .bizman-member-img img {
+      transform: scale(1.05);
+    }
+    
+    .bizman-member-info {
+      padding: 20px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .bizman-member-info h4 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    
+    .bizman-member-info span {
+      color: #777;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    
+    .bizman-social {
+      margin-bottom: 10px;
+    }
+    
+    .bizman-social a {
+      margin: 0 10px;
+      font-size: 1.5rem;
+      color: var(--bizman-primary);
+      transition: color 0.3s ease;
+    }
+    
+    .bizman-social a:hover {
+      color: var(--bizman-secondary);
+    }
+    
+    .bizman-read-more-btn {
+      background: var(--bizman-primary);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      margin-top: auto;
+      transition: background 0.3s ease;
+      width: fit-content;
+      align-self: center;
+    }
+    
+    .bizman-read-more-btn:hover {
+      background: var(--bizman-secondary);
+    }
+    
+    .bizman-modal-content {
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    .bizman-modal-header {
+      background: var(--bizman-primary);
+      color: #fff;
+      border-radius: 15px 15px 0 0;
+      border-bottom: none;
+    }
+    
+    .bizman-modal-header h5 {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    
+    .bizman-modal-body {
+      padding: 20px;
+    }
+    
+    .bizman-modal-body img.bizman-profile-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border: 3px solid var(--bizman-primary-light);
+    }
+    
+    .bizman-modal-body .bizman-video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background: var(--bizman-primary-light);
+    }
+    
+    .bizman-modal-body .bizman-video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+    
+    .bizman-modal-body .bizman-qr-code-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .bizman-modal-body .bizman-qr-code-container canvas {
+      max-width: 150px;
+      border-radius: 5px;
+      border: 1px solid #eee;
+      padding: 5px;
+      background: white;
+    }
+    
+    .bizman-modal-body p.bizman-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 20px;
+      background: var(--bizman-primary-light);
+      padding: 15px;
+      border-radius: 8px;
+    }
+    
+    .bizman-modal-body .bizman-info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    
+    .bizman-modal-body .bizman-info-table th, 
+    .bizman-modal-body .bizman-info-table td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    
+    .bizman-modal-body .bizman-info-table th {
+      font-weight: bold;
+      color: var(--bizman-primary);
+      width: 30%;
+    }
+    
+    .bizman-modal-body .bizman-info-table td {
+      color: #333;
+    }
+    
+    .bizman-modal-body .bizman-info-table tr:nth-child(even) {
+      background-color: var(--bizman-primary-light);
+    }
+    
+    @media (max-width: 1199.98px) {
+      .bizman-section-title h2 {
+        font-size: 2.2rem;
+      }
+    }
+    
+    @media (max-width: 991.98px) {
+      .bizman-section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .bizman-team-container {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+      
+      /* .bizman-member-img {
+        height: 240px;
+      } */
+    }
+    
+    @media (max-width: 767.98px) {
+      .bizman-section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .bizman-team-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+      
+      /* .bizman-member-img {
+        height: 220px;
+      } */
+    }
+    
+    @media (max-width: 575.98px) {
+      .bizman-section-title h2 {
+        font-size: 1.5rem;
+      }
+      
+      .bizman-team-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .bizman-member-info h4 {
+        font-size: 1.3rem;
+      }
+      
+      .bizman-member-info span {
+        font-size: 0.9rem;
+      }
+      
+      .bizman-modal-body img.bizman-profile-img {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .bizman-modal-body p.bizman-description {
+        font-size: 0.9rem;
+      }
+      
+      .bizman-modal-body .bizman-info-table th, 
+      .bizman-modal-body .bizman-info-table td {
+        font-size: 0.85rem;
+        padding: 8px;
+      }
+      
+      .bizman-modal-body .bizman-qr-code-container canvas {
+        max-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="team" class="bizman-team-section">
+    <div class="container bizman-section-title" data-aos="fade-up">
+      <h2>DOANH NHÂN TIÊU BIỂU CỦA CLB DNQT MIỀN NAM</h2>
+    </div>
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <h3 class="text-center"><u id="bizman-group-title">Ban Điều Hành CLB</u></h3>
+      <br>
+      <div class="bizman-team-container" id="bizman-team-list">
+        <!-- Team members will be dynamically inserted here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Template -->
+  <div class="modal fade" id="bizman-memberModal" tabindex="-1" aria-labelledby="bizman-memberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bizman-modal-content">
+        <div class="modal-header bizman-modal-header">
+          <h5 class="modal-title" id="bizman-memberModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bizman-modal-body">
+          <img id="bizman-modal-image" src="" alt="" class="bizman-profile-img d-block mx-auto">
+          <h6 id="bizman-modal-member-id" class="text-center text-muted mb-2"></h6>
+          <h6 id="bizman-modal-position" class="text-center text-muted mb-3"></h6>
+          <div id="bizman-modal-video" class="bizman-video-container"></div>
+          <div id="bizman-modal-qr-code" class="bizman-qr-code-container"></div>
+          <p id="bizman-modal-description" class="bizman-description"></p>
+          <table id="bizman-modal-info-table" class="bizman-info-table"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init();
+
+    // Function to get YouTube video ID from URL
+    function getYouTubeId(url) {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regExp);
+      return match && match[2].length === 11 ? match[2] : null;
+    }
+
+    // Function to fetch and render team members
+    async function fetchTeamMembers() {
+      try {
+        // Get Group Code from URL parameter or default to 1
+        const urlParams = new URLSearchParams(window.location.search);
+        const groupCode = urlParams.get('GroupCode') || '1';
+
+        // Update group title based on Group Code
+        const groupTitle = document.getElementById('bizman-group-title');
+        groupTitle.textContent = groupCode === '1' ? 'Ban Điều Hành CLB' : `Nhóm ${groupCode}`;
+
+        // Use CORS proxy for local testing
+        // const corsProxy = 'http://localhost:8080/'; // Or use 'https://cors-anywhere.herokuapp.com/' for public proxy
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbzF3yR4dpLgprufwHiav7Cj0SfWTWYWtQzHtoTBjrN4DqCOBNcyddp4u6IZyMpdpMV_/exec?GroupCode=${groupCode}`);
+        const members = await response.json();
+
+        const teamList = document.getElementById('bizman-team-list');
+        teamList.innerHTML = ''; // Clear existing content
+
+        members.forEach((member, index) => {
+          const memberCard = document.createElement('div');
+          memberCard.className = 'bizman-team-member';
+          memberCard.setAttribute('data-aos', 'zoom-in');
+          memberCard.setAttribute('data-aos-delay', (200 + index * 100).toString());
+          memberCard.innerHTML = `
+            <div class="bizman-member-img">
+              <img src="${member.image}" class="img-fluid" alt="${member.name}" loading="lazy">
+            </div>
+            <div class="bizman-member-info">
+              <div class="bizman-social">
+                ${member.businessCard ? `<a href="${member.businessCard}" target="_blank"><i class="bi bi-card-text"></i></a>` : ''}
+                ${member.facebook ? `<a href="${member.facebook}" target="_blank"><i class="bi bi-facebook"></i></a>` : ''}
+                ${member.zalo ? `<a href="${member.zalo}" target="_blank"><i class="bi bi-chat-dots"></i></a>` : ''}
+              </div>
+              <h4>${member.name}</h4>
+              <span>${member.position || 'Thành viên'}</span>
+              ${member.description || member.video || member.sector || member.memberType || member.joinDate || member.organizerMessage || member.businessSuggestions || member.partnerSuggestions || member.optional1 || member.optional2 || member.optional3 || member.optional4 || member.qrCodeText ? 
+                `<button class="bizman-read-more-btn" data-bs-toggle="modal" data-bs-target="#bizman-memberModal" data-member='${JSON.stringify(member).replace(/'/g, "&apos;").replace(/"/g, '&quot;')}'>Đọc thêm</button>` : ''}
+            </div>
+          `;
+          teamList.appendChild(memberCard);
+        });
+
+        // Add event listeners for modal buttons
+        document.querySelectorAll('.bizman-read-more-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const member = JSON.parse(button.dataset.member.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
+            document.getElementById('bizman-memberModalLabel').textContent = member.name;
+            document.getElementById('bizman-modal-image').src = member.image;
+            document.getElementById('bizman-modal-image').alt = member.name;
+            document.getElementById('bizman-modal-member-id').textContent = member.memberId ? `Mã Doanh Nhân: ${member.memberId}` : '';
+            document.getElementById('bizman-modal-position').textContent = member.position || 'Thành viên';
+            document.getElementById('bizman-modal-description').textContent = member.description || '';
+
+            // Embed YouTube video if available
+            const videoContainer = document.getElementById('bizman-modal-video');
+            if (member.video) {
+              const videoId = getYouTubeId(member.video);
+              if (videoId) {
+                videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+              } else {
+                videoContainer.innerHTML = '';
+              }
+            } else {
+              videoContainer.innerHTML = '';
+            }
+
+            // Generate QR code if available
+            const qrCodeContainer = document.getElementById('bizman-modal-qr-code');
+            qrCodeContainer.innerHTML = '';
+            if (member.qrCodeText) {
+              const qrDiv = document.createElement('div');
+              qrCodeContainer.appendChild(qrDiv);
+              new QRCode(qrDiv, {
+                text: member.qrCodeText,
+                width: 150,
+                height: 150,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+              });
+            }
+
+            // Populate info table
+            const infoTable = document.getElementById('bizman-modal-info-table');
+            infoTable.innerHTML = '';
+            const fields = [
+              { label: 'Lĩnh vực kinh doanh', value: member.sector },
+              { label: 'Phân loại thành viên', value: member.memberType },
+              { label: 'Ngày tham gia CLB', value: member.joinDate },
+              { label: 'Lời nhắn từ Ban tổ chức', value: member.organizerMessage },
+              { label: 'Gợi ý cho doanh nghiệp', value: member.businessSuggestions },
+              { label: 'Gợi ý cho khách hàng/đối tác', value: member.partnerSuggestions },
+              { label: 'Tùy chọn 1', value: member.optional1 },
+              { label: 'Tùy chọn 2', value: member.optional2 },
+              { label: 'Tùy chọn 3', value: member.optional3 },
+              { label: 'Tùy chọn 4', value: member.optional4 }
+            ];
+            fields.forEach(field => {
+              if (field.value) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<th>${field.label}</th><td>${field.value}</td>`;
+                infoTable.appendChild(row);
+              }
+            });
+          });
+        });
+
+        // Adjust modal width based on screen size
+        function adjustModalWidth() {
+          const modal = document.querySelector('#bizman-memberModal .modal-dialog');
+          if (window.innerWidth < 768) { // Mobile
+            modal.style.maxWidth = '100%';
+            modal.style.margin = '10px';
+          } else if (window.innerWidth < 992) { // Tablet
+            modal.style.maxWidth = '90%';
+          } else { // Desktop
+            modal.style.maxWidth = '80%';
+          }
+        }
+
+        // Initial adjustment
+        adjustModalWidth();
+        
+        // Adjust on window resize
+        window.addEventListener('resize', adjustModalWidth);
+
+      } catch (error) {
+        console.error('Error fetching team members:', error);
+      }
+    }
+
+    // Fetch team members when the page loads
+    window.onload = fetchTeamMembers;
+  </script>
+</body>
+</html>

@@ -457,104 +457,161 @@ body {
 
 
     /* DOANH NHÂN GIỚI THIỆU */
-  .team.section {
+    :root {
+      --bizman-primary: #19658F;
+      --bizman-secondary: #F15E22;
+      --bizman-primary-light: #E1ECF2;
+      --bizman-secondary-light: #FEE8E0;
+    }
+    
+    .bizman-team-section {
       padding: 60px 0;
       background-color: #f8f9fa;
     }
-    .section-title h2 {
+    
+    .bizman-section-title h2 {
       font-size: 2.5rem;
       font-weight: bold;
       text-align: center;
       margin-bottom: 20px;
-      color: #1a3c6d;
+      color: var(--bizman-primary);
     }
-    .team-member {
+    
+    .bizman-team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+    }
+    
+    .bizman-team-member {
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
-    .team-member:hover {
+    
+    .bizman-team-member:hover {
       transform: translateY(-10px);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     }
-    .member-img img {
+    
+    .bizman-member-img {
       width: 100%;
-      height: 300px;
+      height: auto;
+      overflow: hidden;
+    }
+    
+    .bizman-member-img img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: top;
-      border-radius: 15px 15px 0 0;
+      transition: transform 0.3s ease;
     }
-    .member-info {
+    
+    .bizman-team-member:hover .bizman-member-img img {
+      transform: scale(1.05);
+    }
+    
+    .bizman-member-info {
       padding: 20px;
       text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
-    .member-info h4 {
+    
+    .bizman-member-info h4 {
       font-size: 1.5rem;
       margin-bottom: 5px;
       color: #333;
     }
-    .member-info span {
+    
+    .bizman-member-info span {
       color: #777;
       font-size: 1rem;
+      margin-bottom: 10px;
     }
-    .social a {
+    
+    .bizman-social {
+      margin-bottom: 10px;
+    }
+    
+    .bizman-social a {
       margin: 0 10px;
       font-size: 1.5rem;
-      color: #007bff;
+      color: var(--bizman-primary);
       transition: color 0.3s ease;
     }
-    .social a:hover {
-      color: #0056b3;
+    
+    .bizman-social a:hover {
+      color: var(--bizman-secondary);
     }
-    .read-more-btn {
-      background: #007bff;
+    
+    .bizman-read-more-btn {
+      background: var(--bizman-primary);
       color: #fff;
       border: none;
       padding: 8px 16px;
       border-radius: 5px;
       font-size: 0.9rem;
-      margin-top: 10px;
+      margin-top: auto;
       transition: background 0.3s ease;
+      width: fit-content;
+      align-self: center;
     }
-    .read-more-btn:hover {
-      background: #0056b3;
+    
+    .bizman-read-more-btn:hover {
+      background: var(--bizman-secondary);
     }
-    .modal-content {
+    
+    .bizman-modal-content {
       border-radius: 15px;
       border: none;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
-    .modal-header {
-      background: #007bff;
+    
+    .bizman-modal-header {
+      background: var(--bizman-primary);
       color: #fff;
       border-radius: 15px 15px 0 0;
       border-bottom: none;
     }
-    .modal-header h5 {
+    
+    .bizman-modal-header h5 {
       font-size: 1.8rem;
       font-weight: bold;
     }
-    .modal-body {
+    
+    .bizman-modal-body {
       padding: 20px;
     }
-    .modal-body img.profile-img {
+    
+    .bizman-modal-body img.bizman-profile-img {
       width: 150px;
       height: 150px;
       object-fit: cover;
       object-position: top;
       border-radius: 10px;
       margin-bottom: 15px;
+      border: 3px solid var(--bizman-primary-light);
     }
-    .modal-body .video-container {
+    
+    .bizman-modal-body .bizman-video-container {
       position: relative;
       padding-bottom: 56.25%; /* 16:9 aspect ratio */
       height: 0;
       overflow: hidden;
       margin-bottom: 20px;
+      border-radius: 10px;
+      background: var(--bizman-primary-light);
     }
-    .modal-body .video-container iframe {
+    
+    .bizman-modal-body .bizman-video-container iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -562,52 +619,124 @@ body {
       height: 100%;
       border-radius: 10px;
     }
-    .modal-body .qr-code-container {
+    
+    .bizman-modal-body .bizman-qr-code-container {
       text-align: center;
       margin-bottom: 20px;
     }
-    .modal-body .qr-code-container canvas {
+    
+    .bizman-modal-body .bizman-qr-code-container canvas {
       max-width: 150px;
       border-radius: 5px;
       border: 1px solid #eee;
+      padding: 5px;
+      background: white;
     }
-    .modal-body p.description {
+    
+    .bizman-modal-body p.bizman-description {
       font-size: 1rem;
       line-height: 1.6;
       color: #333;
       margin-bottom: 20px;
+      background: var(--bizman-primary-light);
+      padding: 15px;
+      border-radius: 8px;
     }
-    .modal-body .info-table {
+    
+    .bizman-modal-body .bizman-info-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.95rem;
     }
-    .modal-body .info-table th, .modal-body .info-table td {
+    
+    .bizman-modal-body .bizman-info-table th, 
+    .bizman-modal-body .bizman-info-table td {
       padding: 10px;
       border-bottom: 1px solid #eee;
       text-align: left;
     }
-    .modal-body .info-table th {
+    
+    .bizman-modal-body .bizman-info-table th {
       font-weight: bold;
-      color: #1a3c6d;
+      color: var(--bizman-primary);
       width: 30%;
     }
-    .modal-body .info-table td {
+    
+    .bizman-modal-body .bizman-info-table td {
       color: #333;
     }
-    @media (max-width: 576px) {
-      .modal-body img.profile-img {
+    
+    .bizman-modal-body .bizman-info-table tr:nth-child(even) {
+      background-color: var(--bizman-primary-light);
+    }
+    
+    @media (max-width: 1199.98px) {
+      .bizman-section-title h2 {
+        font-size: 2.2rem;
+      }
+    }
+    
+    @media (max-width: 991.98px) {
+      .bizman-section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .bizman-team-container {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+      
+      /* .bizman-member-img {
+        height: 240px;
+      } */
+    }
+    
+    @media (max-width: 767.98px) {
+      .bizman-section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .bizman-team-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+      
+      /* .bizman-member-img {
+        height: 220px;
+      } */
+    }
+    
+    @media (max-width: 575.98px) {
+      .bizman-section-title h2 {
+        font-size: 1.5rem;
+      }
+      
+      .bizman-team-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .bizman-member-info h4 {
+        font-size: 1.3rem;
+      }
+      
+      .bizman-member-info span {
+        font-size: 0.9rem;
+      }
+      
+      .bizman-modal-body img.bizman-profile-img {
         width: 100px;
         height: 100px;
       }
-      .modal-body p.description {
+      
+      .bizman-modal-body p.bizman-description {
         font-size: 0.9rem;
       }
-      .modal-body .info-table th, .modal-body .info-table td {
+      
+      .bizman-modal-body .bizman-info-table th, 
+      .bizman-modal-body .bizman-info-table td {
         font-size: 0.85rem;
         padding: 8px;
       }
-      .modal-body .qr-code-container canvas {
+      
+      .bizman-modal-body .bizman-qr-code-container canvas {
         max-width: 120px;
       }
     }
