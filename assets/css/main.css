@@ -1047,6 +1047,7 @@ video {
 }
 
 .hero .btn-get-started {
+  gap: 8px;
   color: var(--contrast-color);
   background: color-mix(in srgb, var(--accent-color), transparent 25%);
   /* font-family: var(--heading-font); */

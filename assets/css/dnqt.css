@@ -904,3 +904,26 @@ body {
     @keyframes sponsor-spin {
       to { transform: rotate(360deg); }
     }
+
+    /* TỐI ƯU VIEW YOUTUBE */
+      /* Tái tạo lại style của Bootstrap */
+  .btn-watch-video {
+    display: inline-flex; /* Thay thế d-flex */
+    align-items: center;  /* Giữ căn giữa icon và text */
+    gap: 8px;            /* Khoảng cách giữa icon và text */
+    padding: 8px 16px;   /* Tùy chỉnh theo thiết kế */
+  color: var(--contrast-color);
+    background: color-mix(in srgb, var(--accent-color), transparent 25%);
+    border-radius: 4px;  /* Bo góc */
+    text-decoration: none; /* Bỏ gạch chân */
+    font-weight: 500;
+  }
+  
+  .btn-watch-video:hover {
+    color: #fff;         /* Màu chữ */
+    background: #ff0000; /* Màu nền (ví dụ: đỏ YouTube) */
+  }
+  
+  .bi-play-circle {
+    font-size: 1.2rem; /* Kích thước icon */
+  }
