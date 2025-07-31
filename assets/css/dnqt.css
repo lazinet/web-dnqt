@@ -802,13 +802,13 @@ body {
       padding: 15px;
       background: white;
       border-radius: 8px;
-      box-shadow: 0 4px 12px #19658F;;
+      box-shadow: 0 3px 6px #19658F;
       transition: all 0.3s ease;
     }
     
     .sponsor-item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 16px #F15E22;
+      box-shadow: 0 9px 18px #F15E22;
     }
     
     .sponsor-img {
