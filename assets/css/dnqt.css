@@ -927,3 +927,132 @@ body {
   .bi-play-circle {
     font-size: 1.2rem; /* Kích thước icon */
   }
+
+
+  /* VIDEO GIỚI THIỆU DN */
+  /* Reset CSS */
+    .bizvideo-container * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    /* Main container */
+    .bizvideo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    /* Header */
+    .bizvideo-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid #F15E22;
+    }
+    
+    .bizvideo-header h1 {
+      color: #19658F;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    
+    /* Grid layout */
+    .bizvideo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    /* Company card */
+    .bizvideo-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .bizvideo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Card content */
+    .bizvideo-card-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .bizvideo-card h2 {
+      color: #19658F;
+      font-size: 18px;
+      margin-bottom: 10px;
+      line-height: 1.3;
+      min-height: 46px; /* Đảm bảo chiều cao đồng đều */
+      display: flex;
+      align-items: center;
+    }
+    
+    .bizvideo-card p {
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    .bizvideo-card .bizvideo-position {
+      font-weight: bold;
+      color: #F15E22;
+    }
+    
+    .bizvideo-card .bizvideo-industry {
+      font-style: italic;
+      color: #666;
+    }
+    
+    /* Video link */
+    .bizvideo-video-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 15px;
+      background-color: #19658F;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+    
+    .bizvideo-video-link:hover {
+      background-color: #F15E22;
+      color: white;
+    }
+    
+    /* Additional fields */
+    .bizvideo-additional {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #ddd;
+      font-size: 13px;
+      color: #555;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .bizvideo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      
+      .bizvideo-header h1 {
+        font-size: 24px;
+      }
+    }

@@ -442,30 +442,7 @@
     </div>
   </div>
 
-   <!-- Call To Action Section -->
-    <section id="call-to-action" class="call-to-action section">
-
-      <div class="container" data-aos="zoom-out">
-
-        <div class="row g-5">
-
-          <div class="col-lg-8 col-md-6 content d-flex flex-column justify-content-center order-last order-md-first">
-            <h3 style="font-size: clamp(20px, 4vw, 30px);">CLB Doanh nhân Quảng Trị Miền Nam không ngừng <em>lớn mạnh</em> hơn</h3>
-            <p> Từ một nhóm nhỏ, CLB đã phát triển thành cộng đồng hàng trăm doanh nhân tích cực, tổ chức nhiều hoạt động giao thương, đào tạo và hỗ trợ thành viên. Với khát vọng vươn xa, CLB tiếp tục là cầu nối vững chắc, thúc đẩy doanh nghiệp Quảng Trị phát triển bền vững tại Miền Nam và hội nhập quốc tế.</p>
-            <a class="cta-btn align-self-start" href="https://dnqt.vn/"  target="_blank">Khám phá thêm</a>
-          </div>
-
-          <div class="col-lg-4 col-md-6 order-first order-md-last d-flex align-items-center">
-            <div class="img">
-              <img src="https://d2rty5wuu5bi5t.cloudfront.net/eyJidWNrZXQiOiJyc24tYnVja2V0Iiwia2V5IjoicHJvZHVjdGlvbi9oZXJvZXMvMV8yMDI0LTA2LTI1LTE1MDQwMF9zamZ5LmpwZyIsImVkaXRzIjp7ImpwZWciOnsicXVhbGl0eSI6ODIsInByb2dyZXNzaXZlIjp0cnVlLCJ0cmVsbGlzUXVhbnRpc2F0aW9uIjp0cnVlLCJvdmVyc2hvb3REZXJpbmdpbmciOnRydWUsIm9wdGltaXplU2NhbnMiOnRydWV9LCJyZXNpemUiOnsid2lkdGgiOjEyMDAsImhlaWdodCI6Njc1LCJmaXQiOiJjb3ZlciJ9LCJzaGFycGVuIjp0cnVlfX0=" class="img-fluid" alt="">
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Call To Action Section -->
+ 
 
       
   
@@ -507,7 +484,16 @@
   </div>
   </section> -->
   <!-- /Portfolio Section -->
+<section id="portfolio" class="portfolio section">
+  <div class="bizvideo-header">
+    <h1>DANH SÁCH VIDEO GIỚI THIỆU DOANH NGHIỆP THÀNH VIÊN</h1>
+    <p>Câu lạc bộ Doanh nhân Quảng Trị Miền Nam</p>
+  </div>
 
+  <div class="bizvideo-grid" id="companyGrid">
+    <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+  </div>
+</section>
 
     <!-- Services Section -->
     <section id="services" class="services section">
@@ -1268,7 +1254,7 @@ document.addEventListener('DOMContentLoaded', initBackground);
       sponsorList.innerHTML = `
         <div class="sponsor-loading">
           <div class="sponsor-spinner"></div>
-          <p style="margin-top: 15px; color: #19658F;">Đang cập nhật danh sách ...</p>
+          <p style="margin-top: 15px; color: #19658F;">Đang lấy logo từ đối tác ...</p>
         </div>
       `;
     }
@@ -1928,9 +1914,70 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
   // Kiểm tra ngôn ngữ trình duyệt
-  const userLang = navigator.language || navigator.userLanguage;
-    switchLanguage(userLang.startsWith('vi') ? 'vi' : 'en');
+  // const userLang = navigator.language || navigator.userLanguage;
+  //   switchLanguage(userLang.startsWith('vi') ? 'vi' : 'en');
 </script>
+
+<!-- SCRIPT ĐOẠN GIỚI THIỆU VIDEO DN -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Lấy dữ liệu từ Google Apps Script
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbzivw010fPhNr7stNXdM7Rn7EAhXFoITqppIER7ZqmQyPYFILoy5UmPKMk_ea8JA-sRUw/exec'; // Thay bằng URL triển khai của bạn
+      
+      fetch(scriptUrl)
+        .then(response => response.json())
+        .then(data => {
+          const grid = document.getElementById('companyGrid');
+          
+          data.forEach(company => {
+            const card = document.createElement('div');
+            card.className = 'bizvideo-card';
+            
+            let html = `
+              <div class="bizvideo-card-content">
+                <h2>${company['Tên doanh nghiệp (đầy đủ)'] || ''}</h2>
+                <p class="bizvideo-position">${company['Chức vụ'] || ''}</p>
+                <p><strong>${company['Họ và tên (có dấu)'] || ''}</strong></p>
+                <p class="bizvideo-industry">${company['Tên lĩnh vực chuẩn hóa'] || ''}</p>
+            `;
+            
+            // Thêm các trường bổ sung nếu có
+            const additionalFields = [];
+            for (let i = 1; i <= 3; i++) {
+              const field = company[`Trường bổ sung ${i}`];
+              if (field) {
+                additionalFields.push(`<p>${field}</p>`);
+              }
+            }
+            
+            if (additionalFields.length > 0) {
+              html += `<div class="bizvideo-additional">${additionalFields.join('')}</div>`;
+            }
+            
+            // Thêm link video nếu có
+            if (company['URL Video']) {
+              html += `
+                <a href="${company['URL Video']}" target="_blank" class="bizvideo-video-link">
+                  Xem video giới thiệu
+                </a>
+              `;
+            }
+            
+            html += `</div>`;
+            card.innerHTML = html;
+            grid.appendChild(card);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading data:', error);
+          document.getElementById('companyGrid').innerHTML = `
+            <p style="grid-column: 1/-1; text-align: center; color: #F15E22;">
+              Đang tải dữ liệu... Nếu thông báo này hiển thị quá lâu, vui lòng làm mới trang.
+            </p>
+          `;
+        });
+    });
+  </script>
 
 </body>
 
