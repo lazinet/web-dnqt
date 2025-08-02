@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tra cứu Đăng ký | CLB Doanh nhân Quảng Trị Miền Nam</title>
+  <style>
+    .dnqt-search-container {
+      font-family: 'Arial', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dnqt-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #F15E22;
+    }
+    
+    .dnqt-header h1 {
+      color: #19658F;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    
+    .dnqt-header p {
+      color: #555;
+    }
+    
+    .dnqt-search-box {
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    .dnqt-search-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    
+    .dnqt-search-type {
+      min-width: 150px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: white;
+      color: #333;
+      font-size: 15px;
+    }
+    
+    .dnqt-search-input-container {
+      flex-grow: 1;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .dnqt-search-input {
+      flex-grow: 1;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+    
+    .dnqt-search-btn {
+      background-color: #19658F;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    
+    .dnqt-search-btn:hover {
+      background-color: #13496D;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dnqt-result {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .dnqt-result h2 {
+      color: #19658F;
+      margin-bottom: 25px;
+      font-size: 22px;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .dnqt-result h2:before {
+      content: "✓";
+      color: #F15E22;
+      font-size: 28px;
+    }
+    
+    .dnqt-info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+    }
+    
+    .dnqt-info-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    .dnqt-info-table td {
+      padding: 14px 20px;
+      border: 1px solid #eee;
+      vertical-align: top;
+    }
+    
+    .dnqt-info-table td:first-child {
+      width: 35%;
+      font-weight: bold;
+      color: #19658F;
+    }
+    
+.dnqt-qr-section {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 2px dashed #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Căn giữa theo chiều ngang */
+  justify-content: center; /* Căn giữa theo chiều dọc (nếu cần) */
+  width: 100%; /* Đảm bảo chiếm full width */
+}
+    
+    .dnqt-qr-title {
+      color: #19658F;
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    
+.dnqt-qr-code {
+  max-width: 220px;
+  width: 100%; /* Thêm dòng này */
+  margin: 0 auto 20px; /* auto sẽ giúp căn giữa */
+  border: 1px solid #eee;
+  padding: 15px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: block; /* Đảm bảo img là block element */
+}
+    
+    .dnqt-action-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 30px;
+      background-color: #F15E22;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    .dnqt-action-btn:hover {
+      background-color: #D94A1A;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(217, 74, 26, 0.3);
+    }
+    
+    .dnqt-not-found {
+      color: #D94A1A;
+      text-align: center;
+      padding: 25px;
+      font-size: 18px;
+      display: none;
+      background-color: #fff9f9;
+      border-radius: 8px;
+      border-left: 4px solid #D94A1A;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .dnqt-footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #777;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .dnqt-search-container {
+        padding: 20px 15px;
+      }
+      
+      .dnqt-search-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .dnqt-search-type {
+        width: 100%;
+      }
+      
+      .dnqt-search-input-container {
+        flex-direction: column;
+      }
+      
+      .dnqt-search-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dnqt-search-container">
+    <div class="dnqt-header">
+      <h1>TRA CỨU THÔNG TIN ĐĂNG KÝ</h1>
+      <p>Câu lạc bộ Doanh nhân Quảng Trị Miền Nam</p>
+    </div>
+    
+    <div class="dnqt-search-box">
+      <div class="dnqt-search-controls">
+        <select class="dnqt-search-type" id="searchType">
+          <option value="phone">Tìm theo Số điện thoại</option>
+          <option value="email">Tìm theo Email</option>
+        </select>
+        
+        <div class="dnqt-search-input-container">
+          <input type="text" id="searchInput" class="dnqt-search-input" 
+                 placeholder="Nhập số điện thoại" required>
+          <button class="dnqt-search-btn" onclick="searchRegistration()">
+            <span id="searchBtnText">Tìm kiếm</span>
+            <span id="searchLoading" style="display:none;">Đang tìm...</span>
+          </button>
+        </div>
+      </div>
+      
+      <p id="searchHint">Vui lòng nhập số điện thoại bạn đã sử dụng khi đăng ký tham dự sự kiện.</p>
+    </div>
+    
+    <div class="dnqt-not-found" id="notFoundMessage">
+      <strong>Không tìm thấy thông tin đăng ký</strong><br>
+      Vui lòng quét QR TRÊN BÀN/ HOẶC ĐÂY để Checkin Nhanh bằng SĐT
+      <img src="/assets/img/qr/qr-dnqt-checkin-nhanh.png" alt="QR Code" class="dnqt-qr-code">
+    </div>
+    
+    <div class="dnqt-result" id="resultContainer">
+      <h2>THÔNG TIN ĐĂNG KÝ</h2>
+      
+      <table class="dnqt-info-table">
+        <tr>
+          <td>Họ và tên</td>
+          <td id="userName"></td>
+        </tr>
+        <tr>
+          <td>Chức danh</td>
+          <td id="userPosition"></td>
+        </tr>
+        <tr>
+          <td>Công ty</td>
+          <td id="userCompany"></td>
+        </tr>
+        <tr>
+          <td id="contactLabel">Số điện thoại</td>
+          <td id="userContact"></td>
+        </tr>
+        <tr>
+          <td>Mã đăng ký</td>
+          <td id="userCode"></td>
+        </tr>
+        <tr>
+          <td>Trạng thái</td>
+          <td id="status"></td>
+        </tr>
+      </table>
+      
+      <div class="dnqt-qr-section" id="qrSection">
+        <div class="dnqt-qr-title" id="qrTitle"></div>
+        <img src="" alt="QR Code" class="dnqt-qr-code" id="qrImage">
+        <a href="#" class="dnqt-action-btn" id="actionButton" target="_blank"></a>
+      </div>
+    </div>
+    
+    <div class="dnqt-footer">
+      <p>CLB Doanh nhân Quảng Trị Miền Nam © 2025</p>
+      <p>Hotline hỗ trợ: 0908 556 220 (Hoàng Minh Phụng)</p>
+    </div>
+  </div>
+  
+  <script>
+    // Thay đổi placeholder khi chọn phương thức tìm kiếm
+    document.getElementById('searchType').addEventListener('change', function() {
+      const searchType = this.value;
+      const searchInput = document.getElementById('searchInput');
+      const searchHint = document.getElementById('searchHint');
+      const contactLabel = document.getElementById('contactLabel');
+      
+      if (searchType === 'phone') {
+        searchInput.placeholder = "Nhập số điện thoại";
+        searchHint.textContent = "Vui lòng nhập số điện thoại bạn đã sử dụng khi đăng ký tham dự sự kiện.";
+        contactLabel.textContent = "Số điện thoại";
+      } else {
+        searchInput.placeholder = "Nhập địa chỉ email";
+        searchHint.textContent = "Vui lòng nhập email bạn đã sử dụng khi đăng ký tham dự sự kiện.";
+        contactLabel.textContent = "Email";
+      }
+      
+      // Reset các trường khi thay đổi phương thức tìm kiếm
+      searchInput.value = '';
+      document.getElementById('resultContainer').style.display = 'none';
+      document.getElementById('notFoundMessage').style.display = 'none';
+    });
+    
+    function searchRegistration() {
+      const searchType = document.getElementById('searchType').value;
+      const searchValue = document.getElementById('searchInput').value.trim();
+      
+      if (!searchValue) {
+        alert(`Vui lòng nhập ${searchType === 'phone' ? 'số điện thoại' : 'email'}`);
+        return;
+      }
+      
+      const resultContainer = document.getElementById('resultContainer');
+      const notFoundMessage = document.getElementById('notFoundMessage');
+      const searchBtnText = document.getElementById('searchBtnText');
+      const searchLoading = document.getElementById('searchLoading');
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbxD4koLy3S7k9UeJolWgB_X6GlF89yyY4qk8ViWQxRTheCLjJ8kidACQMeCzIKPXSEX/exec'; // Thay bằng URL triển khai của bạn
+      
+      // Hiển thị trạng thái loading
+      resultContainer.style.display = 'none';
+      notFoundMessage.style.display = 'none';
+      searchBtnText.style.display = 'none';
+      searchLoading.style.display = 'inline';
+      
+      // Xây dựng URL với tham số tìm kiếm
+      const params = new URLSearchParams();
+      params.append('searchType', searchType);
+      params.append(searchType, searchValue);
+      
+      fetch(`${scriptUrl}?${params.toString()}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.found && data.data) {
+            // Hiển thị thông tin
+            document.getElementById('userName').textContent = data.data.name || 'N/A';
+            document.getElementById('userPosition').textContent = data.data.position || 'N/A';
+            document.getElementById('userCompany').textContent = data.data.company || 'N/A';
+            document.getElementById('userContact').textContent = searchType === 'phone' 
+              ? data.data.phone || searchValue 
+              : data.data.email || searchValue;
+            document.getElementById('userCode').textContent = data.data.code || 'N/A';
+            
+            // Xử lý trạng thái và QR code
+            const qrImage = document.getElementById('qrImage');
+            const qrTitle = document.getElementById('qrTitle');
+            const actionButton = document.getElementById('actionButton');
+            
+            if (data.data.sent) {
+              document.getElementById('status').textContent = 'Đã phát mã';
+              qrTitle.textContent = 'MÃ CHECK-IN SỰ KIỆN';
+              qrImage.src = data.data.qrUrl;
+              actionButton.textContent = 'HƯỚNG DẪN CHECKIN';
+              actionButton.href = 'https://dnqt.vn/assets/CHECKIN-Docs.pdf';
+            } else {
+              document.getElementById('status').textContent = 'Chưa phát mã';
+              qrTitle.textContent = 'ĐĂNG KÝ THAM DỰ';
+              qrImage.src = data.data.qrUrl;
+              actionButton.textContent = 'Đăng ký ngay';
+              actionButton.href = data.data.formUrl;
+            }
+            
+            resultContainer.style.display = 'block';
+            notFoundMessage.style.display = 'none';
+          } else {
+            resultContainer.style.display = 'none';
+            notFoundMessage.style.display = 'block';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Có lỗi xảy ra khi tìm kiếm. Vui lòng thử lại sau.');
+        })
+        .finally(() => {
+          searchBtnText.style.display = 'inline';
+          searchLoading.style.display = 'none';
+        });
+    }
+    
+    // Cho phép tìm kiếm bằng phím Enter
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchRegistration();
+      }
+    });
+  </script>
+</body>
+</html>
