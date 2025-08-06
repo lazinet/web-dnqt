@@ -109,11 +109,12 @@
                   <!-- <li><a href="javascript:void(0);" onclick="openMap();"></a> -->
                 </ul>
               </li>
-              <li><a href="/developing-by-lazinet.html">Báo cáo Ban Điều hành</a></li>
-              <!-- <li><a href="/developing-by-lazinet.html" onclick="openReport();">Báo cáo Ban Điều hành</a></li> -->
+              <!-- <li><a href="/developing-by-lazinet.html">Báo cáo Ban Điều hành</a></li> -->
+              
               <li class="dropdown"><a href="/developing-by-lazinet.html"><span>Công cụ Ban Thư ký</span> <i
                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
+                  <li><a onclick="openReport();">Báo cáo Ban Điều hành</a></li>
                   <li><a href="/developing-by-lazinet.html">Tiện ích gửi Email</a></li>
                   <li><a href="/developing-by-lazinet.html">Tiện ích nhắn tin SMS</a></li>
                   <li><a href="/developing-by-lazinet.html">Tiện ích nhắn tin Zalo</a></li>
@@ -1891,29 +1892,6 @@ document.addEventListener('DOMContentLoaded', initBackground);
     }
   </script>
 
-<script type="text/javascript">
-  function openReport() {
-      // Kích thước cửa sổ bạn muốn mở
-      var width = 1000;
-      var height = 1000;
-  
-      // Lấy kích thước màn hình
-      var screenWidth = window.innerWidth;
-      var screenHeight = window.innerHeight;
-  
-      // Tính toán vị trí để cửa sổ mở ở chính giữa màn hình
-      var left = (screenWidth - width) / 2;
-      var top = (screenHeight - height) / 2;
-  
-      // Mở cửa sổ mới với vị trí và kích thước đã tính toán
-      window.open(
-        "https://script.google.com/macros/s/AKfycbxYkTFTKBgo8zl26gX0h6-C-WE-vHo1lM_dZF8ve3H-GmoK1mG-32xgldDDA1gh3RTa/exec", 
-        "reportWindow", 
-        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
-      );
-    }
-</script>
-
 <script>
   document.getElementById('contact-form').addEventListener('submit', async (event) => {
     event.preventDefault(); // Ngăn hành vi mặc định của form
@@ -2053,6 +2031,38 @@ window.addEventListener('DOMContentLoaded', function() {
         });
     });
   </script>
+
+ <script type="text/javascript">
+function openReport() {
+  // Tính toán kích thước
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const width = (screenWidth >= 768) ? Math.floor(screenWidth * 0.8) : screenWidth;
+  const height = screenHeight;
+  
+  // Tính toán vị trí
+  const left = Math.floor((screenWidth - width) / 2);
+  const top = Math.floor((screenHeight - height) / 2);
+  
+  // URL của Web App
+  const appUrl = "https://script.google.com/macros/s/AKfycbwbnJb7gUfx93Oyttu_1KsLPgtLW6DuvTdVlCzyXak5Y1mp_Pbvhyzer7YUBmWi2_Sa/exec";
+  
+  // Mở cửa sổ mới
+  const newWindow = window.open(
+    appUrl, 
+    "reportWindow", 
+    `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
+  );
+  
+  // Focus cửa sổ nếu bị chặn
+  if (newWindow) {
+    newWindow.focus();
+  } else {
+    // Fallback nếu trình duyệt chặn popup
+    window.location.href = appUrl;
+  }
+}
+</script>
 
 </body>
 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLB Doanh Nhân Quảng Trị Miền Nam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* [Giữ nguyên toàn bộ CSS từ phiên bản trước] */
+    </style>
+</head>
+<body>
+    <!-- [Giữ nguyên phần HTML từ phiên bản trước] -->
+
+    <script>
+        // Google Apps Script Deployment ID
+        const SCRIPT_ID = 'AKfycb...YOUR_SCRIPT_ID';
+        const SCRIPT_URL = `https://script.google.com/macros/s/${SCRIPT_ID}/exec`;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // [Giữ nguyên các biến DOM từ phiên bản trước]
+
+            // Hàm gọi Google Script với xử lý lỗi cải tiến
+            async function callGoogleScript(functionName, payload = {}) {
+                try {
+                    const response = await fetch(`${SCRIPT_URL}?fn=${functionName}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            ...payload,
+                            source: 'dnqt_web_v2'
+                        }),
+                        redirect: 'follow'
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    return await response.json();
+                } catch (error) {
+                    console.error(`Error in ${functionName}:`, error);
+                    return { 
+                        success: false, 
+                        message: 'Lỗi kết nối hệ thống. Vui lòng thử lại sau ít phút.',
+                        error: error.message
+                    };
+                }
+            }
+
+            // Gửi OTP - Phiên bản cải tiến từ dự án trước
+            requestOtpBtn.addEventListener('click', async function() {
+                const phone = phoneInput.value.trim();
+                const email = emailInput.value.trim();
+                
+                if (!phone || !email) {
+                    showError('Vui lòng nhập cả số điện thoại và email');
+                    return;
+                }
+                
+                hideMessages();
+                requestOtpBtn.disabled = true;
+                requestOtpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+                
+                const response = await callGoogleScript('sendOtpToUser', { 
+                    phone, 
+                    email,
+                    clientInfo: navigator.userAgent
+                });
+                
+                if (response && response.success) {
+                    otpSection.classList.remove('hidden');
+                    showSuccess('Mã OTP đã được gửi đến email của bạn');
+                    phoneInput.readOnly = true;
+                    emailInput.readOnly = true;
+                    requestOtpBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Gửi lại mã OTP';
+                } else {
+                    const errorMsg = response?.message || 
+                        'Thông tin chưa đăng ký. Vui lòng liên hệ email@dnqt.vn hoặc <a href="https://zalo.me/0908556220" target="_blank">Zalo 0908556220</a>';
+                    
+                    showError(errorMsg);
+                    requestOtpBtn.disabled = false;
+                    requestOtpBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Nhận Mã OTP';
+                }
+            });
+
+            // [Giữ nguyên các phần xử lý khác]
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLB Doanh Nhân Quảng Trị Miền Nam - Hệ thống tài liệu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #19658F;
+            --primary-orange: #F15E22;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #343a40;
+            --success-green: #28a745;
+            --error-red: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            flex: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-top: 1rem;
+        }
+        
+        .logo {
+            max-width: 220px;
+            height: auto;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-top: 4px solid var(--primary-blue);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(25, 101, 143, 0.2);
+            outline: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            padding: 0.75rem 1.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-orange {
+            background: var(--primary-orange);
+            color: var(--white);
+        }
+        
+        .btn-orange:hover {
+            background: #d4531d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(241, 94, 34, 0.3);
+        }
+        
+        .btn-blue {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .btn-blue:hover {
+            background: #145072;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(25, 101, 143, 0.3);
+        }
+        
+        .otp-container {
+            display: flex;
+            gap: 10px;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+        
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .otp-input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(25, 101, 143, 0.2);
+            outline: none;
+            transform: scale(1.05);
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .alert-error {
+            background: rgba(220, 53, 69, 0.1);
+            border-left: 4px solid var(--error-red);
+            color: var(--error-red);
+        }
+        
+        .alert-success {
+            background: rgba(40, 167, 69, 0.1);
+            border-left: 4px solid var(--success-green);
+            color: var(--success-green);
+        }
+        
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .welcome-title {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+        
+        .welcome-subtitle {
+            color: var(--primary-orange);
+            font-weight: 500;
+        }
+        
+        .user-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .info-value {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+        }
+        
+        .security-message {
+            background: rgba(241, 94, 34, 0.05);
+            border-left: 4px solid var(--primary-orange);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .security-title {
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .document-item {
+            border-bottom: 1px solid var(--medium-gray);
+            padding: 1.5rem 0;
+            transition: background-color 0.3s;
+        }
+        
+        .document-item:hover {
+            background-color: rgba(25, 101, 143, 0.03);
+        }
+        
+        .document-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .document-link {
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .document-link:hover {
+            color: #d4531d;
+            text-decoration: underline;
+        }
+        
+        .security-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .security-high {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--error-red);
+        }
+        
+        .security-medium {
+            background: rgba(255, 193, 7, 0.1);
+            color: #b68a00;
+        }
+        
+        .security-low {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success-green);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--primary-blue);
+            color: var(--white);
+            margin-top: 3rem;
+        }
+        
+        .footer a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .otp-input {
+                width: 40px;
+                height: 40px;
+                font-size: 1.25rem;
+            }
+            
+            .user-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="/assets/logos/Logo-bgWhite.png" alt="CLB Doanh Nhân Quảng Trị Miền Nam" class="logo">
+            <h1>Hệ Thống Tài Liệu Nội Bộ</h1>
+        </header>
+        
+        <!-- Login Section -->
+        <div id="login-section" class="card">
+            <h2 class="text-center mb-3">Đăng Nhập Hệ Thống</h2>
+            <p class="text-center mb-3">Vui lòng sử dụng thông tin đã đăng ký với Ban Tổ Chức</p>
+            
+            <div id="error-alert" class="alert alert-error hidden"></div>
+            <div id="success-alert" class="alert alert-success hidden"></div>
+            
+            <div class="form-group">
+                <label for="phone" class="form-label">Số điện thoại đã đăng ký</label>
+                <input type="tel" id="phone" class="form-control" placeholder="Nhập số điện thoại" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email" class="form-label">Email đã đăng ký</label>
+                <input type="email" id="email" class="form-control" placeholder="Nhập email" required>
+            </div>
+            
+            <div class="text-center">
+                <button id="request-otp-btn" class="btn btn-orange">
+                    <i class="fas fa-paper-plane"></i> Nhận Mã OTP
+                </button>
+            </div>
+            
+            <div id="otp-section" class="hidden">
+                <div class="form-group">
+                    <label class="form-label">Mã xác thực (OTP)</label>
+                    <p class="mb-3">Vui lòng kiểm tra email và nhập mã OTP 6 chữ số đã được gửi đến bạn</p>
+                    
+                    <div class="otp-container">
+                        <input type="text" class="otp-input" maxlength="1" data-index="0" autocomplete="off">
+                        <input type="text" class="otp-input" maxlength="1" data-index="1" autocomplete="off">
+                        <input type="text" class="otp-input" maxlength="1" data-index="2" autocomplete="off">
+                        <input type="text" class="otp-input" maxlength="1" data-index="3" autocomplete="off">
+                        <input type="text" class="otp-input" maxlength="1" data-index="4" autocomplete="off">
+                        <input type="text" class="otp-input" maxlength="1" data-index="5" autocomplete="off">
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button id="login-btn" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Đăng Nhập
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Welcome Section -->
+        <div id="welcome-section" class="hidden">
+            <div class="welcome-header">
+                <h1 id="welcome-title" class="welcome-title">Xin chào, <span id="user-salutation"></span> <span id="user-fullname"></span></h1>
+                <p class="welcome-subtitle">Hệ thống tài liệu nội bộ CLB Doanh Nhân Quảng Trị Miền Nam</p>
+            </div>
+            
+            <div class="card user-info">
+                <h2 class="mb-3">Thông tin thành viên</h2>
+                <div class="info-item">
+                    <div class="info-label">Chức vụ trong CLB:</div>
+                    <div class="info-value" id="club-position"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Chức danh công ty:</div>
+                    <div class="info-value" id="company-position"></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Tên công ty:</div>
+                    <div class="info-value" id="company-name"></div>
+                </div>
+            </div>
+            
+            <div class="security-message">
+                <h3 class="security-title"><i class="fas fa-shield-alt"></i> Thông báo bảo mật</h3>
+                <p>Chào mừng bạn đến với hệ thống tài liệu nội bộ của CLB Doanh Nhân Quảng Trị Miền Nam. Để đảm bảo an toàn thông tin, vui lòng lưu ý:</p>
+                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                    <li>Tài liệu trong hệ thống chỉ dành cho thành viên đã được xác thực</li>
+                    <li>Không chia sẻ thông tin tài liệu mật ra bên ngoài</li>
+                    <li>Đăng xuất sau khi sử dụng xong, đặc biệt khi dùng thiết bị công cộng</li>
+                    <li>Báo cáo ngay nếu phát hiện bất kỳ hoạt động đáng ngờ nào</li>
+                </ul>
+                <p style="margin-top: 0.5rem;">Cảm ơn bạn đã hợp tác để bảo vệ thông tin nội bộ của CLB!</p>
+            </div>
+            
+            <div class="card documents-list">
+                <h2 class="mb-3">Danh sách tài liệu</h2>
+                <div id="documents-container">
+                    <!-- Documents will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>© 2023 CLB Doanh Nhân Quảng Trị Miền Nam. Mọi thắc mắc vui lòng liên hệ 
+            <a href="mailto:email@dnqt.vn">email@dnqt.vn</a> hoặc 
+            <a href="https://zalo.me/0908556220" target="_blank">Zalo 0908556220</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const phoneInput = document.getElementById('phone');
+            const emailInput = document.getElementById('email');
+            const requestOtpBtn = document.getElementById('request-otp-btn');
+            const otpSection = document.getElementById('otp-section');
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const loginBtn = document.getElementById('login-btn');
+            const errorAlert = document.getElementById('error-alert');
+            const successAlert = document.getElementById('success-alert');
+            const loginSection = document.getElementById('login-section');
+            const welcomeSection = document.getElementById('welcome-section');
+            const userSalutation = document.getElementById('user-salutation');
+            const userFullname = document.getElementById('user-fullname');
+            const clubPosition = document.getElementById('club-position');
+            const companyPosition = document.getElementById('company-position');
+            const companyName = document.getElementById('company-name');
+            const documentsContainer = document.getElementById('documents-container');
+            
+            // Google Apps Script Deployment ID
+            const SCRIPT_ID = 'https://script.google.com/macros/s/AKfycbw_513C4YCNhsJwDWAidL0lZGH0q_ZsIyibOHLTryR8uc71vtmVZOvUsfQCZ-5eOh0_/exec'; // Thay bằng ID thực tế
+            const SCRIPT_URL = `https://script.google.com/macros/s/${SCRIPT_ID}/exec`;
+            
+            // OTP Input Handling
+            otpInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value.length === 1) {
+                        const nextIndex = parseInt(this.dataset.index) + 1;
+                        if (nextIndex < otpInputs.length) {
+                            otpInputs[nextIndex].focus();
+                        }
+                    }
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value.length === 0) {
+                        const prevIndex = parseInt(this.dataset.index) - 1;
+                        if (prevIndex >= 0) {
+                            otpInputs[prevIndex].focus();
+                        }
+                    }
+                });
+            });
+            
+            // Show Error Message
+            function showError(message) {
+                errorAlert.innerHTML = message;
+                errorAlert.classList.remove('hidden');
+                successAlert.classList.add('hidden');
+                errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            // Show Success Message
+            function showSuccess(message) {
+                successAlert.textContent = message;
+                successAlert.classList.remove('hidden');
+                errorAlert.classList.add('hidden');
+            }
+            
+            // Hide All Messages
+            function hideMessages() {
+                errorAlert.classList.add('hidden');
+                successAlert.classList.add('hidden');
+            }
+            
+            // Call Google Apps Script
+            async function callGoogleScript(functionName, payload = {}) {
+                try {
+                    const response = await fetch(`${SCRIPT_URL}?fn=${functionName}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload),
+                        redirect: 'follow'
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`HTTP ${response.status}: ${errorText}`);
+                    }
+
+                    const data = await response.json();
+                    
+                    // Kiểm tra cấu trúc response
+                    if (!data || typeof data !== 'object') {
+                        throw new Error('Invalid response format');
+                    }
+                    
+                    return data;
+                } catch (error) {
+                    console.error(`Error in ${functionName}:`, error);
+                    
+                    // Phân loại lỗi để thông báo phù hợp
+                    let userMessage = 'Lỗi hệ thống. Vui lòng thử lại sau.';
+                    if (error.message.includes('Failed to fetch')) {
+                        userMessage = 'Không thể kết nối đến server. Vui lòng kiểm tra mạng và thử lại.';
+                    } else if (error.message.includes('NetworkError')) {
+                        userMessage = 'Lỗi kết nối mạng. Vui lòng kiểm tra internet.';
+                    }
+                    
+                    return { 
+                        success: false,
+                        message: userMessage,
+                        error: error.message
+                    };
+                }
+            }
+
+            // Request OTP
+            requestOtpBtn.addEventListener('click', async function() {
+                const phone = phoneInput.value.trim();
+                const email = emailInput.value.trim();
+                
+                if (!phone || !email) {
+                    showError('Vui lòng nhập cả số điện thoại và email');
+                    return;
+                }
+                
+                hideMessages();
+                requestOtpBtn.disabled = true;
+                requestOtpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+                
+                const response = await callGoogleScript('sendOtpToUser', { 
+                    phone, 
+                    email,
+                    clientInfo: navigator.userAgent,
+                    timestamp: new Date().toISOString()
+                });
+                
+                if (response && response.success) {
+                    otpSection.classList.remove('hidden');
+                    showSuccess('Mã OTP đã được gửi đến email của bạn. Vui lòng kiểm tra hộp thư.');
+                    phoneInput.readOnly = true;
+                    emailInput.readOnly = true;
+                    requestOtpBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Gửi lại mã OTP';
+                    
+                    // Auto-focus OTP field
+                    setTimeout(() => otpInputs[0].focus(), 100);
+                } else {
+                    const errorMsg = response?.message || 
+                        'Thông tin đăng nhập chưa được đăng ký. Vui lòng liên hệ <a href="mailto:email@dnqt.vn">email@dnqt.vn</a> hoặc <a href="https://zalo.me/0908556220" target="_blank">Zalo 0908556220</a> để được hỗ trợ.';
+                    
+                    showError(errorMsg);
+                    requestOtpBtn.disabled = false;
+                    requestOtpBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Nhận Mã OTP';
+                }
+            });
+            
+            // Login with OTP
+            loginBtn.addEventListener('click', async function() {
+                const phone = phoneInput.value.trim();
+                const email = emailInput.value.trim();
+                let otp = '';
+                
+                otpInputs.forEach(input => {
+                    otp += input.value;
+                });
+                
+                if (otp.length !== 6) {
+                    showError('Vui lòng nhập đầy đủ 6 chữ số mã OTP');
+                    return;
+                }
+                
+                hideMessages();
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xác thực...';
+                
+                const response = await callGoogleScript('verifyOtpAndLogin', { 
+                    phone, 
+                    email, 
+                    otp,
+                    clientInfo: navigator.userAgent
+                });
+                
+                if (response && response.success) {
+                    showWelcomeSection(response.user);
+                    await logActivity('Login');
+                } else {
+                    showError(response?.message || 'Mã OTP không đúng hoặc đã hết hạn. Vui lòng thử lại.');
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Đăng Nhập';
+                }
+            });
+            
+            // Show Welcome Section with User Data
+            function showWelcomeSection(user) {
+                loginSection.classList.add('hidden');
+                welcomeSection.classList.remove('hidden');
+                
+                userSalutation.textContent = user.salutation;
+                userFullname.textContent = user.fullName;
+                clubPosition.textContent = user.clubPosition;
+                companyPosition.textContent = user.companyPosition;
+                companyName.textContent = user.companyName;
+                
+                loadDocuments();
+            }
+            
+            // Load Documents from Google Sheets
+            async function loadDocuments() {
+                const response = await callGoogleScript('getUserDocuments');
+                
+                if (response && response.success) {
+                    renderDocuments(response.documents);
+                } else {
+                    documentsContainer.innerHTML = `
+                        <div class="alert alert-error">
+                            ${response?.message || 'Không thể tải danh sách tài liệu. Vui lòng tải lại trang.'}
+                        </div>
+                    `;
+                }
+            }
+            
+            // Render Documents List
+            function renderDocuments(documents) {
+                if (!documents || documents.length === 0) {
+                    documentsContainer.innerHTML = '<p class="text-center">Hiện không có tài liệu nào.</p>';
+                    return;
+                }
+                
+                documentsContainer.innerHTML = '';
+                
+                documents.forEach(doc => {
+                    const docElement = document.createElement('div');
+                    docElement.className = 'document-item';
+                    
+                    let securityClass, securityText;
+                    switch(doc.securityLevel.toLowerCase()) {
+                        case 'high':
+                            securityClass = 'security-high';
+                            securityText = 'Bảo mật cao';
+                            break;
+                        case 'medium':
+                            securityClass = 'security-medium';
+                            securityText = 'Bảo mật trung bình';
+                            break;
+                        default:
+                            securityClass = 'security-low';
+                            securityText = 'Bảo mật thấp';
+                    }
+                    
+                    docElement.innerHTML = `
+                        <div class="document-title">${doc.name}</div>
+                        <div class="security-badge ${securityClass}">${securityText}</div>
+                        <div>
+                            <a href="${doc.link}" class="document-link" target="_blank" data-doc-id="${doc.id}" data-doc-name="${doc.name}">
+                                <i class="fas fa-external-link-alt"></i> Mở tài liệu
+                            </a>
+                        </div>
+                    `;
+                    
+                    const link = docElement.querySelector('.document-link');
+                    link.addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        const docId = this.getAttribute('data-doc-id');
+                        const docName = this.getAttribute('data-doc-name');
+                        
+                        await logActivity(`Truy cập tài liệu: ${docName}`);
+                        window.open(this.getAttribute('href'), '_blank');
+                    });
+                    
+                    documentsContainer.appendChild(docElement);
+                });
+            }
+            
+            // Log Activity
+            async function logActivity(activity) {
+                await callGoogleScript('logUserActivity', { 
+                    activity,
+                    userInfo: {
+                        phone: phoneInput.value.trim(),
+                        email: emailInput.value.trim()
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
