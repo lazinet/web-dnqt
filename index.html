@@ -161,7 +161,7 @@
 <!-- Intro Section -->
 <section id="hero" class="hero section light-background">
   <div class="intro-background">
-    <img src="/assets/background/dnqtmn.webp" alt="Random Background" id="random-bg" class="intro-bg-image">
+    <img src="" alt="Random Background" id="random-bg" class="intro-bg-image">
   </div>
   <!-- Nội dung khác của section hero -->
   <div class="container hero-content pt-2 pb-2">
@@ -173,10 +173,11 @@
             <p>Đây là trang thông tin chính thức của Câu lạc bộ các doanh nhân kết nối giao thương, chia sẻ cơ hội, và cùng nhau phát triển.</p>
             
             <div class="d-flex" style="gap: 15px;">
-              <a href="/invitation-20250803.html" class="btn-get-started"><i class="bi bi-calendar-month"></i> THƯ MỜI THAM DỰ</a>
-              <a href="/checkin-tool.html" target="_blank" class="btn-get-started" style="background-color: #19658F;"><i class="bi bi-search"></i><span> TRA CỨU ĐĂNG KÝ</span>
+              <a href="/assets/img/clients/thanks_leaders.jpg" class="btn-get-started"><i class="bi bi-building-gear"></i> THƯ CÁM ƠN LÃNH ĐẠO</a>
+              <a href="/assets/img/clients/thanks_businessmen.jpg" class="btn-get-started"><i class="bi bi-briefcase"></i> THƯ CÁM ƠN DOANH NHÂN</a>
+              <!-- <a href="/checkin-tool.html" target="_blank" class="btn-get-started" style="background-color: #19658F;"><i class="bi bi-search"></i><span> THƯ CÁM ƠN DOANH NHÂN</span> -->
                 <!-- Dùng đoạn sau để tối ưu View       -->
-                <a href="https://youtu.be/_ZZKxDwTmZk" target="_blank" class="btn-get-started"><i class="bi bi-play-circle"></i><span> VIDEO RA MẮT</span>
+                <!-- <a href="https://youtu.be/_ZZKxDwTmZk" target="_blank" class="btn-get-started"><i class="bi bi-play-circle"></i><span> VIDEO RA MẮT</span> -->
                 </a>      
               </a>
             </div>
@@ -1020,7 +1021,7 @@ async function initBackground() {
 
   // 1. Ảnh mặc định được preload ngay lập tức
   const defaultBg = {
-    src: '/assets/background/dnqtmn.webp',
+    src: '/assets/background/MINT0791_w1920.webp',
     color: '#7a9ed2'
   };
   
@@ -1031,55 +1032,35 @@ async function initBackground() {
 
   // 2. Danh sách ảnh có thể dùng cho slide
 const bgImages = [
-  { src: 'assets/background/banhcanh1.webp', color: '#e6b980' },
-  { src: 'assets/background/banhloc2.jpeg', color: '#d4a373' },
-  { src: 'assets/background/benthanh1.jpg', color: '#1a3e72' },
-  { src: 'assets/background/bg1.jpg', color: '#19658F' },
-  { src: 'assets/background/bg2.jpeg', color: '#F15E22' },
-  { src: 'assets/background/bg3.jpg', color: '#13496D' },
-  { src: 'assets/background/bg4.jpg', color: '#D94A1A' },
-  { src: 'assets/background/bg6.jpg', color: '#1a3e72' },
-  { src: 'assets/background/bg7.webp', color: '#e6b980' },
-  { src: 'assets/background/bg8.webp', color: '#d4a373' },
-  { src: 'assets/background/conco1.jpg', color: '#19658F' },
-  { src: 'assets/background/conco2.jpg', color: '#F15E22' },
-  { src: 'assets/background/cuatung5.jpg', color: '#13496D' },
-  { src: 'assets/background/cuatung6.jpg', color: '#D94A1A' },
-  { src: 'assets/background/cuaviet1.jpg', color: '#1a3e72' },
-  { src: 'assets/background/cuaviet2.jpg', color: '#e6b980' },
-  { src: 'assets/background/cuaviet3.jpg', color: '#d4a373' },
-  { src: 'assets/background/cuaviet4.jpg', color: '#19658F' },
-  { src: 'assets/background/cuaviet5.jpg', color: '#F15E22' },
-  { src: 'assets/background/cuaviet6.jpg', color: '#13496D' },
-  { src: 'assets/background/dnqtmn.webp', color: '#D94A1A' },
-  { src: 'assets/background/dongha3.jpg', color: '#1a3e72' },
-  { src: 'assets/background/hailang1.jpg', color: '#e6b980' },
-  { src: 'assets/background/hcm1.jpg', color: '#d4a373' },
-  { src: 'assets/background/hcm2.jpg', color: '#19658F' },
-  { src: 'assets/background/hcm3.jpg', color: '#F15E22' },
-  { src: 'assets/background/hcm4.jpg', color: '#13496D' },
-  { src: 'assets/background/hienluong1.webp', color: '#D94A1A' },
-  { src: 'assets/background/hienluong2.jpg', color: '#1a3e72' },
-  { src: 'assets/background/hienluong3.webp', color: '#e6b980' },
-  { src: 'assets/background/hienluong7.jpg', color: '#d4a373' },
-  { src: 'assets/background/hienluong8.jpg', color: '#19658F' },
-  { src: 'assets/background/hienluong9.jpg', color: '#F15E22' },
-  { src: 'assets/background/huonghoa2.jpg', color: '#13496D' },
-  { src: 'assets/background/laobao1.jpg', color: '#D94A1A' },
-  { src: 'assets/background/lavang2.jpg', color: '#1a3e72' },
-  { src: 'assets/background/lazinetbg1.jpg', color: '#e6b980' },
-  { src: 'assets/background/lazinetbg3.jpg', color: '#d4a373' },
-  { src: 'assets/background/saigon1.jpg', color: '#19658F' },
-  { src: 'assets/background/saigon3.jpg', color: '#F15E22' },
-  { src: 'assets/background/saigon4.jpg', color: '#13496D' },
-  { src: 'assets/background/saigon5.jpg', color: '#D94A1A' },
-  { src: 'assets/background/saigon6.jpg', color: '#1a3e72' },
-  { src: 'assets/background/saigon7.jpg', color: '#e6b980' },
-  { src: 'assets/background/saigon8.jpg', color: '#d4a373' },
-  { src: 'assets/background/saigon9.jpg', color: '#19658F' },
-  { src: 'assets/background/tacon1.jpg', color: '#F15E22' },
-  { src: 'assets/background/taodan1.jpg', color: '#13496D' },
-  { src: 'assets/background/thanhco3.jpg', color: '#d8e1f9' }
+  { src: 'assets/background/MINT0118_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/MINT0138_w1920.webp', color: '#19658F' },
+  { src: 'assets/background/MINT0788_w1920.webp', color: '#13496D' },
+  { src: 'assets/background/MINT0791_w1920.webp', color: '#F15E22' },
+  { src: 'assets/background/MINT0792_w1920.webp', color: '#D94A1A' },
+  { src: 'assets/background/MINT0926_w1920.webp', color: '#e6b980' },
+  { src: 'assets/background/MINT0933_w1920.webp', color: '#d4a373' },
+  { src: 'assets/background/MINT0947_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/MINT0959_w1920.webp', color: '#19658F' },
+  { src: 'assets/background/MINT0978_w1920.webp', color: '#13496D' },
+  { src: 'assets/background/MINT0980_w1920.webp', color: '#F15E22' },
+  { src: 'assets/background/MINT0987_w1920.webp', color: '#D94A1A' },
+  { src: 'assets/background/MINT1001_w1920.webp', color: '#e6b980' },
+  { src: 'assets/background/MINT1009_w1920.webp', color: '#d4a373' },
+  { src: 'assets/background/MINT1018_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/MINT1031_w1920.webp', color: '#19658F' },
+  { src: 'assets/background/MINT1040_w1920.webp', color: '#13496D' },
+  { src: 'assets/background/MINT1046_w1920.webp', color: '#F15E22' },
+  { src: 'assets/background/MINT1049_w1920.webp', color: '#D94A1A' },
+  { src: 'assets/background/MINT1056_w1920.webp', color: '#e6b980' },
+  { src: 'assets/background/MINT1062_w1920.webp', color: '#d4a373' },
+  { src: 'assets/background/MINT1071_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/MINT1078_w1920.webp', color: '#19658F' },
+  { src: 'assets/background/MINT1081_w1920.webp', color: '#13496D' },
+  { src: 'assets/background/MINT1092_w1920.webp', color: '#F15E22' },
+  { src: 'assets/background/MINT1099_w1920.webp', color: '#D94A1A' },
+  { src: 'assets/background/MINT1100_w1920.webp', color: '#e6b980' },
+  { src: 'assets/background/MINT1107_w1920.webp', color: '#d4a373' },
+  { src: 'assets/background/MINT1122_w1920.webp', color: '#1a3e72' }
 ];
 
   // 3. Hàm chọn ảnh ngẫu nhiên có kiểm tra tồn tại
