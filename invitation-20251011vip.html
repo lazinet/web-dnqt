@@ -990,8 +990,8 @@ END:VCARD`;
         function shareInvite() {
             if (navigator.share) {
                 navigator.share({
-                    title: 'Thiệp Mời Ra Mắt CLB Doanh Nhân Quảng Trị Miền Nam',
-                    text: 'CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM, 17:00 Chủ Nhật 11/10/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM',
+                    title: 'CLB DNQT Miền Nam - CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM',
+                    text: 'Thông Báo & Thư Mời Điện Tử - CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM, 17:00 Thứ Bảy 11/10/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM',
                     url: window.location.href
                 }).catch(err => console.error('Lỗi chia sẻ:', err));
             } else {
@@ -1012,7 +1012,7 @@ END:VCARD`;
                         window.addtocalendar(config);
                     } else {
                         // Fallback to Google Calendar
-                        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM, 17:00 Chủ Nhật 11/10/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&dates=20250614T090000/20250614T120000&details=${encodeURIComponent('CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.')}&location=${encodeURIComponent('Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
+                        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Thông Báo & Thư Mời Điện Tử - CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM, 17:00 Thứ Bảy 11/10/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&dates=20251011T170000/20251011T213000&details=${encodeURIComponent('CLB DOANH NHÂN QUẢNG TRỊ MIỀN NAM \n\nThông Báo & Thư Mời Điện Tử: \nCHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM\nThời gian: 17:00-21:30 Thứ Bảy 11/10/2025\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.')}&location=${encodeURIComponent('Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
                         window.open(url, '_blank');
                     }
                 } catch (e) {
