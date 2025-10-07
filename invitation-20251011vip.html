@@ -750,7 +750,7 @@
             <table class="info-table">
                 <tr>
                     <td>Thứ Bảy, 11/10/2025</td>
-                    <td>13:30</td>
+                    <td>17:00</td>
                     <td><a href="https://maps.app.goo.gl/rRNC322yoECNcYbw7" target="_blank"
                             style="text-decoration: none; color: inherit; font-family: inherit; font-size: inherit;">
                             <i class="bi bi-geo-alt flex-shrink-0 icon-orange" style="color: #d35400;"></i>
@@ -857,7 +857,7 @@
                 "description":"CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\n\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.\n\nLiên hệ:\n- Mr. Lê Minh Phụng: 0901494666\n- Ls. Lê Viết Kỳ: 0964037746",
                 "startDate":"2025-08-03",
                 "endDate":"2025-08-03",
-                "startTime":"13:30",
+                "startTime":"17:00",
                 "endTime":"22:00",
                 "location":"Diamond Place – 15 Hồ Văn Huê – TP.HCM",
                 "options":["Apple","Google","iCal","Microsoft365","MicrosoftTeams","Outlook.com","Yahoo"],
@@ -991,7 +991,7 @@ END:VCARD`;
             if (navigator.share) {
                 navigator.share({
                     title: 'Thiệp Mời Ra Mắt CLB Doanh Nhân Quảng Trị Miền Nam',
-                    text: 'CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM, 13:30 Chủ Nhật 03/08/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM',
+                    text: 'CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM, 17:00 Chủ Nhật 11/10/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM',
                     url: window.location.href
                 }).catch(err => console.error('Lỗi chia sẻ:', err));
             } else {
@@ -1012,7 +1012,7 @@ END:VCARD`;
                         window.addtocalendar(config);
                     } else {
                         // Fallback to Google Calendar
-                        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM, 13:30 Chủ Nhật 03/08/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&dates=20250614T090000/20250614T120000&details=${encodeURIComponent('CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.')}&location=${encodeURIComponent('Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
+                        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('CHƯƠNG TRÌNH TOẠ ĐÀM CHÀO MỪNG NGÀY DOANH NHÂN VIỆT NAM, 17:00 Chủ Nhật 11/10/2025 tại Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&dates=20250614T090000/20250614T120000&details=${encodeURIComponent('CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.')}&location=${encodeURIComponent('Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
                         window.open(url, '_blank');
                     }
                 } catch (e) {
