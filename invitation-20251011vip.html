@@ -120,6 +120,10 @@
             opacity: 0;
             animation: cardSlideUp 0.5s ease-out 0.2s forwards;
         }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
 
         @keyframes cardSlideUp {
             to {
@@ -917,24 +921,6 @@ function disableEffectsBeforeExport() {
     return style;
 }
 
-function showExportLoading() {
-    // Thêm loading indicator khi export
-    const loading = document.createElement('div');
-    loading.innerHTML = 'Đang xuất ảnh...';
-    loading.style.cssText = `
-        position: fixed; top: 50%; left: 50%; 
-        transform: translate(-50%, -50%); 
-        background: rgba(0,0,0,0.8); color: white; 
-        padding: 20px; border-radius: 5px; z-index: 9999;
-    `;
-    document.body.appendChild(loading);
-    return loading;
-}
-
-// Sử dụng trong hàm export
-const loading = showExportLoading();
-// ... sau khi export xong
-document.body.removeChild(loading);
 
 // Export to PNG (chất lượng cao - FIXED)
 function exportToPNG() {
