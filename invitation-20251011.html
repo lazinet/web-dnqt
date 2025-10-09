@@ -883,20 +883,29 @@ function disableEffectsBeforeExport() {
     return style;
 }
 
-// Export to PNG (chất lượng cao)
+// Export to PNG (chất lượng cao - FIXED)
 function exportToPNG() {
     const styleElement = disableEffectsBeforeExport();
+    const card = document.querySelector('.card');
     
     setTimeout(() => {
-        html2canvas(document.querySelector('.card'), {
-            scale: 8, // Tăng gấp 4 lần
+        // Lấy kích thước thực tế
+        const rect = card.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        
+        html2canvas(card, {
+            scale: 3, // Giảm scale để tránh quá tải
+            width: width,
+            height: height,
             logging: false,
             useCORS: true,
             allowTaint: true,
             backgroundColor: null,
-            removeContainer: true,
-            windowWidth: document.querySelector('.card').scrollWidth * 4,
-            windowHeight: document.querySelector('.card').scrollHeight * 4
+            windowWidth: document.documentElement.clientWidth,
+            windowHeight: document.documentElement.clientHeight,
+            scrollX: 0,
+            scrollY: 0
         }).then(canvas => {
             const link = document.createElement('a');
             link.download = 'Invitation_DNQT.png';
@@ -904,21 +913,32 @@ function exportToPNG() {
             link.click();
             document.head.removeChild(styleElement);
         });
-    }, 500); // Chờ 0.5s để đảm bảo hiệu ứng đã tắt
+    }, 500);
 }
 
-// Export to PDF (chất lượng cao)
+// Export to PDF (chất lượng cao - FIXED)
 function exportToPDF() {
     const styleElement = disableEffectsBeforeExport();
+    const card = document.querySelector('.card');
     
     setTimeout(() => {
-        html2canvas(document.querySelector('.card'), {
-            scale: 4,
+        // Lấy kích thước thực tế
+        const rect = card.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        
+        html2canvas(card, {
+            scale: 3, // Dùng scale giống PNG
+            width: width,
+            height: height,
             logging: false,
             useCORS: true,
             allowTaint: true,
             backgroundColor: null,
-            removeContainer: true
+            windowWidth: document.documentElement.clientWidth,
+            windowHeight: document.documentElement.clientHeight,
+            scrollX: 0,
+            scrollY: 0
         }).then(canvas => {
             const pdf = new jsPDF({
                 orientation: 'portrait',
@@ -926,10 +946,29 @@ function exportToPDF() {
                 format: 'a4'
             });
             
-            const imgWidth = 210;
+            // Tính toán tỷ lệ chính xác
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 297; // A4 height in mm
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
             
-            pdf.addImage(canvas, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
+            // Nếu ảnh cao hơn trang A4, chia thành nhiều trang
+            if (imgHeight > pageHeight) {
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
+                    heightLeft -= pageHeight;
+                }
+            } else {
+                pdf.addImage(canvas, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
+            }
+            
             pdf.save('Invitation_DNQT.pdf');
             document.head.removeChild(styleElement);
         });
