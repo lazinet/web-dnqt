@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chứng Nhận Thành Viên | CLB Doanh nhân Quảng Trị Miền Nam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cambria:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #19658F;
+      --secondary-color: #F15E22;
+      --light-color: #f8f9fa;
+      --dark-color: #333;
+      --border-color: #ddd;
+      --success-color: #28a745;
+      --error-color: #dc3545;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Cambria', serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .certificate-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+    
+    .certificate {
+      width: 100%;
+      height: calc(100vw / 1.414);
+      max-width: 100%;
+      max-height: 80vh;
+      background-image: url('/members/members/blank.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: relative;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      display: none;
+    }
+    
+    .certificate.active {
+      display: block;
+    }
+    
+    .certificate-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .member-name {
+      font-size: 3.5vw;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-align: center;
+      margin-top: 25%;
+      font-family: 'Cambria', serif;
+      text-transform: uppercase;
+    }
+    
+    .signature-date {
+      position: absolute;
+      bottom: 18%;
+      right: 20%;
+      font-size: 1.2vw;
+      color: var(--dark-color);
+      font-family: 'Cambria', serif;
+    }
+    
+    .qr-code-container {
+      position: absolute;
+      top: 10%;
+      right: 10%;
+      width: 12%;
+    }
+    
+    .qr-code {
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--primary-color);
+      border-radius: 5px;
+      padding: 5px;
+      background: white;
+    }
+    
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+      width: 100%;
+      display: none;
+    }
+    
+    .action-buttons.active {
+      display: flex;
+    }
+    
+    .action-buttons button {
+      padding: 12px 24px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Cambria', serif;
+      font-size: 16px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .action-buttons button:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+    
+    .expandable-section {
+      width: 100%;
+      max-width: 800px;
+      margin: 10px 0;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: none;
+    }
+    
+    .expandable-section.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .section-header {
+      background: linear-gradient(135deg, var(--primary-color), #2a5c9a);
+      color: white;
+      padding: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .section-content {
+      padding: 25px;
+    }
+    
+    .member-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+    }
+    
+    .info-item {
+      padding: 15px;
+      background: var(--light-color);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .info-label {
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .info-value {
+      color: var(--dark-color);
+      line-height: 1.5;
+    }
+    
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-family: 'Cambria', serif;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .submit-btn {
+      background: linear-gradient(135deg, var(--primary-color), #2a5c9a);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Cambria', serif;
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      display: none;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .message-box {
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+      font-weight: bold;
+    }
+    
+    .message-box.success {
+      background-color: rgba(40, 167, 69, 0.1);
+      color: var(--success-color);
+      border: 2px solid var(--success-color);
+    }
+    
+    .message-box.error {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: var(--error-color);
+      border: 2px solid var(--error-color);
+    }
+    
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      color: var(--primary-color);
+    }
+    
+    .loading.active {
+      display: block;
+    }
+    
+    .loading-spinner {
+      font-size: 40px;
+      margin-bottom: 20px;
+      animation: spin 1s linear infinite;
+    }
+    
+    .error-message {
+      background: #fff9f9;
+      border: 2px solid var(--error-color);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: var(--error-color);
+      margin: 20px 0;
+      display: none;
+    }
+    
+    .error-message.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @media (max-width: 768px) {
+      .certificate {
+        height: calc(100vw / 1.414);
+      }
+      
+      .member-name {
+        font-size: 5vw;
+        margin-top: 30%;
+      }
+      
+      .signature-date {
+        font-size: 2vw;
+        bottom: 15%;
+      }
+      
+      .contact-form {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .action-buttons button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate-container">
+    <!-- Loading -->
+    <div class="loading" id="loading">
+      <div class="loading-spinner">
+        <i class="bi bi-arrow-repeat"></i>
+      </div>
+      <h3>Đang tải thông tin thành viên...</h3>
+      <p>Vui lòng chờ trong giây lát</p>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" id="errorMessage">
+      <i class="bi bi-exclamation-triangle" style="font-size: 48px; margin-bottom: 15px;"></i>
+      <h3 id="errorTitle">Không tìm thấy thông tin</h3>
+      <p id="errorText">Vui lòng kiểm tra lại mã thành viên</p>
+      <p style="margin-top: 15px; font-size: 14px;">
+        <strong>Mã thử nghiệm:</strong> DNQT001, DNQT0001, DNQT002, DNQT003
+      </p>
+    </div>
+
+    <!-- Certificate -->
+    <div class="certificate" id="certificate">
+      <div class="certificate-content">
+        <div class="qr-code-container">
+          <div class="qr-code" id="qrcode"></div>
+        </div>
+        <div class="member-name" id="memberName"></div>
+        <div class="signature-date" id="signatureDate"></div>
+      </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="action-buttons" id="actionButtons">
+      <button id="infoBtn">
+        <i class="bi bi-info-circle"></i> Thông tin
+      </button>
+      <button id="contactBtn">
+        <i class="bi bi-chat-left-text"></i> Nhắn tin
+      </button>
+      <button id="exportImageBtn">
+        <i class="bi bi-image"></i> Xuất ảnh
+      </button>
+      <button id="exportPdfBtn">
+        <i class="bi bi-file-pdf"></i> Xuất PDF
+      </button>
+      <button id="shareBtn">
+        <i class="bi bi-share"></i> Chia sẻ
+      </button>
+    </div>
+    
+    <!-- Member Info Section -->
+    <div class="expandable-section" id="infoSection">
+      <div class="section-header" id="infoHeader">
+        <span>Thông tin thành viên</span>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+      <div class="section-content">
+        <div class="member-info-grid" id="memberInfo">
+          <div class="info-item">
+            <div class="info-label">Đang tải thông tin...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Contact Form Section -->
+    <div class="expandable-section" id="contactSection">
+      <div class="section-header" id="contactHeader">
+        <span>Liên hệ với thành viên</span>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+      <div class="section-content">
+        <form id="contactForm">
+          <div class="contact-form">
+            <div class="form-group">
+              <label for="senderName">Họ và tên *</label>
+              <input type="text" id="senderName" name="senderName" required>
+            </div>
+            <div class="form-group">
+              <label for="senderPosition">Chức vụ *</label>
+              <input type="text" id="senderPosition" name="senderPosition" required>
+            </div>
+            <div class="form-group">
+              <label for="senderPhone">Số điện thoại *</label>
+              <input type="tel" id="senderPhone" name="senderPhone" required>
+            </div>
+            <div class="form-group">
+              <label for="senderEmail">Email *</label>
+              <input type="email" id="senderEmail" name="senderEmail" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="senderCompany">Tên công ty *</label>
+              <input type="text" id="senderCompany" name="senderCompany" required>
+            </div>
+            <div class="form-group">
+              <label for="purpose">Mục đích liên hệ *</label>
+              <select id="purpose" name="purpose" required>
+                <option value="">Chọn mục đích</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="subject">Tiêu đề *</label>
+              <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="message">Nội dung *</label>
+              <textarea id="message" name="message" placeholder="Nhập nội dung bạn muốn gửi đến thành viên..." required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn">
+            <span class="button-text">Gửi tin nhắn</span>
+            <span class="spinner"></span>
+          </button>
+          <div class="message-box" id="messageBox"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cấu hình - THAY BẰNG URL THỰC TẾ
+    const CONFIG = {
+      scriptUrl: 'https://script.google.com/macros/s/AKfycbz8ZrVVZ90gXJUmIbNncR-sxXnapWwWE3QOEkmtbMjtQKFc10m62Kkh153pxj9ScF3Y/exec',
+      baseUrl: 'https://dnqt.vn'
+    };
+
+    // Biến toàn cục
+    let memberData = null;
+    let contactPurposes = [];
+    
+    // Fetch với retry và CORS handling
+    async function fetchWithRetry(url, options = {}, retries = 3) {
+      try {
+        // Thêm timestamp để tránh cache
+        const separator = url.includes('?') ? '&' : '?';
+        const uniqueUrl = url + separator + '_=' + Date.now();
+        
+        const response = await fetch(uniqueUrl, {
+          ...options,
+          mode: 'cors',
+          credentials: 'omit'
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return response;
+      } catch (error) {
+        if (retries > 0) {
+          console.log(`Retrying fetch... (${retries} retries left)`);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          return fetchWithRetry(url, options, retries - 1);
+        }
+        throw error;
+      }
+    }
+
+    // Khởi tạo trang
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Initializing page...');
+      
+      // Ẩn mọi thứ trừ loading
+      hideAllContent();
+      showLoading(true);
+      
+      // Load configs ngay từ đầu
+      loadContactPurposes().then(() => {
+        console.log('Contact purposes loaded:', contactPurposes);
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const memberId = urlParams.get('om');
+        
+        if (memberId) {
+          console.log('Loading member data for:', memberId);
+          loadMemberData(memberId);
+        } else {
+          showError('Không tìm thấy mã thành viên', 'Vui lòng truy cập với mã thành viên hợp lệ');
+        }
+      }).catch(error => {
+        console.error('Failed to load contact purposes:', error);
+        // Vẫn tiếp tục load member data ngay cả khi purposes lỗi
+        const urlParams = new URLSearchParams(window.location.search);
+        const memberId = urlParams.get('om');
+        if (memberId) {
+          loadMemberData(memberId);
+        } else {
+          showError('Không tìm thấy mã thành viên', 'Vui lòng truy cập với mã thành viên hợp lệ');
+        }
+      });
+      
+      setupEventListeners();
+    });
+    
+    // Ẩn tất cả content
+    function hideAllContent() {
+      document.getElementById('certificate').classList.remove('active');
+      document.getElementById('actionButtons').classList.remove('active');
+      document.getElementById('errorMessage').classList.remove('active');
+      document.querySelectorAll('.expandable-section').forEach(section => {
+        section.classList.remove('active');
+      });
+    }
+    
+    // Hiển thị content khi có dữ liệu
+    function showContent() {
+      document.getElementById('certificate').classList.add('active');
+      document.getElementById('actionButtons').classList.add('active');
+    }
+    
+    // Hiển thị loading
+    function showLoading(show) {
+      const loading = document.getElementById('loading');
+      if (show) {
+        loading.classList.add('active');
+      } else {
+        loading.classList.remove('active');
+      }
+    }
+    
+    // Hiển thị lỗi
+    function showError(title, message) {
+      document.getElementById('errorTitle').textContent = title;
+      document.getElementById('errorText').textContent = message;
+      document.getElementById('errorMessage').classList.add('active');
+      showLoading(false);
+    }
+    
+    // Ẩn lỗi
+    function hideError() {
+      document.getElementById('errorMessage').classList.remove('active');
+    }
+    
+    // Tải dữ liệu thành viên
+    async function loadMemberData(memberId) {
+      try {
+        hideError();
+        hideAllContent();
+        showLoading(true);
+        
+        console.log('Fetching member data from:', `${CONFIG.scriptUrl}?action=getMember&memberId=${memberId}`);
+        
+        const response = await fetchWithRetry(`${CONFIG.scriptUrl}?action=getMember&memberId=${memberId}`);
+        
+        if (!response.ok) {
+          throw new Error(`Lỗi kết nối server: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Received data:', data);
+        
+        if (data.status === 'success' && data.found) {
+          memberData = data.member;
+          console.log('Member data loaded:', memberData);
+          
+          displayMemberInfo();
+          generateQRCode();
+          showContent();
+        } else {
+          throw new Error(data.message || 'Không tìm thấy thông tin thành viên');
+        }
+        
+      } catch (error) {
+        console.error('Lỗi tải dữ liệu:', error);
+        showError('Không tìm thấy thành viên', error.message);
+      } finally {
+        showLoading(false);
+      }
+    }
+    
+    // Tải mục đích liên hệ
+    async function loadContactPurposes() {
+      try {
+        console.log('Loading contact purposes...');
+        
+        const response = await fetchWithRetry(`${CONFIG.scriptUrl}?action=getPurposes`);
+        
+        if (!response.ok) {
+          throw new Error('Lỗi kết nối server');
+        }
+        
+        const data = await response.json();
+        console.log('Contact purposes response:', data);
+        
+        if (data.status === 'success') {
+          contactPurposes = data.purposes;
+          console.log('Contact purposes loaded successfully:', contactPurposes);
+        } else {
+          throw new Error(data.message || 'Lỗi tải mục đích liên hệ');
+        }
+        
+      } catch (error) {
+        console.error('Lỗi tải mục đích liên hệ:', error);
+        // Sử dụng mục đích mặc định
+        contactPurposes = [
+          "Hợp tác kinh doanh", "Tư vấn sản phẩm/dịch vụ", "Mua hàng",
+          "Bán hàng", "Đầu tư", "Tuyển dụng", "Góp ý", "Hỏi thông tin",
+          "Tham gia sự kiện", "Đăng ký thành viên", "Khác"
+        ];
+        console.log('Using default contact purposes:', contactPurposes);
+      } finally {
+        populateContactPurposes();
+      }
+    }
+    
+    // Hiển thị thông tin thành viên
+    function displayMemberInfo() {
+      document.getElementById('memberName').textContent = memberData.name;
+      document.getElementById('signatureDate').textContent = `TP.HCM, ${memberData.joinDate}`;
+      
+      const infoHTML = `
+        <div class="info-item">
+          <div class="info-label">Mã doanh nhân</div>
+          <div class="info-value">${memberData.memberId}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Họ và tên</div>
+          <div class="info-value">${memberData.name}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Chức vụ</div>
+          <div class="info-value">${memberData.position}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Số điện thoại</div>
+          <div class="info-value">${memberData.phone}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Email</div>
+          <div class="info-value">${memberData.email}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Công ty</div>
+          <div class="info-value">${memberData.company}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Địa chỉ</div>
+          <div class="info-value">${memberData.address}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Lĩnh vực kinh doanh</div>
+          <div class="info-value">${memberData.businessField}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Sản phẩm/Dịch vụ cung cấp</div>
+          <div class="info-value">${memberData.productsToSell}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Nhu cầu mua</div>
+          <div class="info-value">${memberData.productsToBuy}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Quá trình tham gia</div>
+          <div class="info-value">${memberData.participationHistory}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Thành tích giao thương</div>
+          <div class="info-value">${memberData.tradingAchievements}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Đánh giá</div>
+          <div class="info-value">${memberData.rating}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Cập nhật mới nhất</div>
+          <div class="info-value">${memberData.latestUpdate}</div>
+        </div>
+      `;
+      
+      document.getElementById('memberInfo').innerHTML = infoHTML;
+    }
+    
+    // Tạo QR code với URL chính xác
+    function generateQRCode() {
+      // Sử dụng domain thực tế thay vì localhost
+      const currentUrl = new URL(window.location.href);
+      const baseUrl = CONFIG.baseUrl || `${currentUrl.protocol}//${currentUrl.hostname}`;
+      const qrUrl = `${baseUrl}/members/2025.html?om=${memberData.memberId}`;
+      
+      console.log('Generating QR code for:', qrUrl);
+      
+      document.getElementById("qrcode").innerHTML = "";
+      new QRCode(document.getElementById("qrcode"), {
+        text: qrUrl,
+        width: 128,
+        height: 128,
+        colorDark: "#19658F",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+    
+    // Điền mục đích liên hệ
+    function populateContactPurposes() {
+      const select = document.getElementById('purpose');
+      select.innerHTML = '<option value="">Chọn mục đích liên hệ</option>';
+      
+      if (contactPurposes && contactPurposes.length > 0) {
+        contactPurposes.forEach(purpose => {
+          const option = document.createElement('option');
+          option.value = purpose;
+          option.textContent = purpose;
+          select.appendChild(option);
+        });
+        console.log('Đã điền mục đích liên hệ vào form');
+      } else {
+        console.error('Không có mục đích liên hệ để hiển thị');
+      }
+    }
+    
+    // Xử lý sự kiện
+    function setupEventListeners() {
+      // Toggle sections
+      document.getElementById('infoBtn').addEventListener('click', () => toggleSection('infoSection'));
+      document.getElementById('infoHeader').addEventListener('click', () => toggleSection('infoSection'));
+      document.getElementById('contactBtn').addEventListener('click', () => toggleSection('contactSection'));
+      document.getElementById('contactHeader').addEventListener('click', () => toggleSection('contactSection'));
+      
+      // Export buttons
+      document.getElementById('exportImageBtn').addEventListener('click', exportToPNG);
+      document.getElementById('exportPdfBtn').addEventListener('click', exportToPDF);
+      document.getElementById('shareBtn').addEventListener('click', shareCertificate);
+      
+      // Contact form
+      document.getElementById('contactForm').addEventListener('submit', submitContactForm);
+    }
+    
+    // Toggle section
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      const isActive = section.classList.contains('active');
+      
+      document.querySelectorAll('.expandable-section').forEach(s => {
+        s.classList.remove('active');
+      });
+      
+      if (!isActive) {
+        section.classList.add('active');
+      }
+    }
+    
+    // Xuất PNG
+    function exportToPNG() {
+      const certificate = document.getElementById('certificate');
+      const originalBoxShadow = certificate.style.boxShadow;
+      certificate.style.boxShadow = 'none';
+      
+      html2canvas(certificate, { scale: 2, useCORS: true }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `ChungNhan_${memberData.memberId}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+        certificate.style.boxShadow = originalBoxShadow;
+      });
+    }
+    
+    // Xuất PDF
+    function exportToPDF() {
+      const { jsPDF } = window.jspdf;
+      const certificate = document.getElementById('certificate');
+      const originalBoxShadow = certificate.style.boxShadow;
+      certificate.style.boxShadow = 'none';
+      
+      html2canvas(certificate, { scale: 2, useCORS: true }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        const imgWidth = 297;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.save(`ChungNhan_${memberData.memberId}.pdf`);
+        certificate.style.boxShadow = originalBoxShadow;
+      });
+    }
+    
+    // Chia sẻ
+    function shareCertificate() {
+      if (navigator.share) {
+        navigator.share({
+          title: `Chứng nhận ${memberData.name}`,
+          text: `Chứng nhận thành viên CLB Doanh Nhân Quảng Trị Miền Nam`,
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href)
+          .then(() => alert('Đã sao chép liên kết!'))
+          .catch(() => alert('Sao chép thủ công: ' + window.location.href));
+      }
+    }
+    
+    // Gửi form liên hệ
+    async function submitContactForm(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target);
+      const contactData = {
+        action: 'submitContact',
+        senderName: formData.get('senderName'),
+        senderPosition: formData.get('senderPosition'),
+        senderPhone: formData.get('senderPhone'),
+        senderEmail: formData.get('senderEmail'),
+        senderCompany: formData.get('senderCompany'),
+        purpose: formData.get('purpose'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        memberId: memberData.memberId
+      };
+      
+      const submitBtn = document.querySelector('.submit-btn');
+      const buttonText = submitBtn.querySelector('.button-text');
+      const spinner = submitBtn.querySelector('.spinner');
+      const messageBox = document.getElementById('messageBox');
+      
+      // Hiển thị loading
+      buttonText.textContent = 'Đang gửi...';
+      spinner.style.display = 'inline-block';
+      submitBtn.disabled = true;
+      messageBox.style.display = 'none';
+      
+      try {
+        const response = await fetchWithRetry(CONFIG.scriptUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams(contactData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+          messageBox.textContent = data.message;
+          messageBox.className = 'message-box success';
+          e.target.reset();
+        } else {
+          throw new Error(data.message);
+        }
+        
+      } catch (error) {
+        messageBox.textContent = error.message || 'Có lỗi xảy ra khi gửi tin nhắn';
+        messageBox.className = 'message-box error';
+      } finally {
+        messageBox.style.display = 'block';
+        buttonText.textContent = 'Gửi tin nhắn';
+        spinner.style.display = 'none';
+        submitBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
