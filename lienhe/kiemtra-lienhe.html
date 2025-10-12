@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiểm tra trạng thái xử lý thông tin liên hệ DNQTMN</title>
+  <link href="../assets/logos/Logo-bgWhite.png" rel="icon">
+  <link href="../assets/logos/Logo-bgWhite.png" rel="apple-touch-icon">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Kiểm tra trạng thái mẫu tin của bạn tại DNQTMN - Cộng đồng những người con Quảng Trị ở Miền Nam tích cực Kết nối - Giao thương - Phát triển.">
+  <meta name="keywords" content="DNQT, DNQTMN, kiểm tra trạng thái, liên hệ DNQTMN, Cộng đồng tích cực, Kết nối - Giao thương - Phát triển, HATHYO, LAZINET">
+  <meta name="author" content="DNQTMN">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph (OG) Tags for Social Media -->
+  <meta property="og:title" content="Kiểm tra trạng thái mẫu tin - DNQTMN">
+  <meta property="og:description" content="Kiểm tra trạng thái mẫu tin liên hệ của bạn với DNQTMN. Nhanh chóng, dễ dàng và an toàn.">
+  <meta property="og:image" content="../assets/logos/Logo-bgWhite.png">
+  <meta property="og:url" content="https://dnqt.vn/lienhe/kiemtra-lienhe">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DNQTMN: Kết nối - Giao thương - Phát triển!">
+  <meta property="og:locale" content="vi_VN">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kiểm tra trạng thái mẫu tin - DNQTMN">
+  <meta name="twitter:description" content="Kiểm tra trạng thái mẫu tin liên hệ của bạn với DNQTMN. Nhanh chóng, dễ dàng và an toàn.">
+  <meta name="twitter:image" content="../assets/logos/Logo-bgWhite.png">
+  <meta name="twitter:site" content="@DNQTMN">
+
+  <!-- Additional Meta Tags -->
+  <meta name="application-name" content="DNQTMN">
+  <meta name="theme-color" content="#19658F"> <!-- Matches DNQTMN's brand color -->
+  <link rel="canonical" href="https://dnqt.vn/lienhe/kiemtra-lienhe">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="kiemtra-lienhe.css">
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="../assets/logos/Logo-bgWhite.png" style="width: 200px;" alt="DNQTMN Logo">
+    </div>
+    <div class="query-section">
+      <h2 style="font-size: clamp(10px, 5vw, 25px);"><span style="color: #ff6300;">Kiểm tra trạng thái xử lý yêu cầu bạn đã gửi </span><span style="color: #19658F;">DNQTMN</span></h2>
+      <p class="description">Nhập email bạn đã sử dụng khi liên hệ, lấy mã xác thực để xem kết quả</p>
+      <form id="queryForm">
+        <input type="hidden" name="action" value="verifyAndQuery">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <button type="button" id="getCodeBtn" class="btn primary">
+          <span>Lấy mã xác thực</span>
+          <span class="spinner" style="display: none;"></span>
+        </button>
+        <div class="form-group">
+          <label for="verificationCode">Mã xác thực:</label>
+          <input type="text" id="verificationCode" name="verificationCode" required>
+        </div>
+        <button type="submit" id="verifyBtn" class="btn primary">
+          <span>Xác thực</span>
+          <span class="spinner" style="display: none;"></span>
+        </button>
+      </form>
+      <div id="statusContainer" class="status-container">
+        <h3>Trạng thái mẫu tin</h3>
+        <div class="table-wrapper">
+          <table id="statusTable">
+            <thead>
+              <tr>
+                <th>Thời gian</th>
+                <th>Quý danh</th>
+                <th>Mục đích</th>
+                <th>Tiêu đề</th>
+                <th>Nội dung</th>
+                <th>Phụ trách</th>
+                <th>Trạng thái</th>
+                <th>Kết quả</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentAction = '';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxwWvCox-xx7iVTnhGeuWQ_nhq0ZOcLaXGM7aUF8hvx1PXrzTonEEpFmkoDU-vLbKTdng/exec';
+
+    function getVerificationCode() {
+      const email = document.getElementById('email').value.trim();
+      if (!email) {
+        alert('Vui lòng nhập email!');
+        return;
+      }
+
+      const btn = document.getElementById('getCodeBtn');
+      btn.disabled = true;
+      showSpinner(btn, true);
+      btn.querySelector('span').textContent = 'Đang gửi mã xác thực ...';
+      btn.style.color = '#ffff00';
+
+      currentAction = 'getVerificationCode';
+      
+      fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=getVerificationCode&email=${encodeURIComponent(email)}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          btn.querySelector('span').textContent = 'Đã email mã xác thực!';
+          btn.style.color = '#FCDFD4';
+        } else {
+          btn.querySelector('span').textContent = 'Lấy mã xác thực';
+          btn.style.color = '#ffffff';
+          alert(data.message || 'Có lỗi xảy ra');
+        }
+      })
+      .catch(error => {
+        btn.querySelector('span').textContent = 'Lấy mã xác thực';
+        btn.style.color = '#ffffff';
+        alert('Lỗi kết nối. Vui lòng thử lại sau.');
+      })
+      .finally(() => {
+        btn.disabled = false;
+        showSpinner(btn, false);
+      });
+    }
+
+    document.getElementById('queryForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const verificationCode = document.getElementById('verificationCode').value.trim();
+      
+      if (!email || !verificationCode) {
+        alert('Vui lòng nhập đầy đủ thông tin!');
+        return;
+      }
+
+      const btn = document.getElementById('getCodeBtn');
+      const btn2 = document.getElementById('verifyBtn');
+      btn.disabled = true;
+      btn2.disabled = true;
+      showSpinner(btn2, true);
+      btn.querySelector('span').textContent = 'Đã dùng mã xác thực';
+      btn.style.color = '#ffffff';
+      btn2.querySelector('span').textContent = 'Đang xác thực ...';
+      btn2.style.color = '#ffff00';
+
+      currentAction = 'verifyAndQuery';
+      
+      fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=verifyAndQuery&email=${encodeURIComponent(email)}&verificationCode=${encodeURIComponent(verificationCode)}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          btn2.querySelector('span').textContent = 'Xác thực thành công! ' + data.message;
+          btn2.style.color = '#ffffff';
+          
+          const statusContainer = document.getElementById('statusContainer');
+          const statusTableBody = document.getElementById('statusTable').querySelector('tbody');
+          
+          if (data.data && data.data.length > 0) {
+            statusContainer.style.display = 'block';
+            let rows = '';
+            data.data.forEach(row => {
+              let statusText = row[9] || 'Đang xử lý';
+              let statusClass = '';
+              if (statusText === 'Chưa xử lý') {
+                statusClass = 'status-not-processed';
+              } else if (statusText === 'Đang xử lý') {
+                statusClass = 'status-processing';
+              } else if (statusText === 'Đã xử lý') {
+                statusClass = 'status-processed';
+              }
+              
+              rows += `<tr>
+                <td>${new Date(row[0]).toLocaleString('vi-VN')}</td>
+                <td>${row[1] || ''}</td>
+                <td>${row[2] || ''}</td>
+                <td>${row[5] || ''}</td>
+                <td>${row[6] || ''}</td>
+                <td>${row[8] || 'CSKH DNQTMN'}</td>
+                <td class="${statusClass}">${statusText}</td>
+                <td>${row[10] || ''}</td>
+              </tr>`;
+            });
+            statusTableBody.innerHTML = rows;
+          } else {
+            statusContainer.style.display = 'none';
+            statusTableBody.innerHTML = '';
+          }
+        } else {
+          btn2.querySelector('span').textContent = 'Xác thực';
+          btn2.style.color = '#ffffff';
+          document.getElementById('statusContainer').style.display = 'none';
+          alert(data.message || 'Có lỗi xảy ra');
+        }
+      })
+      .catch(error => {
+        btn2.querySelector('span').textContent = 'Xác thực';
+        btn2.style.color = '#ffffff';
+        alert('Lỗi kết nối. Vui lòng thử lại sau.');
+      })
+      .finally(() => {
+        btn2.disabled = false;
+        showSpinner(btn2, false);
+      });
+    });
+
+    function showSpinner(btn, show) {
+      const spinner = btn.querySelector('.spinner');
+      spinner.style.display = show ? 'inline-block' : 'none';
+    }
+
+    document.getElementById('getCodeBtn').addEventListener('click', getVerificationCode);
+  </script>
+</body>
+</html>
