@@ -859,14 +859,14 @@ section,
   margin: 60px 0 0 60px;
 }
 
-.about .about-img:before {
+/* .about .about-img:before {
   position: absolute;
   inset: -60px 0 0 -60px;
   content: "";
   background: url("../img/about-bg.png") top left;
   background-repeat: no-repeat;
   z-index: 1;
-}
+} */
 
 .about .about-img img {
   position: relative;
@@ -878,9 +878,9 @@ section,
     margin: 30px 0 0 30px;
   }
 
-  .about .about-img:before {
+  /* .about .about-img:before {
     inset: -30px 0 0 -30px;
-  }
+  } */
 }
 
 /* Áp dụng các thuộc tính của img cho video để giữ nguyên layout */
@@ -893,14 +893,14 @@ section,
 }
 
 /* Đảm bảo lớp nền :before vẫn hoạt động chính xác với container video */
-.about .about-img.about-video:before {
+/* .about .about-img.about-video:before {
   content: "";
   position: absolute;
   inset: -60px 0 0 -60px;
   background: url("../img/about-bg.png") top left;
   background-repeat: no-repeat;
   z-index: 1;
-}
+} */
 
 /* Responsive cho mobile */
 @media (max-width: 575px) {
