@@ -104,6 +104,35 @@ h6 {
 .header .logo img {
   max-height: 70px;
   margin-right: 8px;
+  border-radius: 50%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #0a3161;
+}
+
+.logo-end img {
+  max-height: 120px;
+  margin-right: 8px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: 
+    linear-gradient(45deg,
+      #BF953F 0%,
+      #FCF6BA 25%,
+      #B38728 50%,
+      #FBF5B7 75%,
+      #AA771C 100%)
+    border-box,
+    /* Lớp sáng bóng phản chiếu */
+    radial-gradient(circle at 30% 30%,
+      rgba(255, 255, 255, 0.8) 5%,
+      rgba(255, 255, 255, 0.1) 25%,
+      transparent 50%)
+    border-box;
+  padding: 3px;
+  box-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 .header .btn-getstarted,
@@ -854,6 +883,35 @@ section,
   }
 }
 
+/* Áp dụng các thuộc tính của img cho video để giữ nguyên layout */
+.about .about-img video {
+  position: relative;
+  z-index: 2;
+  width: 100%;    /* Đảm bảo video rộng hết container */
+  height: auto;   /* Giữ đúng tỷ lệ khung hình */
+  display: block; /* Loại bỏ khoảng trống thừa dưới video */
+}
+
+/* Đảm bảo lớp nền :before vẫn hoạt động chính xác với container video */
+.about .about-img.about-video:before {
+  content: "";
+  position: absolute;
+  inset: -60px 0 0 -60px;
+  background: url("../img/about-bg.png") top left;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 575px) {
+  .about .about-img.about-video {
+    margin: 30px 0 0 30px;
+  }
+  .about .about-img.about-video:before {
+    inset: -30px 0 0 -30px;
+  }
+}
+
 .about h3 {
   font-weight: 300;
   font-size: 32px;
@@ -1167,12 +1225,33 @@ section,
 }
 
 /* Ép chữ logo */
-.logo-upper {
-  font-size: clamp(12px, 1.8vw, 24px) !important; 
+/* .logo-upper {
+  font-size: clamp(10px, 1.5vw, 20px) !important; 
   color: #19658F !important;
 }
 
 .logo-lower {
-  font-size: clamp(10px, 1.5vw, 20px) !important; 
+  font-size: clamp(12px, 1.8vw, 24px) !important; 
   color: #F15E22 !important;
+} */
+
+.logo-upper {
+  font-size: clamp(12px, 1.8vw, 24px) !important;
+  color: #19658F !important;
+  font-family: Tahoma, Arial, Verdana, sans-serif !important;
+  /* font-weight: 600 !important; */
+  letter-spacing: -0.5px !important;
+  /* word-spacing: 2px !important; */
+  /* text-transform: uppercase !important; */
+  margin-bottom: 5px !important;
+}
+
+.logo-lower {
+  font-size: clamp(12px, 1.8vw, 24px) !important;
+  color: #F15E22 !important;
+  font-family: Verdana, Arial, Tahoma, sans-serif !important;
+  font-weight: bold !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  /* margin-top: -2px !important; */
 }

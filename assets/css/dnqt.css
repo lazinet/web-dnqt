@@ -1060,3 +1060,14 @@ body {
     .modal-title {
       color: white;
     }
+
+            /* iFRAME TIN TỨC ==================================================================================================================================================================== */
+        iframe {
+            width: 100%;
+            height: 120vh; /* Chiều cao tối đa bằng viewport height */
+            border: none;
+            /* position: fixed; */
+            top: 0;
+            left: 0;
+            /* overflow: auto; */
+        }

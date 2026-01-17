@@ -1,0 +1,800 @@
+.lazinet-strong-orange {
+  background-color: #ff6302; 
+  /* RGB(255, 99, 2) */
+}
+
+.lazinet-sky-blue {
+    background-color: #106eea; 
+    /* RGB(16, 110, 234) */
+}
+.lazinet-light-orange {
+    background-color: #FFCC99; 
+    background-color: #24458b; 
+    /* RGB(255, 204, 153) */
+  }
+  
+  .lazinet-light-blue {
+      background-color: #CCECFF; 
+      /* RGB(204, 236, 255) */
+  }
+
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    perspective: 1000px; /* Tạo hiệu ứng 3D */
+  }
+  
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+  }
+  
+  .flip-card-front {
+    background-color: #fff;
+  }
+  
+  .flip-card-back {
+    /* background-color: #106eea;
+    color: white; */
+    transform: rotateY(180deg); /* Đặt mặt sau lật 180 độ */
+  }
+  
+  .flipped .flip-card-inner {
+    transform: rotateY(180deg); /* Lật thẻ khi được nhấp */
+  }
+
+  .wtg-contact {
+    position: fixed; /* Giữ cho nó luôn ở bên phải */
+    right: 20px; /* Cách lề phải 20px */
+    top: 68%; /* Định vị ở giữa theo chiều dọc */
+    /* transform: translateY(-60%); Đẩy nó lên 50% chiều cao của chính nó để căn giữa */
+    display: flex;
+    flex-direction: column; /* Đặt các phần tử thành cột */
+    align-items: center; /* Căn giữa theo chiều ngang */
+  }
+  
+  .wtg-contact-list {
+    display: flex;
+    flex-direction: column; /* Đặt các phần tử trong danh sách thành cột */
+    align-items: center; /* Căn giữa theo chiều ngang */
+  }
+  
+  .wtg-contact-list-item {
+    margin-bottom: 15px; /* Khoảng cách giữa các phần tử */
+  }
+  
+  .wtg-contact-list-item img {
+    display: block; /* Đảm bảo hình ảnh căn giữa trong phần tử cha */
+  }
+  
+
+  button {
+    background-color: #007bff; /* Màu nền */
+    color: white; /* Màu chữ */
+    border: none; /* Bỏ viền */
+    padding: 10px 20px; /* Padding */
+    text-align: center; /* Căn giữa chữ */
+    text-decoration: none; /* Bỏ gạch chân */
+    display: inline-block; /* Hiển thị inline-block */
+    font-size: 16px; /* Kích thước chữ */
+    margin: 4px 2px; /* Margin */
+    cursor: pointer; /* Con trỏ chuột */
+    border-radius: 5px; /* Bo góc */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+button:hover {
+    background-color: #0056b3; /* Màu nền khi hover */
+}
+
+.dynamic-contrast {
+  mix-blend-mode: difference;
+  color: white;
+  padding: 10px;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+/* GPT */
+#google_translate_element {
+  max-width: 200px;
+  white-space: nowrap;
+}
+
+.goog-te-gadget-simple {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: linear-gradient(to right, #106eea, #FFCC99);
+  border: 1px solid #0000ff;
+  display: flex;
+  align-items: center;
+}
+
+.goog-te-gadget img {
+  display: none !important;
+}
+
+.goog-te-gadget span {
+  font-size: 12px;
+  color: var(--accent-secondary-color);
+  /* #ff6302; */
+}
+
+/* NÚT FLOATING ================================================================================================ */
+/* LAZINET Floating Contact Buttons - Vertical Center Alignment */
+.lazinet-contact-floating {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10000;
+    font-family: var(--default-font);
+}
+
+/* Main Button Styles */
+.lazinet-contact-main-btn {
+    width: 60px;
+    height: 60px;
+    /* background: var(--accent-secondary-color); */
+    border-radius: 50%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    cursor: pointer;
+    /* box-shadow: 0 8px 30px rgba(15, 36, 83, 0.4); */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* border: 2px solid var(--primary-color); */
+    position: relative;
+    overflow: hidden;
+}
+
+.lazinet-contact-main-btn:hover {
+    /* background: var(--primary-color); */
+    transform: scale(1.1);
+    /* box-shadow: 0 12px 40px rgba(255, 80, 0, 0.5); */
+}
+
+.lazinet-contact-main-btn img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/* Contact Buttons Container - Ẩn ban đầu */
+.lazinet-contact-buttons {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lazinet-contact-buttons.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+/* Main Button Ẩn khi active */
+.lazinet-contact-main-btn.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-50%) scale(0.8);
+}
+
+/* Individual Contact Buttons */
+.lazinet-contact-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid var(--divider-color);
+    /* background: var(--accent-secondary-color); */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(15, 36, 83, 0.3);
+}
+
+.lazinet-contact-btn:hover {
+    /* background: var(--orange-main); */
+    transform: scale(1.1);
+    border-color: var(--orange-main);
+    box-shadow: 0 8px 25px rgba(255, 80, 0, 0.4);
+}
+
+.lazinet-contact-btn img {
+    width:30px;
+    height: 30px;
+    object-fit: contain;
+    filter: brightness(1) invert(0); 
+    /* Đảm bảo icon màu trắng */
+}
+
+/* Labels for buttons */
+.lazinet-contact-label {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid var(--divider-color);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.lazinet-contact-btn:hover .lazinet-contact-label {
+    opacity: 1;
+    visibility: visible;
+    right: 65px;
+}
+
+/* Pulse animation for main button */
+@keyframes lazinetPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 255, 0.7);
+    }
+    90% {
+        box-shadow: 0 0 0 15px rgba(0, 0, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 255, 0);
+    }
+}
+
+.lazinet-contact-main-btn.pulse {
+    animation: lazinetPulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .lazinet-contact-floating {
+        right: 15px;
+    }
+    
+    .lazinet-contact-main-btn {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .lazinet-contact-main-btn img {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .lazinet-contact-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .lazinet-contact-btn img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .lazinet-contact-label {
+        font-size: 11px;
+        padding: 6px 12px;
+        right: 55px;
+    }
+    
+    .lazinet-contact-btn:hover .lazinet-contact-label {
+        right: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lazinet-contact-floating {
+        right: 10px;
+    }
+    
+    .lazinet-contact-main-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .lazinet-contact-main-btn img {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .lazinet-contact-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .lazinet-contact-btn img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .lazinet-contact-label {
+        font-size: 10px;
+        padding: 5px 10px;
+        right: 50px;
+    }
+    
+    .lazinet-contact-btn:hover .lazinet-contact-label {
+        right: 55px;
+    }
+}
+
+/* CONTACT FORM DARK Add*/
+/* Select Box Styles for Contact Form */
+#user-type {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    border-radius: 8px;
+    /* padding: 12px 15px; */
+    font-size: 14px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+#user-type:focus {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: #ff6302 !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 99, 2, 0.25) !important;
+    color: #ffffff !important;
+    outline: none;
+}
+
+/* Select options styling */
+#user-type option {
+    background: #2a2a2a !important;
+    color: #ffffff !important;
+    /* padding: 10px; */
+}
+
+/* Placeholder color for select */
+#user-type:invalid {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+#user-type option[value=""][disabled] {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Other input fields to match the theme */
+#contact-form .form-control {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+#contact-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+#contact-form .form-control:focus {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: #ff6302 !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 99, 2, 0.25) !important;
+    color: #ffffff !important;
+    outline: none;
+}
+
+/* Other type input field */
+#other-type {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+#other-type::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+#other-type:focus {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: #ff6302 !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 99, 2, 0.25) !important;
+    color: #ffffff !important;
+    outline: none;
+}
+
+/* Textarea specific styles */
+#contact-form textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+}
+
+/* For dark background sections - ensure contrast */
+.dark-background #contact-form .form-control,
+.dark-background #user-type,
+.dark-background #other-type {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark-background #contact-form .form-control:focus,
+.dark-background #user-type:focus,
+.dark-background #other-type:focus {
+    background: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* CSS LAZINET - List Styles với tiếp đầu ngữ lazinet- */
+.lazinet-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.lazinet-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+}
+
+.lazinet-list-icon {
+    color: var(--accent-color);
+    margin-right: 10px;
+    font-size: 14px;
+    position: absolute;
+    left: 0;
+    top: 4px;
+    flex-shrink: 0;
+}
+
+/* Biến thể màu sắc */
+.lazinet-list-icon--primary {
+    color: var(--primary-color, #0052FF);
+}
+
+.lazinet-list-icon--success {
+    color: var(--success-color, #00C853);
+}
+
+.lazinet-list-icon--warning {
+    color: var(--warning-color, #FF9800);
+}
+
+.lazinet-list-icon--danger {
+    color: var(--danger-color, #F44336);
+}
+
+/* Biến thể kích thước */
+.lazinet-list-icon--sm {
+    font-size: 12px;
+    top: 5px;
+}
+
+.lazinet-list-icon--lg {
+    font-size: 16px;
+    top: 3px;
+}
+
+/* Biến thể khoảng cách */
+.lazinet-list--compact li {
+    margin-bottom: 8px;
+    padding-left: 25px;
+}
+
+.lazinet-list--spacious li {
+    margin-bottom: 16px;
+    padding-left: 35px;
+}
+
+/* Layout alternatives */
+.lazinet-list--inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.lazinet-list--inline li {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+}
+
+/* PRICING & ORDER ===================================================================================================================================================================== */
+    /* Tab Navigation */
+        .tabs-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .tabs {
+            display: inline-flex;
+            background: var(--secondary-color);
+            border-radius: 12px;
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            background: var(--accent-color);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .product-card {
+            background: var(--secondary-color);
+            backdrop-filter: blur(180px);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 0;
+            width: 100%;
+            background: linear-gradient(90deg, var(--accent-secondary-color) 0%, var(--accent-color) 100%);
+            transition: all 0.4s ease-in-out;
+        }
+
+        .product-card:hover::before {
+            height: 100%;
+        }
+
+        .product-card.highlighted::after {
+            content: 'Phổ biến';
+            position: absolute;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+            color: var(--white-color);
+            top: 20px;
+            right: -35px;
+            width: 140px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--accent-color);
+            transform: rotate(45deg);
+        }
+
+        .product-header {
+            border-bottom: 1px solid var(--divider-color);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .product-description {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin: 15px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-features {
+            list-style: none;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-features li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .product-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, var(--accent-secondary-color) 0%, var(--accent-color) 50%, var(--accent-secondary-color) 100%);
+            background-size: 200% auto;
+            border: none;
+            border-radius: 8px;
+            color: var(--white-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-button:hover {
+            background-position: right center;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-color);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--divider-color);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: var(--secondary-color);
+            border: 1px solid var(--divider-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 8px;
+            color: var(--white-color);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-secondary-color);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+        }
