@@ -856,7 +856,7 @@ section,
 --------------------------------------------------------------*/
 .about .about-img {
   position: relative;
-  margin: 60px 0 0 60px;
+  /* margin: 60px 0 0 60px; */
 }
 
 /* .about .about-img:before {
@@ -874,9 +874,9 @@ section,
 }
 
 @media (max-width: 575px) {
-  .about .about-img {
+  /* .about .about-img {
     margin: 30px 0 0 30px;
-  }
+  } */
 
   /* .about .about-img:before {
     inset: -30px 0 0 -30px;
@@ -904,12 +904,12 @@ section,
 
 /* Responsive cho mobile */
 @media (max-width: 575px) {
-  .about .about-img.about-video {
+  /* .about .about-img.about-video {
     margin: 30px 0 0 30px;
   }
   .about .about-img.about-video:before {
     inset: -30px 0 0 -30px;
-  }
+  } */
 }
 
 .about h3 {

@@ -389,7 +389,7 @@
 
     </section><!-- /Featured Services Section -->
 
-<section>      
+<!-- <section>      
   <div class="container section-title" data-aos="fade-up">
     <br><h3 class="text-center"><u>SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ (BẤM VÀO ĐỂ XEM RÕ HƠN)</u></h3><br>
     <div class="text-center">
@@ -397,14 +397,64 @@
         <img src="/assets/img/orgchart/orgchart.svg" class="img-fluid mx-auto d-block" alt="Sơ đồ tổ chức">
       </a>
     </div>
-  </div><!-- End Section Title -->
+  </div> -->
+
+  <section>  
+<!-- <div style="display: flex; justify-content: center; margin: 20px auto;">
+  <iframe 
+    src="orgchart.html" 
+    style="width: 80%; max-height: 120vh; border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+</div> -->
+
+<style>
+  .orgchart-wrapper {
+    width: 80%;
+    height: auto;
+    align-items: center;
+    margin: 20px auto;
+    /* box-shadow: 0 4px 20px rgba(0,0,0,0.1); */
+    /* border-radius: 12px; */
+    overflow: hidden; /* Bo góc đẹp */
+  }
+
+  .orgchart-wrapper iframe {
+    width: 100%;
+    height: 120vh; /* Desktop: cao 80% màn hình */
+    border: none;
+  }
+
+  /* Mobile & tablet: width 100%, height = width viewport → gần vuông */
+  @media (max-width: 768px) {
+    .orgchart-wrapper {
+      width: 100%;
+      /* margin: 10px 0; */
+      /* border-radius: 8px; */
+    }
+
+    .orgchart-wrapper iframe {
+      height: 160vw; /* Height bằng width màn hình → vuông hoàn hảo */
+      /* Nếu muốn thấp hơn một chút: height: calc(100vw - 20px); */
+    }
+  }
+</style>
+
+<div class="orgchart-wrapper">
+  <iframe 
+    src="orgchart.html" 
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+</div>
 
   <div class="container section-title" data-aos="fade-up">
-    <br><h3 class="text-center"><u>Đội ngũ chuyên môn</u></h3><br>
+    <br><h3 class="text-center"><u>BAN THƯ KÝ - ĐỘI NGŨ CHUYÊN MÔN</u></h3><br>
     <p class="text-center">CLB Doanh nhân Quảng Trị có đội ngũ hùng hậu là các thành viên, gồm những doanh nhân, nhà quản lý, chuyên gia trong nhiều lĩnh vực khác nhau. Chúng tôi đến với nhau để cùng xây dựng một cộng đồng tâm huyết, tương trợ nhau, sáng tạo và nổ lực. Với khát vọng không ngừng vươn xa, chúng tôi luôn tiên phong trong việc kết nối giao thương, cùng nhau phát triển, không ngừng lớn mạnh và vươn xa.</p>
     <br>
     <div class="text-center">
-      <img src="/assets/team/team.jpg" class="img-fluid mx-auto d-block" style="max-width: 100%; height: auto;" alt="Đội ngũ chuyên môn">
+      <img src="/assets/team/team_Original.webp" class="img-fluid mx-auto d-block" style="max-width: 100%; height: auto;" alt="Đội ngũ chuyên môn">
     </div>
   </div><!-- End Section Title -->
 </section>
@@ -465,47 +515,6 @@
     </div>
   </div>
 
- 
-
-      
-  
-    <!-- Portfolio Section -->
-    <!-- <section id="portfolio" class="portfolio section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>DOANH NGHIỆP QUẢNG TRỊ: SẢN PHẨM & DỊCH VỤ</h2>
-      </div>
-      <div style="padding: 1vw">
-    <h1 class="text-center font-bold mb-4 text-[#0A3161]">(Đang cập nhật) DƯỚI ĐÂY LÀ DANH MỤC SẢN PHẨM & DỊCH VỤ CỦA DOANH NGHIỆP QUẢNG TRỊ ĐÃ ĐĂNG KÝ VỚI CLB</h1>
-    <div id="origin-filters" class="origin-filter-row">
-      <button id="all-origins" class="origin-all">TẤT CẢ CÁC NGUỒN GỐC</button>
-      <div id="origin-options" class="origin-options"></div>
-    </div>
-    <div id="category-filters" class="category-filter-row">
-      <button id="all-categories" class="category-all">TẤT CẢ CÁC LĨNH VỰC</button>
-      <div id="category-options" class="category-options"></div>
-    </div>
-    <div class="search-container">
-      <input type="text" id="search-input" class="search-input" placeholder="Nhập đẻ tìm kiếm theo tên sản phẩm ...">
-      <button id="search-button" class="search-button">Tìm kiếm</button>
-    </div>
-    <div id="tab-contents" class="mt-2">
-      <div class="table-wrapper"></div>
-      <div id="pagination-container" class="pagination-container"></div>
-    </div>
-    <div id="popup-overlay" class="overlay"></div>
-    <div id="popup" class="popup">
-      <button id="close-popup" class="absolute top-1 right-1 text-[#B31942] font-bold text-lg">×</button>
-      <h2 id="popup-title" class="font-bold mb-2 text-lg"></h2>
-      <div id="rating-display" class="rating-display"></div>
-      <img id="popup-image" class="popup-img mb-2" src="" alt="Product Image" style="display: none;">
-      <div id="popup-details" class="space-y-1">
-        <table style="width: 100%; min-width: 200px;">
-          <tbody id="popup-details-table"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  </section> -->
   <!-- /Portfolio Section -->
 <section id="portfolio" class="portfolio section">
   <div class="bizvideo-header">
@@ -559,7 +568,7 @@
                 <div class="icon">
                   <i class="bi bi-broadcast"></i>
                 </div>
-                <a href="https://luatlienphuong.com/"  target="_blank" class="stretched-link">
+                <a href="https://mklaw.vn/"  target="_blank" class="stretched-link">
                   <h3>Hỗ trợ pháp lý & hành chính</h3>
                 </a>
                 <p>Tư vấn pháp luật về thuế, đầu tư, xuất nhập khẩu.

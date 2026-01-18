@@ -6,43 +6,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
   <!-- Tiêu đề trang -->
-  <title>SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ</title>
+  <title>SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM</title>
   
   <!-- Mã hóa ký tự -->
   <meta charset="UTF-8">
   
   <!-- Mô tả trang (SEO) -->
   <meta name="description"
-    content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ - Kết nối doanh nghiệp, chia sẻ cơ hội, phát triển bền vững.">
+    content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM - Kết nối doanh nghiệp, chia sẻ cơ hội, phát triển bền vững.">
   
   <!-- Từ khóa (SEO) -->
   <meta name="keywords"
-    content="DNQT, CLB DNQT, Café Doanh Nhân, Quảng Trị, sự kiện doanh nhân, kết nối doanh nghiệp, networking">
+    content="DNQT, CLB DNQT Miền Nam, Café Doanh Nhân, Quảng Trị, sự kiện doanh nhân, kết nối doanh nghiệp, networking">
   
   <!-- Tác giả -->
   <meta name="author"
-    content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ, Hoàng Minh Phụng, CEO HATHYO, CEO LAZINET">
+    content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM, Hoàng Minh Phụng, CEO HATHYO, CEO LAZINET">
   
   <!-- Robots (cho phép các công cụ tìm kiếm lập chỉ mục) -->
   <meta name="robots" content="index, follow">
   
   <!-- Open Graph (hiển thị tốt trên mạng xã hội như Facebook) -->
-  <meta property="og:title" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ">
-  <meta property="og:description" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ.">
+  <meta property="og:title" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM">
+  <meta property="og:description" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dnqt.vn">
-  <meta property="og:image" content="https://dnqt.vn/assets/logos/logo_2026_W128.webp">
+  <meta property="og:image" content="https://dnqt.vn/assets/logos/Logo-bgWhite.png">
   <!-- Thay bằng URL hình ảnh thực tế -->
   
   <!-- Twitter Card (hiển thị trên Twitter) -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ">
-  <meta name="twitter:description" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ.">
-  <meta name="twitter:image" content="https://dnqt.vn/assets/logos/logo_2026_W128.webp">
+  <meta name="twitter:title" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM">
+  <meta name="twitter:description" content="SƠ ĐỒ TỔ CHỨC CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ MIỀN NAM.">
+  <meta name="twitter:image" content="https://dnqt.vn/assets/logos/Logo-bgWhite.png">
   
   <!-- Favicons -->
-  <link href="/assets/logos/logo_2026_W128.webp" rel="icon">
-  <link href="/assets/logos/logo_2026_W128.webp" rel="apple-touch-icon">
+  <link href="/assets/logos/Logo-bgWhite.png" rel="icon">
+  <link href="/assets/logos/Logo-bgWhite.png" rel="apple-touch-icon">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gojs@2.3.10/assets/css/style.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
@@ -805,8 +805,9 @@
         document.getElementById("mySavedModel").value = myDiagram.model.toJson();
         myDiagram.isModified = false;
       }
-      function loadFromExcel() {
+      function load() {
         myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
+        // make sure new data keys are unique positive integers
         let lastkey = 1;
         myDiagram.model.makeUniqueKeyFunction = (model, data) => {
           let k = data.key || lastkey;
@@ -815,56 +816,7 @@
           return k;
         };
       }
-  function load() {
-  const apiUrl = "https://script.google.com/macros/s/AKfycbyQbFmX_aMuCwvPKjw2_wCwx0QcvE2azxMspWfy-eU98kx-KE9lKz3IA6JQhd8sbuIP/exec";
 
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) throw new Error("Lỗi tải dữ liệu");
-      return response.json();
-    })
-    .then(data => {
-      if (data.error) throw new Error(data.error);
-
-      // Load diagram model trực tiếp (data đã có class + nodeDataArray)
-      myDiagram.model = go.Model.fromJson(data);
-
-      // Xử lý background
-      const diagramDiv = document.getElementById("myDiagramDiv");
-      let bgSet = false;
-
-      if (data.config.backgroundUrl) {
-        diagramDiv.style.backgroundImage = `url(${data.config.backgroundUrl})`;
-        diagramDiv.style.backgroundSize = "cover";
-        diagramDiv.style.backgroundRepeat = "no-repeat";
-        diagramDiv.style.backgroundPosition = "center center";
-        bgSet = true;
-      }
-
-      if (!bgSet && data.config.backgroundColor) {
-        diagramDiv.style.backgroundColor = data.config.backgroundColor;
-        diagramDiv.style.backgroundImage = "none";
-        bgSet = true;
-      }
-
-      if (!bgSet) {
-        diagramDiv.style.background = "linear-gradient(to top, #fad8c3, #fceadf)";
-        diagramDiv.style.backgroundImage = "none";
-      }
-
-      // Vì server đã xử lý default portrait → bỏ fallback ở client (hoặc giữ để an toàn)
-      // Nếu muốn bỏ: sửa findHeadShot thành:
-      function findHeadShot(Portrait_URL) {
-        return Portrait_URL; // Không cần fallback nữa
-      }
-
-      myDiagram.commandHandler.zoomToFit();
-    })
-    .catch(err => {
-      console.error("Lỗi:", err);
-      alert("Không tải được dữ liệu từ Google Sheet: " + err.message);
-    });
-}
       function timeNow() {
         var currentTime = new Date();
 
@@ -1021,7 +973,7 @@
 
         };
         reader.readAsArrayBuffer(file);
-        loadFromExcel()
+
       }
 
       window.addEventListener('DOMContentLoaded', init);
@@ -1040,7 +992,7 @@
       <!-- <div id="myDiagramDiv" style="background-color: linear-gradient(to bottom, #a8d7c9, #6db1d1); border: solid 1px black; height: 700px;"></div> -->
 
       <div style="text-align: center;">
-        <h3 class="main-text">SƠ ĐỒ TỔ CHỨC CLB DOANH NHÂN QUẢNG TRỊ</h3>
+        <h3 class="main-text">SƠ ĐỒ TỔ CHỨC CLB DOANH NHÂN QUẢNG TRỊ MIỀN NAM</h3>
         <div style="
           display: inline-flex;
           flex-wrap: wrap;
@@ -1174,7 +1126,7 @@
           Sơ đồ tổ chức dạng text JSON từ các chỉnh sửa:
         </div>
         <textarea id="mySavedModel" style="width:100%; height:270px;">
-        {"class":"go.TreeModel","nodeDataArray":[{"key":1,"Full_Name":"CLB DOANH NHÂN","Professional_Title":"QUẢNG TRỊ","Department_Team":"CLB DNQTMN","Lead_Title":"Sơ đồ tổ chức","Portrait_URL":"https://dnqt.vn/assets/logos/logo_2026_W128.webp","Profile_URL":"https://dnqt.vn/"},{"key":3,"Full_Name":"NGUYỄN ĐẶNG HIẾN","Professional_Title":"Chủ nhiệm","Department_Team":"CLB DNQTMN","Lead_Title":"Câu lạc bộ","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/NDH.jpg","Profile_URL":"https://bidrico.com.vn/"},{"key":2,"Full_Name":"HOÀNG TOÀN","Professional_Title":"Cố vấn","Department_Team":"CLB DNQTMN","Lead_Title":"Câu lạc bộ","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Toan.jpg","Profile_URL":"https://khangvietbook.com.vn/"},{"key":4,"Full_Name":"LÊ PHƯỚC TRUNG","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"CLB DNQTMN","Lead_Title":"KẾT NỐI GIAO THƯƠNG","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},{"key":5,"Full_Name":"HỒ XUÂN DŨNG","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"CLB DNQTMN","Lead_Title":"ĐỐI NỘI","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Dung.jpg","Profile_URL":"http://www.svsolution.com.vn/"},{"key":6,"Full_Name":"LÊ PHƯỚC BÌNH","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"CLB DNQTMN","Lead_Title":"ĐỐI NGOẠI","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Binh.jpg","Profile_URL":"https://www.minhglobal.com/"},{"key":7,"Full_Name":"NGUYỄN NGỌC TÝ","Professional_Title":"Trưởng ban","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":6,"Portrait_URL":"https://dnqt.vn/assets/team/Ty.jpg"},{"key":8,"Full_Name":"LÊ VĂN CẦU","Professional_Title":"Trưởng ban","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":5,"Portrait_URL":"https://dnqt.vn/assets/team/Cau.jpg"},{"key":9,"Full_Name":"NGUYỄN QUANG THẮNG","Professional_Title":"Trưởng ban, Golf & Bóng đá","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thể thao - Văn hóa","parent":6,"Portrait_URL":"https://dnqt.vn/assets/team/Thang.jpg"},{"key":10,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Tổng thư ký","Department_Team":"CLB DNQTMN","Lead_Title":"ĐIỀU HÀNH","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":11,"Full_Name":"LÊ MINH PHỤNG","Professional_Title":"Tài chính & Ký kết HĐ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Kết nối Giao thương","parent":4,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},{"key":12,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Hành chính","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Kết nối Giao thương","parent":4,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":13,"Full_Name":"HOÀNG MINH PHỤNG","Professional_Title":"Xúc tiến Giao thương","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Kết nối Giao thương","parent":4,"Portrait_URL":"https://dnqt.vn/assets/team/PhungHoang.png","Profile_URL":"https://hathyo.com"},{"key":14,"Full_Name":"LÊ VĂN CẦU","Professional_Title":"Tổ Tennis","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thể thao - Văn hóa","parent":9,"Portrait_URL":"https://dnqt.vn/assets/team/Cau.jpg"},{"key":15,"Full_Name":"LÊ MINH PHỤNG","Professional_Title":"Xét duyệt Thành viên","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":8,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},{"key":16,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Tư vấn Pháp lý DN","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":8,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":17,"Full_Name":"LÊ PHƯỚC TRUNG","Professional_Title":"Phát triển Hội viên","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":8,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},{"key":18,"Full_Name":"TRẦN BÁ ĐIỀN","Professional_Title":"Tổ chức Sự kiện","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":7,"Portrait_URL":"https://dnqt.vn/assets/team/Dien.jpg"},{"key":19,"Full_Name":"HOÀNG MINH PHỤNG","Professional_Title":"Công nghệ & TMĐT","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":7,"Portrait_URL":"https://dnqt.vn/assets/team/PhungHoang.png","Profile_URL":"https://lazinet.com"},{"key":20,"Full_Name":"PHÚ TỐNG","Professional_Title":"Digital Marketing","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":18,"Portrait_URL":"https://dnqt.vn/assets/team/Phu.jpeg"},{"key":21,"Full_Name":"VÕ THI NHÂN","Professional_Title":"Hậu cần & hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Nhan2.jpg"},{"key":22,"Full_Name":"LÊ MINH SANG","Professional_Title":"Hậu cần & hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Sang.png"},{"key":23,"Full_Name":"NGUYỄN MẠNH TRÍ","Professional_Title":"Trợ lý","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Tri.jpeg"},{"key":24,"Full_Name":"THÀNH VIÊN","Professional_Title":"Hậu cần & hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10, "Portrait_URL":"https://cdn-icons-png.flaticon.com/128/4122/4122823.png"},{"key":25,"Full_Name":"THÀNH VIÊN MỚI","Professional_Title":"Hỗ trợ doanh nghiệp","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Kết nối Giao thương","parent":4, "Portrait_URL":"https://cdn-icons-png.flaticon.com/128/4122/4122823.png"},{"key":26,"Full_Name":"LÊ VĂN HÙNG","Professional_Title":"CNTT & Ứng dụng","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":19,"Portrait_URL":"https://dnqt.vn/assets/team/Hung.jpeg"},{"key":27,"Full_Name":"THÀNH VIÊN MỚI","Professional_Title":"Tổ Triathlon","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thể thao - Văn hóa","parent":14, "Portrait_URL":"https://cdn-icons-png.flaticon.com/128/4122/4122823.png"},{"key":28,"Full_Name":"TRẦN MẠNH CHÍ","Professional_Title":"Hậu cần & hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Chi.jpeg"},{"key":29,"Full_Name":"THÀNH VIÊN MỚI","Professional_Title":"Chăm sóc & Hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":8, "Portrait_URL":"https://cdn-icons-png.flaticon.com/128/4122/4122823.png"}]}
+        {"class":"go.TreeModel","nodeDataArray":[{"key":1,"Full_Name":"CLB DOANH NHÂN","Professional_Title":"QUẢNG TRỊ MIỀN NAM","Department_Team":"CLB DNQTMN","Lead_Title":"Sơ đồ tổ chức","Portrait_URL":"https://dnqt.vn/assets/logos/Logo-bgWhite.png","Profile_URL":"https://dnqt.vn/"},{"key":3,"Full_Name":"NGUYỄN ĐẶNG HIẾN","Professional_Title":"Chủ nhiệm","Department_Team":"CLB DNQTMN","Lead_Title":"Câu lạc bộ","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/NDH.jpg","Profile_URL":"https://bidrico.com.vn/"},{"key":2,"Full_Name":"HOÀNG TOÀN","Professional_Title":"Cố vấn","Department_Team":"CLB DNQTMN","Lead_Title":"Câu lạc bộ","parent":1,"Portrait_URL":"https://dnqt.vn/assets/team/Toan.jpg","Profile_URL":"https://khangvietbook.com.vn/"},{"key":4,"Full_Name":"LÊ PHƯỚC TRUNG","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"CLB DNQTMN","Lead_Title":"KẾT NỐI GIAO THƯƠNG","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},{"key":5,"Full_Name":"HỒ XUÂN DŨNG","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"CLB DNQTMN","Lead_Title":"ĐỐI NỘI","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Dung.jpg","Profile_URL":"http://www.svsolution.com.vn/"},{"key":6,"Full_Name":"LÊ PHƯỚC BÌNH","Professional_Title":"Phó chủ nhiệm thường trực","Department_Team":"CLB DNQTMN","Lead_Title":"ĐỐI NGOẠI","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Binh.jpg","Profile_URL":"https://www.minhglobal.com/"},{"key":7,"Full_Name":"NGUYỄN NGỌC TÝ","Professional_Title":"Trưởng ban","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":6,"Portrait_URL":"https://dnqt.vn/assets/team/Ty.jpg"},{"key":8,"Full_Name":"LÊ VĂN CẦU","Professional_Title":"Trưởng ban","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":5,"Portrait_URL":"https://dnqt.vn/assets/team/Cau.jpg"},{"key":9,"Full_Name":"NGUYỄN QUANG THẮNG","Professional_Title":"Trưởng ban, Golf & Bóng đá","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thể thao - Văn hóa","parent":6,"Portrait_URL":"https://dnqt.vn/assets/team/Thang.jpg"},{"key":10,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Tổng thư ký","Department_Team":"CLB DNQTMN","Lead_Title":"ĐIỀU HÀNH","parent":3,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":11,"Full_Name":"LÊ MINH PHỤNG","Professional_Title":"Tài chính & Ký kết HĐ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Kết nối Giao thương","parent":4,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},{"key":12,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Hành chính","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Kết nối Giao thương","parent":4,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":13,"Full_Name":"HOÀNG MINH PHỤNG","Professional_Title":"Xúc tiến Giao thương","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Kết nối Giao thương","parent":4,"Portrait_URL":"https://dnqt.vn/assets/team/PhungHoang.png","Profile_URL":"https://hathyo.com"},{"key":14,"Full_Name":"LÊ VĂN CẦU","Professional_Title":"Tổ Tennis","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thể thao - Văn hóa","parent":9,"Portrait_URL":"https://dnqt.vn/assets/team/Cau.jpg"},{"key":15,"Full_Name":"LÊ MINH PHỤNG","Professional_Title":"Xét duyệt Thành viên","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":8,"Portrait_URL":"https://dnqt.vn/assets/team/PhungLe.jpg"},{"key":16,"Full_Name":"LÊ VIẾT KỲ","Professional_Title":"Tư vấn Pháp lý DN","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":8,"Portrait_URL":"https://dnqt.vn/assets/team/Ky.jpg"},{"key":17,"Full_Name":"LÊ PHƯỚC TRUNG","Professional_Title":"Phát triển Hội viên","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":8,"Portrait_URL":"https://dnqt.vn/assets/team/Trung.jpeg"},{"key":18,"Full_Name":"TRẦN BÁ ĐIỀN","Professional_Title":"Tổ chức Sự kiện","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":7,"Portrait_URL":"https://dnqt.vn/assets/team/Dien.jpg"},{"key":19,"Full_Name":"HOÀNG MINH PHỤNG","Professional_Title":"Công nghệ & TMĐT","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":7,"Portrait_URL":"https://dnqt.vn/assets/team/PhungHoang.png","Profile_URL":"https://lazinet.com"},{"key":20,"Full_Name":"PHÚ TỐNG","Professional_Title":"Digital Marketing","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":18,"Portrait_URL":"https://dnqt.vn/assets/team/Phu.jpeg"},{"key":21,"Full_Name":"VÕ THI NHÂN","Professional_Title":"Hậu cần & hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Nhan2.jpg"},{"key":22,"Full_Name":"LÊ MINH SANG","Professional_Title":"Hậu cần & hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Sang.png"},{"key":23,"Full_Name":"NGUYỄN MẠNH TRÍ","Professional_Title":"Trợ lý","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Tri.jpeg"},{"key":24,"Full_Name":"THÀNH VIÊN","Professional_Title":"Hậu cần & hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10, "Portrait_URL":"https://cdn-icons-png.flaticon.com/128/4122/4122823.png"},{"key":25,"Full_Name":"THÀNH VIÊN MỚI","Professional_Title":"Hỗ trợ doanh nghiệp","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Kết nối Giao thương","parent":4, "Portrait_URL":"https://cdn-icons-png.flaticon.com/128/4122/4122823.png"},{"key":26,"Full_Name":"LÊ VĂN HÙNG","Professional_Title":"CNTT & Ứng dụng","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thông tin Truyền thông","parent":19,"Portrait_URL":"https://dnqt.vn/assets/team/Hung.jpeg"},{"key":27,"Full_Name":"THÀNH VIÊN MỚI","Professional_Title":"Tổ Triathlon","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Thể thao - Văn hóa","parent":14, "Portrait_URL":"https://cdn-icons-png.flaticon.com/128/4122/4122823.png"},{"key":28,"Full_Name":"TRẦN MẠNH CHÍ","Professional_Title":"Hậu cần & hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban thư ký","parent":10,"Portrait_URL":"https://dnqt.vn/assets/team/Chi.jpeg"},{"key":29,"Full_Name":"THÀNH VIÊN MỚI","Professional_Title":"Chăm sóc & Hỗ trợ","Department_Team":"CLB DNQTMN","Lead_Title":"Ban Hội viên","parent":8, "Portrait_URL":"https://cdn-icons-png.flaticon.com/128/4122/4122823.png"}]}
         
                 </textarea>
         <p class="main-text">
