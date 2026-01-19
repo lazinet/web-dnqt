@@ -159,8 +159,9 @@
 
 <!-- Intro Section -->
 <section id="hero" class="hero section light-background">
-  <div class="intro-background">
+  <div class="intro-background" id = "tech-grid-boundary">
     <img src="" alt="Random Background" id="random-bg" class="intro-bg-image">
+    <canvas id="tech-grid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
   </div>
   <!-- Nội dung khác của section hero -->
   <div class="container hero-content pt-2 pb-2">
@@ -1000,7 +1001,238 @@
   <div id="preloader"></div>
 
 <!-- SCRIPT SLIDER ẢNH NỀN TRANG CHỦ -->
+
 <script>
+  (function() {
+    // === CẤU HÌNH ===
+    const CONFIG = {
+      transitionDuration: 1200, // 1.2 giây cho hiệu ứng mượt hơn
+      displayDuration: 6000,    // 6 giây hiển thị
+      defaultBg: {
+        src: '/assets/background/MINT0791_w1920.webp',
+        color: '#7a9ed2'
+      }
+    };
+
+    // === DATA ẢNH ===
+    const rawBgImages = [
+  { src: 'assets/background/MINT0118_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/MINT0138_w1920.webp', color: '#19658F' },
+  { src: 'assets/background/MINT0788_w1920.webp', color: '#13496D' },
+  { src: 'assets/background/MINT0791_w1920.webp', color: '#F15E22' },
+  { src: 'assets/background/MINT0792_w1920.webp', color: '#D94A1A' },
+  { src: 'assets/background/MINT0926_w1920.webp', color: '#e6b980' },
+  { src: 'assets/background/MINT0933_w1920.webp', color: '#d4a373' },
+  { src: 'assets/background/MINT0947_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/MINT0959_w1920.webp', color: '#19658F' },
+  { src: 'assets/background/MINT0978_w1920.webp', color: '#13496D' },
+  { src: 'assets/background/MINT0980_w1920.webp', color: '#F15E22' },
+  { src: 'assets/background/MINT0987_w1920.webp', color: '#D94A1A' },
+  { src: 'assets/background/MINT1001_w1920.webp', color: '#e6b980' },
+  { src: 'assets/background/MINT1009_w1920.webp', color: '#d4a373' },
+  { src: 'assets/background/MINT1018_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/MINT1031_w1920.webp', color: '#19658F' },
+  { src: 'assets/background/MINT1040_w1920.webp', color: '#13496D' },
+  { src: 'assets/background/MINT1046_w1920.webp', color: '#F15E22' },
+  { src: 'assets/background/MINT1049_w1920.webp', color: '#D94A1A' },
+  { src: 'assets/background/MINT1056_w1920.webp', color: '#e6b980' },
+  { src: 'assets/background/MINT1062_w1920.webp', color: '#d4a373' },
+  { src: 'assets/background/MINT1071_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/MINT1078_w1920.webp', color: '#19658F' },
+  { src: 'assets/background/MINT1081_w1920.webp', color: '#13496D' },
+  { src: 'assets/background/MINT1092_w1920.webp', color: '#F15E22' },
+  { src: 'assets/background/MINT1099_w1920.webp', color: '#D94A1A' },
+  { src: 'assets/background/MINT1100_w1920.webp', color: '#e6b980' },
+  { src: 'assets/background/MINT1107_w1920.webp', color: '#d4a373' },
+  { src: 'assets/background/MINT1122_w1920.webp', color: '#1a3e72' },
+  { src: 'assets/background/IRI04704_w2048.webp', color: '#1a3e72' },
+  { src: 'assets/background/IRI04725_w2048.webp', color: '#19658F' },
+  { src: 'assets/background/IRI04729_w2048.webp', color: '#13496D' },
+  { src: 'assets/background/IRI04769_w2048.webp', color: '#F15E22' },
+  { src: 'assets/background/IRI04777_w2048.webp', color: '#D94A1A' },
+  { src: 'assets/background/IRI04862_w2048.webp', color: '#e6b980' },
+  { src: 'assets/background/IRI04925_w2048.webp', color: '#d4a373' },
+  { src: 'assets/background/IRI04943_w2048.webp', color: '#1a3e72' },
+  { src: 'assets/background/IRI04961_w2048.webp', color: '#19658F' },
+  { src: 'assets/background/IRI05004_w2048.webp', color: '#13496D' },
+  { src: 'assets/background/IRI05094_w2048.webp', color: '#F15E22' },
+  { src: 'assets/background/IRI05182_w2048.webp', color: '#D94A1A' },
+  { src: 'assets/background/IRI05184_w2048.webp', color: '#e6b980' },
+  { src: 'assets/background/IRI05189_w2048.webp', color: '#d4a373' },
+  { src: 'assets/background/IRI05256_w2048.webp', color: '#1a3e72' },
+  { src: 'assets/background/IRI05265_w2048.webp', color: '#19658F' },
+  { src: 'assets/background/IRI05387_w2048.webp', color: '#13496D' },
+  { src: 'assets/background/IRI05490_w2048.webp', color: '#F15E22' },
+  { src: 'assets/background/IRI05506_w2048.webp', color: '#D94A1A' },
+  { src: 'assets/background/IRI05530_w2048.jpg', color: '#e6b980' },
+  { src: 'assets/background/IRI05658_w2048.webp', color: '#1a3e72' }
+];
+
+    // === QUẢN LÝ TRẠNG THÁI ===
+    let state = {
+      queue: [],
+      currentIndex: 0,
+      timer: null,
+      isPaused: false,
+      isAnimating: false
+    };
+
+    // 1. Inject CSS cho hiệu ứng (PHẦN QUAN TRỌNG NHẤT)
+    function injectStyles() {
+      const style = document.createElement('style');
+      style.textContent = `
+        /* Trạng thái gốc của ảnh (đang hiển thị) */
+        #random-bg {
+          transition: all ${CONFIG.transitionDuration}ms ease-in-out;
+          will-change: transform, opacity, filter;
+          transform: scale(1);
+          opacity: 1;
+          filter: blur(0);
+          object-fit: cover;
+        }
+
+        /* --- CÁC LOẠI HIỆU ỨNG (Chọn 1, comment các cái còn lại) --- */
+
+        /* LOẠI 1: ZOOM & FADE (CINEMATIC) - ĐANG BẬT */
+        /* Khi ẩn đi: Mờ dần + Phóng to lên 1.1 lần */
+        .bg-hidden {
+          opacity: 0 !important;
+          transform: scale(1.15) !important; 
+        }
+
+        /* LOẠI 2: SLIDE UP (Trượt lên) - BỎ COMMENT ĐỂ DÙNG 
+        .bg-hidden {
+          opacity: 0 !important;
+          transform: translateY(-40px) !important;
+        }
+        */
+
+        /* LOẠI 3: BLUR (Mờ ảo) - BỎ COMMENT ĐỂ DÙNG 
+        .bg-hidden {
+          opacity: 0 !important;
+          transform: scale(1.05) !important;
+          filter: blur(15px) grayscale(50%) !important;
+        }
+        */
+      `;
+      document.head.appendChild(style);
+    }
+
+    // 2. Các hàm tiện ích (Shuffle, Preload)
+    function shuffleArray(array) {
+      const newArr = [...array];
+      for (let i = newArr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+      }
+      return newArr;
+    }
+
+    function preloadImage(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => reject(false);
+        img.src = url;
+      });
+    }
+
+    // 3. Logic chuyển đổi slide
+    async function nextSlide() {
+      if (state.isPaused || state.isAnimating) return;
+
+      state.isAnimating = true;
+      const bgElement = document.getElementById('random-bg');
+      
+      // Tìm ảnh tiếp theo
+      let nextImageObj = null;
+      while (!nextImageObj) {
+        state.currentIndex = (state.currentIndex + 1) % state.queue.length;
+        const candidate = state.queue[state.currentIndex];
+        try {
+          await preloadImage(candidate.src);
+          nextImageObj = candidate;
+        } catch (e) { }
+      }
+
+      // BƯỚC 1: KÍCH HOẠT HIỆU ỨNG BIẾN MẤT (Thêm class)
+      bgElement.classList.add('bg-hidden');
+
+      // BƯỚC 2: ĐỢI BIẾN MẤT XONG -> ĐỔI ẢNH
+      setTimeout(() => {
+        bgElement.src = nextImageObj.src;
+        document.documentElement.style.setProperty('--primary-color', nextImageObj.color);
+
+        // BƯỚC 3: KÍCH HOẠT HIỆU ỨNG HIỆN RA (Gỡ class)
+        // Dùng requestAnimationFrame để đảm bảo trình duyệt nhận ra sự thay đổi src trước khi animation
+        requestAnimationFrame(() => {
+            bgElement.classList.remove('bg-hidden');
+        });
+
+        // BƯỚC 4: HOÀN TẤT & HẸN GIỜ
+        setTimeout(() => {
+          state.isAnimating = false;
+          scheduleNext(); 
+        }, CONFIG.transitionDuration);
+
+      }, CONFIG.transitionDuration); 
+    }
+
+    // 4. Quản lý thời gian
+    function scheduleNext() {
+      if (state.timer) clearTimeout(state.timer);
+      if (!state.isPaused) {
+        state.timer = setTimeout(nextSlide, CONFIG.displayDuration);
+      }
+    }
+
+    // 5. Khởi tạo
+    function init() {
+      const bgElement = document.getElementById('random-bg');
+      if (!bgElement) return;
+
+      injectStyles(); // Thêm CSS hiệu ứng
+      
+      // Load ảnh mặc định
+      bgElement.src = CONFIG.defaultBg.src;
+      document.documentElement.style.setProperty('--primary-color', CONFIG.defaultBg.color);
+      
+      state.queue = shuffleArray(rawBgImages);
+
+      // Xử lý Scroll & Tab (Chống chạy loạn xạ)
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            state.isPaused = false;
+            if (!state.isAnimating) scheduleNext();
+          } else {
+            state.isPaused = true;
+            if (state.timer) clearTimeout(state.timer);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(bgElement.parentElement || bgElement);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          state.isPaused = true;
+          if (state.timer) clearTimeout(state.timer);
+        } else {
+          state.isPaused = false;
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<!-- <script>
   // Hàm kiểm tra hình ảnh có tải được không
 function checkImageLoad(url) {
   return new Promise((resolve) => {
@@ -1152,333 +1384,8 @@ const bgImages = [
 
 // Khởi chạy ngay khi DOM sẵn sàng
 document.addEventListener('DOMContentLoaded', initBackground);
-</script>
-
-<!-- SCRIPT DOANH NGHIỆP CẦU NỐI -->
-   <!-- <script>
-  (function() {
-    // Cấu hình với prefix sponsor
-    const SPONSOR_CONFIG = {
-      apiUrl: 'https://script.google.com/macros/s/AKfycbwQ8jH7FF4FeVK9acTnB1zxDfP3QfTynvsb5yFwEpE-1xhqpUQt9kDlDE5vEMSUlmGjmw/exec',
-      cacheKey: 'sponsor_data_v1',
-      cacheExpiry: 24 * 60 * 60 * 1000,
-      timeout: 8000,
-      maxRetries: 2,
-      retryDelay: 2000
-    };
-    
-    // DOM elements với prefix
-    const sponsorList = document.getElementById('sponsor-list');
-    let sponsorController = null;
-    let sponsorRetryCount = 0;
-    
-    // Khởi tạo
-    sponsorInit();
-    
-    function sponsorInit() {
-      const cachedData = sponsorGetCachedData();
-      if (cachedData) {
-        sponsorRenderClients(cachedData);
-      } else {
-        sponsorLoadClients();
-      }
-      
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          sponsorLoadClients();
-          observer.unobserve(sponsorList);
-        }
-      }, { threshold: 0.1 });
-      
-      observer.observe(sponsorList);
-    }
-    
-    // Hàm chính để tải dữ liệu
-    async function sponsorLoadClients() {
-      try {
-        if (sponsorController) sponsorController.abort();
-        
-        sponsorController = new AbortController();
-        const timeoutId = setTimeout(() => {
-          sponsorController.abort();
-          throw new Error('Request timeout');
-        }, SPONSOR_CONFIG.timeout);
-        
-        sponsorShowLoadingState();
-        
-        const response = await fetch(SPONSOR_CONFIG.apiUrl, {
-          signal: sponsorController.signal,
-          cache: 'default'
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-        
-        const clients = await response.json();
-        
-        sponsorCacheData(clients);
-        sponsorRenderClients(clients);
-        sponsorPreloadImages(clients);
-        
-      } catch (error) {
-        console.error('Sponsor load error:', error);
-        sponsorHandleLoadError(error);
-      } finally {
-        sponsorController = null;
-      }
-    }
-    
-    // Xử lý lỗi
-    async function sponsorHandleLoadError(error) {
-      if (sponsorRetryCount < SPONSOR_CONFIG.maxRetries) {
-        sponsorRetryCount++;
-        console.log(`Sponsor retrying (${sponsorRetryCount}/${SPONSOR_CONFIG.maxRetries})...`);
-        await new Promise(resolve => setTimeout(resolve, SPONSOR_CONFIG.retryDelay));
-        return sponsorLoadClients();
-      }
-      
-      sponsorShowErrorState(
-        error.name === 'AbortError' 
-          ? 'Tải dữ liệu quá thời gian chờ' 
-          : 'Không thể tải danh sách đối tác'
-      );
-      
-      const cachedData = sponsorGetCachedData();
-      if (cachedData) {
-        sponsorRenderClients(cachedData);
-      }
-    }
-    
-    // Cache functions
-    function sponsorGetCachedData() {
-      try {
-        const cached = localStorage.getItem(SPONSOR_CONFIG.cacheKey);
-        if (!cached) return null;
-        
-        const { data, timestamp } = JSON.parse(cached);
-        if (Date.now() - timestamp > SPONSOR_CONFIG.cacheExpiry) {
-          localStorage.removeItem(SPONSOR_CONFIG.cacheKey);
-          return null;
-        }
-        
-        return data;
-      } catch {
-        return null;
-      }
-    }
-    
-    function sponsorCacheData(data) {
-      localStorage.setItem(SPONSOR_CONFIG.cacheKey, JSON.stringify({
-        data,
-        timestamp: Date.now()
-      }));
-    }
-    
-    // Render functions
-    function sponsorRenderClients(clients) {
-      const fragment = document.createDocumentFragment();
-      
-      clients.forEach(client => {
-        const item = document.createElement('div');
-        item.className = 'sponsor-item';
-        
-        const link = document.createElement('a');
-        link.href = client.website || '#';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.title = client.name || 'Đối tác';
-        
-        const img = document.createElement('img');
-        img.className = 'sponsor-img';
-        img.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iOTAiIHZpZXdCb3g9IjAgMCAxNjAgOTAiPjxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iOTAiIGZpbGw9IiNmNWY1ZjUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjY2NjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIj5Mb2dvPC90ZXh0Pjwvc3ZnPg==';
-        img.dataset.src = client.logo;
-        img.alt = client.name || '';
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        
-        link.appendChild(img);
-        item.appendChild(link);
-        fragment.appendChild(item);
-      });
-      
-      sponsorList.innerHTML = '';
-      sponsorList.appendChild(fragment);
-      
-      sponsorLazyLoadImages();
-    }
-    
-    function sponsorLazyLoadImages() {
-      const lazyImages = document.querySelectorAll('.sponsor-img[data-src]');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-            observer.unobserve(img);
-          }
-        });
-      }, { rootMargin: '100px' });
-      
-      lazyImages.forEach(img => observer.observe(img));
-    }
-    
-    function sponsorPreloadImages(clients) {
-      clients.forEach(client => {
-        const img = new Image();
-        img.src = client.logo;
-      });
-    }
-    
-    // UI states
-    function sponsorShowLoadingState() {
-      sponsorList.innerHTML = `
-        <div class="sponsor-loading">
-          <div class="sponsor-spinner"></div>
-          <p style="margin-top: 15px; color: #19658F;">Đang lấy logo từ đối tác ...</p>
-        </div>
-      `;
-    }
-    
-    function sponsorShowErrorState(message) {
-      sponsorList.innerHTML = `
-        <div class="sponsor-error">
-          <svg class="sponsor-error-icon" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <p>${message}</p>
-          <button class="sponsor-retry-btn" onclick="window.sponsorRetryLoad()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 5px;">
-              <path d="M23 4v6h-6M1 20v-6h6"></path>
-              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-            </svg>
-            Thử lại
-          </button>
-        </div>
-      `;
-    }
-    
-    // Global retry function với prefix
-    window.sponsorRetryLoad = function() {
-      sponsorRetryCount = 0;
-      sponsorLoadClients();
-    };
-  })();
-  </script> -->
-
-  <!-- GM1 -->
-  <!-- <script>
-  (function() {
-    // 1. Cấu hình
-    const SPONSOR_CONFIG = {
-      apiUrl: 'https://script.google.com/macros/s/AKfycbwQ8jH7FF4FeVK9acTnB1zxDfP3QfTynvsb5yFwEpE-1xhqpUQt9kDlDE5vEMSUlmGjmw/exec',
-      cacheKey: 'sponsor_data_v2', // Đổi key mới để reset cache cũ
-      cacheExpiry: 60 * 60 * 1000 // Cache trong 1 tiếng
-    };
-
-    const sponsorList = document.getElementById('sponsor-list');
-
-    // 2. Hàm khởi chạy
-    async function initSponsor() {
-      // Ưu tiên 1: Lấy từ Cache hiện ra trước (Tốc độ ánh sáng)
-      const cachedData = getSponsorCache();
-      if (cachedData) {
-        renderSponsors(cachedData);
-        // Sau khi hiện cache, vẫn âm thầm gọi API để cập nhật mới nhất cho lần sau
-        fetchSponsors(true); 
-      } else {
-        // Ưu tiên 2: Nếu không có cache thì gọi API
-        await fetchSponsors(false);
-      }
-    }
-
-    // 3. Hàm gọi dữ liệu từ Google App Script
-    async function fetchSponsors(isBackgroundUpdate = false) {
-      try {
-        const response = await fetch(SPONSOR_CONFIG.apiUrl);
-        if (!response.ok) throw new Error('Kết nối thất bại');
-        
-        const data = await response.json();
-        
-        // Lưu vào cache
-        saveSponsorCache(data);
-
-        // Nếu không phải là cập nhật ngầm (tức là người dùng chưa thấy gì), thì render ra
-        if (!isBackgroundUpdate) {
-          renderSponsors(data);
-        }
-      } catch (error) {
-        console.error('Lỗi tải đối tác:', error);
-        if (!isBackgroundUpdate && !getSponsorCache()) {
-           sponsorList.innerHTML = `<p class="text-center text-danger">Không thể tải danh sách. Vui lòng tải lại trang.</p>`;
-        }
-      }
-    }
-
-    // 4. Hàm hiển thị (Render) - Viết kiểu Template String giống Bizman
-    function renderSponsors(clients) {
-      if (!clients || clients.length === 0) return;
-
-      // Xóa loading spinner
-      sponsorList.innerHTML = '';
-
-      const htmlContent = clients.map((client, index) => {
-        // Tạo delay hiệu ứng để các logo hiện lần lượt (nhảy múa)
-        const delay = (index % 10) * 100; 
-        
-        return `
-          <div class="sponsor-item" data-aos="fade-up" data-aos-delay="${delay}">
-            <a href="${client.website || '#'}" target="_blank" rel="noopener noreferrer" title="${client.name || 'Đối tác'}">
-              <img 
-                src="${client.logo}" 
-                alt="${client.name}" 
-                class="sponsor-img"
-                loading="lazy" 
-                style="transition: transform 0.3s ease;"
-                onmouseover="this.style.transform='scale(1.1)'"
-                onmouseout="this.style.transform='scale(1.0)'"
-                onerror="this.src='https://via.placeholder.com/150x80?text=Logo'"
-              >
-            </a>
-          </div>
-        `;
-      }).join('');
-
-      sponsorList.innerHTML = htmlContent;
-      
-      // Kích hoạt lại AOS cho các phần tử mới thêm vào (quan trọng)
-      if (typeof AOS !== 'undefined') {
-        AOS.refresh(); 
-      }
-    }
-
-    // 5. Các hàm Cache (LocalStorage)
-    function getSponsorCache() {
-      try {
-        const record = JSON.parse(localStorage.getItem(SPONSOR_CONFIG.cacheKey));
-        if (!record) return null;
-        if (Date.now() > record.expiry) {
-          localStorage.removeItem(SPONSOR_CONFIG.cacheKey);
-          return null;
-        }
-        return record.data;
-      } catch (e) { return null; }
-    }
-
-    function saveSponsorCache(data) {
-      const record = {
-        data: data,
-        expiry: Date.now() + SPONSOR_CONFIG.cacheExpiry
-      };
-      localStorage.setItem(SPONSOR_CONFIG.cacheKey, JSON.stringify(record));
-    }
-
-    // Chạy ngay khi tải trang
-    document.addEventListener('DOMContentLoaded', initSponsor);
-  })();
 </script> -->
+
   
 <script>
   (function() {
@@ -1761,353 +1668,7 @@ document.addEventListener('DOMContentLoaded', initBackground);
     window.onload = fetchTeamMembers;
   </script>
 
-  <!-- SCRIPT DANH MỤC SẢN PHẨM VÀ DỊCH VỤ -->
-  <!-- <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxhxNuS-jp70oyke_nwsEKlueIQorpNbnggL6pZ1w5SLXE6sDtU8rIsxrrBNoIKFkw6iA/exec';
-    let allProducts = [];
-    let filteredProducts = [];
-    let currentProductIndex = -1;
-    let paginationConfig = {
-      currentPage: 1,
-      itemsPerPage: 10,
-      itemsPerPageOptions: [10, 20, 30, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000]
-    };
-    let currentFilters = {
-      origin: null,
-      category: null,
-      search: null
-    };
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        await loadProducts();
-        setupEventListeners();
-      } catch (error) {
-        showError('Failed to initialize application: ' + error.message);
-      }
-    });
-    async function loadProducts() {
-      try {
-        const response = await fetch(`${API_URL}?action=getProducts`);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
-        allProducts = Array.isArray(data) ? data : [];
-        filteredProducts = [...allProducts];
-        initializeFilters();
-        displayProducts();
-      } catch (error) {
-        console.error('Error loading products:', error);
-        showError('Error loading products: ' + error.message);
-      }
-    }
-    function initializeFilters() {
-      const origins = [...new Set(allProducts.map(p => p.origin || 'Unknown'))];
-      const originOptions = document.getElementById('origin-options');
-      origins.forEach(origin => {
-        const button = document.createElement('button');
-        button.className = 'origin-option';
-        button.textContent = origin;
-        button.onclick = () => {
-          currentFilters.origin = origin;
-          updateActiveFilterButtons();
-          applyFilters();
-        };
-        originOptions.appendChild(button);
-      });
-      const categories = [...new Set(allProducts.map(p => p.category || 'Unknown'))];
-      const categoryOptions = document.getElementById('category-options');
-      categories.forEach(category => {
-        const button = document.createElement('button');
-        button.className = 'category-option';
-        button.textContent = category;
-        button.onclick = () => {
-          currentFilters.category = category;
-          updateActiveFilterButtons();
-          applyFilters();
-        };
-        categoryOptions.appendChild(button);
-      });
-      document.getElementById('all-origins').onclick = () => {
-        currentFilters.origin = null;
-        updateActiveFilterButtons();
-        applyFilters();
-      };
-      document.getElementById('all-categories').onclick = () => {
-        currentFilters.category = null;
-        updateActiveFilterButtons();
-        applyFilters();
-      };
-    }
-    function updateActiveFilterButtons() {
-      const originOptions = document.querySelectorAll('.origin-option');
-      originOptions.forEach(button => {
-        button.className = button.textContent === currentFilters.origin ? 'origin-option active' : 'origin-option';
-      });
-      const categoryOptions = document.querySelectorAll('.category-option');
-      categoryOptions.forEach(button => {
-        button.className = button.textContent === currentFilters.category ? 'category-option active' : 'category-option';
-      });
-    }
-    function applyFilters() {
-      filteredProducts = [...allProducts];
-      if (currentFilters.origin) {
-        filteredProducts = filteredProducts.filter(p => (p.origin || 'Unknown') === currentFilters.origin);
-      }
-      if (currentFilters.category) {
-        filteredProducts = filteredProducts.filter(p => (p.category || 'Unknown') === currentFilters.category);
-      }
-      if (currentFilters.search) {
-        const searchTerm = currentFilters.search.toLowerCase();
-        filteredProducts = filteredProducts.filter(p => p.product_name && p.product_name.toLowerCase().includes(searchTerm));
-      }
-      paginationConfig.currentPage = 1;
-      displayProducts();
-    }
-    function displayProducts() {
-      const tableWrapper = document.querySelector('.table-wrapper');
-      const paginationContainer = document.getElementById('pagination-container');
-      tableWrapper.innerHTML = '';
-      paginationContainer.innerHTML = '';
-      if (filteredProducts.length === 0) {
-        tableWrapper.innerHTML = '<p class="text-center py-4">No products found matching your criteria</p>';
-        return;
-      }
-      const totalPages = Math.ceil(filteredProducts.length / paginationConfig.itemsPerPage);
-      const startIndex = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage;
-      const endIndex = Math.min(startIndex + paginationConfig.itemsPerPage, filteredProducts.length);
-      const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-      renderTable(tableWrapper, paginatedProducts);
-      renderPagination(paginationContainer, filteredProducts.length, totalPages);
-    }
-    function renderTable(container, products) {
-      const table = document.createElement('table');
-      table.innerHTML = `
-        <thead>
-          <tr>
-            <th style="width: 5%">STT</th>
-            <th style="width: 8%">Ảnh</th>
-            <th style="width: 8%">Mã sản phẩm</th>
-            <th style="width: 12%">Tên sản phẩm</th>
-            <th style="width: 9%">Danh mục sản phẩm</th>
-            <th style="width: 7%">Khối lượng (gr)</th>
-            <th style="width: 7%">SL mỗi thùng</th>
-            <th style="width: 7%">Giá lẻ</th>
-            <th style="width: 7%">Giá thùng</th>
-            <th style="width: 7%">Số thùng sẵn</th>
-            <th style="width: 8%">Nguồn gốc</th>
-            <th style="min-width: 150px;">QR/ Barcode</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${products.map(product => `
-            <tr class="hover:bg-red-700 cursor-pointer" onclick="showProductDetail(${allProducts.indexOf(product)})">
-              <td class="text-center">${product.id || '-'}</td>
-              <td class="image-cell">
-                ${product.image_url ? `<img src="${product.image_url}" alt="${product.product_name}" class="table-img" style="max-height: 100%; max-width: 100%;" onerror="this.style.display='none'">` : 'No Image'}
-              </td>
-              <td>${product.product_code || '-'}</td>
-              <td>${product.product_name || '-'}</td>
-              <td>${product.category || '-'}</td>
-              <td>${product.net_weight || '-'}</td>
-              <td>${product.case_quantity || '-'}</td>
-              <td>${product.unit_price || '-'}</td>
-              <td>${product.case_price || '-'}</td>
-              <td>${product.case_stock || '-'}</td>
-              <td>${product.origin || '-'}</td>
-              <td class="text-left">
-                ${product.barcode ? `
-                <div class="barcode-container">
-                <svg class="barcode-svg" id="barcode-${product.id}"></svg>
-                <span class="barcode-number">${product.barcode}</span>
-                </div>
-                ` : '-'}
-              </td>
-            </tr>
-          `).join('')}
-        </tbody>
-      `;
-      container.appendChild(table);
-      products.forEach(product => {
-        if (product.barcode) {
-          try {
-            JsBarcode(`#barcode-${product.id}`, product.barcode, {
-              format: "CODE128",
-              lineColor: "#0A3161",
-              width: 1,
-              height: 28,
-              displayValue: false
-            });
-          } catch (e) {
-            console.error("Barcode generation error:", e);
-          }
-        }
-      });
-    }
-    function renderPagination(container, totalItems, totalPages) {
-      const paginationDiv = document.createElement('div');
-      paginationDiv.className = 'pagination';
-      const select = document.createElement('select');
-      select.className = 'mr-4';
-      select.style.cssText = `
-        width: 150px !important;
-        min-width: 150px !important;
-        max-width: 150px !important;
-        // box-sizing: border-box !important;
-      `;
-      select.innerHTML = paginationConfig.itemsPerPageOptions.map(option => 
-        `<option value="${option}" ${option === paginationConfig.itemsPerPage ? 'selected' : ''}>${option} per page</option>`
-      ).join('');
-      select.addEventListener('change', (e) => {
-        paginationConfig.itemsPerPage = parseInt(e.target.value);
-        paginationConfig.currentPage = 1;
-        displayProducts();
-      });
-      const prevButton = document.createElement('button');
-      prevButton.textContent = 'Previous';
-      prevButton.disabled = paginationConfig.currentPage === 1;
-      prevButton.addEventListener('click', () => {
-        if (paginationConfig.currentPage > 1) {
-          paginationConfig.currentPage--;
-          displayProducts();
-        }
-      });
-      const pageButtons = [];
-      const startPage = Math.max(1, paginationConfig.currentPage - 1);
-      const endPage = Math.min(totalPages, paginationConfig.currentPage + 1);
-      for (let i = startPage; i <= endPage; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.textContent = i;
-        pageButton.className = i === paginationConfig.currentPage ? 'active' : '';
-        pageButton.addEventListener('click', () => {
-          paginationConfig.currentPage = i;
-          displayProducts();
-        });
-        pageButtons.push(pageButton);
-      }
-      const nextButton = document.createElement('button');
-      nextButton.textContent = 'Next';
-      nextButton.disabled = paginationConfig.currentPage === totalPages;
-      nextButton.addEventListener('click', () => {
-        if (paginationConfig.currentPage < totalPages) {
-          paginationConfig.currentPage++;
-          displayProducts();
-        }
-      });
-      const infoText = document.createElement('span');
-      const startItem = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage + 1;
-      const endItem = Math.min(paginationConfig.currentPage * paginationConfig.itemsPerPage, totalItems);
-      infoText.textContent = `Showing ${startItem}-${endItem} of ${totalItems}`;
-      infoText.className = 'ml-4';
-      paginationDiv.appendChild(select);
-      paginationDiv.appendChild(prevButton);
-      pageButtons.forEach(button => paginationDiv.appendChild(button));
-      paginationDiv.appendChild(nextButton);
-      paginationDiv.appendChild(infoText);
-      container.appendChild(paginationDiv);
-    }
-    function showProductDetail(index) {
-      currentProductIndex = index;
-      const product = allProducts[index];
-      const popup = document.getElementById('popup');
-      const overlay = document.getElementById('popup-overlay');
-      const popupTitle = document.getElementById('popup-title');
-      const popupImage = document.getElementById('popup-image');
-      const popupDetailsTable = document.getElementById('popup-details-table');
-      const ratingDisplay = document.getElementById('rating-display');
-      popupTitle.textContent = product.product_name || 'Unknown Product';
-      popupImage.src = product.image_url || '';
-      popupImage.style.display = product.image_url ? 'block' : 'none';
-      const averageRating = parseFloat(product.average_rating) || 0;
-      const totalRatingCount = parseInt(product.total_rating_count) || 0;
-      ratingDisplay.innerHTML = `
-        <span>${averageRating.toFixed(1)}</span>
-        ${[...Array(5)].map((_, i) => `
-          <span class="rating-star">${i < Math.round(averageRating) ? '★' : '☆'}</span>
-        `).join('')}
-        <span>(${totalRatingCount} reviews)</span>
-      `;
-      popupDetailsTable.innerHTML = Object.entries(product)
-        // .filter(([key, value]) => value !== undefined && value !== '' && !['id', 'image_url', 'product_name'].includes(key))
-        .filter(([key, value]) => value !== undefined && value !== '' && !['id', 'image_url'].includes(key))
-        .map(([key, value]) => {
-          if (key === 'barcode' && value) {
-            return `
-              <tr>
-                <td class="font-medium py-1">${formatKey(key)}</td>
-                <td class="py-1">
-                  <div class="barcode-container">
-                    <svg class="barcode-svg" id="popup-barcode"></svg>
-                    <span class="barcode-number-large">${value}</span>
-                  </div>
-                </td>
-              </tr>
-            `;
-          }
-          return `
-            <tr>
-              <td class="font-medium py-1">${formatKey(key)}</td>
-              <td class="py-1">${formatValue(value)}</td>
-            </tr>
-          `;
-        }).join('');
-      if (product.barcode) {
-        try {
-          JsBarcode('#popup-barcode', product.barcode, {
-            format: "CODE128",
-            lineColor: "#0A3161",
-            width: 1,
-            height: 28,
-            displayValue: false
-          });
-        } catch (e) {
-          console.error("Barcode generation error:", e);
-        }
-      }
-      popup.className = 'popup active';
-      overlay.className = 'overlay active';
-    }
-    function formatKey(key) {
-      return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    }
-    function formatValue(value) {
-      if (typeof value === 'string' && value.match(/^https?:\/\//)) {
-        return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">Link</a>`;
-      }
-      return value || '-';
-    }
-    function closePopup() {
-      document.getElementById('popup').className = 'popup';
-      document.getElementById('popup-overlay').className = 'overlay';
-      currentProductIndex = -1;
-    }
-    function showError(message) {
-      const tabContents = document.getElementById('tab-contents');
-      tabContents.innerHTML = `<div class="error-message">${message}</div>`;
-    }
-    function setupEventListeners() {
-      document.getElementById('close-popup').addEventListener('click', closePopup);
-      document.getElementById('popup-overlay').addEventListener('click', closePopup);
-      document.getElementById('search-button').addEventListener('click', () => {
-        const searchTerm = document.getElementById('search-input').value.trim();
-        currentFilters.search = searchTerm || null;
-        applyFilters();
-      });
-      document.getElementById('search-input').addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-          const searchTerm = document.getElementById('search-input').value.trim();
-          currentFilters.search = searchTerm || null;
-          applyFilters();
-        }
-      });
-      window.showProductDetail = showProductDetail;
-    }
-  </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93c9274708cfbcaa',t:'MTc0NjcwOTM2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93cd407afb19adf4',t:'MTc0Njc1MjM0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script> -->
-      <!-- END PORFOLIO -->
-
 <!-- CÁC SCRIPT KHÁC -->
-
   <!-- Vendor JS Files -->
   <!-- <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
   <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -2315,6 +1876,206 @@ function openReport() {
 }
 </script>
 
+<script>
+  // Tech Grid Animation =================================================================================================================================================================
+const canvas = document.getElementById("tech-grid");
+const ctx = canvas.getContext("2d");
+const card = document.getElementById("tech-grid-boundary");
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+const nodes = [];
+const screenWidth = window.innerWidth;
+const referenceWidth = 1920; // Full HD phổ biến hơn
+const baseNodes = 15; // Base ít hơn
+const numNodes = Math.max(
+  8,
+  Math.min(20, Math.round((baseNodes * screenWidth) / referenceWidth))
+);
+let mouseNode = null;
+
+function randomRange(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+function initializeNodes() {
+  nodes.length = 0;
+  for (let i = 0; i < numNodes; i++) {
+    nodes.push({
+      x: randomRange(10, canvas.width - 10),
+      y: randomRange(10, canvas.height - 10),
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      color: getRandomColor(),
+    });
+  }
+  const edgeNodes = [
+    {
+      x: randomRange(10, canvas.width - 10),
+      y: 10,
+      vx: (Math.random() - 0.5) * 1,
+      edge: "top",
+      color: getRandomColor(),
+    },
+    {
+      x: canvas.width - 10,
+      y: randomRange(10, canvas.height - 10),
+      vy: (Math.random() - 0.5) * 1,
+      edge: "right",
+      color: getRandomColor(),
+    },
+    {
+      x: randomRange(10, canvas.width - 10),
+      y: canvas.height - 10,
+      vx: (Math.random() - 0.5) * 1,
+      edge: "bottom",
+      color: getRandomColor(),
+    },
+    {
+      x: 10,
+      y: randomRange(10, canvas.height - 10),
+      vy: (Math.random() - 0.5) * 1,
+      edge: "left",
+      color: getRandomColor(),
+    },
+  ];
+  nodes.push(...edgeNodes);
+}
+
+function getRandomColor() {
+  const avoidColors = ["#000000", "#ff6302", "#0000ff"];
+  let r, g, b, color;
+  do {
+    r = Math.floor(Math.random() * 256);
+    g = Math.floor(Math.random() * 256);
+    b = Math.floor(Math.random() * 256);
+    color = `rgba(${r}, ${g}, ${b}, 0.5)`;
+  } while (avoidColors.some((c) => isColorClose(color, c)));
+  return color;
+}
+
+function isColorClose(color1, color2) {
+  const [r1, g1, b1] = color1.match(/\d+/g).map(Number);
+  const [r2, g2, b2] = color2
+    .match(/#?([\da-f]{2})([\da-f]{2})([\da-f]{2})/i)
+    .slice(1)
+    .map((x) => parseInt(x, 16));
+  return Math.sqrt((r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2) < 100;
+}
+
+function drawGrid() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const allNodes = mouseNode ? [...nodes, mouseNode] : nodes;
+  for (let i = 0; i < allNodes.length; i++) {
+    for (let j = i + 1; j < allNodes.length; j++) {
+      const dist = Math.hypot(
+        allNodes[i].x - allNodes[j].x,
+        allNodes[i].y - allNodes[j].y
+      );
+      if (dist < 100) {
+        const gradient = ctx.createLinearGradient(
+          allNodes[i].x,
+          allNodes[i].y,
+          allNodes[j].x,
+          allNodes[j].y
+        );
+        gradient.addColorStop(
+          0,
+          allNodes[i].color.replace(/[\d.]+\)$/, "0.1)")
+        );
+        gradient.addColorStop(
+          1,
+          allNodes[j].color.replace(/[\d.]+\)$/, "0.1)")
+        );
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 1 + Math.sin(Date.now() / 500) * 0.5;
+        ctx.beginPath();
+        ctx.moveTo(allNodes[i].x, allNodes[i].y);
+        ctx.lineTo(allNodes[j].x, allNodes[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+  allNodes.forEach((node) => {
+    const baseSize = 0.1 * Math.round((20 * screenWidth) / referenceWidth);
+    const size = node.isMouse
+      ? 6 + 2 * baseSize
+      : node.edge
+      ? 4 + 2 * baseSize
+      : 3 + 2 * baseSize + Math.sin(Date.now() / 300) * 1;
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, size, 0, Math.PI * 2);
+    ctx.fillStyle = node.color;
+    ctx.shadowBlur = node.isMouse ? 15 : 10;
+    ctx.shadowColor = node.color.replace(/[\d.]+\)$/, "0.3)");
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  });
+}
+
+function updateNodes() {
+  nodes.forEach((node) => {
+    if (node.edge) {
+      if (node.edge === "top" || node.edge === "bottom") {
+        node.x += node.vx;
+        if (node.x < 10 || node.x > canvas.width - 10) node.vx *= -1;
+      } else if (node.edge === "left" || node.edge === "right") {
+        node.y += node.vy;
+        if (node.y < 10 || node.y > canvas.height - 10) node.vy *= -1;
+      }
+    } else {
+      node.x += node.vx;
+      node.y += node.vy;
+      if (node.x < 10 || node.x > canvas.width - 10) node.vx *= -1;
+      if (node.y < 10 || node.y > canvas.height - 10) node.vy *= -1;
+    }
+    if (Math.random() < 0.02) node.color = getRandomColor();
+  });
+}
+
+card.addEventListener("mousemove", (event) => {
+  const rect = canvas.getBoundingClientRect();
+  const canvasX = event.clientX - rect.left;
+  const canvasY = event.clientY - rect.top;
+  if (
+    canvasX >= 0 &&
+    canvasX <= canvas.width &&
+    canvasY >= 0 &&
+    canvasY <= canvas.height
+  ) {
+    if (!mouseNode) {
+      mouseNode = {
+        x: canvasX,
+        y: canvasY,
+        color: "rgba(255, 99, 2, 0.8)",
+        isMouse: true,
+      };
+    } else {
+      mouseNode.x = canvasX;
+      mouseNode.y = canvasY;
+    }
+  }
+});
+
+card.addEventListener("mouseleave", () => {
+  mouseNode = null;
+});
+
+function animate() {
+  updateNodes();
+  drawGrid();
+  requestAnimationFrame(animate);
+}
+
+initializeNodes();
+animate();
+
+window.addEventListener("resize", () => {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+  initializeNodes();
+  mouseNode = null;
+});
+</script>
 </body>
 
 </html>
