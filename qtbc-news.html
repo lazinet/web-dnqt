@@ -474,7 +474,7 @@
     <script src="assets/js/function.js"></script>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymIJb33PnKXC_4SogNgzmd5oCwXjfcHeTPtQMZx_LgxVMjDHlGkyvmEqwporYogponpA/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzA-JLGggzQaC4AZJZlofKZsDyTMsb8PjUXyWFeaq5T-fz7UZ4ygR3nVWwrBR37AqLeSA/exec';
     const BASE_IMG_URL = 'assets/img/';
     const PLACEHOLDER_IMG = 'assets/img/background/applied-tech.webp';  // Tạo file nếu cần
     const GROUP_SIZE = 6;  // Mỗi slide 6 blog
@@ -506,10 +506,15 @@
         if (!blog.images) {
             blog.images = [
                 blog.Image_Sub_URL,
-                blog.Image_Sub_URL_Add1,
-                blog.Image_Sub_URL_Add2,
-                blog.Image_Sub_URL_Add3,
-                blog.Image_Sub_URL_Add4
+                blog.Im_URL_Add1,
+                blog.Im_URL_Add2,
+                blog.Im_URL_Add3,
+                blog.Im_URL_Add4,
+                blog.Im_URL_Add5,
+                blog.Im_URL_Add6,
+                blog.Im_URL_Add7,
+                blog.Im_URL_Add8,
+                blog.Im_URL_Add9
             ].filter(url => url && url.toString().trim() !== '');
         }
         console.log('Single Blog - Images array:', blog.images);  // Debug images
