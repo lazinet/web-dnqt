@@ -243,7 +243,7 @@ a:focus{
     top: 50%;
     right: 24px;
     transform: translateY(-50%);
-    background-image: url('../images/arrow-white.svg');
+    background-image: url('../img/others/arrow-white.svg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -323,7 +323,7 @@ a:focus{
     top: 50%;
     right: 0;
 	transform: translateY(-50%);
-	background-image: url('../images/arrow-white.svg');
+	background-image: url('../img/others/arrow-white.svg');
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
@@ -2567,7 +2567,7 @@ header.main-header .container-fluid{
     bottom: 0;
     left: 50%;
     right: 0;
-	background: url('../images/arrow-white.svg');
+	background: url('../img/others/arrow-white.svg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 14px auto;
@@ -3390,7 +3390,7 @@ header.main-header .container-fluid{
     position: absolute;
     top: 5px;
     right: 0;
-	background: url('../images/arrow-white.svg') no-repeat;
+	background: url('../img/others/arrow-white.svg') no-repeat;
 	background-position: center center;
 	background-size: cover;
     width: 12px;
@@ -3869,7 +3869,7 @@ header.main-header .container-fluid{
 }
 
 .post-entry blockquote{
-	background: var(--secondary-color) url('../images/icon-blockquote.svg');
+	background: var(--secondary-color) url('../img/others/icon-blockquote.svg');
 	background-repeat: no-repeat;	
     backdrop-filter: blur(180px);
     -webkit-backdrop-filter: blur(180px);

@@ -61,7 +61,7 @@
       /* 700px */
       /* width: 99vw; */
       background: linear-gradient(to top, #fad8c3, #fceadf);
-      border: solid 3px #ff6302
+      border: solid 3px #19658F
     }
 
       @media (max-width: 768px) {
@@ -153,7 +153,7 @@
     /* Tạo background gradient từ xanh lá cây đậm đến xanh lá cây nhạt */
     input[type="file"],
     button {
-      background: linear-gradient(to bottom, #f58b61, #015380);
+      background: #015380;
       color: #fff;
       /* Màu chữ trắng để tương phản */
       padding: 10px 20px;
@@ -165,7 +165,7 @@
 
     /* Hover effect khi di chuột qua nút */
     button:hover {
-      background: linear-gradient(to bottom, #f58b61, #ff6302);
+      background: #ff6302;
       /* Màu gradient khi hover */
     }
   </style>
@@ -521,14 +521,6 @@
         // read in the JSON-format data from the "mySavedModel" element
         load();
 
-        // support editing the properties of the selected person in HTML
-        if (window.Inspector) myInspector = new Inspector("myInspector", myDiagram,
-          {
-            properties: {
-              "key": { readOnly: true },
-              // "Remarks": {}
-            }
-          });
 
         // Căn chỉnh tự động
         document.getElementById('zoomToFit').addEventListener('click', () => myDiagram.commandHandler.zoomToFit());
@@ -539,7 +531,7 @@
         });
 
         // Lắng nghe xử lý duyệt file Excel
-        document.getElementById('excelFile').addEventListener('change', handleFile);
+        // document.getElementById('excelFile').addEventListener('change', handleFile);
 
         // Lắng nghe chuột xuất hình
         // document.getElementById("exportToPNG").addEventListener("click", exportTransparentPNG);
@@ -1000,13 +992,15 @@
 
     <div id="sample">
       <!-- <div id="myDiagramDiv" class="background-div" style="background-color: #34343C; border: solid 1px black; height: 700px;"></div> -->
+       
       <div id="myDiagramDiv" class="background-div"></div>
 
       <!-- <div id="myDiagramDiv" style="background-color: linear-gradient(to bottom, #a8d7c9, #6db1d1); border: solid 1px black; height: 700px;"></div> -->
 
       <div style="text-align: center;">
         <h3 class="main-text">SƠ ĐỒ TỔ CHỨC CLB DOANH NHÂN QUẢNG TRỊ</h3>
-        
+       <!-- THÊM DIV INSPECTOR TẠI ĐÂY -->
+
         <p class="main-text"><a href="https://lazinet.com/lazinet-support-pricing"><span style="color: #ff6302;"><b>LAZI</b></span><span
               style="color: #0000ff;"><b>NET</b></span> OrgChart V3.0</a></p>
         <div style="

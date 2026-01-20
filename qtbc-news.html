@@ -455,12 +455,12 @@
                 blog.Im_URL_Add9
             ].filter(url => url && url.toString().trim() !== '');
         }
-        console.log('Single Blog - Images array:', blog.images);  // Debug images
+        // console.log('Single Blog - Images array:', blog.images);  // Debug images
 
         const postImageEl = document.getElementById('post-image');
         if (postImageEl && blog.images.length > 0) {
             const firstImgSrc = BASE_IMG_URL + blog.images[0];
-            console.log('Single Blog - First img src:', firstImgSrc);
+            // console.log('Single Blog - First img src:', firstImgSrc);
 
             if (blog.images.length === 1) {
                 // Single image (giữ animation reveal)
@@ -637,8 +637,8 @@
 
                 const imgSubUrlList = blog.Image_Sub_URL || '';
                 const imgSrcList = imgSubUrlList ? BASE_IMG_URL + imgSubUrlList : PLACEHOLDER_IMG;
-                console.log('Slider Blog - Raw Image_Sub_URL:', imgSubUrlList);
-                console.log('Slider Blog - Full img src:', imgSrcList);
+                // console.log('Slider Blog - Raw Image_Sub_URL:', imgSubUrlList);
+                // console.log('Slider Blog - Full img src:', imgSrcList);
 
                 const postHtml = `
                     <div class="col-xl-4 col-md-6">
@@ -729,7 +729,7 @@
             url: SCRIPT_URL + '?action=list&limit=999',  // Load all for slider
             dataType: 'jsonp',
             success: function(response) {
-                console.log('Slider response:', response);  // Debug
+                // console.log('Slider response:', response);  // Debug
                 allBlogs = response.blogs || response;  // Fallback plain array
                 renderBlogSlider(allBlogs);
             },
@@ -746,7 +746,7 @@
         // Kiểm tra cache trước (full data từ list)
         const cachedBlog = allBlogs.find(b => b.Blog_ID === blogId);
         if (cachedBlog && cachedBlog['P2 (Main)']) {  // Assume full if has main content
-            console.log('Using cached blog for single:', cachedBlog);
+            // console.log('Using cached blog for single:', cachedBlog);
             renderSingleBlog(cachedBlog);
         } else {
             // Fetch full from API
@@ -754,7 +754,7 @@
                 url: SCRIPT_URL + '?blog_id=' + blogId,
                 dataType: 'jsonp',
                 success: function(blog) {
-                    console.log('Single blog loaded from API:', blog);
+                    // console.log('Single blog loaded from API:', blog);
                     if (blog.error) {
                         alert('Blog not found');
                         window.location.href = '?';  // Back to list
