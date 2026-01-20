@@ -29,7 +29,7 @@
         content="TRANG CHÍNH THỨC CỦA CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ (QTBC).">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://qtbc.vn">
-    <meta property="og:image" content="https://qtbc.vn/assets/logos/logo_2026_W128.webp">
+    <meta property="og:image" content="https://qtbc.vn/assets/logos/logo_2026_W512.webp">
     <!-- Thay bằng URL hình ảnh thực tế -->
 
     <!-- Twitter Card (hiển thị trên Twitter) -->
@@ -37,7 +37,7 @@
     <meta name="twitter:title" content="TRANG CHÍNH THỨC CỦA CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ (QTBC)">
     <meta name="twitter:description"
         content="TRANG CHÍNH THỨC CỦA CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ (QTBC).">
-    <meta name="twitter:image" content="https://qtbc.vn/assets/logos/logo_2026_W128.webp">
+    <meta name="twitter:image" content="https://qtbc.vn/assets/logos/logo_2026_W512.webp">
 
     
     <!-- === PRELOAD CRITICAL RESOURCES === -->
@@ -54,7 +54,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Instrument+Sans:wght@400..700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap">
 	<!-- Bootstrap Css -->
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css" media="screen">
 	<!-- SlickNav Css -->
@@ -261,6 +261,35 @@
         .page-pagination li:not(.active):not(.disabled) a:hover {
             background-color: #f8f9fa;
         }
+
+        /* === NEW: Breadcrumb cho single post === */
+        .single-post-breadcrumb {
+            text-align: center;
+            margin: 20px 0 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #333;
+        }
+        .breadcrumb-link {
+            color: #007bff;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            background: rgba(0, 123, 255, 0.08);
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 0 12px;
+        }
+        .breadcrumb-link:hover {
+            background: rgba(0, 123, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
+        }
+        .single-post-breadcrumb .separator {
+            color: #aaa;
+            margin: 0 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -389,7 +418,7 @@
     <!-- Hết nút Back -->
 
     <!-- Footer Start -->
-   
+    <!-- (Bạn có thể thêm footer nếu cần, hiện tại để trống như code gốc) -->
 
     <!-- Jquery Library File -->
     <script src="assets/js/jquery-3.7.1.min.js"></script>
@@ -420,6 +449,24 @@
 
     let allBlogs = [];  // Cache full data từ lần load đầu (cho single và slider)
 
+    // Helper: Update meta tag động (cho OG và Twitter)
+    function updateMetaTag(property, content, isName = false) {
+        const selector = isName 
+            ? `meta[name="${property}"]` 
+            : `meta[property="${property}"]`;
+        let meta = document.querySelector(selector);
+        if (!meta) {
+            meta = document.createElement('meta');
+            if (isName) {
+                meta.setAttribute('name', property);
+            } else {
+                meta.setAttribute('property', property);
+            }
+            document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', content);
+    }
+
     // Share links (cho single mode)
     function setupShareLinks() {
         const currentUrl = encodeURIComponent(window.location.href);
@@ -429,16 +476,50 @@
         const tw = document.getElementById('share-tw');
         if (fb) fb.href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
         if (li) li.href = `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`;
-        if (ig) ig.href = `https://www.instagram.com/?url=${currentUrl}`;
+        if (ig) ig.href = `https://www.instagram.com/?url=${currentUrl}`;  // IG không hỗ trợ direct share tốt, chỉ mở app
         if (tw) tw.href = `https://twitter.com/intent/tweet?url=${currentUrl}&text=Check this out!`;
     }
 
-    // Render single blog (giữ nguyên)
+    // Render single blog (đã cập nhật meta + breadcrumb)
     function renderSingleBlog(blog) {
-        const titleEl = document.getElementById('dynamic-title');
-        const metaEl = document.getElementById('dynamic-meta');
-        if (titleEl) titleEl.textContent = `${blog.Title} - Lazinet`;
-        if (metaEl) metaEl.setAttribute('content', blog['P1 (Intro)'] ? blog['P1 (Intro)'].substring(0, 150) + '...' : '');
+        // === UPDATE META ĐỘNG CHO SHARE (OG + Twitter) ===
+        document.title = `QTBC News - ${blog.Title}`;
+
+        const description = blog.Title || 'Bài viết từ QTBC - CLB Doanh nhân Quảng Trị';
+
+        const featuredImage = blog.images?.length > 0 
+            ? `https://qtbc.vn/${BASE_IMG_URL}${blog.images[0]}`
+            : 'https://qtbc.vn/assets/logos/logo_2026_W512.webp';
+
+        updateMetaTag('og:title', blog.Title);
+        updateMetaTag('og:description', description);
+        updateMetaTag('og:image', featuredImage);
+        updateMetaTag('og:url', `https://qtbc.vn/?blog_id=${blog.Blog_ID}`);
+
+        updateMetaTag('twitter:title', blog.Title, true);
+        updateMetaTag('twitter:description', description, true);
+        updateMetaTag('twitter:image', featuredImage, true);
+
+        // Đảm bảo twitter:card là large image
+        if (!document.querySelector('meta[name="twitter:card"]')) {
+            const cardMeta = document.createElement('meta');
+            cardMeta.setAttribute('name', 'twitter:card');
+            cardMeta.setAttribute('content', 'summary_large_image');
+            document.head.appendChild(cardMeta);
+        }
+
+        // === THÊM BREADCRUMB (QTBC News › Home Page) TRÊN ẢNH FEATURED ===
+        const breadcrumbHtml = `
+            <div class="single-post-breadcrumb">
+                <a href="index.html#contact" class="breadcrumb-link">Đăng tin</a>
+                <span class="separator">›</span>
+                <a href="index.html" class="breadcrumb-link">Trang chủ QTBC</a>
+            </div>
+        `;
+        const postImageEl = document.getElementById('post-image');
+        if (postImageEl) {
+            postImageEl.insertAdjacentHTML('afterbegin', breadcrumbHtml);
+        }
 
         // Compute images array if not provided (fallback for cache)
         if (!blog.images) {
@@ -455,21 +536,17 @@
                 blog.Im_URL_Add9
             ].filter(url => url && url.toString().trim() !== '');
         }
-        // console.log('Single Blog - Images array:', blog.images);  // Debug images
 
-        const postImageEl = document.getElementById('post-image');
+        // Phần còn lại của renderSingleBlog (giữ nguyên như code gốc của bạn)
         if (postImageEl && blog.images.length > 0) {
             const firstImgSrc = BASE_IMG_URL + blog.images[0];
-            // console.log('Single Blog - First img src:', firstImgSrc);
 
             if (blog.images.length === 1) {
-                // Single image (giữ animation reveal)
-                postImageEl.innerHTML = `
+                postImageEl.innerHTML += `
                     <figure class="image-anime reveal">
-                        <img src="${firstImgSrc}" alt="${blog.Title || 'Blog Image'}" loading="lazy" onerror="console.log('Image load error for src:', '${firstImgSrc}'); this.src='${PLACEHOLDER_IMG}'">
+                        <img src="${firstImgSrc}" alt="${blog.Title || 'Blog Image'}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
                     </figure>
                 `;
-                // Force GSAP visible
                 if (typeof gsap !== 'undefined') {
                     const revealContainer = postImageEl.querySelector('.reveal');
                     if (revealContainer) {
@@ -479,18 +556,17 @@
                     }
                 }
             } else {
-                // Multiple images: Swiper slider
                 const slidesHtml = blog.images.map(imgSrc => {
                     const fullSrc = BASE_IMG_URL + imgSrc;
                     return `
                         <div class="swiper-slide">
                             <figure class="image-anime reveal">
-                                <img src="${fullSrc}" alt="${blog.Title || 'Blog Image'}" loading="lazy" onerror="console.log('Image load error for src:', '${fullSrc}'); this.src='${PLACEHOLDER_IMG}'">
+                                <img src="${fullSrc}" alt="${blog.Title || 'Blog Image'}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
                             </figure>
                         </div>
                     `;
                 }).join('');
-                postImageEl.innerHTML = `
+                postImageEl.innerHTML += `
                     <div class="swiper image-slider" id="post-image-slider">
                         <div class="swiper-wrapper">${slidesHtml}</div>
                         <div class="swiper-button-next post-next"></div>
@@ -498,7 +574,6 @@
                         <div class="swiper-pagination post-pagination"></div>
                     </div>
                 `;
-                // Init Swiper
                 if (typeof Swiper !== 'undefined') {
                     new Swiper('#post-image-slider', {
                         loop: true,
@@ -513,7 +588,6 @@
                         }
                     });
                 }
-                // Force GSAP visible for each reveal (after short delay for Swiper init)
                 setTimeout(() => {
                     if (typeof gsap !== 'undefined') {
                         postImageEl.querySelectorAll('.reveal').forEach(reveal => {
@@ -525,17 +599,14 @@
                 }, 200);
             }
 
-            // Refresh ScrollTrigger
             if (typeof ScrollTrigger !== 'undefined') {
                 ScrollTrigger.refresh();
             }
         } else {
-            // No images fallback
-            postImageEl.innerHTML = `<figure><img src="${PLACEHOLDER_IMG}" alt="Placeholder"></figure>`;
+            postImageEl.innerHTML += `<figure><img src="${PLACEHOLDER_IMG}" alt="Placeholder"></figure>`;
         }
 
-        // Content (giữ nguyên)
-        
+        // Content (giữ nguyên phần còn lại của bạn)
         let entryHtml = `
             <p class="post-byline wow fadeInUp" style="text-align: right;"><strong><em>${blog.Author || 'Lazinet Team'}</em></strong> — <a href="${blog.Location_URL || '#'}"><strong><em>${blog.Location || 'N/A'}</em></strong></a> — <strong><em>${new Date(blog.Date).toLocaleDateString('vi-VN')}</em></strong></p>
             <p class="wow fadeInUp">${blog['P1 (Intro)'] || ''}</p>
@@ -552,7 +623,6 @@
             <p class="wow fadeInUp" data-wow-delay="1s">${blog.P4 || ''}</p>
         `;
 
-        // List items
         let listItems = [];
         for (let i = 1; i <= 6; i++) {
             const liKey = `Li${i}`;
@@ -578,7 +648,7 @@
         // Tags
         let tagsHtml = '<span class="tag-links">Tags: ';
         let tags = [];
-        for (let i = 1; i <= 3; i++) {  // Up to Tag3
+        for (let i = 1; i <= 3; i++) {
             const tagKey = `Tag${i}`;
             if (blog[tagKey]) tags.push(`<a href="#">${blog[tagKey]}</a>`);
         }
@@ -603,9 +673,8 @@
         }
     }
 
-    // New: Render blog slider (groups of 6 per slide)
+    // New: Render blog slider (groups of 6 per slide) - giữ nguyên code gốc của bạn
     function renderBlogSlider(blogs) {
-        // Fix: Guard against undefined blogs
         if (!blogs || !Array.isArray(blogs)) {
             console.error('Invalid blogs data:', blogs);
             const row = document.getElementById('blog-list');
@@ -614,15 +683,13 @@
         }
 
         const row = document.getElementById('blog-list');
-        if (row) row.innerHTML = '';  // Clear
+        if (row) row.innerHTML = '';
 
-        // Group blogs into chunks of 6
         const chunks = [];
         for (let i = 0; i < blogs.length; i += GROUP_SIZE) {
             chunks.push(blogs.slice(i, i + GROUP_SIZE));
         }
 
-        // Create slides HTML
         const slidesHtml = chunks.map((chunk, chunkIndex) => {
             const chunkPostsHtml = chunk.map((blog, index) => {
                 const delay = (index * 0.2) + 's';
@@ -637,14 +704,12 @@
 
                 const imgSubUrlList = blog.Image_Sub_URL || '';
                 const imgSrcList = imgSubUrlList ? BASE_IMG_URL + imgSubUrlList : PLACEHOLDER_IMG;
-                // console.log('Slider Blog - Raw Image_Sub_URL:', imgSubUrlList);
-                // console.log('Slider Blog - Full img src:', imgSrcList);
 
                 const postHtml = `
                     <div class="col-xl-4 col-md-6">
                         <div class="post-item wow fadeInUp" data-wow-delay="${delay}">
                             <div class="post-featured-image">
-                                <a href="?blog_id=${blog.Blog_ID}" data-cursor-text="Xem" target = "_bank">
+                                <a href="?blog_id=${blog.Blog_ID}" data-cursor-text="Xem" target="_blank">
                                     <figure class="image-anime">
                                         <img src="${imgSrcList}" alt="${blog.Title}">
                                         <div class="image-tooltip">${tooltipHtml}</div>
@@ -653,10 +718,10 @@
                             </div>
                             <div class="post-item-body">
                                 <div class="post-item-content">
-                                    <h2><a href="?blog_id=${blog.Blog_ID}" target = "_bank">${blog.Title}</a></h2>
+                                    <h2><a href="?blog_id=${blog.Blog_ID}" target="_blank">${blog.Title}</a></h2>
                                 </div>
                                 <div class="post-item-btn">
-                                    <a href="?blog_id=${blog.Blog_ID}" class="readmore-btn" target = "_bank">Xem thêm</a>
+                                    <a href="?blog_id=${blog.Blog_ID}" class="readmore-btn" target="_blank">Xem thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -671,7 +736,6 @@
             `;
         }).join('');
 
-        // Render slider container
         row.innerHTML = `
             <div class="swiper blog-slider" id="blog-slider">
                 <div class="swiper-wrapper">${slidesHtml}</div>
@@ -681,12 +745,11 @@
             </div>
         `;
 
-        // Init Swiper for blog slider
         if (typeof Swiper !== 'undefined' && slidesHtml) {
             new Swiper('#blog-slider', {
                 slidesPerView: 1,
                 spaceBetween: 0,
-                loop: chunks.length > 1,  // Loop nếu có nhiều slide
+                loop: chunks.length > 1,
                 autoplay: {
                     delay: AUTOPLAY_DELAY,
                     disableOnInteraction: false,
@@ -707,30 +770,26 @@
             });
         }
 
-        // Re-init WOW for animations
         new WOW().init();
 
-        // Refresh GSAP/ScrollTrigger
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
         }
     }
 
-    // Load full blogs and render slider (replaces paginated list)
+    // Load full blogs and render slider
     function loadBlogSlider() {
         const url = new URL(window.location);
-        // Ignore page param for slider mode
         if (url.searchParams.has('page') && !url.searchParams.has('blog_id')) {
             url.searchParams.delete('page');
             history.replaceState({}, '', url);
         }
 
         $.ajax({
-            url: SCRIPT_URL + '?action=list&limit=999',  // Load all for slider
+            url: SCRIPT_URL + '?action=list&limit=999',
             dataType: 'jsonp',
             success: function(response) {
-                // console.log('Slider response:', response);  // Debug
-                allBlogs = response.blogs || response;  // Fallback plain array
+                allBlogs = response.blogs || response;
                 renderBlogSlider(allBlogs);
             },
             error: function() {
@@ -741,23 +800,19 @@
         });
     }
 
-    // Load single từ cache hoặc API (giữ nguyên)
+    // Load single từ cache hoặc API
     function loadSingleBlog(blogId) {
-        // Kiểm tra cache trước (full data từ list)
         const cachedBlog = allBlogs.find(b => b.Blog_ID === blogId);
-        if (cachedBlog && cachedBlog['P2 (Main)']) {  // Assume full if has main content
-            // console.log('Using cached blog for single:', cachedBlog);
+        if (cachedBlog && cachedBlog['P2 (Main)']) {
             renderSingleBlog(cachedBlog);
         } else {
-            // Fetch full from API
             $.ajax({
                 url: SCRIPT_URL + '?blog_id=' + blogId,
                 dataType: 'jsonp',
                 success: function(blog) {
-                    // console.log('Single blog loaded from API:', blog);
                     if (blog.error) {
                         alert('Blog not found');
-                        window.location.href = '?';  // Back to list
+                        window.location.href = '?';
                         return;
                     }
                     renderSingleBlog(blog);
@@ -775,10 +830,8 @@
     $(document).ready(function() {
         const urlParams = new URLSearchParams(window.location.search);
         const blogId = urlParams.get('blog_id');
-        const page = parseInt(urlParams.get('page')) || 1;
 
         if (blogId) {
-            // Single mode
             const listContainer = document.getElementById('list-container');
             const singleContainer = document.getElementById('single-container');
             const backBtn = document.getElementById('back-to-list');
@@ -786,27 +839,23 @@
             if (singleContainer) singleContainer.style.display = 'block';
             if (backBtn) backBtn.style.display = 'block';
             
-            // Delay nhỏ để DOM render, rồi load và refresh
             setTimeout(() => {
                 loadSingleBlog(blogId);
-                // Refresh GSAP sau khi show container
                 if (typeof ScrollTrigger !== 'undefined') {
                     ScrollTrigger.refresh();
                 }
-                // Additional force refresh after a bit more time
                 setTimeout(() => {
                     if (typeof ScrollTrigger !== 'undefined') {
                         ScrollTrigger.refresh();
                     }
                 }, 500);
-            }, 100);  // 100ms đủ để display block settle
+            }, 100);
         } else {
-            // List mode (now slider)
             const singleContainer = document.getElementById('single-container');
             const backBtn = document.getElementById('back-to-list');
             if (singleContainer) singleContainer.style.display = 'none';
             if (backBtn) backBtn.style.display = 'none';
-            loadBlogSlider();  // Load full and render slider
+            loadBlogSlider();
         }
     });
 </script>
