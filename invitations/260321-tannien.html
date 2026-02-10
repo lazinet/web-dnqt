@@ -346,11 +346,12 @@
                                         <li>Văn nghệ chào mừng & Giới thiệu Chương trình (17:00– 17:30)</li>
                                         <li>Giới thiệu Đại biểu & Khách mời (17:30 – 17:45)</li>
                                         <li>Phát biểu của Chủ tịch CLB (17:45 – 18:00)</li>
-                                        <li>Phát giấy chứng nhận & thẻ thành viên (18:00 – 18:15)</li>
-                                        <li>Công bố kết quả và kế hoạch hành động (18:15 – 18:30)</li>
-                                        <li>Vinh danh nhà tài trợ & thành viên tích cực (18:30 – 18:45)</li>
-                                        <li>Khai tiệc Gala Dinner & giao lưu văn nghệ (18:45 – 21:25)</li>
-                                        <li>Kết thúc – Tạm biệt & Checkout (21:25 – 21:30)</li>
+                                        <li>Phát biểu lãnh đạo tỉnh Quảng Trị (18:00 – 18:15)</li>
+                                        <li>Phát giấy chứng nhận & thẻ thành viên (18:15 – 18:30)</li>
+                                        <li>Công bố kết quả và kế hoạch hành động (18:30 – 18:45)</li>
+                                        <li>Vinh danh nhà tài trợ & thành viên tích cực (18:45 – 19:00)</li>
+                                        <li>Tiệc Gala Dinner & giao lưu văn nghệ (19:00 – 21:30)</li>
+                                        <!-- <li>Kết thúc – Tạm biệt & Checkout (21:25 – 21:30)</li> -->
                                     </ol>
                                 </li>
                             </ol>
@@ -371,7 +372,24 @@
             <div class="footer">
                 <div class="footer-item fee">Phí dự tiệc: <b>500,000</b> <i class="bi bi-arrow-down" style="color: #d35400;"></i>
                     <br><br><i class="bi bi-bank" style="color: #d35400;"></i> VietinBank: <b>110681747939</b>
-                    <br><i class="bi bi-image" style="color: #d35400;"></i> <a href="/assets/img/qr/stkclb.png">Bấm xem QR Tài khoản</a>
+                    <br>
+                        <a href="javascript:void(0)" 
+                        onclick="document.getElementById('qr-popup').style.display='flex'" 
+                        style="text-decoration: none; color: #d35400; cursor: pointer;">
+                            <i class="bi bi-image"></i> Bấm xem QR Tài khoản
+                        </a>
+
+                        <div id="qr-popup" 
+                            onclick="this.style.display='none'" 
+                            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+                            
+                            <div style="position: relative; background: #fff; padding: 10px; border-radius: 10px;">
+                                <img src="/assets/img/qr/stkclb.png" 
+                                    style="width: 500px; display: block; border-radius: 5px;" 
+                                    alt="QR Code">
+                                <div style="position: absolute; top: -30px; right: 0; color: #fff; font-size: 24px; cursor: pointer;">&times;</div>
+                            </div>
+                        </div>
                 </div>
                 <div class="footer-item">
                     <p class="recipient" style="text-align: center; text-decoration: underline;">Quét QR form đăng ký</p>
@@ -393,16 +411,16 @@
         <button class="add-to-calendar-btn" id="addToCalendarBtn">Thêm vào lịch</button>
         <div class="atcb" id="addToCalendarConfig" style="display:none;">
             {
-            "name":"SỰ KIỆN GIAO THƯƠNG VÀ RA MẮT BAN ĐIỀU HÀNH CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ",
-            "description":"CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ\n\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.\n\nLiên hệ:\n- Mr. Lê Minh Phụng: 0901494666\n- Ls. Lê Viết Kỳ: 0964037746",
-            "startDate":"2025-10-11",
-            "endDate":"2025-10-11",
+            "name":"Chương trình: KHAI XUÂN KẾT NỐI - ĐỒNG HÀNH PHÁT TRIỂN",
+            "description":"CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ\n\nĐịa điểm: TT Hội nghị Hoàng Long - 3 Phạm Văn Hai – TP.HCM.\n\nLiên hệ:\n- Mr. Lê Minh Phụng: 0901494666\n- Ban Thư ký CLB: 0961012945",
+            "startDate":"2025-03-21",
+            "endDate":"2025-03-21",
             "startTime":"17:00",
             "endTime":"21:30",
-            "location":"Diamond Place – 15 Hồ Văn Huê – TP.HCM",
+            "location":"TT Hội nghị Hoàng Long - 3 Phạm Văn Hai – TP.HCM",
             "options":["Apple","Google","iCal","Microsoft365","MicrosoftTeams","Outlook.com","Yahoo"],
             "timeZone":"Asia/Ho_Chi_Minh",
-            "iCalFileName":"Ra-Mat-CLB-QTBC-MienNam",
+            "iCalFileName":"Mung-xuan-Binh-Ngo-CLB-Doanh-nhan-Quang-Tri",
             "listStyle":"modal",
             "trigger":"click"
             }
@@ -464,11 +482,11 @@
         }
 
         function exportToVCard() {
-            const vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:Mr Lê Minh Phụng\nORG:QUẢNG TRỊ\nTEL;TYPE=CELL:0901494666\nEND:VCARD`;
+            const vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:Hoàng Minh Phụng\nORG:QUẢNG TRỊ\nTEL;TYPE=CELL:0908556220\nEND:VCARD`;
             const blob = new Blob([vCardData], { type: 'text/vcard' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = 'Lê Minh Phụng_QUẢNG TRỊ BIZ CLUB.vcf';
+            link.download = 'CLB Doanh nhân Quảng Trị.vcf';
             link.click();
         }
 
@@ -493,7 +511,7 @@
                         const config = JSON.parse(configElement.textContent.trim());
                         window.addtocalendar(config);
                     } else {
-                        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Thông Báo & Thư Mời Điện Tử - Chương trình: KHAI XUÂN KẾT NỐI - ĐỒNG HÀNH PHÁT TRIỂN, Thứ Bảy 21/03/2026 tại Trung Tâm Hội Nghị Hoàng Long – 3 Phạm Văn Hai, Tân Sơn Hòa – TP.HCM')}&dates=20251011T170000/20251011T213000&details=${encodeURIComponent('CLB DOANH NHÂN QUẢNG TRỊ\n\nThông Báo & Thư Mời Điện Tử: \nChương trình: KHAI XUÂN KẾT NỐI - ĐỒNG HÀNH PHÁT TRIỂN\nThời gian: 17:00-21:30 Thứ Bảy 11/10/2025\nĐịa điểm: Diamond Place – 15 Hồ Văn Huê – TP.HCM.')}&location=${encodeURIComponent('Diamond Place – 15 Hồ Văn Huê – TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
+                        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Thông Báo & Thư Mời Điện Tử - Chương trình: KHAI XUÂN KẾT NỐI - ĐỒNG HÀNH PHÁT TRIỂN, Thứ Bảy 21/03/2026 tại Trung Tâm Hội Nghị Hoàng Long – 3 Phạm Văn Hai, Tân Sơn Hòa – TP.HCM')}&dates=20251011T170000/20251011T213000&details=${encodeURIComponent('CLB DOANH NHÂN QUẢNG TRỊ\n\nThông Báo & Thư Mời Điện Tử: \nChương trình: KHAI XUÂN KẾT NỐI - ĐỒNG HÀNH PHÁT TRIỂN\nThời gian: 17:00-21:30 Thứ Bảy 11/10/2025\nĐịa điểm: TT Hội nghị Hoàng Long - 3 Phạm Văn Hai – TP.HCM.')}&location=${encodeURIComponent('TT Hội nghị Hoàng Long - 3 Phạm Văn Hai – TP.HCM')}&ctz=Asia/Ho_Chi_Minh`;
                         window.open(url, '_blank');
                     }
                 } catch (e) {
