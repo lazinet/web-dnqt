@@ -940,13 +940,12 @@ function exportToPDF() {
     const card = document.querySelector('.card');
     
     setTimeout(() => {
-        // Lấy kích thước thực tế
         const rect = card.getBoundingClientRect();
         const width = rect.width;
         const height = rect.height;
         
         html2canvas(card, {
-            scale: 4, // Dùng scale giống PNG
+            scale: 4,
             width: width,
             height: height,
             logging: false,
@@ -964,35 +963,17 @@ function exportToPDF() {
                 format: 'a4'
             });
             
-            // Tính toán tỷ lệ chính xác
-            const imgWidth = 210; // A4 width in mm
-            const pageHeight = 297; // A4 height in mm
+            const imgWidth = 210;
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
             
-            // Nếu ảnh cao hơn trang A4, chia thành nhiều trang
-            if (imgHeight > pageHeight) {
-                let heightLeft = imgHeight;
-                let position = 0;
-                
-                pdf.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
-                heightLeft -= pageHeight;
-                
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
-                    heightLeft -= pageHeight;
-                }
-            } else {
-                pdf.addImage(canvas, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
-            }
+            // Luôn xuất 1 trang, không chia trang
+            pdf.addImage(canvas, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
             
             pdf.save('Invitation_QTBC.pdf');
             document.head.removeChild(styleElement);
         });
     }, 500);
 }
-
         // Export to vCard
         function exportToVCard() {
             const vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:Hoàng Minh Phụng\nORG:QUẢNG TRỊ\nTEL;TYPE=CELL:0908556220\nEND:VCARD`;
