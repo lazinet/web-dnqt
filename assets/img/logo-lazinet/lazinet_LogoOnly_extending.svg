@@ -1,0 +1,31 @@
+<svg width="1024" height="1024" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Vòng blue lớn (nằm dưới cùng) -->
+  <circle cx="512" cy="1024" r="0" fill="blue">
+    <animate attributeName="cy" values="1024;512" dur="1s" begin="4s" fill="freeze" />
+    <animate attributeName="r" values="0;502" dur="1s" begin="4s" fill="freeze" />
+  </circle>
+  
+  <!-- Vòng trắng lớn -->
+  <circle cx="512" cy="1024" r="0" fill="white">
+    <animate attributeName="cy" values="1024;612" dur="1s" begin="3s" fill="freeze" />
+    <animate attributeName="r" values="0;402" dur="1s" begin="3s" fill="freeze" />
+  </circle>
+  
+  <!-- Vòng blue nhỏ -->
+  <circle cx="512" cy="1024" r="0" fill="blue">
+    <animate attributeName="cy" values="1024;712" dur="1s" begin="2s" fill="freeze" />
+    <animate attributeName="r" values="0;302" dur="1s" begin="2s" fill="freeze" />
+  </circle>
+  
+  <!-- Vòng trắng nhỏ -->
+  <circle cx="512" cy="1024" r="0" fill="white">
+    <animate attributeName="cy" values="1024;812" dur="1s" begin="1s" fill="freeze" />
+    <animate attributeName="r" values="0;202" dur="1s" begin="1s" fill="freeze" />
+  </circle>
+  
+  <!-- Vòng cam (nằm trên cùng) -->
+  <circle cx="512" cy="1024" r="0" fill="#ff6302">
+    <animate attributeName="cy" values="1024;892" dur="1s" begin="0s" fill="freeze" />
+    <animate attributeName="r" values="0;122" dur="1s" begin="0s" fill="freeze" />
+  </circle>
+</svg>

@@ -1,0 +1,13 @@
+<svg width="1800" height="1800" xmlns="http://www.w3.org/2000/svg" viewBox="265, 55, 1290, 1525">
+  <!-- <rect x="0" y="0" width="1800" height="1800" fill="white" /> -->
+  <circle cx="885" cy="562" r="502" fill="blue" />
+  <circle cx="885" cy="662" r="402" fill="white" />
+  <circle cx="885" cy="762" r="302" fill="blue" />
+  <circle cx="885" cy="862" r="202" fill="white" />
+  <circle cx="885" cy="942" r="122" fill="#ff6302" />
+  <text x="250" y="1350" font-family="Arial Black" font-size="270" fill="#ff6300">LAZI</text>
+  <text x="930" y="1350" font-family="Arial Black" font-size="270" fill="#0000FF">NET</text>
+  <line x1="270" x2="1550" y1="1400" y2="1400" stroke="#ff6300" stroke-width="20"/>
+  <text x="250" y="1550" font-family="Arial" font-size="132" fill="#0000FF">Effective Technologies</text>
+
+</svg>

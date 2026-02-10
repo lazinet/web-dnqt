@@ -1,0 +1,12 @@
+<svg width="3800" height="1200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3800 1200">
+  <!-- <rect x="0" y="0" width="3800" height="1200" fill="white" /> -->
+  <circle cx="600" cy="602" r="502" fill="blue" />
+  <circle cx="600" cy="702" r="402" fill="white" />
+  <circle cx="600" cy="802" r="302" fill="blue" />
+  <circle cx="600" cy="902" r="202" fill="white" />
+  <circle cx="600" cy="982" r="122" fill="#ff6302" />
+  <text x="1235" y="600" font-family="Arial Black" font-size="500" fill="#ff6300">LAZI</text>
+  <text x="2490" y="600" font-family="Arial Black" font-size="500" fill="#0000FF">NET</text>
+  <line x1="1265" x2="3620" y1="715" y2="715" stroke="#ff6300" stroke-width="20"/>
+  <text x="1260" y="950" font-family="Arial" font-size="240" fill="#0000FF">Effective Technologies</text>
+</svg>

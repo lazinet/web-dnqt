@@ -1,0 +1,38 @@
+<svg width="3800" height="1200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3800 1200">
+  <!-- <rect x="0" y="0" width="3800" height="1200" fill="white" /> -->
+  <!-- Vòng blue lớn (nằm dưới cùng) -->
+  <circle cx="600" cy="1200" r="0" fill="blue">
+    <animate attributeName="cy" values="1100;602" dur="1s" begin="4s" fill="freeze" />
+    <animate attributeName="r" values="0;502" dur="1s" begin="4s" fill="freeze" />
+  </circle>
+  
+  <!-- Vòng trắng lớn -->
+  <circle cx="600" cy="1200" r="0" fill="white">
+    <animate attributeName="cy" values="1100;702" dur="1s" begin="3s" fill="freeze" />
+    <animate attributeName="r" values="0;402" dur="1s" begin="3s" fill="freeze" />
+  </circle>
+  
+  <!-- Vòng blue nhỏ -->
+  <circle cx="600" cy="1200" r="0" fill="blue">
+    <animate attributeName="cy" values="1100;802" dur="1s" begin="2s" fill="freeze" />
+    <animate attributeName="r" values="0;302" dur="1s" begin="2s" fill="freeze" />
+  </circle>
+  
+  <!-- Vòng trắng nhỏ -->
+  <circle cx="600" cy="1200" r="0" fill="white">
+    <animate attributeName="cy" values="1100;902" dur="1s" begin="1s" fill="freeze" />
+    <animate attributeName="r" values="0;202" dur="1s" begin="1s" fill="freeze" />
+  </circle>
+  
+  <!-- Vòng cam (nằm trên cùng) -->
+  <circle cx="600" cy="1200" r="0" fill="#ff6302">
+    <animate attributeName="cy" values="1100;982" dur="1s" begin="0s" fill="freeze" />
+    <animate attributeName="r" values="0;122" dur="1s" begin="0s" fill="freeze" />
+  </circle>
+
+  <!-- Phần text và line - không animate, hiện ngay từ đầu -->
+  <text x="1235" y="550" font-family="Arial Black" font-size="500" fill="#ff6300">LAZI</text>
+  <text x="2490" y="550" font-family="Arial Black" font-size="500" fill="#0000FF">NET</text>
+  <line x1="1265" x2="3620" y1="715" y2="715" stroke="#ff6300" stroke-width="20"/>
+  <text x="1260" y="1000" font-family="Arial" font-size="208" fill="#0000FF">CÔNG NGHỆ HIỆU QUẢ</text>
+</svg>
