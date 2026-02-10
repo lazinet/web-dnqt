@@ -311,8 +311,7 @@
                         <li>Ra mắt văn phòng và tổ chức nhân sự CLB Doanh nhân Quảng Trị.</li>
                         <li>Phát hành giấy chứng nhận, thẻ thành viên CLB Doanh nhân Quảng Trị.</li>
                         <li>Công bố các kết quả đã đạt được và kế hoạch hành động 2026.</li>
-                        <li>Hội chợ trưng bày và giao thương, đăng ký trưng bày tại văn phòng CLB.</li>
-                        <li>Tiệc khai xuân, thắt chặt KẾT NỐI - GIAO THƯƠNG - PHÁT TRIỂN.</li>
+                        <li>Tiệc khai xuân + Hội chợ trưng bày và giao thương, đăng ký trưng bày tại CLB.</li>
                     </ul>
                 </div>
             </div>
@@ -456,7 +455,7 @@
             const styleElement = disableEffectsBeforeExport();
             const card = document.querySelector('.card');
             setTimeout(() => {
-                html2canvas(card, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: null }).then(canvas => {
+                html2canvas(card, { scale: 4, useCORS: true, allowTaint: true, backgroundColor: null }).then(canvas => {
                     const link = document.createElement('a');
                     link.download = 'Invitation_QTBC.png';
                     link.href = canvas.toDataURL('image/png', 1.0);
@@ -470,11 +469,11 @@
             const styleElement = disableEffectsBeforeExport();
             const card = document.querySelector('.card');
             setTimeout(() => {
-                html2canvas(card, { scale: 3, useCORS: true, allowTaint: true, backgroundColor: null }).then(canvas => {
+                html2canvas(card, { scale: 4, useCORS: true, allowTaint: true, backgroundColor: null }).then(canvas => {
                     const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
                     const imgWidth = 210;
                     const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                    pdf.addImage(canvas, 'PNG', 0, 0, imgWidth, imgHeight);
+                    pdf.addImage(canvas, 'PNG', 0, 0, imgWidth, imgHeight, '', 'FAST');
                     pdf.save('Invitation_QTBC.pdf');
                     document.head.removeChild(styleElement);
                 });
