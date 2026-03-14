@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thành viên CLB Doanh nhân Quảng Trị</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .bizcard {
+            width: 100%; max-width: 400px; aspect-ratio: 89 / 57;
+            position: relative; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            background-size: cover; background-position: center;
+            color: white; margin: 0 auto;
+        }
+        .bizcard-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+            padding: 1rem; display: flex; flex-direction: column;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div id="app" class="container mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <img id="main-logo" src="assets/logos/logo_2026_W256.webp" alt="Logo" class="mx-auto h-24 mb-4 hidden">
+            <h1 class="text-2xl font-bold text-blue-900">CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ</h1>
+            <div id="google_translate_element" class="mt-4"></div>
+        </div>
+
+        <div id="loading" class="text-center py-12"><i class="fas fa-spinner fa-spin fa-3x text-blue-600"></i><p>Đang tải dữ liệu...</p></div>
+
+        <div id="listing-view" class="hidden">
+            <div class="mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <input type="text" id="search-input" placeholder="Tìm kiếm..." class="w-full md:w-1/2 px-4 py-2 rounded border">
+                <div class="flex items-center gap-2">
+                    <label>Hiển thị:</label>
+                    <select id="items-per-page" class="px-2 py-1 border rounded">
+                        <option value="8">8</option><option value="12">12</option><option value="24" selected>24</option><option value="48">48</option>
+                    </select>
+                </div>
+            </div>
+            <div id="members-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4"></div>
+            <div id="pagination" class="mt-8 flex justify-center gap-2"></div>
+        </div>
+
+        <div id="detail-view" class="hidden max-w-3xl mx-auto">
+            <button onclick="showListing()" class="mb-4 text-blue-600"><i class="fas fa-arrow-left mr-2"></i>Quay lại</button>
+            <div id="bizcard-container" class="space-y-8"></div>
+            <div class="mt-8 flex justify-center gap-4 flex-wrap">
+                <button class="px-4 py-2 bg-blue-600 text-white rounded"><i class="fas fa-share-alt mr-2"></i>Chia sẻ</button>
+                <button class="px-4 py-2 bg-green-600 text-white rounded"><i class="fas fa-address-book mr-2"></i>Danh bạ</button>
+                <button class="px-4 py-2 bg-gray-600 text-white rounded"><i class="fas fa-download mr-2"></i>Tải PNG</button>
+                <button class="px-4 py-2 bg-red-600 text-white rounded"><i class="fas fa-file-pdf mr-2"></i>Tải PDF</button>
+            </div>
+            <div id="member-info" class="mt-12 space-y-8 bg-white p-6 rounded shadow"></div>
+            
+            <div class="mt-12 bg-white p-6 rounded shadow">
+                <h3 class="text-xl font-bold mb-4">Trò chuyện với Trợ lý ảo</h3>
+                <div id="chat-messages" class="h-64 overflow-y-auto mb-4 p-4 border rounded bg-gray-50 space-y-4"></div>
+                <div class="flex gap-2">
+                    <input type="text" id="chat-input" class="flex-1 px-4 py-2 border rounded" placeholder="Nhập tin nhắn...">
+                    <button onclick="sendChatMessage()" class="px-6 py-2 bg-blue-600 text-white rounded">Gửi</button>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-white p-6 rounded shadow">
+                <h3 class="text-xl font-bold mb-4">Liên hệ</h3>
+                <form id="contact-form" onsubmit="submitForm(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="form-name" required placeholder="Họ và tên" class="w-full px-4 py-2 border rounded">
+                        <input type="tel" id="form-mobile" required placeholder="Số điện thoại" class="w-full px-4 py-2 border rounded">
+                    </div>
+                    <input type="email" id="form-email" placeholder="Email" class="w-full px-4 py-2 border rounded">
+                    <input type="text" id="form-purpose" required placeholder="Mục đích liên hệ" class="w-full px-4 py-2 border rounded">
+                    <input type="text" id="form-title" required placeholder="Tiêu đề" class="w-full px-4 py-2 border rounded">
+                    <textarea id="form-message" required placeholder="Nội dung" rows="4" class="w-full px-4 py-2 border rounded"></textarea>
+                    <button type="submit" class="w-full px-6 py-3 bg-blue-600 text-white rounded font-bold">Gửi liên hệ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'vi'}, 'google_translate_element'); }
+        
+        const GAS_URL = 'YOUR_GAS_WEB_APP_URL'; 
+        let appData = { config: {}, members: [] };
+        let filteredMembers = [], currentPage = 1, itemsPerPage = 24, currentMember = null, chatHistory = [];
+        let sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+        async function init() {
+            try {
+                if (GAS_URL === 'YOUR_GAS_WEB_APP_URL') {
+                    document.getElementById('loading').innerHTML = '<p class="text-red-500">Vui lòng cập nhật GAS_URL trong mã nguồn.</p>';
+                    return;
+                }
+                const res = await fetch(GAS_URL + '?action=getData');
+                appData = await res.json();
+                if (appData.config.Logo_Path) {
+                    const logo = document.getElementById('main-logo');
+                    logo.src = appData.config.Logo_Path; logo.classList.remove('hidden');
+                }
+                filteredMembers = [...appData.members];
+                const memberId = new URLSearchParams(window.location.search).get('c');
+                memberId ? showDetail(memberId) : showListing();
+            } catch (e) {
+                document.getElementById('loading').innerHTML = '<p class="text-red-500">Lỗi tải dữ liệu.</p>';
+            }
+        }
+
+        function showListing() {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('detail-view').classList.add('hidden');
+            document.getElementById('listing-view').classList.remove('hidden');
+            window.history.pushState({}, '', window.location.pathname);
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('members-grid'); grid.innerHTML = '';
+            const start = (currentPage - 1) * itemsPerPage;
+            filteredMembers.slice(start, start + itemsPerPage).forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded shadow p-2 cursor-pointer hover:shadow-lg text-center';
+                card.onclick = () => showDetail(m.Member_ID);
+                card.title = \`\${m.Member_Position} - \${m.Member_Company}\`;
+                card.innerHTML = \`<img src="\${m.Member_ID}/\${m.Member_Avatar_Small}" onerror="this.src='https://via.placeholder.com/150'" class="w-full aspect-square object-cover rounded mb-2"><div class="font-bold text-sm truncate">\${m.Member_ID}</div><div class="text-sm truncate">\${m.Member_Name}</div>\`;
+                grid.appendChild(card);
+            });
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination'); pagination.innerHTML = '';
+            const totalPages = Math.ceil(filteredMembers.length / itemsPerPage);
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.className = \`px-3 py-1 rounded \${i === currentPage ? 'bg-blue-600 text-white' : 'bg-gray-200'}\`;
+                btn.innerText = i; btn.onclick = () => { currentPage = i; renderGrid(); };
+                pagination.appendChild(btn);
+            }
+        }
+
+        document.getElementById('search-input')?.addEventListener('input', (e) => {
+            const t = e.target.value.toLowerCase();
+            filteredMembers = appData.members.filter(m => (m.Member_ID?.toLowerCase().includes(t)) || (m.Member_Name?.toLowerCase().includes(t)) || (m.Member_Company?.toLowerCase().includes(t)));
+            currentPage = 1; renderGrid();
+        });
+        document.getElementById('items-per-page')?.addEventListener('change', (e) => { itemsPerPage = parseInt(e.target.value); currentPage = 1; renderGrid(); });
+
+        function showDetail(id) {
+            currentMember = appData.members.find(m => m.Member_ID === id);
+            if (!currentMember) return showListing();
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('listing-view').classList.add('hidden');
+            document.getElementById('detail-view').classList.remove('hidden');
+            window.history.pushState({}, '', \`?c=\${id}\`);
+            renderBizcard(); renderMemberInfo();
+            chatHistory = []; document.getElementById('chat-messages').innerHTML = '';
+            appendMessage('bot', \`Xin chào, tôi là \${currentMember.Assistant_Name || 'Trợ lý ảo'} của \${currentMember.Member_Company}.\`);
+        }
+
+        function renderBizcard() {
+            const m = currentMember;
+            const qrUrl = \`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=\${encodeURIComponent(window.location.href)}\`;
+            document.getElementById('bizcard-container').innerHTML = \`
+                <div class="bizcard" style="background-image: url('\${m.Member_ID}/\${m.Member_ID}-front.webp'), url('\${appData.config.Bizcard_Background}')">
+                    <div class="bizcard-overlay">
+                        <div class="flex justify-between items-start">
+                            <img src="\${appData.config.Logo_Path}" class="h-10 bg-white p-1 rounded">
+                            <img src="\${m.Member_ID}/\${m.Member_Avatar}" class="h-16 w-16 object-cover rounded-full border-2 border-white" onerror="this.src='https://via.placeholder.com/150'">
+                        </div>
+                        <div class="text-center mt-2 flex-1">
+                            <div class="text-xs font-bold tracking-wider mb-1">THẺ THÀNH VIÊN CLB DOANH NHÂN QUẢNG TRỊ</div>
+                            <div class="text-sm opacity-80">\${m.Member_ID}</div>
+                            <div class="text-xl font-bold text-yellow-400 uppercase mt-1">\${m.Member_Name}</div>
+                            <div class="text-sm font-bold uppercase mt-1">\${m.Member_Company}</div>
+                            <div class="flex justify-center gap-4 mt-2 text-xs"><span><i class="fas fa-phone mr-1"></i>\${m.Mobile || ''}</span><span><i class="fas fa-globe mr-1"></i>\${m.Website || ''}</span></div>
+                            <div class="text-xs mt-1 truncate"><i class="fas fa-building mr-1"></i>\${m.Company_Addr1 || ''}</div>
+                        </div>
+                        <div class="flex justify-between items-end mt-2">
+                            <img src="\${qrUrl}" class="h-16 w-16 bg-white p-1 rounded">
+                            <div class="flex gap-2 text-xl">
+                                \${m.Chat_Zalo ? \`<a href="\${m.Chat_Zalo}" target="_blank" class="text-blue-400"><i class="fas fa-comment-dots"></i></a>\` : ''}
+                                \${m.Chat_Facebook ? \`<a href="\${m.Chat_Facebook}" target="_blank" class="text-blue-600"><i class="fab fa-facebook-messenger"></i></a>\` : ''}
+                            </div>
+                            <img src="\${m.Member_ID}/\${m.Company_Logo}" class="h-10 bg-white p-1 rounded" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                </div>
+                <div class="bizcard" style="background-image: url('\${m.Member_ID}/\${m.Member_ID}-back.webp'), url('\${appData.config.Bizcard_Background}')">
+                    <div class="bizcard-overlay">
+                        <div class="flex justify-between items-start">
+                            <img src="\${appData.config.Logo_Path}" class="h-10 bg-white p-1 rounded">
+                            <img src="\${m.Member_ID}/\${m.Company_Logo}" class="h-10 bg-white p-1 rounded" onerror="this.style.display='none'">
+                        </div>
+                        <div class="text-center mt-4 flex-1">
+                            <div class="text-lg font-bold text-yellow-400 mb-2">LĨNH VỰC KINH DOANH</div>
+                            <div class="text-sm space-y-1">\${[m.Business1, m.Business2, m.Business3, m.Business4].filter(Boolean).map(b => \`<div>• \${b}</div>\`).join('')}</div>
+                        </div>
+                        <div class="text-center text-xs mt-auto">
+                            <div class="flex justify-center gap-4 mb-1"><span><i class="fas fa-phone mr-1"></i>\${m.Mobile || ''}</span><span><i class="fas fa-globe mr-1"></i>\${m.Website || ''}</span></div>
+                            <div class="truncate"><i class="fas fa-building mr-1"></i>\${m.Company_Addr1 || ''}</div>
+                        </div>
+                    </div>
+                </div>\`;
+        }
+
+        function renderMemberInfo() {
+            const m = currentMember; let html = '';
+            if (m.Businessmen_About) html += \`<div><h4 class="text-lg font-bold text-blue-900 mb-2">Về Doanh nhân</h4><p class="whitespace-pre-line">\${m.Businessmen_About}</p></div>\`;
+            if (m.Business_Profile) html += \`<div class="pt-4 border-t"><h4 class="text-lg font-bold text-blue-900 mb-2">Về Doanh nghiệp</h4><p class="whitespace-pre-line">\${m.Business_Profile}</p></div>\`;
+            
+            let productsHtml = '';
+            for (let i = 1; i <= 10; i++) {
+                const name = m[\`Product_\${i.toString().padStart(2, '0')}_Name\`];
+                if (name) productsHtml += \`<div class="border rounded p-4">\${m[\`Product_\${i.toString().padStart(2, '0')}_Image\`] ? \`<img src="\${m.Member_ID}/\${m[\`Product_\${i.toString().padStart(2, '0')}_Image\`]}" class="w-full h-40 object-cover rounded mb-2" onerror="this.style.display='none'">\` : ''}<h5 class="font-bold mb-1">\${name}</h5><p class="text-sm text-gray-600">\${m[\`Product_\${i.toString().padStart(2, '0')}_Description\`] || ''}</p></div>\`;
+            }
+            if (productsHtml) html += \`<div class="pt-4 border-t"><h4 class="text-lg font-bold text-blue-900 mb-4">Sản phẩm & Dịch vụ</h4><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">\${productsHtml}</div></div>\`;
+            document.getElementById('member-info').innerHTML = html;
+        }
+
+        function appendMessage(sender, text) {
+            const box = document.getElementById('chat-messages');
+            box.insertAdjacentHTML('beforeend', \`<div class="p-3 rounded-lg max-w-[80%] \${sender === 'user' ? 'bg-blue-100 ml-auto' : 'bg-gray-200'}">\${text}</div>\`);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input'), text = input.value.trim();
+            if (!text || !currentMember) return;
+            input.value = ''; appendMessage('user', text); chatHistory.push({ role: 'user', content: text });
+            const typingId = 'typing-' + Date.now();
+            document.getElementById('chat-messages').insertAdjacentHTML('beforeend', \`<div id="\${typingId}" class="p-3 rounded-lg bg-gray-200 max-w-[80%] text-gray-500 italic">Đang trả lời...</div>\`);
+            
+            try {
+                const res = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ action: 'chat', source: currentMember.Member_ID, sessionId, message: text, messages: chatHistory, member: currentMember }) });
+                const result = await res.json();
+                document.getElementById(typingId).remove();
+                if (result.response) { appendMessage('bot', result.response); chatHistory.push({ role: 'assistant', content: result.response }); }
+            } catch (e) { document.getElementById(typingId).remove(); appendMessage('bot', 'Lỗi kết nối mạng.'); }
+        }
+
+        async function submitForm(e) {
+            e.preventDefault(); if (!currentMember) return;
+            const btn = e.target.querySelector('button[type="submit"]'), orig = btn.innerText;
+            btn.innerText = 'Đang gửi...'; btn.disabled = true;
+            try {
+                const res = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify({ action: 'submitForm', source: currentMember.Member_ID, sessionId, name: document.getElementById('form-name').value, mobile: document.getElementById('form-mobile').value, email: document.getElementById('form-email').value, purpose: document.getElementById('form-purpose').value, title: document.getElementById('form-title').value, message: document.getElementById('form-message').value }) });
+                const result = await res.json();
+                if (result.success) { alert('Gửi thành công!'); e.target.reset(); } else alert('Lỗi: ' + result.message);
+            } catch (e) { alert('Lỗi kết nối.'); } finally { btn.innerText = orig; btn.disabled = false; }
+        }
+
+        // init(); // Uncomment when GAS_URL is set
+    </script>
+</body>
+</html>
