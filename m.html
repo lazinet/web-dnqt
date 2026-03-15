@@ -604,8 +604,16 @@
         document.getElementById('detail-view').classList.remove('hidden');
         // Preload ảnh tĩnh — overlay z-index:10 che toàn bộ card, người dùng thấy name card hoàn chỉnh ngay
         const preBase = 'members/' + mid;
-        document.getElementById('bc-preload-front').src = preBase + '-front.webp';
-        document.getElementById('bc-preload-back').src  = preBase + '-back.webp';
+        (function(id, base, side) {
+          var el = document.getElementById(id);
+          el.onerror = function() { el.onerror = function() { el.src = 'assets/img/background/background.webp'; }; el.src = base + side + '.png'; };
+          el.src = base + side + '.webp';
+        })('bc-preload-front', preBase, '-front');
+        (function(id, base, side) {
+          var el = document.getElementById(id);
+          el.onerror = function() { el.onerror = function() { el.src = 'assets/img/background/background.webp'; }; el.src = base + side + '.png'; };
+          el.src = base + side + '.webp';
+        })('bc-preload-back', preBase, '-back');
         loadDetail(mid);
       } else {
         document.getElementById('listing-view').classList.remove('hidden');
@@ -964,7 +972,8 @@
         { img: 'assets/img/others/viber_H64.webp',     url: m.Chat_Viber    ? 'viber://add?number=' + m.Chat_Viber       : (mobile84 ? 'viber://add?number=' + mobile84 : '') },
         { img: 'assets/img/others/whatsapp_H64.webp',  url: m.Chat_Whatsapp ? 'https://wa.me/' + m.Chat_Whatsapp         : (mobile84 ? 'https://wa.me/' + mobile84 : '') },
         { img: 'assets/img/others/wechat_H64.webp',    url: m.Chat_Wechat   ? 'https://u.wechat.com/' + m.Chat_Wechat    : '' },
-        { img: 'assets/img/others/messenger_H64.webp', url: m.Chat_Facebook || '' }
+        { img: 'assets/img/others/messenger_H64.webp', url: m.Chat_Facebook || '' },
+        { img: 'assets/img/others/HathyoV1_Rounded.png', url: m.Hathyo_Profile || '' }
       ];
       socials.filter(function(s){ return s.url; }).forEach(function(s){
         const a = document.createElement('a');
