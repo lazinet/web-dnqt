@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hướng Dẫn Sử Dụng Thẻ NFC | CLB Doanh Nhân Quảng Trị</title>
+  <meta name="description" content="Hướng dẫn sử dụng thẻ danh thiếp điện tử NFC & QR của CLB Doanh Nhân Quảng Trị — hỗ trợ bởi LAZINET.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#19658F">
+  <link rel="icon" type="image/png" href="assets/logos/logo_2026_W256.webp">
+  <link rel="apple-touch-icon" href="assets/logos/logo_2026_W256.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --primary:#19658F;
+      --secondary:#F15E22;
+      --bg:#060d1a;
+      --glass:rgba(10,20,40,0.72);
+      --surface:rgba(255,255,255,0.055);
+      --border:rgba(255,255,255,0.09);
+      --text:#e2e8f0;
+      --muted:#94a3b8;
+      --r:16px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7}
+
+    /* BG POSTER */
+    #bg-poster{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.18}
+
+    .page{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+
+    /* HEADER */
+    .hdsd-header{text-align:center;padding:40px 0 32px}
+    .hdsd-header img.clb-logo{height:64px;margin-bottom:16px;filter:drop-shadow(0 0 18px rgba(25,101,143,.5))}
+    .hdsd-header h1{font-size:clamp(1.4rem,4vw,2rem);font-weight:800;letter-spacing:.02em;color:#fff;margin-bottom:6px}
+    .hdsd-header p{color:var(--muted);font-size:.95rem}
+
+    /* SECTION */
+    .section{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);backdrop-filter:blur(18px);padding:28px 28px 24px;margin-bottom:24px}
+    .section-header{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+    .section-num{width:40px;height:40px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;flex-shrink:0;box-shadow:0 0 14px rgba(25,101,143,.5)}
+    .section-title{font-size:1.15rem;font-weight:700;color:#fff}
+
+    /* NFC sub-cards */
+    .nfc-methods{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
+    @media(max-width:560px){.nfc-methods{grid-template-columns:1fr}}
+    .nfc-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+    .nfc-card img{height:48px;object-fit:contain;border-radius:8px}
+    .nfc-card h3{font-size:.95rem;font-weight:700;color:#fff}
+    .nfc-card p{font-size:.85rem;color:var(--muted);line-height:1.55}
+    .nfc-card .tag{display:inline-flex;align-items:center;gap:6px;background:rgba(25,101,143,.25);border:1px solid rgba(25,101,143,.4);color:#60b4e0;border-radius:20px;padding:3px 11px;font-size:.78rem;font-weight:600;margin-top:2px}
+
+    /* Step tip */
+    .tip{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.04);border-left:3px solid var(--primary);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:10px;font-size:.88rem;color:var(--muted)}
+    .tip i{color:var(--primary);margin-top:2px;flex-shrink:0}
+
+    /* Feature list */
+    .feat-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+    @media(max-width:560px){.feat-list{grid-template-columns:1fr}}
+    .feat-item{display:flex;align-items:flex-start;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;font-size:.87rem}
+    .feat-item i{color:var(--secondary);width:16px;flex-shrink:0;margin-top:2px}
+    .feat-item span{color:var(--muted);line-height:1.45}
+    .feat-item strong{color:var(--text);font-weight:600}
+
+    /* Contact */
+    .contact-box{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);backdrop-filter:blur(18px);padding:24px 28px;margin-bottom:24px;display:flex;flex-direction:column;gap:10px}
+    .contact-box h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:4px}
+    .contact-row{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--muted)}
+    .contact-row i{color:var(--primary);width:18px}
+    .contact-row a{color:#60b4e0;text-decoration:none}
+    .contact-row a:hover{text-decoration:underline}
+
+    /* Lazinet footer */
+    .lazinet-footer{text-align:center;padding:10px 0 4px}
+    .lazinet-footer a{display:inline-block}
+    .lazinet-footer img{height:36px;opacity:.85;transition:.2s}
+    .lazinet-footer img:hover{opacity:1}
+    .lazinet-footer p{font-size:.78rem;color:var(--muted);margin-top:6px}
+  </style>
+</head>
+<body>
+  <img id="bg-poster" src="assets/img/background/background.webp" alt="">
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="hdsd-header">
+      <img class="clb-logo" src="assets/logos/logo_2026_W256.webp" alt="CLB Doanh Nhân Quảng Trị">
+      <h1>HƯỚNG DẪN SỬ DỤNG</h1>
+      <p>Thẻ danh thiếp điện tử NFC &amp; QR — CLB Doanh Nhân Quảng Trị</p>
+    </div>
+
+    <!-- 1. QUÉT NFC -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Quét NFC</div>
+      </div>
+      <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px">Đưa thẻ vào gần điện thoại, bấm <strong style="color:var(--text)">Mở link</strong> khi thông báo hiện lên.</p>
+
+      <div class="nfc-methods">
+        <!-- iPhone -->
+        <div class="nfc-card">
+          <img src="assets/img/others/airdrop-logo.jpg" alt="AirDrop / iPhone">
+          <h3>iPhone</h3>
+          <p>Cần bật <strong>AirDrop</strong>. Kéo từ trên xuống (Control Center) → nhấn giữ vùng kết nối → bật AirDrop.</p>
+          <span class="tag"><i class="fa fa-wifi"></i> AirDrop On</span>
+        </div>
+        <!-- Android -->
+        <div class="nfc-card">
+          <img src="assets/img/others/nfc-logo.jpg" alt="NFC Android">
+          <h3>Android (Samsung, Huawei, Xiaomi…)</h3>
+          <p>Cần bật <strong>NFC</strong>. Kéo từ trên xuống → tìm biểu tượng <em>NFC</em> → bật lên.</p>
+          <span class="tag"><i class="fa fa-signal"></i> NFC On</span>
+        </div>
+      </div>
+
+      <div class="tip">
+        <i class="fa fa-lightbulb"></i>
+        Thường tất cả đều kéo thanh thông báo từ trên xuống và tìm biểu tượng tương ứng (AirDrop hoặc NFC) để bật.
+      </div>
+    </div>
+
+    <!-- 2. QUÉT QR -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Quét mã QR</div>
+      </div>
+      <p style="font-size:.9rem;color:var(--muted);margin-bottom:10px">Ở <strong style="color:var(--text)">góc trái dưới</strong> của mỗi namecard đều có mã QR.</p>
+      <div class="tip">
+        <i class="fa fa-qrcode"></i>
+        Dùng chức năng quét QR trong <strong>Zalo</strong> hoặc camera/ứng dụng quét mã bất kỳ — mở ra sẽ thấy đầy đủ thông tin doanh nhân.
+      </div>
+    </div>
+
+    <!-- 3. TÍNH NĂNG -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Sử dụng thông tin trên namecard</div>
+      </div>
+      <div class="feat-list">
+        <div class="feat-item"><i class="fa fa-phone"></i><span><strong>Số điện thoại</strong> — bấm trực tiếp để gọi điện</span></div>
+        <div class="feat-item"><i class="fa fa-share-nodes"></i><span><strong>Chia sẻ</strong> — gửi namecard cho người khác</span></div>
+        <div class="feat-item"><i class="fa fa-icons"></i><span><strong>Mạng xã hội</strong> — bấm biểu tượng để kết nối tài khoản tương ứng</span></div>
+        <div class="feat-item"><i class="fa fa-address-card"></i><span><strong>Danh bạ</strong> — thêm liên hệ vào danh bạ máy</span></div>
+        <div class="feat-item"><i class="fa fa-map-location-dot"></i><span><strong>Địa chỉ</strong> — bấm để mở bản đồ chỉ đường</span></div>
+        <div class="feat-item"><i class="fa fa-envelope"></i><span><strong>Email</strong> — bấm để soạn email gửi đến doanh nhân</span></div>
+        <div class="feat-item"><i class="fa fa-globe"></i><span><strong>Website</strong> — xem thông tin doanh nghiệp</span></div>
+        <div class="feat-item"><i class="fa fa-image"></i><span><strong>Xuất PNG</strong> — lưu ảnh namecard về máy</span></div>
+        <div class="feat-item"><i class="fa fa-file-pdf"></i><span><strong>Xuất PDF</strong> — lưu namecard &amp; portfolio công ty</span></div>
+        <div class="feat-item"><i class="fa fa-user-tie"></i><span><strong>Doanh Nhân</strong> — xem giới thiệu cá nhân</span></div>
+        <div class="feat-item"><i class="fa fa-building"></i><span><strong>Doanh Nghiệp</strong> — xem mô tả &amp; sản phẩm dịch vụ</span></div>
+        <div class="feat-item"><i class="fa fa-robot"></i><span><strong>Trợ lý ảo</strong> — truy vấn thông tin qua chat AI</span></div>
+        <div class="feat-item"><i class="fa fa-paper-plane"></i><span><strong>Gửi form</strong> — điền thông tin liên hệ nhanh</span></div>
+        <div class="feat-item"><i class="fa fa-clock"></i><span><strong>Sắp ra mắt</strong> — giỏ hàng, marketing chủ động và nhiều hơn nữa</span></div>
+      </div>
+    </div>
+
+    <!-- LIÊN HỆ -->
+    <div class="contact-box">
+      <h3><i class="fa fa-headset" style="color:var(--primary);margin-right:8px"></i>Liên hệ hỗ trợ</h3>
+      <div class="contact-row"><i class="fa fa-users"></i><span>Ban Công nghệ thông tin — CLB Doanh Nhân Quảng Trị</span></div>
+      <div class="contact-row"><i class="fa fa-phone"></i><a href="tel:0908556220">Hotline: 0908 556 220</a></div>
+    </div>
+
+    <!-- LAZINET -->
+    <div class="lazinet-footer">
+      <a href="https://lazinet.com/lazinet-support-pricing.html" target="_blank" rel="noopener">
+        <img src="assets/img/logo-lazinet/lazinet_LogoFullv2_vi_extending_loop_font.svg" alt="LAZINET">
+      </a>
+      <p>Hỗ trợ kỹ thuật &amp; phát triển bởi đội ngũ LAZINET</p>
+    </div>
+
+  </div>
+</body>
+</html>
