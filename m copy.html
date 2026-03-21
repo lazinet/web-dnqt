@@ -19,7 +19,7 @@
   <meta property="og:site_name" content="CLB Doanh Nhân Quảng Trị">
   <meta property="og:type" id="og-type" content="website">
   <meta property="og:title" id="og-title" content="Danh Bạ Doanh Nhân | CLB Doanh Nhân Quảng Trị">
-  <meta property="og:description" id="og-desc" content="Kết nối và hợp tác cùng cộng đồng doanh nhân Quảng Trị. Danh thiếp điện tử NFC — công nghệ bởi LAZINET. Sản phẩm OCOP & hàng lành mạnh trên sàn HATHYO.">
+  <meta property="og:description" id="og-desc" content="Kết nối và hợp tác cùng cộng đồng doanh nhân Quảng Trị. Danh thiếp điện tử NFC và QR đa phương thức, tiện lợi để giao lưu và hợp tác — Dữ liệu được biên tập và sản xuất bởi LAZINET. Đặc sản quê hương và các mặt hàng OCOP có thể giao dịch thuận lợi hơn trên sàn TMĐT HATHYO.">
   <meta property="og:image" id="og-image" content="assets/img/logo.png">
   <meta property="og:locale" content="vi_VN">
 
@@ -135,7 +135,7 @@
       color:#fff;
       display:flex;flex-direction:column;padding:0;
     }
-    .bizcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.25) 100%);z-index:1}
+    .bizcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.1) 100%);z-index:1}
     .bizcard>*{position:relative;z-index:2}
 
     /* ===== FRONT CARD — 3 rows: A (top), B (body), C (bottom) ===== */
@@ -147,8 +147,18 @@
     #bizcard-front .bc-body{padding-bottom:20cqw}
 
     /* Corner squares: 20cqw × 20cqw, transparent, uniform padding */
-    .bc-corner{width:20cqw;height:20cqw;flex-shrink:0;background:transparent;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:2cqw}
+    .bc-corner{width:20cqw;height:20cqw;flex-shrink:0;background:transparent;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:2.5cqw}
     .bc-corner img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+    /* Safe zone 4cqw các cạnh ngoài — Row A (front & back) */
+    .bc-row:first-child .bc-corner,.bb-row-a .bc-corner{padding-top:4cqw}
+    .bc-row:first-child .bc-corner:first-child,.bb-row-a .bc-corner:first-child{padding-left:4cqw}
+    .bc-row:first-child .bc-corner:last-child,.bb-row-a .bc-corner:last-child{padding-right:4cqw}
+    .bc-row:first-child .bc-row-mid{padding-top:4cqw}
+    /* Safe zone 4cqw — Row C bottom (front card) */
+    #bizcard-front .bc-row:last-child .bc-corner{padding-bottom:4cqw}
+    #bizcard-front .bc-row:last-child .bc-corner:first-child{padding-left:4cqw}
+    #bizcard-front .bc-row:last-child .bc-corner:last-child{padding-right:4cqw}
+    #bizcard-front .bc-row:last-child .bc-row-mid{padding-bottom:4cqw}
     #bf-club-logo,#bb-club-logo{border-radius:50%;border:2px solid #BF953F;box-shadow:0 0 0 1px #FCF6BA,0 0 12px rgba(191,149,63,.7),0 0 22px rgba(255,215,0,.35)}
 
     /* Avatar (A3): rounded + viền trắng ngoài — radius đồng nhất 1.5cqw */
@@ -159,24 +169,24 @@
     #bf-qr img,#bf-qr canvas{width:100%!important;height:100%!important}
 
     /* Company logo (C3 front + A3 back): nền trắng + radius 1.5cqw */
-    #bf-co-logo{width:14cqw;height:14cqw;object-fit:contain;background:#fff;border-radius:1.5cqw;padding:1cqw}
-    #bb-co-logo{width:100%;height:100%;object-fit:contain;background:#fff;border-radius:1.5cqw;padding:1cqw}
+    #bf-co-logo{width:100%;height:100%;object-fit:contain;background:#fff;border-radius:1.5cqw;padding:0}
+    #bb-co-logo{width:100%;height:100%;object-fit:contain;background:#fff;border-radius:1.5cqw;padding:0}
 
     /* A2: middle of top row — centered */
     .bc-row-mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 1.5cqw;overflow:hidden;text-align:center}
     /* C2: middle of bottom row — socials top, NFC bottom */
-    #bf-c2{justify-content:space-between;padding-top:2.5cqw;padding-bottom:2.5cqw}
+    #bf-c2{justify-content:space-between;padding-top:2.5cqw;padding-bottom:4cqw}
 
     /* A2 text */
     .bc-member-label{font-size:2.2cqw;font-weight:700;color:rgba(255,255,255,.88);letter-spacing:.3px;text-shadow:1px 1px 3px rgba(0,0,0,.9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-    .bc-member-id{font-size:2.3cqw;font-weight:600;color:rgba(255,255,255,.7);text-shadow:1px 1px 3px rgba(0,0,0,.9);white-space:nowrap}
+    .bc-member-id{font-size:2.4cqw;font-weight:600;color:rgba(255,255,255,.7);text-shadow:1px 1px 3px rgba(0,0,0,.9);white-space:nowrap}
     .bc-a2-divider{display:flex;align-items:center;justify-content:center;gap:1.2cqw;margin:.5cqw auto 0;width:80%}
     .bc-a2-divider::before,.bc-a2-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6))}
     .bc-a2-divider::after{background:linear-gradient(90deg,rgba(255,255,255,.6),transparent)}
     .bc-a2-divider span{width:1.4cqw;height:1.4cqw;background:rgba(255,255,255,.7);transform:rotate(45deg);flex-shrink:0;box-shadow:0 0 4px rgba(255,255,255,.4)}
 
     /* B: body, flex:1 fills space between rows */
-    .bc-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.4cqw 3cqw;text-align:center;gap:.4cqw}
+    .bc-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.4cqw 4cqw;text-align:center;gap:.4cqw}
     .bc-name{font-size:5.5cqw;font-weight:900;text-transform:uppercase;text-shadow:2px 2px 6px rgba(0,0,0,.9);letter-spacing:.4px;line-height:1.1;width:100%}
     .bc-position{font-size:2.5cqw;font-weight:600;color:#cbd5e1;text-shadow:1px 1px 3px rgba(0,0,0,.9)}
     .bc-company{font-size:2.6cqw;font-weight:700;text-shadow:1px 1px 3px rgba(0,0,0,.9);width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -210,14 +220,14 @@
     .bb-a2-ornament::after{background:linear-gradient(90deg,rgba(255,255,255,.7),transparent)}
     .bb-a2-ornament span{font-size:1.6cqw;letter-spacing:.5cqw;color:rgba(255,255,255,.7);line-height:1}
     /* Row B: business sectors */
-    .bb-body{flex:1;display:flex;flex-direction:column;padding:0 3cqw 1cqw;min-height:0;overflow:hidden}
+    .bb-body{flex:1;display:flex;flex-direction:column;padding:0 4cqw 1cqw;min-height:0;overflow:hidden}
     .bb-biz-title{font-size:3.75cqw;color:var(--secondary);font-weight:900;text-align:center;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5cqw}
     .bb-biz-divider{width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--secondary),transparent);margin:0 auto 1.2cqw}
     .bb-services-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5cqw 1cqw;overflow:hidden}
-    .bb-service-item{display:flex;gap:.6cqw;font-size:2.2cqw;line-height:1.4;text-shadow:1px 1px 2px rgba(0,0,0,.8);align-items:center;padding-left:1.5cqw}
-    .bb-service-item i{color:var(--secondary);font-size:2cqw;flex-shrink:0}
+    .bb-service-item{display:flex;gap:.6cqw;font-size:2cqw;line-height:1.4;text-shadow:1px 1px 2px rgba(0,0,0,.8);align-items:center;padding-left:1.5cqw;align-items:flex-start}
+    .bb-service-item i{color:var(--secondary);font-size:1.8cqw;flex-shrink:0}
     /* Row C: full-width contact strip, height 30% card width */
-    .bb-footer{flex-shrink:0;height:20cqw;background:var(--primary);backdrop-filter:blur(6px);border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5cqw 3cqw;text-align:center;gap:.7cqw}
+    .bb-footer{flex-shrink:0;height:20cqw;background:var(--primary);backdrop-filter:blur(6px);border-top:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5cqw 4cqw 4cqw;text-align:center;gap:.7cqw}
     .bb-co-name{font-size:2.5cqw;font-weight:700;text-shadow:1px 1px 3px rgba(0,0,0,.9);width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .bb-contact-row{display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;width:100%}
     .bb-contact-item{display:flex;align-items:center;gap:.8cqw;font-size:1.9cqw;text-shadow:1px 1px 2px rgba(0,0,0,.8);white-space:nowrap;color:#fff;text-decoration:none}
@@ -1231,10 +1241,37 @@
         logging: false,
         imageTimeout: 8000,
         onclone: function(cloneDoc) {
-          // Đảm bảo tất cả bizcard trong clone cũng không có bg image
+          // Dùng nền cố định thay vì nền động (tránh lỗi createPattern 0×0)
           cloneDoc.querySelectorAll('.bizcard').forEach(function(c) {
-            c.style.backgroundImage = 'none';
+            c.style.backgroundImage = 'url("assets/img/background/background.webp")';
           });
+          // html2canvas không tính cqw đúng trong clone → ép padding pixel cho corners
+          // 4cqw = 4% card width; base = 2.5cqw cho các cạnh trong
+          var safe = Math.round(0.04 * rect.width);
+          var base = Math.round(0.025 * rect.width);
+          var cardEl = cloneDoc.getElementById(id);
+          if (!cardEl) return;
+          // Lấy tất cả bc-row theo thứ tự trong card
+          var bcRows = cardEl.querySelectorAll('.bc-row, .bb-row-a');
+          if (bcRows.length === 0) return;
+          // Row A = hàng đầu tiên
+          var rowAEl = bcRows[0];
+          var rowACorners = rowAEl.querySelectorAll('.bc-corner');
+          rowACorners.forEach(function(c, i) {
+            var isFirst = i === 0;
+            var isLast  = i === rowACorners.length - 1;
+            c.style.padding = safe + 'px ' + (isLast ? safe : base) + 'px ' + base + 'px ' + (isFirst ? safe : base) + 'px';
+          });
+          // Row C = hàng cuối (chỉ có ở mặt trước)
+          var rowCEl = bcRows[bcRows.length - 1];
+          if (rowCEl !== rowAEl) {
+            var rowCCorners = rowCEl.querySelectorAll('.bc-corner');
+            rowCCorners.forEach(function(c, i) {
+              var isFirst = i === 0;
+              var isLast  = i === rowCCorners.length - 1;
+              c.style.padding = base + 'px ' + (isLast ? safe : base) + 'px ' + safe + 'px ' + (isFirst ? safe : base) + 'px';
+            });
+          }
         }
       });
     }

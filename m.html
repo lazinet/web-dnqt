@@ -19,14 +19,14 @@
   <meta property="og:site_name" content="CLB Doanh Nhân Quảng Trị">
   <meta property="og:type" id="og-type" content="website">
   <meta property="og:title" id="og-title" content="Danh Bạ Doanh Nhân | CLB Doanh Nhân Quảng Trị">
-  <meta property="og:description" id="og-desc" content="Kết nối và hợp tác cùng cộng đồng doanh nhân Quảng Trị. Danh thiếp điện tử NFC — công nghệ bởi LAZINET. Sản phẩm OCOP & hàng lành mạnh trên sàn HATHYO.">
-  <meta property="og:image" id="og-image" content="assets/img/logo.png">
+  <meta property="og:description" id="og-desc" content="Kết nối và hợp tác cùng cộng đồng doanh nhân Quảng Trị. Danh thiếp điện tử NFC và QR đa phương thức, tiện lợi để giao lưu và hợp tác — Dữ liệu được biên tập và sản xuất bởi LAZINET. Đặc sản quê hương và các mặt hàng OCOP có thể giao dịch thuận lợi hơn trên sàn TMĐT HATHYO.">
+  <meta property="og:image" id="og-image" content="assets/logos/logo_2026_W512.webp">
   <meta property="og:locale" content="vi_VN">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" id="tw-title" content="Danh Bạ Doanh Nhân | CLB Doanh Nhân Quảng Trị">
   <meta name="twitter:description" id="tw-desc" content="Kết nối và hợp tác cùng cộng đồng doanh nhân Quảng Trị. Danh thiếp điện tử NFC — công nghệ bởi LAZINET.">
-  <meta name="twitter:image" id="tw-image" content="assets/img/logo.png">
+  <meta name="twitter:image" id="tw-image" content="assets/logos/logo_2026_W512.webp">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -123,6 +123,9 @@
     .bizcard-wrapper{display:flex;gap:20px;max-width:960px;margin:0 auto 0}
     .bizcard{outline:1px solid rgba(255,255,255,.18)}
     @media(max-width:680px){.bizcard-wrapper{flex-direction:column}}
+
+    /* Placeholder overlay: che toàn bộ card, nền đặc = background.webp */
+    .bc-placeholder{position:absolute;inset:0;z-index:11;display:flex;align-items:center;justify-content:center;background:center/cover url('assets/img/background/background.webp') #1a2a4a;color:rgba(255,255,255,.55);font-size:2.5cqw;letter-spacing:.1em;text-transform:uppercase;transition:opacity .5s ease;pointer-events:none}
 
     /* Each card has its own container-type so cqw = card's own width */
     .bizcard{
@@ -336,11 +339,11 @@
       <div id="members-grid" class="members-grid"></div>
       <div class="pgn-row">
         <select id="itemsPerPage">
-          <option value="8">8 thẻ</option>
           <option value="12">12 thẻ</option>
           <option value="24">24 thẻ</option>
-          <option value="36">36 thẻ</option>
-          <option value="48">48 thẻ</option>
+          <option value="48" selected>48 thẻ</option>
+          <option value="96">96 thẻ</option>
+          <option value="0">Tất cả</option>
         </select>
         <div id="pagination" class="pagination"></div>
       </div>
@@ -363,7 +366,8 @@
 
         <!-- FRONT CARD: 86×57mm, 3 rows (A/B/C), no border-radius, no border -->
         <div id="bizcard-front" class="bizcard">
-          <img id="bc-preload-front" src="" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:10;transition:opacity .6s ease">
+          <div id="bc-preload-front" class="bc-placeholder">Chờ dữ liệu mặt trước</div>
+          <img id="bc-img-front" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:10;pointer-events:none;transition:opacity .5s ease">
 
           <!-- ROW A: CLB logo | Header text | Avatar -->
           <div class="bc-row">
@@ -414,7 +418,8 @@
 
         <!-- BACK CARD -->
         <div id="bizcard-back" class="bizcard">
-          <img id="bc-preload-back" src="" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:10;transition:opacity .6s ease">
+          <div id="bc-preload-back" class="bc-placeholder">Chờ dữ liệu mặt sau</div>
+          <img id="bc-img-back" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:10;pointer-events:none;transition:opacity .5s ease">
 
           <!-- ROW A: CLB logo | Company short + Slogan | Company logo -->
           <div class="bb-row-a">
@@ -565,8 +570,7 @@
     const GAS_URL = "https://script.google.com/macros/s/AKfycbx12otzuNFSyS9S2rYlQMOjgTHliX548LBIwtCTaByRr7mhSSWmhDdxontm1wX_ILf5ng/exec";
 
     // ===== STATE =====
-    function defaultPerPage() { return window.innerWidth >= 1200 ? 36 : window.innerWidth >= 640 ? 24 : 8; }
-    let allMembers = [], currentPage = 1, perPage = defaultPerPage();
+    let allMembers = [], currentPage = 1, perPage = 48;
     let member = null, configs = null;
     let sessionId = 'lacs_' + Date.now() + '_' + Math.random().toString(36).substr(2,8);
     let msgs = [];
@@ -612,24 +616,43 @@
       const mid = new URLSearchParams(location.search).get('c');
       if (mid) {
         document.getElementById('detail-view').classList.remove('hidden');
-        // Preload ảnh tĩnh — overlay z-index:10 che toàn bộ card, người dùng thấy name card hoàn chỉnh ngay
-        const preBase = 'members/' + mid;
-        (function(id, base, side) {
-          var el = document.getElementById(id);
-          el.onerror = function() { el.onerror = function() { el.src = 'assets/img/background/background.webp'; }; el.src = base + side + '.png'; };
-          el.src = base + side + '.webp';
-        })('bc-preload-front', preBase, '-front');
-        (function(id, base, side) {
-          var el = document.getElementById(id);
-          el.onerror = function() { el.onerror = function() { el.src = 'assets/img/background/background.webp'; }; el.src = base + side + '.png'; };
-          el.src = base + side + '.webp';
-        })('bc-preload-back', preBase, '-back');
+        // BƯỚC 1: nền trống + placeholder (đã có trong CSS)
+        var bgDefault = "url('assets/img/background/background.webp')";
+        document.getElementById('bizcard-front').style.backgroundImage = bgDefault;
+        document.getElementById('bizcard-back').style.backgroundImage  = bgDefault;
+
+        // BƯỚC 2: Song song với fetch data → load bc-img overlay (webp→png)
+        // Chỉ ẩn placeholder KHI bc-img đã sẵn sàng (không để lộ card content)
+        var preBase = 'members/' + mid;
+        function loadOverlay(imgId, phId, base, side) {
+          var imgEl = document.getElementById(imgId);
+          var phEl  = document.getElementById(phId);
+          var tmp = new Image();
+          tmp.onload = function() {
+            imgEl.src = tmp.src;
+            imgEl.style.display = 'block';
+            imgEl.style.opacity = '1';
+            phEl.style.display = 'none';          // ẩn placeholder đúng lúc bc-img hiện
+            setTimeout(function() {               // sau 3s: fade rồi display:none
+              imgEl.style.opacity = '0';
+              setTimeout(function() { imgEl.style.display = 'none'; }, 500);
+            }, 5000);
+          };
+          tmp.onerror = function() {
+            tmp.onerror = function() { phEl.style.display = 'none'; }; // cả 2 fail → ẩn placeholder
+            tmp.src = base + side + '.png';
+          };
+          tmp.src = base + side + '.webp';
+        }
+        loadOverlay('bc-img-front', 'bc-preload-front', preBase, '-front');
+        loadOverlay('bc-img-back',  'bc-preload-back',  preBase, '-back');
+
+        // Fetch data song song (không chờ bc-img)
         loadDetail(mid);
       } else {
         document.getElementById('listing-view').classList.remove('hidden');
         loadListing();
       }
-      document.getElementById('itemsPerPage').value = perPage;
       document.getElementById('searchInput').addEventListener('input', function(){ currentPage = 1; renderGrid(); });
       document.getElementById('itemsPerPage').addEventListener('change', function(e){ perPage = parseInt(e.target.value); currentPage = 1; renderGrid(); });
       document.getElementById('sendBtn').addEventListener('click', sendChat);
@@ -668,12 +691,12 @@
     function renderGrid() {
       const kw = document.getElementById('searchInput').value.toLowerCase();
       const filtered = allMembers.filter(function(m){
-        return (m.Member_ID||'').toLowerCase().indexOf(kw) >= 0 ||
-               (m.Member_Name||'').toLowerCase().indexOf(kw) >= 0 ||
-               (m.Member_Company||'').toLowerCase().indexOf(kw) >= 0;
+        return String(m.Member_ID||'').toLowerCase().indexOf(kw) >= 0 ||
+               String(m.Member_Name||'').toLowerCase().indexOf(kw) >= 0 ||
+               String(m.Member_Company||'').toLowerCase().indexOf(kw) >= 0;
       });
-      const start = (currentPage - 1) * perPage;
-      const page = filtered.slice(start, start + perPage);
+      const showAll = (perPage === 0);
+      const page = showAll ? filtered : filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
       const grid = document.getElementById('members-grid');
       if (!page.length) {
         grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:50px">Không tìm thấy kết quả.</div>';
@@ -694,7 +717,7 @@
           '<div class="mc-name">' + ((m.Member_Title ? m.Member_Title + ' ' : '') + m.Member_Name) + '</div>' +
           '</div>';
       }).join('');
-      renderPgn(Math.ceil(filtered.length / perPage));
+      renderPgn(showAll ? 1 : Math.ceil(filtered.length / perPage));
     }
 
     function renderPgn(total) {
@@ -860,17 +883,7 @@
       const m = member;
       const dir = 'members/' + m.Member_ID + '/';
 
-      // Background images — fixed shared background (data đã về, dùng nền trống)
-      const bgImg = "url('assets/img/background/background.webp')";
-      document.getElementById('bizcard-front').style.backgroundImage = bgImg;
-      document.getElementById('bizcard-back').style.backgroundImage = bgImg;
-      // Fade out và remove overlay preload
-      ['bc-preload-front','bc-preload-back'].forEach(function(id){
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.style.opacity = '0';
-        setTimeout(function(){ if (el.parentNode) el.parentNode.removeChild(el); }, 700);
-      });
+      // Overlay bc-img và placeholder được xử lý từ init (DOMContentLoaded), không cần làm gì thêm ở đây
 
       // Avatar — fallback canvas nội bộ (tránh CORS khi xuất PNG/PDF)
       const av = document.getElementById('bf-avatar');
