@@ -1,3 +1,4 @@
+// https://script.google.com/macros/s/AKfycbx12otzuNFSyS9S2rYlQMOjgTHliX548LBIwtCTaByRr7mhSSWmhDdxontm1wX_ILf5ng/exec
 // =====================================================
 // CODE.GS - Google Apps Script Backend cho CLB Doanh nhân Quảng Trị
 // Spreadsheet: https://docs.google.com/spreadsheets/d/1fYi50TPcwPPbXM_Vlefya3oc5vWxEIoYxIagkY1frr4
@@ -48,8 +49,9 @@ function doPost(e) {
   try {
     const data   = JSON.parse(e.postData.contents);
     const action = data.action;
-    if (action === 'chat')       return createJsonResponse(handleChat(data));
-    if (action === 'submitForm') return createJsonResponse(handleForm(data));
+    if (action === 'chat')           return createJsonResponse(handleChat(data));
+    if (action === 'submitForm')     return createJsonResponse(handleForm(data));
+    if (action === 'verifyPassword') return createJsonResponse(handleVerifyPassword(data));
     return createJsonResponse({ error: 'Invalid action' });
   } catch (err) {
     return createJsonResponse({ error: err.toString() });
@@ -68,7 +70,7 @@ function createJsonResponse(obj) {
 // =====================================================
 
 // Các key nhạy cảm — chỉ dùng nội bộ backend, KHÔNG trả về frontend
-const PRIVATE_CONFIG_KEYS = ['LLM_Model', 'LLM_API_Key', 'LLM_Max_Token', 'LLM_Guide'];
+const PRIVATE_CONFIG_KEYS = ['LLM_Model', 'LLM_API_Key', 'LLM_Max_Token', 'LLM_Guide', 'Master_Book'];
 
 function getConfigData(configSheet) {
   if (!configSheet) {
@@ -368,6 +370,14 @@ function saveChatHistory(sheet, source, sessionId, userMsg, botMsg) {
 // =====================================================
 // FORM HANDLER
 // =====================================================
+
+function handleVerifyPassword(data) {
+  const config = getConfigData();
+  const master = String(config['Master_Book'] || '');
+  if (!master) return { success: false, message: 'Chưa cấu hình mật khẩu.' };
+  if (String(data.password || '') === master) return { success: true };
+  return { success: false, message: 'Mật khẩu không đúng.' };
+}
 
 function handleForm(data) {
   const source    = data.source;

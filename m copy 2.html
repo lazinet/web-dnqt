@@ -323,26 +323,6 @@
   </div>
 
   <div class="page">
-    <!-- PASSWORD WALL -->
-    <div id="pw-wall" class="hidden" style="min-height:70vh;display:flex;align-items:center;justify-content:center">
-      <div style="background:var(--glass);border:1px solid var(--border);border-radius:var(--r);backdrop-filter:blur(18px);padding:40px 32px;max-width:360px;width:100%;text-align:center">
-        <img src="assets/logos/logo_2026_W256.webp" alt="CLB" style="height:56px;margin-bottom:18px;filter:drop-shadow(0 0 14px rgba(25,101,143,.5))">
-        <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:6px">Danh Bạ Doanh Nhân</h2>
-        <p style="font-size:.85rem;color:var(--muted);margin-bottom:22px">Câu Lạc Bộ Doanh Nhân Quảng Trị</p>
-        <div style="position:relative;margin-bottom:12px">
-          <input id="pw-input" type="password" placeholder="Nhập mật khẩu truy cập..."
-            style="width:100%;padding:12px 44px 12px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.07);color:var(--text);font-size:.95rem;outline:none;font-family:inherit"
-            onkeydown="if(event.key==='Enter')doVerifyPw()">
-          <i class="fa fa-eye" id="pw-eye" onclick="togglePwEye()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--muted)"></i>
-        </div>
-        <div id="pw-err" style="color:#f87171;font-size:.82rem;min-height:18px;margin-bottom:10px"></div>
-        <button onclick="doVerifyPw()" id="pw-btn"
-          style="width:100%;padding:12px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-weight:700;font-size:.95rem;cursor:pointer;font-family:inherit;transition:.2s">
-          Đăng nhập
-        </button>
-      </div>
-    </div>
-
     <!-- LISTING -->
     <div id="listing-view" class="hidden">
       <div class="list-header">
@@ -587,7 +567,7 @@
   <script>
     // ===== CONFIG =====
     // Để Google xử lý cho chắc cơm LAZINET
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbyWm9xpWVrDDYFOlk-2-TYUU9WrYy9GfADCszBVBxXHXeKSKEqaeeEA9BsMPNLrtDDogQ/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbx12otzuNFSyS9S2rYlQMOjgTHliX548LBIwtCTaByRr7mhSSWmhDdxontm1wX_ILf5ng/exec";
 
     // ===== STATE =====
     let allMembers = [], currentPage = 1, perPage = 48;
@@ -670,15 +650,8 @@
         // Fetch data song song (không chờ bc-img)
         loadDetail(mid);
       } else {
-        if (sessionStorage.getItem('qtbc_auth') === '1') {
-          document.getElementById('listing-view').classList.remove('hidden');
-          loadListing();
-        } else {
-          var pw = document.getElementById('pw-wall');
-          pw.classList.remove('hidden');
-          pw.style.display = 'flex';
-          setTimeout(function(){ document.getElementById('pw-input').focus(); }, 100);
-        }
+        document.getElementById('listing-view').classList.remove('hidden');
+        loadListing();
       }
       document.getElementById('searchInput').addEventListener('input', function(){ currentPage = 1; renderGrid(); });
       document.getElementById('itemsPerPage').addEventListener('change', function(e){ perPage = parseInt(e.target.value); currentPage = 1; renderGrid(); });
@@ -686,42 +659,6 @@
       document.getElementById('chatInput').addEventListener('keypress', function(e){ if (e.key === 'Enter') sendChat(); });
       document.getElementById('contactForm').addEventListener('submit', submitForm);
     });
-
-    // ===== PASSWORD WALL =====
-    function togglePwEye() {
-      var inp = document.getElementById('pw-input');
-      var eye = document.getElementById('pw-eye');
-      if (inp.type === 'password') { inp.type = 'text'; eye.className = 'fa fa-eye-slash'; }
-      else                         { inp.type = 'password'; eye.className = 'fa fa-eye'; }
-    }
-    function doVerifyPw() {
-      var pw  = document.getElementById('pw-input').value.trim();
-      var err = document.getElementById('pw-err');
-      var btn = document.getElementById('pw-btn');
-      if (!pw) { err.textContent = 'Vui lòng nhập mật khẩu.'; return; }
-      err.textContent = '';
-      btn.textContent = 'Đang kiểm tra...';
-      btn.disabled = true;
-      gasPost({ action: 'verifyPassword', password: pw })
-        .then(function(res) {
-          if (res.success) {
-            sessionStorage.setItem('qtbc_auth', '1');
-            document.getElementById('pw-wall').style.display = 'none';
-            document.getElementById('pw-wall').classList.add('hidden');
-            document.getElementById('listing-view').classList.remove('hidden');
-            loadListing();
-          } else {
-            err.textContent = res.message || 'Mật khẩu không đúng.';
-            btn.textContent = 'Đăng nhập';
-            btn.disabled = false;
-          }
-        })
-        .catch(function() {
-          err.textContent = 'Lỗi kết nối, thử lại sau.';
-          btn.textContent = 'Đăng nhập';
-          btn.disabled = false;
-        });
-    }
 
     // Keys nhạy cảm không được dùng ở frontend — xoá ngay khi nhận về
     const PRIVATE_KEYS = ['LLM_Model','LLM_API_Key','LLM_Max_Token','LLM_Guide'];
