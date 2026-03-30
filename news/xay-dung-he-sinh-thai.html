@@ -1,0 +1,486 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xây dựng hệ sinh thái doanh nhân Quảng Trị tại TP.HCM | CLB Doanh Nhân Quảng Trị</title>
+  <meta name="description" content="CLB Doanh Nhân Quảng Trị tại TP.HCM: Từ kết nối giao thương đến nền tảng phát triển bền vững — 130 hội viên, 270 tỷ đồng giá trị giao dịch, Hội chợ Xuân Bính Ngọ 2026.">
+  <meta name="keywords" content="CLB Doanh Nhân Quảng Trị, hệ sinh thái doanh nhân, Hội chợ Xuân 2026, giao thương, kết nối doanh nghiệp, TP.HCM">
+  <meta name="author" content="Văn Lượng — CLB Doanh Nhân Quảng Trị">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#F15E22">
+  <link rel="icon" href="../assets/logos/logo_2026_W256.webp">
+  <link rel="apple-touch-icon" href="../assets/logos/logo_2026_W256.webp">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Xây dựng hệ sinh thái doanh nhân Quảng Trị tại TP.HCM">
+  <meta property="og:description" content="Từ kết nối giao thương đến nền tảng phát triển bền vững — câu chuyện của CLB Doanh Nhân Quảng Trị tại TP. Hồ Chí Minh.">
+  <meta property="og:image" content="../assets/background/260321_tannien/post/dao1.jpg">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="CLB Doanh Nhân Quảng Trị">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Xây dựng hệ sinh thái doanh nhân Quảng Trị tại TP.HCM">
+  <meta name="twitter:image" content="../assets/background/260321_tannien/post/dao1.jpg">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Sans+Pro:wght@400;600;700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+  <style>
+    :root {
+      --orange: #F15E22;
+      --blue:   #19658F;
+      --navy:   #0A3161;
+      --dark:   #1a1f24;
+      --muted:  #6c757d;
+      --light:  #f8f9fa;
+      --border: #e9ecef;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Roboto', sans-serif; background: #fff; color: var(--dark); line-height: 1.75; }
+    img { max-width: 100%; display: block; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--navy);
+      padding: 10px 0;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    }
+    .topbar-inner {
+      max-width: 1100px; margin: 0 auto; padding: 8px 16px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .topbar-logo img { height: 32px; }
+    .topbar-logo span { color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: .85rem; line-height: 1.25; }
+    .topbar-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; flex-wrap: wrap;
+    }
+    .topbar-nav a {
+      color: rgba(255,255,255,.8); text-decoration: none;
+      font-size: .78rem; padding: 4px 11px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.2); transition: .2s; white-space: nowrap;
+    }
+    .topbar-nav a:hover, .topbar-nav a.active {
+      background: var(--orange); border-color: var(--orange); color: #fff;
+    }
+    @media (min-width: 640px) {
+      .topbar-inner { flex-direction: row; justify-content: space-between; padding: 10px 16px; }
+      .topbar-nav { justify-content: flex-end; }
+    }
+
+    /* ── SLIDER ── */
+    .slider-outer {
+      width: 100%;
+      padding: clamp(8px, 3vw, 28px) clamp(8px, 4vw, 48px);
+      background: #f5f5f5;
+      display: flex; justify-content: center;
+    }
+    .hero-slider {
+      width: 100%;
+      max-width: 80%;
+      border-radius: clamp(8px, 2vw, 20px);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.15);
+    }
+    @media (max-width: 640px) {
+      .hero-slider { max-width: 100%; }
+    }
+    .hero-slider .swiper { width: 100%; height: auto; }
+    .hero-slider .swiper-slide { width: 100%; height: auto; }
+    .hero-slider .swiper-wrapper { align-items: flex-start; }
+    .hero-slider .swiper-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .hero-slider .swiper-button-next,
+    .hero-slider .swiper-button-prev { color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+    .hero-slider .swiper-button-next::after,
+    .hero-slider .swiper-button-prev::after { font-size: 1.3rem; }
+    .hero-slider .swiper-pagination-bullet { background: #fff; opacity: .65; }
+    .hero-slider .swiper-pagination-bullet-active { background: var(--orange); opacity: 1; }
+
+    /* Đếm ảnh */
+    .slide-counter {
+      position: absolute; bottom: 12px; right: 16px; z-index: 10;
+      background: rgba(0,0,0,.55); color: #fff; font-size: .78rem;
+      padding: 3px 10px; border-radius: 12px; pointer-events: none;
+    }
+
+    /* ── ARTICLE ── */
+    .article-wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px clamp(16px, 5vw, 80px) 64px; }
+
+    .article-meta {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 16px; row-gap: 6px;
+    }
+    .article-meta .meta-info { white-space: nowrap; }
+    .badge-hot {
+      background: var(--orange); color: #fff;
+      font-size: .7rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; letter-spacing: .07em; text-transform: uppercase;
+    }
+    .badge-cat {
+      background: var(--blue); color: #fff;
+      font-size: .7rem; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+    }
+    .article-meta .meta-info { font-size: .8rem; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+
+    .article-title {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: clamp(1.45rem, 4vw, 2.1rem);
+      font-weight: 900; color: var(--navy);
+      line-height: 1.3; margin-bottom: 20px;
+    }
+    .article-title span { color: var(--orange); }
+
+    .article-lead {
+      font-size: 1.05rem; color: #3a3f4a;
+      border-left: 4px solid var(--orange);
+      padding: 14px 20px;
+      background: #fff7f4;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 28px; line-height: 1.8;
+    }
+
+    /* Stats */
+    .stats-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; margin-bottom: 36px;
+    }
+    @media (max-width: 480px) { .stats-strip { grid-template-columns: 1fr; } }
+    .stat-item { background: #fff; padding: 18px 12px; text-align: center; }
+    .stat-item .num { font-size: 1.5rem; font-weight: 800; color: var(--orange); display: block; line-height: 1; }
+    .stat-item .lbl { font-size: .76rem; color: var(--muted); margin-top: 4px; display: block; }
+
+    /* Body */
+    .article-body h2 {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--navy);
+      margin: 36px 0 14px; padding-left: 14px;
+      border-left: 4px solid var(--orange);
+    }
+    .article-body p { margin-bottom: 16px; color: #2d333b; font-size: .96rem; }
+    .article-body strong { color: var(--navy); }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #e8f4fd, #fff);
+      border: 1px solid #b8daf0; border-radius: 10px;
+      padding: 18px 22px; margin: 22px 0;
+    }
+    .highlight-box p { margin: 0; color: var(--blue); font-size: .95rem; font-style: italic; }
+
+    hr.divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    /* Share */
+    .share-bar {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      background: var(--light); border-radius: 10px; padding: 16px 20px; margin: 36px 0 28px;
+    }
+    .share-bar > span { font-size: .85rem; font-weight: 600; color: var(--dark); }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 15px; border-radius: 20px; font-size: .82rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer; transition: .2s;
+    }
+    .share-btn.fb { background: #1877f2; color: #fff; }
+    .share-btn.fb:hover { background: #1466d4; }
+    .share-btn.zalo { background: #0068ff; color: #fff; }
+    .share-btn.zalo:hover { background: #0052cc; }
+    .share-btn.copy { background: #fff; color: var(--dark); border: 1px solid var(--border); }
+    .share-btn.copy:hover { background: var(--orange); color: #fff; border-color: var(--orange); }
+
+    /* Related */
+    .related-section { border-top: 2px solid var(--border); padding-top: 32px; }
+    .related-section h3 {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
+    }
+    .related-section h3::before {
+      content: ''; width: 4px; height: 20px;
+      background: var(--orange); border-radius: 2px; display: block;
+    }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 580px) { .related-grid { grid-template-columns: 1fr; } }
+    .related-card {
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; text-decoration: none; display: block;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .related-card:hover { box-shadow: 0 6px 22px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .related-card img { width: 100%; height: 140px; object-fit: cover; }
+    .related-card .rc-body { padding: 14px; }
+    .related-card .rc-cat { font-size: .7rem; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: .05em; }
+    .related-card .rc-title { font-size: .88rem; font-weight: 700; color: var(--navy); margin-top: 4px; line-height: 1.35; }
+
+    /* Bottom nav */
+    .bottom-nav {
+      background: var(--navy); color: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; padding: 16px 24px;
+    }
+    .bottom-nav a {
+      color: rgba(255,255,255,.85); text-decoration: none;
+      font-size: .86rem; display: flex; align-items: center; gap: 6px; transition: .2s;
+    }
+    .bottom-nav a:hover { color: var(--orange); }
+    .bottom-nav .logo-sm { display: flex; align-items: center; gap: 8px; }
+    .bottom-nav .logo-sm img { height: 26px; }
+    .bottom-nav .logo-sm span { font-size: .75rem; opacity: .65; }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a class="topbar-logo" href="../index.html">
+        <img src="../assets/logos/logo_2026_W256.webp" alt="CLB Doanh Nhân Quảng Trị">
+        <span style="text-align:center">CLB Doanh Nhân<br>QUẢNG TRỊ</span>
+      </a>
+      <div class="topbar-nav">
+        <a href="../index.html"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="../index.html#about">Giới thiệu</a>
+        <a href="../index.html#team">Doanh nhân</a>
+        <a href="../index.html#recent-posts" class="active"><i class="fas fa-newspaper"></i> Tin tức</a>
+        <a href="../index.html#contact">Liên hệ</a>
+        <a href="../m.html"><i class="fas fa-address-card"></i> Danh bạ</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SLIDER -->
+  <div class="slider-outer">
+  <div class="hero-slider">
+    <div class="swiper" id="heroSwiper">
+      <div class="swiper-wrapper" id="swiperWrapper"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+      <div class="slide-counter"><span id="slideNow">1</span> / <span id="slideTotal">…</span></div>
+    </div>
+  </div>
+  </div><!-- /slider-outer -->
+
+  <!-- ARTICLE -->
+  <div class="article-wrap">
+
+    <div class="article-meta" data-aos="fade-up">
+      <span class="badge-hot"><i class="fas fa-fire"></i> Nổi bật</span>
+      <span class="badge-cat">QTBC</span>
+      <span class="meta-info"><i class="far fa-calendar-alt"></i> 21/3/2026</span>
+      <span class="meta-info"><i class="far fa-user"></i> Văn Lượng</span>
+    </div>
+
+    <h1 class="article-title" data-aos="fade-up">
+      Xây dựng hệ sinh thái doanh nhân Quảng Trị tại TP.HCM:<br>
+      <span>Từ kết nối giao thương đến nền tảng phát triển bền vững</span>
+    </h1>
+
+    <p class="article-lead" data-aos="fade-up">
+      Trong bối cảnh cộng đồng doanh nghiệp ngày càng coi trọng liên kết vùng và mở rộng hệ sinh thái hợp tác, mô hình các câu lạc bộ doanh nhân đồng hương đang cho thấy vai trò thiết thực trong việc kết nối nguồn lực, chia sẻ cơ hội và thúc đẩy tăng trưởng. Tại TP. Hồ Chí Minh — Trung tâm kinh tế năng động nhất cả nước, <strong>Câu lạc bộ Doanh nhân Quảng Trị</strong> đã nhanh chóng trở thành một điểm hội tụ đáng chú ý của cộng đồng doanh nghiệp xa quê.
+    </p>
+
+    <div class="stats-strip" data-aos="fade-up">
+      <div class="stat-item">
+        <span class="num">130</span>
+        <span class="lbl">Hội viên chính thức</span>
+      </div>
+      <div class="stat-item">
+        <span class="num">270 tỷ</span>
+        <span class="lbl">Giá trị giao dịch năm 2025</span>
+      </div>
+      <div class="stat-item">
+        <span class="num">58</span>
+        <span class="lbl">Gian hàng Hội chợ Xuân 2026</span>
+      </div>
+    </div>
+
+    <div class="article-body">
+
+      <p data-aos="fade-up">Dưới đây là những chia sẻ từ <strong>G.S Nguyễn Đặng Hiến</strong> — Chủ tịch Câu lạc bộ (CLB) Doanh nhân Quảng Trị tại TP. Hồ Chí Minh, cho thấy rõ hơn cách một tổ chức non trẻ có thể từng bước định hình vai trò trong hệ sinh thái kinh doanh hiện đại.</p>
+
+      <h2 data-aos="fade-up">Hình thành "điểm tựa" kết nối doanh nhân xa quê</h2>
+      <p data-aos="fade-up">Được thành lập từ tháng 6/2025, CLB Doanh nhân Quảng Trị tại TP. Hồ Chí Minh nhanh chóng quy tụ lực lượng đáng kể với <strong>130 hội viên chính thức</strong> cùng khoảng <strong>370 thành viên</strong> trong mạng lưới mở. Ban điều hành gồm 30 thành viên, vận hành theo nguyên tắc tự nguyện, minh bạch và hướng đến lợi ích chung.</p>
+      <p data-aos="fade-up">Ngay từ đầu, CLB xác định rõ mục tiêu không chỉ dừng ở việc kết nối cộng đồng đồng hương, mà còn đóng vai trò như một <strong>"hạ tầng mềm"</strong> cho hoạt động kinh doanh: từ xúc tiến thương mại, hợp tác đầu tư đến chia sẻ kinh nghiệm và hỗ trợ phát triển nguồn nhân lực.</p>
+      <p data-aos="fade-up">Trong bối cảnh doanh nghiệp vừa và nhỏ chiếm tỷ trọng lớn nhưng thường thiếu nguồn lực tiếp cận thị trường, những nền tảng kết nối như vậy trở thành yếu tố quan trọng giúp giảm chi phí giao dịch, tăng tốc độ tiếp cận đối tác và mở rộng mạng lưới kinh doanh.</p>
+      <p data-aos="fade-up">Không chỉ dừng ở thị trường TP.HCM và khu vực phía Nam, CLB còn duy trì sự gắn kết chặt chẽ với quê nhà Quảng Trị thông qua các hoạt động xã hội, thiện nguyện và xúc tiến thương mại hai chiều — một trong những điểm khác biệt tạo nên giá trị cộng đồng song hành với mục tiêu kinh tế.</p>
+
+      <h2 data-aos="fade-up">Kết quả bước đầu: Từ kết nối đến giá trị giao dịch thực</h2>
+      <p data-aos="fade-up">Dù thời gian hoạt động chưa dài, nhưng những con số bước đầu đã cho thấy hiệu quả rõ nét. Trong hơn 5 tháng hoạt động của năm 2025, CLB đã tổ chức khoảng <strong>300 lượt kết nối giao thương</strong>, với tổng giá trị giao dịch đạt trên <strong>270 tỷ đồng</strong>.</p>
+      <div class="highlight-box" data-aos="fade-up">
+        <p>"Con số này không chỉ phản ánh quy mô hoạt động, mà còn cho thấy khả năng 'chuyển hóa' các mối quan hệ thành giá trị kinh tế cụ thể — điều không phải mô hình kết nối nào cũng đạt được."</p>
+      </div>
+      <p data-aos="fade-up">Thông qua các hoạt động này, hội viên có cơ hội tiếp cận thông tin đầu tư, tìm kiếm đối tác cung ứng, đồng thời mở rộng hợp tác trong nhiều lĩnh vực. Đáng chú ý, CLB còn từng bước tạo cầu nối với các nhà đầu tư và đối tác quốc tế, góp phần nâng cao năng lực cạnh tranh cho doanh nghiệp thành viên.</p>
+      <p data-aos="fade-up">Bên cạnh đó, việc ứng dụng nền tảng số như website, fanpage, ứng dụng riêng để cập nhật thông tin hội viên cũng giúp tăng tính minh bạch và hiệu quả vận hành — một yếu tố quan trọng trong bối cảnh <strong>chuyển đổi số</strong> đang trở thành xu hướng tất yếu.</p>
+
+      <h2 data-aos="fade-up">Hội chợ Xuân 2026: Thử nghiệm thành công mô hình xúc tiến thương mại</h2>
+      <p data-aos="fade-up">Một trong những điểm nhấn đáng chú ý là <strong>Hội chợ Xuân Bính Ngọ 2026</strong> với chủ đề <em>"Khai xuân kết nối — Đồng hành phát triển"</em>, tổ chức ngày 21/3/2026 tại TP.HCM. Sự kiện quy tụ <strong>58 gian hàng</strong>, trong đó có nhiều doanh nghiệp tiêu biểu của Quảng Trị hoạt động ở các lĩnh vực đa dạng như thực phẩm, nông sản, công nghệ, tài chính, bất động sản và dịch vụ.</p>
+      <p data-aos="fade-up">Không chỉ dừng ở trưng bày sản phẩm, hội chợ được thiết kế như một không gian giao thương thực thụ, nơi các doanh nghiệp vừa quảng bá thương hiệu, vừa triển khai các chương trình kích cầu tiêu dùng, đồng thời tìm kiếm đối tác phân phối và đầu tư.</p>
+      <p data-aos="fade-up">Đáng chú ý, nhiều doanh nghiệp từ Quảng Trị đã trực tiếp tham gia, mang theo các sản phẩm đặc trưng như <strong>gạo hữu cơ, cà gai leo, cao an xoa, cao lá vằng</strong>… Điều này góp phần hình thành kênh kết nối thương mại hai chiều giữa địa phương và thị trường phía Nam.</p>
+      <div class="highlight-box" data-aos="fade-up">
+        <p>Dù chỉ diễn ra trong một ngày, hội chợ đã ghi nhận <strong>doanh thu trực tiếp hơn 350 triệu đồng</strong>, cùng hàng trăm lượt kết nối hợp tác tiềm năng. Quan trọng hơn, sự kiện đã chứng minh tính khả thi của mô hình xúc tiến thương mại quy mô nhỏ nhưng hiệu quả cao.</p>
+      </div>
+
+      <h2 data-aos="fade-up">Từ hoạt động riêng lẻ đến hệ sinh thái doanh nghiệp</h2>
+      <p data-aos="fade-up">Nhìn rộng hơn, những gì CLB Doanh nhân Quảng Trị đang xây dựng không chỉ là các hoạt động kết nối đơn lẻ, mà là nền tảng cho một <strong>hệ sinh thái doanh nghiệp</strong>. Trong đó, mỗi hội viên không chỉ là một đơn vị kinh doanh độc lập, mà còn là một "mắt xích" trong chuỗi giá trị chung — nơi thông tin, cơ hội và nguồn lực được chia sẻ và tối ưu hóa.</p>
+      <p data-aos="fade-up">Định hướng này đặc biệt phù hợp trong bối cảnh kinh tế hiện đại, nơi sự cạnh tranh không còn diễn ra giữa các doanh nghiệp đơn lẻ, mà giữa các hệ sinh thái. Những mạng lưới có khả năng kết nối nhanh, linh hoạt và tin cậy sẽ có lợi thế vượt trội.</p>
+
+      <h2 data-aos="fade-up">Kế hoạch 2026: Mở rộng quy mô, nâng cao chất lượng kết nối</h2>
+      <p data-aos="fade-up">Bước sang năm 2026, CLB đặt mục tiêu mở rộng quy mô hội viên, đặc biệt là thu hút các doanh nhân có tiềm năng phát triển và có định hướng hợp tác dài hạn. Song song đó, các hoạt động giao thương định kỳ, tham quan doanh nghiệp và hội thảo chuyên đề sẽ được tổ chức thường xuyên hơn, nhằm tạo điều kiện cho hội viên tiếp xúc trực tiếp, hiểu rõ năng lực của nhau và từ đó hình thành các mối quan hệ hợp tác thực chất.</p>
+      <p data-aos="fade-up">Một điểm đáng chú ý là kế hoạch liên kết với các hiệp hội thương mại tại các trung tâm kinh tế lớn như <strong>Hà Nội, Đà Nẵng, Cần Thơ</strong> — cho thấy tầm nhìn không chỉ giới hạn trong phạm vi cộng đồng đồng hương, mà hướng đến việc tích hợp vào mạng lưới doanh nghiệp rộng lớn hơn trên toàn quốc. Thông qua các hội chợ, triển lãm và hội nghị, doanh nghiệp Quảng Trị sẽ có thêm cơ hội tiếp cận thị trường, nâng cao năng lực cạnh tranh và mở rộng kênh tiêu thụ sản phẩm.</p>
+
+      <h2 data-aos="fade-up">Vai trò của cộng đồng doanh nhân trong phát triển kinh tế địa phương</h2>
+      <p data-aos="fade-up">Một điểm xuyên suốt trong định hướng của CLB là sự gắn kết giữa hoạt động kinh doanh và trách nhiệm với quê hương. Việc duy trì kết nối với Quảng Trị không chỉ mang ý nghĩa tình cảm, mà còn mở ra hướng đi thiết thực trong việc thu hút đầu tư, phát triển sản phẩm địa phương và tạo việc làm.</p>
+      <p data-aos="fade-up">Trong bối cảnh nhiều địa phương đang tìm cách khai thác nguồn lực từ cộng đồng doanh nhân xa quê, mô hình của CLB Doanh nhân Quảng Trị tại TP.HCM có thể xem là một ví dụ điển hình. Không chỉ đóng góp về kinh tế, cộng đồng này còn góp phần lan tỏa tinh thần khởi nghiệp, hỗ trợ thế hệ doanh nhân trẻ và xây dựng hình ảnh một cộng đồng doanh nghiệp đoàn kết, có trách nhiệm.</p>
+
+      <h2 data-aos="fade-up">Hướng đến phát triển bền vững</h2>
+      <p data-aos="fade-up">Từ những kết quả ban đầu, có thể thấy CLB Doanh nhân Quảng Trị tại TP.HCM đang đi đúng hướng trong việc xây dựng một nền tảng kết nối hiệu quả. Tuy nhiên, để phát triển bền vững, tổ chức này sẽ cần tiếp tục nâng cao chất lượng hoạt động, tăng cường tính chuyên nghiệp trong quản trị và mở rộng hợp tác quốc tế.</p>
+      <p data-aos="fade-up">Quan trọng hơn, việc duy trì niềm tin và sự gắn kết giữa các hội viên sẽ là yếu tố quyết định thành công lâu dài. Khi mỗi doanh nhân không chỉ tìm thấy lợi ích kinh tế mà còn cảm nhận được giá trị cộng đồng, hệ sinh thái đó mới thực sự bền vững.</p>
+      <p data-aos="fade-up">Trong bối cảnh nền kinh tế đang chuyển dịch mạnh mẽ theo hướng liên kết và hội nhập, những mô hình như CLB Doanh nhân Quảng Trị tại TP.HCM cho thấy một hướng đi đáng chú ý: <em>bắt đầu từ sự kết nối con người, phát triển thành mạng lưới kinh doanh, và tiến tới xây dựng hệ sinh thái tạo giá trị lâu dài cho cả doanh nghiệp và xã hội.</em></p>
+
+      <p style="text-align:right;font-size:.86rem;color:var(--muted);font-style:italic;margin-top:20px" data-aos="fade-up">— <strong>Văn Lượng</strong></p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- SHARE -->
+    <div class="share-bar" data-aos="fade-up">
+      <span><i class="fas fa-share-alt"></i> Chia sẻ bài viết:</span>
+      <a class="share-btn fb" id="shareF" href="#" target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+      <a class="share-btn zalo" id="shareZ" href="#" target="_blank" rel="noopener">
+        <i class="fas fa-comment-dots"></i> Zalo
+      </a>
+      <button class="share-btn copy" id="copyLink">
+        <i class="fas fa-link"></i> Sao chép link
+      </button>
+    </div>
+
+    <!-- RELATED -->
+    <div class="related-section" data-aos="fade-up">
+      <h3>Tin liên quan</h3>
+      <div class="related-grid">
+        <a class="related-card" href="../index.html#recent-posts">
+          <img src="../assets/background/260321_tannien/xuanbinhngo2026-1.jpg"
+               onerror="this.src='../assets/logos/logo_2026_W512.webp'"
+               alt="Tin tức CLB">
+          <div class="rc-body">
+            <div class="rc-cat">Tin tức CLB</div>
+            <div class="rc-title">Tất cả tin tức &amp; sự kiện của CLB Doanh Nhân Quảng Trị</div>
+          </div>
+        </a>
+        <a class="related-card" href="../m.html">
+          <img src="../assets/logos/logo_2026_W512.webp" alt="Danh bạ doanh nhân">
+          <div class="rc-body">
+            <div class="rc-cat">Danh bạ số</div>
+            <div class="rc-title">Danh bạ doanh nhân — Thẻ NFC &amp; QR đa phương thức</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /article-wrap -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a href="../index.html"><i class="fas fa-arrow-left"></i> Trang chủ</a>
+    <div class="logo-sm">
+      <img src="../assets/logos/logo_2026_W256.webp" alt="CLB DNQT">
+      <span>CLB Doanh Nhân Quảng Trị</span>
+    </div>
+    <a href="../index.html#recent-posts"><i class="fas fa-newspaper"></i> Tất cả tin tức</a>
+  </nav>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Slider — dynamic from manifest.json
+    var MANIFEST_URL = '../assets/background/260321_tannien/post/manifest.json';
+    var BASE_URL     = '../assets/background/260321_tannien/post/';
+
+    function initSwiper(total) {
+      if (typeof Swiper === 'undefined') return;
+      var swiper = new Swiper('#heroSwiper', {
+        loop: true,
+        autoHeight: true,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        speed: 700,
+        pagination: { el: '.swiper-pagination', type: 'progressbar' },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        on: {
+          slideChange: function() {
+            var el = document.getElementById('slideNow');
+            if (el) el.textContent = this.realIndex + 1;
+          }
+        }
+      });
+    }
+
+    fetch(MANIFEST_URL)
+      .then(function(r){ return r.json(); })
+      .then(function(files) {
+        var wrapper = document.getElementById('swiperWrapper');
+        var totalEl = document.getElementById('slideTotal');
+        if (!wrapper) return;
+        files.forEach(function(f, i) {
+          var slide = document.createElement('div');
+          slide.className = 'swiper-slide';
+          if (f.type === 'video') {
+            var v = document.createElement('video');
+            v.src = BASE_URL + f.name;
+            v.setAttribute('muted', '');
+            v.setAttribute('playsinline', '');
+            v.setAttribute('loop', '');
+            v.setAttribute('preload', 'none');
+            v.style.cssText = 'width:100%;height:auto;display:block';
+            slide.appendChild(v);
+          } else {
+            var img = document.createElement('img');
+            img.src = BASE_URL + f.name;
+            img.alt = 'CLB Doanh Nhân Quảng Trị';
+            img.loading = i === 0 ? 'eager' : 'lazy';
+            img.style.cssText = 'width:100%;height:auto;display:block';
+            slide.appendChild(img);
+          }
+          wrapper.appendChild(slide);
+        });
+        if (totalEl) totalEl.textContent = files.length;
+        initSwiper(files.length);
+      })
+      .catch(function() {
+        // fallback: init with whatever slides exist
+        initSwiper(0);
+      });
+
+    // AOS
+    if (typeof AOS !== 'undefined') AOS.init({ duration: 650, once: true, offset: 50 });
+
+    // Share
+    var url = encodeURIComponent(location.href);
+    var title = encodeURIComponent(document.title);
+    document.getElementById('shareF').href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+    document.getElementById('shareZ').href = 'https://zalo.me/share?url=' + url + '&title=' + title;
+    document.getElementById('copyLink').addEventListener('click', function() {
+      var btn = this;
+      navigator.clipboard.writeText(location.href).then(function() {
+        btn.innerHTML = '<i class="fas fa-check"></i> Đã sao chép!';
+        btn.style.cssText += 'background:#28a745;color:#fff;border-color:#28a745';
+        setTimeout(function() {
+          btn.innerHTML = '<i class="fas fa-link"></i> Sao chép link';
+          btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = '';
+        }, 2200);
+      });
+    });
+  </script>
+</body>
+</html>
