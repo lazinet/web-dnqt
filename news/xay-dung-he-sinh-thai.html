@@ -235,6 +235,58 @@
     .bottom-nav .logo-sm { display: flex; align-items: center; gap: 8px; }
     .bottom-nav .logo-sm img { height: 26px; }
     .bottom-nav .logo-sm span { font-size: .75rem; opacity: .65; }
+
+    /* SITE FOOTER */
+    .site-footer {
+      background: #060f1e;
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 28px 20px 20px;
+      text-align: center;
+      font-size: .82rem;
+      color: rgba(255,255,255,.45);
+      line-height: 1.9;
+    }
+    .site-footer .sf-org {
+      font-size: .88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 4px;
+    }
+    .site-footer .sf-org a { color: inherit; text-decoration: none; }
+    .site-footer .sf-org a:hover { color: #fff; }
+    .site-footer .sf-divider {
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: rgba(255,255,255,.15);
+      vertical-align: middle;
+      margin: 6px 0 10px;
+    }
+    .site-footer .sf-credit {
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: center;
+      gap: 6px 16px;
+      font-size: .78rem;
+      color: rgba(255,255,255,.35);
+    }
+    .site-footer .sf-credit a { color: rgba(255,255,255,.45); text-decoration: none; transition: .2s; }
+    .site-footer .sf-credit a:hover { color: #fff; }
+    .site-footer .sf-lazinet {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(241,94,34,.12);
+      border: 1px solid rgba(241,94,34,.25);
+      border-radius: 20px;
+      padding: 3px 12px 3px 8px;
+      color: rgba(241,94,34,.8);
+      font-size: .76rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: .2s;
+    }
+    .site-footer .sf-lazinet:hover {
+      background: rgba(241,94,34,.22);
+      color: #f15e22;
+    }
+    .site-footer .sf-lazinet img { height: 16px; opacity: .8; }
   </style>
 </head>
 <body>
@@ -252,7 +304,6 @@
         <a href="../index.html#team">Doanh nhân</a>
         <a href="../index.html#recent-posts" class="active"><i class="fas fa-newspaper"></i> Tin tức</a>
         <a href="../index.html#contact">Liên hệ</a>
-        <a href="../m.html"><i class="fas fa-address-card"></i> Danh bạ</a>
       </div>
     </div>
   </nav>
@@ -379,11 +430,11 @@
             <div class="rc-title">Tất cả tin tức &amp; sự kiện của CLB Doanh Nhân Quảng Trị</div>
           </div>
         </a>
-        <a class="related-card" href="../m.html">
-          <img src="../assets/logos/logo_2026_W512.webp" alt="Danh bạ doanh nhân">
+        <a class="related-card" href="../hdsd-nfc-lazinet.html">
+          <img src="../assets/img/others/nfc-logo.jpg" alt="Hướng dẫn sử dụng thẻ NFC">
           <div class="rc-body">
-            <div class="rc-cat">Danh bạ số</div>
-            <div class="rc-title">Danh bạ doanh nhân — Thẻ NFC &amp; QR đa phương thức</div>
+            <div class="rc-cat">Công nghệ</div>
+            <div class="rc-title">Hướng dẫn sử dụng thẻ danh thiếp NFC &amp; QR</div>
           </div>
         </a>
       </div>
@@ -400,6 +451,25 @@
     </div>
     <a href="../index.html#recent-posts"><i class="fas fa-newspaper"></i> Tất cả tin tức</a>
   </nav>
+
+  <footer class="site-footer">
+    <div class="sf-org">
+      <a href="../index.html">CLB Doanh Nhân Quảng Trị</a>
+      &nbsp;—&nbsp; Ban Truyền thông &amp; Công nghệ thông tin
+    </div>
+    <div class="sf-divider"></div>
+    <div class="sf-credit">
+      <span>© 2025–<script>document.write(new Date().getFullYear())</script> qtbc.vn. All Rights Reserved.</span>
+      <span>Biên tập &amp; sản xuất nội dung: <strong style="color:rgba(255,255,255,.55)">Ban Truyền thông</strong></span>
+      <span>Hotline hỗ trợ: <a href="tel:0908556220">0908 556 220</a></span>
+    </div>
+    <div style="margin-top:14px">
+      <a class="sf-lazinet" href="https://lazinet.com/lazinet-support-pricing.html" target="_blank" rel="noopener">
+        <img src="../assets/img/logo-lazinet/lazinet_LogoOnly.ico" alt="LAZINET">
+        Hạ tầng số &amp; Công nghệ Truyền thông bởi LAZINET
+      </a>
+    </div>
+  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>

@@ -674,22 +674,42 @@
 
 
 <!-- BÀI HOT NỔI BẬT -->
+<style>
+.hac{display:flex;flex-direction:row;gap:0;border-radius:14px;overflow:hidden;text-decoration:none;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.10);border:1px solid #e9ecef;transition:box-shadow .2s,transform .2s}
+.hac:hover{box-shadow:0 8px 36px rgba(0,0,0,.16);transform:translateY(-3px)}
+.hac-thumb{flex:0 0 340px;max-width:340px;overflow:hidden}
+.hac-thumb img{width:100%;height:220px;object-fit:cover;display:block;transition:transform .4s}
+.hac:hover .hac-thumb img{transform:scale(1.04)}
+.hac-body{flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.hac-tags{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hac-badge-hot{background:#F15E22;color:#fff;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em}
+.hac-badge-cat{background:#19658F;color:#fff;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:20px}
+.hac-date{font-size:.8rem;color:#6c757d}
+.hac-title{font-family:'Source Sans Pro',sans-serif;font-size:1.2rem;font-weight:800;color:#0A3161;line-height:1.35;margin:0}
+.hac-desc{font-size:.88rem;color:#6c757d;margin:0;line-height:1.6}
+.hac-cta{display:inline-flex;align-items:center;gap:6px;color:#F15E22;font-weight:600;font-size:.88rem;margin-top:4px}
+@media(max-width:640px){
+  .hac{flex-direction:column}
+  .hac-thumb{flex:none;max-width:100%}
+  .hac-thumb img{height:200px}
+  .hac-body{padding:16px 18px;gap:8px}
+  .hac-title{font-size:1.05rem}
+}
+</style>
 <div class="container mb-4" data-aos="fade-up">
-  <a href="news/xay-dung-he-sinh-thai.html" class="hot-article-card" style="display:flex;gap:0;border-radius:14px;overflow:hidden;text-decoration:none;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.10);border:1px solid #e9ecef;transition:box-shadow .2s,transform .2s" onmouseover="this.style.boxShadow='0 8px 36px rgba(0,0,0,.16)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='0 4px 24px rgba(0,0,0,.10)';this.style.transform='translateY(0)'">
-    <div style="flex:0 0 340px;max-width:340px;overflow:hidden">
-      <img src="assets/background/260321_tannien/post/000_top07.webp" alt="Hội chợ Xuân Bính Ngọ 2026" style="width:100%;height:220px;object-fit:cover;display:block;transition:transform .4s" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+  <a href="news/xay-dung-he-sinh-thai.html" class="hac">
+    <div class="hac-thumb">
+      <img src="assets/background/260321_tannien/post/000_top07.webp" alt="Hội chợ Xuân Bính Ngọ 2026">
     </div>
-    <div style="flex:1;padding:24px 28px;display:flex;flex-direction:column;justify-content:center;gap:10px">
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <span style="background:#F15E22;color:#fff;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em">🔥 NỔI BẬT</span>
-        <span style="background:#19658F;color:#fff;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:20px">Cộng đồng doanh nhân</span>
-        <span style="font-size:.8rem;color:#6c757d"><i class="bi bi-calendar3"></i> 21/03/2026</span>
+    <div class="hac-body">
+      <div class="hac-tags">
+        <span class="hac-badge-hot">🔥 NỔI BẬT</span>
+        <span class="hac-badge-cat">Cộng đồng doanh nhân</span>
+        <span class="hac-date"><i class="bi bi-calendar3"></i> 21/03/2026</span>
       </div>
-      <h3 style="font-family:'Source Sans Pro',sans-serif;font-size:1.2rem;font-weight:800;color:#0A3161;line-height:1.35;margin:0">Xây dựng hệ sinh thái doanh nhân Quảng Trị tại TP.HCM: Từ kết nối giao thương đến nền tảng phát triển bền vững</h3>
-      <p style="font-size:.88rem;color:#6c757d;margin:0;line-height:1.6">130 hội viên chính thức, 270 tỷ đồng giá trị giao dịch, Hội chợ Xuân Bính Ngọ 2026 với 58 gian hàng — câu chuyện về mô hình kết nối đang tạo ra giá trị kinh tế thực tế...</p>
-      <div style="margin-top:4px">
-        <span style="display:inline-flex;align-items:center;gap:6px;color:#F15E22;font-weight:600;font-size:.88rem">Đọc toàn bộ bài viết <i class="bi bi-arrow-right-circle-fill"></i></span>
-      </div>
+      <h3 class="hac-title">Xây dựng hệ sinh thái doanh nhân Quảng Trị tại TP.HCM: Từ kết nối giao thương đến nền tảng phát triển bền vững</h3>
+      <p class="hac-desc">130 hội viên chính thức, 270 tỷ đồng giá trị giao dịch, Hội chợ Xuân Bính Ngọ 2026 với 58 gian hàng — câu chuyện về mô hình kết nối đang tạo ra giá trị kinh tế thực tế...</p>
+      <span class="hac-cta">Đọc toàn bộ bài viết <i class="bi bi-arrow-right-circle-fill"></i></span>
     </div>
   </a>
 </div>
