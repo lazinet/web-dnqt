@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HATHYO chính thức ra mắt sàn TMĐT "Vui khỏe & Thịnh vượng" | CLB Doanh Nhân Quảng Trị</title>
+<title>HATHYO chính thức ra mắt sàn TMĐT "Vui Khỏe & Thịnh Vượng" | CLB Doanh Nhân Quảng Trị</title>
 <meta name="description" content="Ngày 06/06/2026 tại Hoa viên Tri Kỷ (TP.HCM), Công ty TNHH Cuộc Sống Vui Khỏe chính thức ra mắt sàn thương mại điện tử HATHYO theo mô hình cộng sinh ba bên đầu tiên tại Việt Nam, với sự đồng hành của CLB Doanh Nhân Quảng Trị cùng các đối tác chiến lược Viettel IDC, Ahamove, Giao Hàng Tiết Kiệm, VietinBank.">
 <meta name="keywords" content="HATHYO, sàn thương mại điện tử, Vui khỏe và Thịnh vượng, CLB Doanh Nhân Quảng Trị, Cuộc Sống Vui Khỏe, ra mắt sàn TMĐT, Hàng tận gốc Lộc tận tay">
 <meta name="author" content="Ban Truyền thông — CLB Doanh Nhân Quảng Trị">
@@ -12,7 +12,7 @@
 <link rel="icon" type="image/x-icon" href="img/logos/favicon.ico">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HATHYO chính thức ra mắt: sàn thương mại điện tử &quot;Vui khỏe &amp; Thịnh vượng&quot; theo mô hình cộng sinh ba bên đầu tiên tại Việt Nam">
-<meta property="og:description" content="Ngày 06/06/2026 tại Hoa viên Tri Kỷ, TP.HCM — HATHYO công bố slogan &quot;Hàng tận gốc – Lộc tận tay&quot;, cùng sự đồng hành của CLB Doanh Nhân Quảng Trị và các đối tác chiến lược Viettel IDC, Ahamove, Giao Hàng Tiết Kiệm, VietinBank.">
+<meta property="og:description" content="Ngày 06/06/2026 tại Hoa viên Tri Kỷ, TP.HCM — HATHYO công bố chiến dịch &quot;Hàng tận gốc – Lộc tận tay&quot;, cùng sự đồng hành của CLB Doanh Nhân Quảng Trị và các đối tác chiến lược Viettel IDC, Ahamove, Giao Hàng Tiết Kiệm, VietinBank.">
 <meta property="og:image" content="img/260606/G13_Kh%C3%A1ch%20m%E1%BB%9Di%20Ch%C3%BAc%20m%E1%BB%ABng.jpg">
 <meta property="og:locale" content="vi_VN">
 <meta property="og:site_name" content="CLB Doanh Nhân Quảng Trị">
@@ -48,7 +48,7 @@
     padding:10px 18px; border-radius:14px;
     box-shadow:0 4px 18px rgba(0,0,0,0.25);
   }
-  .tagline{ color:var(--sub); font-size:13px; letter-spacing:2px; text-transform:uppercase; }
+  .tagline{ color:var(--sub); font-size:13px; letter-spacing:2px; text-transform:uppercase; margin-top:8px; }
   .release-tag{
     display:inline-block; border:1px solid var(--green); color:var(--green);
     font-size:12px; letter-spacing:2px; text-transform:uppercase;
@@ -67,6 +67,22 @@
     border-left:3px solid var(--green); background:rgba(67,160,69,0.06);
     border-radius:0 10px 10px 0; margin-bottom:34px;
   }
+  .lede.gold{ border-left-color:var(--gold); background:rgba(255,215,0,0.06); }
+
+  .brand-row{
+    display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+    gap:10px 14px; margin:18px 0; padding:0; list-style:none;
+  }
+  .brand-chip{
+    display:inline-flex; align-items:center; gap:9px;
+    background:rgba(255,255,255,0.05); border:1px solid var(--border);
+    border-radius:999px; padding:5px 16px 5px 5px;
+  }
+  .brand-chip img{
+    width:32px; height:32px; border-radius:50%; object-fit:contain;
+    background:#fff; padding:3px; flex:none;
+  }
+  .brand-chip span{ font-size:14px; font-weight:700; color:var(--gpale); letter-spacing:0.3px; }
 
   /* ---- Album sự kiện ---- */
   .album{
@@ -102,12 +118,21 @@
     color:var(--gpale); font-size:12px; padding:5px 12px; border-radius:999px;
     border:1px solid rgba(255,255,255,0.12);
   }
-  .album-dots{ display:flex; justify-content:center; gap:7px; padding:12px 0 4px; flex-wrap:wrap; }
-  .album-dots span{
-    width:8px; height:8px; border-radius:50%; background:var(--border); cursor:pointer;
-    transition:background .15s, transform .15s;
+  .album-progress{
+    position:relative; height:7px; margin:14px 10px 4px; border-radius:999px;
+    background:var(--border); cursor:pointer;
   }
-  .album-dots span.active{ background:var(--green); transform:scale(1.3); }
+  .album-progress-fill{
+    position:absolute; top:0; left:0; height:100%; min-width:7px;
+    background:linear-gradient(90deg,var(--green),var(--cs));
+    border-radius:999px; transition:width .25s ease;
+  }
+  .album-progress-knob{
+    position:absolute; top:50%; width:14px; height:14px; margin-left:-7px;
+    background:#fff; border:2px solid var(--green); border-radius:50%;
+    box-shadow:0 1px 4px rgba(0,0,0,0.4); transform:translateY(-50%);
+    transition:left .25s ease;
+  }
   .album-hint{ text-align:center; color:var(--sub); font-size:12px; margin-top:6px; }
 
   h2{
@@ -181,18 +206,19 @@
   }
 
   .contact-strip{
-    margin-top:30px; display:flex; flex-wrap:wrap; align-items:center; gap:18px; font-size:13px; color:var(--gpale);
-    border-top:1px solid var(--border); padding-top:18px;
+    margin-top:30px; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:18px; font-size:13px; color:var(--gpale);
+    border-top:1px solid var(--border); padding-top:18px; text-align:center;
   }
   .contact-strip span b{ color:var(--green); }
   .qr-block{
-    margin-left:auto; display:flex; align-items:center; gap:10px;
+    width:100%; margin-top:14px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:10px; text-align:center;
   }
   .qr-block img{
-    width:108px; height:108px; border-radius:12px; background:#fff;
-    padding:8px; box-shadow:0 4px 18px rgba(0,0,0,0.25);
+    width:160px; height:160px; border-radius:14px; background:#fff;
+    padding:10px; box-shadow:0 4px 18px rgba(0,0,0,0.25);
   }
-  .qr-block i{ font-style:normal; color:var(--sub); max-width:100px; line-height:1.4; font-size:13px; }
+  .qr-block i{ font-style:normal; color:var(--sub); max-width:none; line-height:1.4; font-size:13px; }
 
   @media (max-width:680px){
     h1.headline{ font-size:26px; }
@@ -209,10 +235,10 @@
       <img class="brand-logo" src="img/logos/HathyoV1_Rectangle_Full.png" alt="HATHYO">
       <div class="tagline">Nơi hội tụ Vui khỏe &amp; Thịnh vượng · hathyo.com</div>
     </div>
-    <div class="tagline" style="text-align:right">Công ty TNHH Cuộc Sống Vui Khỏe<br>TP. Hồ Chí Minh</div>
+    <div class="tagline" style="text-align:right; font-weight:800;">Công ty TNHH Cuộc Sống Vui Khỏe<br>TP. Hồ Chí Minh<br>KHAI TRƯƠNG 06/06/2026</div>
   </div>
 
-  <span class="release-tag">Thông cáo báo chí · Đăng tải ngay</span>
+  <span class="release-tag">TIN TỨC CLB · SỰ KIỆN DOANH NGHIỆP THÀNH VIÊN</span>
 
   <h1 class="headline">HATHYO chính thức ra mắt: sàn thương mại điện tử <span class="accent">"Vui khỏe &amp; Thịnh vượng"</span> theo mô hình cộng sinh ba bên đầu tiên tại Việt Nam</h1>
 
@@ -221,7 +247,26 @@
   </div>
 
   <div class="lede">
-    Sự kiện quy tụ đại diện các cơ quan, đối tác chiến lược — <strong>Viettel IDC, Ahamove, Giao Hàng Tiết Kiệm, VietinBank</strong> — cùng Câu lạc bộ Doanh nhân Quảng Trị (CLB DNQT) và đông đảo doanh nghiệp, nhà cung cấp, khách mời. Tại đây, HATHYO công bố slogan <strong>"Hàng tận gốc – Lộc tận tay"</strong> và sứ mệnh: <em>"Biến chi phí tiêu dùng hàng ngày thành nguồn thu nhập bền vững cho mọi người dân Việt Nam."</em>
+    Sự kiện quy tụ đại diện các cơ quan, đối tác chiến lược — <strong>Trung tâm Xúc tiến Thương mại Tỉnh Quảng Trị (IPA), CLB Doanh nhân Quảng Trị (QTBC), Hội CSV BKHN-TSN, Trường ĐH Công thương TP. HCM (HUIT), Viettel IDC, Ahamove, Giao Hàng Tiết Kiệm, VietinBank</strong> — cùng đông đảo doanh nghiệp, nhà cung cấp, khách mời. Tại đây, HATHYO công bố chiến dịch <strong>"Hàng tận gốc – Lộc tận tay"</strong> và sứ mệnh: <em>"Biến chi phí tiêu dùng hàng ngày thành nguồn thu nhập bền vững cho mọi người dân Việt Nam."</em>
+  </div>
+
+  <div class="lede gold">
+    Đặc biệt, sự kiện còn ghi dấu ấn đẹp của tinh thần <strong>"Doanh nhân đồng hành cùng Doanh nhân"</strong>, khi nhận được sự hợp tác ban đầu và tài trợ quý báu đến từ chính các nhãn hàng do hội viên CLB Doanh Nhân Quảng Trị sáng lập và điều hành:
+
+    <div class="brand-row">
+      <span class="brand-chip"><img src="../members/A001/bidrico_H128.webp" alt="BIDRICO" loading="lazy"><span>BIDRICO</span></span>
+      <span class="brand-chip"><img src="../members/A053/logo_w256.webp" alt="BRULE COFFEE" loading="lazy"><span>BRULE COFFEE</span></span>
+      <span class="brand-chip"><img src="../members/A087/cropped-Logo-forganic-green (1)_w256.webp" alt="FORGANIC" loading="lazy"><span>FORGANIC</span></span>
+      <span class="brand-chip"><img src="../members/A020/non-son-square-full.png" alt="NÓN SƠN" loading="lazy"><span>NÓN SƠN</span></span>
+      <span class="brand-chip"><img src="https://hathyo.com/_next/image?url=https%3A%2F%2Fd134sx875xrex2.cloudfront.net%2FdiAx8PDlyG_449699152_907534114749602_5188284105960851389_n.jpg&amp;w=128&amp;q=100" alt="NHẬT CHI FOOD" loading="lazy"><span>NHẬT CHI FOOD</span></span>
+      <span class="brand-chip"><img src="../members/A029/7a6b3a69-6d79-4191-9b47-45b9addd184e_w256.webp" alt="TRẦN LAN" loading="lazy"><span>TRẦN LAN</span></span>
+      <span class="brand-chip"><img src="../members/A028/logo2_w256.webp" alt="VƯƠNG ANH QUỐC" loading="lazy"><span>VƯƠNG ANH QUỐC</span></span>
+      <span class="brand-chip"><img src="../members/A040/ff3afa64-08be-4e4c-8d6a-c73c4a3f4081_w256.webp" alt="RƯỢU TRƯỜNG CHINH" loading="lazy"><span>RƯỢU TRƯỜNG CHINH</span></span>
+      <span class="brand-chip"><img src="../members/A024/Screenshot 2026-03-18 130140_w256.webp" alt="AN PHÁT" loading="lazy"><span>AN PHÁT</span></span>
+      <span class="brand-chip"><img src="../members/A019/logo2_w256.webp" alt="MỘC THỦY TỬU" loading="lazy"><span>MỘC THỦY TỬU</span></span>
+    </div>
+
+    Đây chính là minh chứng sống động và đầy tự hào cho sức mạnh của sự kết nối trong CLB — khi các hội viên không chỉ ủng hộ về tinh thần mà còn đồng hành thực chất bằng sản phẩm, thương hiệu và uy tín của chính mình, cùng chung tay lan tỏa giá trị <strong>"Hàng tận gốc – Lộc tận tay"</strong> đến với cộng đồng.
   </div>
 
   <!-- ===== Album sự kiện 06/06/2026 ===== -->
@@ -233,8 +278,11 @@
     <div class="album-stage" id="albumStage">
       <div class="album-empty">Album đang được cập nhật.<br>Ảnh và video sự kiện sẽ được bổ sung vào thư mục <code>img/260606/</code>.</div>
     </div>
-    <div class="album-dots" id="albumDots"></div>
-    <div class="album-hint">Dùng mũi tên ◀ ▶ hoặc chấm tròn để chuyển — album không tự động chuyển để không làm gián đoạn khi bạn đang xem video.</div>
+    <div class="album-progress" id="albumProgress">
+      <div class="album-progress-fill" id="albumProgressFill"></div>
+      <div class="album-progress-knob" id="albumProgressKnob"></div>
+    </div>
+    <div class="album-hint">Dùng mũi tên ◀ ▶ hoặc kéo/chạm vào thanh tiến trình để chuyển — album không tự động chuyển để không làm gián đoạn khi bạn đang xem video.</div>
   </div>
 
   <!-- Q1: market origin -->
@@ -261,7 +309,7 @@
     Khác với các sàn thương mại điện tử phổ biến hiện nay — vận hành theo logic "sàn thu phí cố định, người bán gánh chi phí quảng cáo, người mua trả giá" — HATHYO theo đuổi triết lý <strong>cộng sinh</strong>: người tiêu dùng, nhà cung cấp/nhà bán hàng (NCC/NBB) và nhà đầu tư/leader cùng thắng, cùng phát triển bền vững. Những điểm khác biệt nổi bật được giới thiệu tại lễ ra mắt gồm:
   </p>
   <ul>
-    <li><strong>Tập trung vào hàng thiết yếu, không chạy theo trend:</strong> bốn lĩnh vực cốt lõi — Dinh dưỡng, Vận động, Tinh thần, Hỗ trợ sức khỏe — với các nhóm sản phẩm "hết lại mua, cần lại dùng" như gạo sạch, nước mắm cốt, nông sản, đặc sản OCOP, FMCG thiết yếu… có sức chống chịu tốt trước biến động thị trường.</li>
+    <li><strong>Tập trung vào hàng thiết yếu, không chạy theo trend:</strong> bốn lĩnh vực cốt lõi — Dinh dưỡng, Vận động, Tinh thần, Hỗ trợ sức khỏe cũng như hàng hóa tiêu dùng thường ngày — với các nhóm sản phẩm "hết lại mua, cần lại dùng" như gạo sạch, nước mắm cốt, nông sản, đặc sản OCOP, FMCG thiết yếu… có sức chống chịu tốt trước biến động thị trường.</li>
     <li><strong>Mô hình giá minh bạch P0 → P4:</strong> toàn bộ dòng tiền từ giá niêm yết gốc đến số tiền nhà bán thực nhận đều được công khai theo công thức rõ ràng. Nhà bán <span class="hl">không trả phí cố định</span> — phí dịch vụ sàn chỉ tính theo % trên giá bán cơ sở (tối thiểu 2.000đ/đơn) và <span class="hl">chỉ thu khi đơn hàng thành công</span>; tiền bán hàng được chuyển trong vòng 10 ngày làm việc.</li>
     <li><strong>Lan tỏa bằng uy tín cộng đồng, không "đốt tiền" quảng cáo:</strong> thay vì buộc nhà bán phải chi thêm 20–40% cho quảng cáo như các sàn truyền thống, HATHYO khuyến khích việc chia sẻ trải nghiệm sản phẩm chất lượng và dịch vụ tận tâm thông qua uy tín của chính các thành viên trong mạng lưới tiêu dùng — để sản phẩm tốt được lan tỏa một cách tự nhiên và đáng tin cậy.</li>
     <li><strong>Hệ sinh thái đối tác chiến lược hàng đầu:</strong> hạ tầng điện toán đám mây từ Viettel IDC (cam kết uptime ≥ 99%), giao vận từ Ahamove và Giao Hàng Tiết Kiệm, cổng thanh toán — bảo lãnh giao dịch từ VietinBank, đảm bảo trải nghiệm mua – bán – giao nhận nhanh chóng và an toàn.</li>
@@ -335,7 +383,7 @@
     <img src="img/logos/HATHYO-VK-TV.png" alt="HATHYO — Sàn TMĐT Vui Khỏe & Thịnh Vượng" class="about-stamp">
     <h3>Giới thiệu về HATHYO</h3>
     <p>
-      HATHYO là sàn thương mại điện tử "Vui khỏe &amp; Thịnh vượng" thuộc sở hữu của Công ty TNHH Cuộc Sống Vui Khỏe, vận hành theo mô hình cộng sinh Win-Win-Win giữa người tiêu dùng, nhà cung cấp/nhà bán hàng và nhà đầu tư/leader. Tên gọi HATHYO là viết tắt của ba giá trị cốt lõi: <strong>HA</strong> – Happy (niềm vui, hạnh phúc trong cuộc sống), <strong>THY</strong> – Healthy (lành mạnh, sức khỏe thể chất &amp; tinh thần), và <strong>O</strong> – You (người dùng là trung tâm). Với slogan <strong>"Hàng tận gốc – Lộc tận tay"</strong> và sứ mệnh "Biến chi phí tiêu dùng hàng ngày thành nguồn thu nhập bền vững cho mọi người dân Việt Nam", HATHYO tập trung vào bốn lĩnh vực cốt lõi: Dinh dưỡng, Vận động, Tinh thần và Hỗ trợ sức khỏe.
+      HATHYO là sàn thương mại điện tử "Vui khỏe &amp; Thịnh vượng" thuộc sở hữu của Công ty TNHH Cuộc Sống Vui Khỏe, vận hành theo mô hình cộng sinh Win-Win-Win giữa người tiêu dùng, nhà cung cấp/nhà bán hàng và nhà đầu tư/leader. Tên gọi HATHYO là viết tắt của ba giá trị cốt lõi: <strong>HA</strong> – Happy (niềm vui, hạnh phúc trong cuộc sống), <strong>THY</strong> – Healthy (lành mạnh, sức khỏe thể chất &amp; tinh thần), và <strong>O</strong> – You (người dùng là trung tâm). Với chiến dịch <strong>"Hàng tận gốc – Lộc tận tay"</strong> và sứ mệnh "Biến chi phí tiêu dùng hàng ngày thành nguồn thu nhập bền vững cho mọi người dân Việt Nam", HATHYO tập trung vào bốn lĩnh vực cốt lõi: Dinh dưỡng, Vận động, Tinh thần và Hỗ trợ sức khỏe, cũng như các nhóm ngành hàng tiêu dùng thường ngày.
     </p>
   </div>
 
@@ -360,7 +408,7 @@
   */
   var ALBUM_MEDIA = [
     // AUTO-GENERATED:BEGIN — duoc ghi de boi press_release_update_media.py, khong sua tay trong vung nay
-        { type:'video', src:'img/260606/A0_HATHYO - Sàn TMĐT Vui khỏe & Thịnh vượng.mp4', caption:'HATHYO - Sàn TMĐT Vui khỏe & Thịnh vượng' },
+        { type:'video', src:'img/260606/A0_HATHYO - Sàn TMĐT Vui khỏe & Thịnh vượng.mp4', caption:'HATHYO - Sàn TMĐT Vui Khỏe & Thịnh Vượng' },
         { type:'image', src:'img/260606/A1_Ông Hoàng Minh Phụng - GĐ Công ty - Chia sẻ về HATHYO.jpg', caption:'Ông Hoàng Minh Phụng - GĐ Công ty - Chia sẻ về HATHYO' },
         { type:'image', src:'img/260606/A2_Ông Hoàng Minh Phụng - GĐ Công ty - Chia sẻ về HATHYO.jpg', caption:'Ông Hoàng Minh Phụng - GĐ Công ty - Chia sẻ về HATHYO' },
         { type:'image', src:'img/260606/A3_Ông Hoàng Minh Phụng - GĐ Công ty - Chia sẻ về HATHYO.jpg', caption:'Ông Hoàng Minh Phụng - GĐ Công ty - Chia sẻ về HATHYO' },
@@ -405,7 +453,9 @@
   ];
 
   var stage = document.getElementById('albumStage');
-  var dotsBox = document.getElementById('albumDots');
+  var progress = document.getElementById('albumProgress');
+  var progressFill = document.getElementById('albumProgressFill');
+  var progressKnob = document.getElementById('albumProgressKnob');
   var counter = document.getElementById('albumCounter');
   if (!stage || !ALBUM_MEDIA.length) return;
 
@@ -446,9 +496,9 @@
       stage.appendChild(next);
     }
     counter.textContent = (idx + 1) + ' / ' + ALBUM_MEDIA.length;
-    Array.prototype.forEach.call(dotsBox.children, function(d, i){
-      d.classList.toggle('active', i === idx);
-    });
+    var pct = ALBUM_MEDIA.length > 1 ? (idx / (ALBUM_MEDIA.length - 1)) * 100 : 100;
+    progressFill.style.width = ((idx + 1) / ALBUM_MEDIA.length * 100) + '%';
+    progressKnob.style.left = pct + '%';
   }
 
   function go(n){
@@ -459,11 +509,24 @@
     render();
   }
 
-  ALBUM_MEDIA.forEach(function(_, i){
-    var dot = document.createElement('span');
-    dot.onclick = function(){ go(i); };
-    dotsBox.appendChild(dot);
-  });
+  function seekToEvent(e){
+    var rect = progress.getBoundingClientRect();
+    var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    var ratio = Math.min(1, Math.max(0, x / rect.width));
+    go(Math.round(ratio * (ALBUM_MEDIA.length - 1)));
+  }
+
+  if (ALBUM_MEDIA.length > 1){
+    var dragging = false;
+    progress.addEventListener('mousedown', function(e){ dragging = true; seekToEvent(e); });
+    window.addEventListener('mousemove', function(e){ if (dragging) seekToEvent(e); });
+    window.addEventListener('mouseup', function(){ dragging = false; });
+    progress.addEventListener('touchstart', function(e){ dragging = true; seekToEvent(e); });
+    progress.addEventListener('touchmove', function(e){ if (dragging) seekToEvent(e); });
+    progress.addEventListener('touchend', function(){ dragging = false; });
+  } else {
+    progress.style.cursor = 'default';
+  }
 
   render();
 })();
