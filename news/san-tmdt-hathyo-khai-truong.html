@@ -10,6 +10,7 @@
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#43A047">
 <link rel="icon" type="image/x-icon" href="img/logos/favicon.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HATHYO chính thức ra mắt: sàn thương mại điện tử &quot;Vui khỏe &amp; Thịnh vượng&quot; theo mô hình cộng sinh ba bên đầu tiên tại Việt Nam">
 <meta property="og:description" content="Ngày 06/06/2026 tại Hoa viên Tri Kỷ, TP.HCM — HATHYO công bố chiến dịch &quot;Hàng tận gốc – Lộc tận tay&quot;, cùng sự đồng hành của CLB Doanh Nhân Quảng Trị và các đối tác chiến lược Viettel IDC, Ahamove, Giao Hàng Tiết Kiệm, VietinBank.">
@@ -31,7 +32,52 @@
     font-family:'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif;
     line-height:1.7;
   }
-  .page{ max-width:880px; margin:0 auto; padding:48px 28px 90px; }
+  .page{ position:relative; z-index:1; max-width:880px; margin:0 auto; padding:48px 28px 90px; }
+
+  /* ── TOPBAR — điều hướng về site CLB ── */
+  .topbar{
+    position:sticky; top:0; z-index:50; background:var(--panel); border-bottom:1px solid var(--border);
+    padding:10px 0; box-shadow:0 2px 14px rgba(0,0,0,.35);
+  }
+  .topbar-inner{
+    max-width:880px; margin:0 auto; padding:6px 22px;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .topbar-logo{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .topbar-logo img{ height:32px; }
+  .topbar-logo span{ color:#fff; font-family:'Be Vietnam Pro',sans-serif; font-weight:600; font-size:.8rem; line-height:1.25; }
+  .topbar-nav{ display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; }
+  .topbar-nav a{
+    color:var(--sub); text-decoration:none; font-size:.76rem;
+    padding:4px 12px; border-radius:20px; border:1px solid var(--border);
+    transition:.2s; white-space:nowrap;
+  }
+  .topbar-nav a:hover, .topbar-nav a.active{
+    background:var(--green); border-color:var(--green); color:#fff;
+  }
+  @media (min-width:640px){
+    .topbar-inner{ flex-direction:row; justify-content:space-between; }
+    .topbar-nav{ justify-content:flex-end; }
+  }
+
+  /* ---- Hiệu ứng nền lung linh — chúc mừng ra mắt ---- */
+  .fx-layer{ position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fx-bokeh{
+    position:absolute; border-radius:50%; filter:blur(22px);
+    opacity:.28; animation:fxFloat ease-in-out infinite;
+  }
+  .fx-spark{
+    position:absolute; border-radius:50%; background:#fff;
+    box-shadow:0 0 7px 1.5px currentColor; animation:fxTwinkle ease-in-out infinite;
+  }
+  @keyframes fxFloat{
+    0%, 100% { transform:translate(0,0); }
+    50%      { transform:translate(22px,-50px); }
+  }
+  @keyframes fxTwinkle{
+    0%, 100% { opacity:.12; transform:scale(.6); }
+    50%      { opacity:1;   transform:scale(1.2); }
+  }
 
   .masthead{
     display:flex; justify-content:space-between; align-items:center;
@@ -228,6 +274,24 @@
 </style>
 </head>
 <body>
+<div class="fx-layer" id="fxLayer"></div>
+
+<nav class="topbar">
+  <div class="topbar-inner">
+    <a class="topbar-logo" href="../index.html">
+      <img src="../assets/logos/logo_2026_W256.webp" alt="CLB Doanh Nhân Quảng Trị">
+      <span style="text-align:center">CLB Doanh Nhân<br>QUẢNG TRỊ</span>
+    </a>
+    <div class="topbar-nav">
+      <a href="../index.html"><i class="fas fa-home"></i> Trang chủ</a>
+      <a href="../index.html#about">Giới thiệu</a>
+      <a href="../index.html#team">Doanh nhân</a>
+      <a href="../index.html#recent-posts" class="active"><i class="fas fa-newspaper"></i> Tin tức</a>
+      <a href="../index.html#contact">Liên hệ</a>
+    </div>
+  </div>
+</nav>
+
 <div class="page">
 
   <div class="masthead">
@@ -235,7 +299,7 @@
       <img class="brand-logo" src="img/logos/HathyoV1_Rectangle_Full.png" alt="HATHYO">
       <div class="tagline">Nơi hội tụ Vui khỏe &amp; Thịnh vượng · hathyo.com</div>
     </div>
-    <div class="tagline" style="text-align:right; font-weight:800;">Công ty TNHH Cuộc Sống Vui Khỏe<br>TP. Hồ Chí Minh<br>KHAI TRƯƠNG 06/06/2026</div>
+    <div class="tagline" style="text-align:right; font-weight:800;">Công ty TNHH Cuộc Sống Vui Khỏe<br>TP. Hồ Chí Minh<br>KHAI TRƯƠNG 06/06/2026<br>(HATHYO-666)</div>
   </div>
 
   <span class="release-tag">TIN TỨC CLB · SỰ KIỆN DOANH NGHIỆP THÀNH VIÊN</span>
@@ -364,7 +428,7 @@
     Với mô hình cộng sinh ba bên, cơ chế giá minh bạch và hệ thống tự động tuân thủ pháp luật hiện hành (nghĩa vụ thuế thương mại điện tử, bảo vệ dữ liệu cá nhân theo Nghị định 13/2023/NĐ-CP…), HATHYO được kỳ vọng trở thành một mô hình tham chiếu cho việc xây dựng môi trường thương mại điện tử lành mạnh, minh bạch và có trách nhiệm — đồng hành cùng định hướng phát triển kinh tế số, xã hội số mà Việt Nam đang theo đuổi. Việc liên kết với các đối tác hạ tầng công nghệ, logistics và tài chính hàng đầu trong nước (Viettel IDC, Ahamove, Giao Hàng Tiết Kiệm, VietinBank) cũng thể hiện mong muốn của HATHYO trong việc cùng xây dựng một hệ sinh thái số gắn kết, hỗ trợ lẫn nhau giữa các doanh nghiệp Việt.
   </p>
 
-  <div class="end-mark">— HẾT —</div>
+  <div class="end-mark">— BAN TRUYỀN THÔNG CLB DNQT —</div>
 
   <div class="infobox">
     <h3>Thông tin sự kiện</h3>
@@ -392,12 +456,43 @@
     <span><b>Hotline</b> 0827 000 248</span>
     <span><b>Email</b> email@hathyo.com</span>
     <span><b>© 2026</b> Công ty TNHH Cuộc Sống Vui Khỏe</span>
-    <span class="qr-block"><img src="img/logos/qr_hathyo.com.png" alt="QR hathyo.com"><i>Quét mã truy cập hathyo.com</i></span>
+    <span class="qr-block"><img src="img/logos/qr_qtbc_hathyo.png" alt="Mã ưu đãi mua sắm cho thành viên CLBDNQT trên HATHYO"><i>Mã ưu đãi mua sắm cho TV CLBDNQT ở HATHYO</i></span>
   </div>
 
 </div>
 
 <script>
+(function(){
+  // Hiệu ứng nền lung linh — chúc mừng ra mắt: bokeh trôi nhẹ + tia sáng lấp lánh
+  var fx = document.getElementById('fxLayer');
+  if (fx){
+    var fxColors = ['#43A047','#FFD700','#26C6DA','#c8e6c9'];
+    for (var i = 0; i < 7; i++){
+      var bk = document.createElement('div');
+      bk.className = 'fx-bokeh';
+      var size = 90 + Math.random() * 170;
+      bk.style.width = bk.style.height = size + 'px';
+      bk.style.left = Math.random() * 100 + '%';
+      bk.style.top = Math.random() * 100 + '%';
+      bk.style.background = fxColors[i % fxColors.length];
+      bk.style.animationDuration = (16 + Math.random() * 12) + 's';
+      bk.style.animationDelay = (-Math.random() * 24) + 's';
+      fx.appendChild(bk);
+    }
+    for (var j = 0; j < 50; j++){
+      var sp = document.createElement('div');
+      sp.className = 'fx-spark';
+      var dot = 2 + Math.random() * 3;
+      sp.style.width = sp.style.height = dot + 'px';
+      sp.style.left = Math.random() * 100 + '%';
+      sp.style.top = Math.random() * 100 + '%';
+      sp.style.color = fxColors[j % fxColors.length];
+      sp.style.animationDuration = (1.8 + Math.random() * 2.8) + 's';
+      sp.style.animationDelay = (-Math.random() * 4) + 's';
+      fx.appendChild(sp);
+    }
+  }
+})();
 (function(){
   /* === DANH SÁCH ẢNH/VIDEO ALBUM SỰ KIỆN ===
      Thêm tên file vào mảng bên dưới khi bạn đổ ảnh/video vào thư mục img/260606/.
