@@ -660,14 +660,11 @@
             imgEl.src = tmp.src;
             imgEl.style.display = 'block';
             imgEl.style.opacity = '1';
-            phEl.style.display = 'none';          // ẩn placeholder đúng lúc bc-img hiện
-            setTimeout(function() {               // sau 3s: fade rồi display:none
-              imgEl.style.opacity = '0';
-              setTimeout(function() { imgEl.style.display = 'none'; }, 500);
-            }, 5000);
+            phEl.style.display = 'none';
+            // Không tự fade — overlay ở lại cho đến khi backend xong (dismissAllOverlays)
           };
           tmp.onerror = function() {
-            tmp.onerror = function() { phEl.style.display = 'none'; }; // cả 2 fail → ẩn placeholder
+            tmp.onerror = function() { phEl.style.display = 'none'; };
             tmp.src = base + side + '.png';
           };
           tmp.src = base + side + '.webp';
@@ -1045,8 +1042,19 @@
       setEl('abt-name-lbl', m.Member_Name);
       setEl('abt-co-lbl', coShort);
 
-      // Setup QR
+      // Setup QR (gọi cuối — sau đó dismiss overlay)
       setupQR(m);
+    }
+
+    function dismissAllOverlays() {
+      ['bc-img-front', 'bc-img-back'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el.style.display !== 'none') {
+          el.style.transition = 'opacity .6s ease';
+          el.style.opacity = '0';
+          setTimeout(function() { el.style.display = 'none'; }, 650);
+        }
+      });
     }
 
     function setupQR(m) {
@@ -1077,6 +1085,9 @@
         a.appendChild(img);
         sdiv.appendChild(a);
       });
+
+      // Tất cả icon/data đã sẵn sàng — fade overlay namecard đi
+      dismissAllOverlays();
     }
 
     function renderProfile() {
