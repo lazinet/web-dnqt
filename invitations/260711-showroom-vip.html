@@ -162,7 +162,7 @@
             flex-wrap: wrap;
         }
 
-        .export-buttons button {
+        .export-buttons #exportBtns button {
             padding: 12px 20px;
             background: #2A5C9A;
             color: white;
@@ -176,7 +176,8 @@
             transition: all 0.3s ease;
         }
 
-        .export-buttons button:hover { background: #E67E22; transform: translateY(-3px); }
+        .export-buttons #exportBtns button:hover { background: #E67E22; transform: translateY(-3px); }
+        .export-toggle { display: none; }
 
         /* Responsive */
         @media (min-width: 993px) {
@@ -196,7 +197,8 @@
                 box-shadow: 0 4px 20px rgba(0,0,0,0.1);
                 align-items: stretch;
             }
-            .export-buttons button { width: 100%; }
+            .export-buttons #exportBtns { display: flex; flex-direction: column; gap: 12px; }
+            .export-buttons #exportBtns button { width: 100%; }
         }
 
         @media (max-width: 1200px) {
@@ -212,27 +214,64 @@
         @media (max-width: 768px) {
             .card { transform: scale(0.65); }
             .card-container { padding: 10px; }
-            body { padding-bottom: 220px; }
-            .export-buttons {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-                padding: 15px;
+            body { padding-bottom: 50px; }
+            .export-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                background: none;
+                border: none;
+                color: #19658F;
+                font-size: 11px;
+                font-weight: 700;
+                padding: 7px 20px 5px;
+                cursor: pointer;
+                width: 100%;
+                letter-spacing: 0.5px;
             }
-            .export-buttons button,
-            .image-upload-btn { min-width: auto; width: 100%; padding: 12px 10px; font-size: 13px; }
+            .export-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                padding: 0 15px 10px;
+            }
+            .export-buttons.collapsed {
+                padding: 0;
+                background: rgba(255,255,255,0.97);
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.12);
+            }
+            .export-buttons.collapsed #exportBtns { display: none; }
+            .export-buttons #exportBtns {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+                padding-top: 4px;
+            }
+            .export-buttons #exportBtns button,
+            .export-buttons #exportBtns .image-upload-btn {
+                min-width: auto;
+                width: 100%;
+                padding: 10px 6px;
+                font-size: 12px;
+            }
+            .export-buttons #exportBtns .guest-input {
+                grid-column: 1 / -1;
+            }
+            .export-buttons #exportBtns p {
+                grid-column: 1 / -1;
+                font-size: 11px;
+            }
         }
 
         @media (max-width: 576px) {
             .card { transform: scale(0.5); }
-            body { padding-bottom: 280px; }
+            body { padding-bottom: 50px; }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 360px) {
             .card { transform: scale(0.45); }
-            .export-buttons { grid-template-columns: 1fr; gap: 10px; }
-            .export-buttons button,
-            .image-upload-btn { font-size: 14px; padding: 14px; }
+            .export-buttons #exportBtns { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media print {
@@ -351,33 +390,38 @@
             </div>
         </div>
 
-        <div class="export-buttons">
-            <button onclick="shareInvite()">Chia sẻ</button>
-            <button class="add-to-calendar-btn" id="addToCalendarBtn">Thêm vào lịch</button>
-            <div class="atcb" id="addToCalendarConfig" style="display:none;">
-            {
-                "name":"Khai Trương Showroom CLB Doanh nhân Quảng Trị",
-                "description":"CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ\n\nLễ Khai Trương Showroom – Ra mắt không gian trưng bày sản phẩm hội viên\n\nĐịa điểm: Hoàng Long – 3 Phạm Văn Hai – TP.HCM\n\nLiên hệ:\n- Ban Thư ký CLB: 0961012945\n- Chủ trì Showroom (Mr. Lê Văn Cầu): 0903939815",
-                "startDate":"2026-07-11",
-                "endDate":"2026-07-11",
-                "startTime":"17:00",
-                "endTime":"21:00",
-                "location":"Hoàng Long – Số 3 Phạm Văn Hai – TP.HCM",
-                "options":["Apple","Google","iCal","Microsoft365","MicrosoftTeams","Outlook.com","Yahoo"],
-                "timeZone":"Asia/Ho_Chi_Minh",
-                "iCalFileName":"Showroom-CLB-Doanh-nhan-Quang-Tri",
-                "listStyle":"modal",
-                "trigger":"click"
-            }
+        <div class="export-buttons collapsed" id="exportPanel">
+            <button class="export-toggle" onclick="toggleExportPanel()" id="exportToggle">
+                <span id="toggleLabel">☰&nbsp;&nbsp;Công cụ</span>
+            </button>
+            <div id="exportBtns">
+                <button onclick="shareInvite()">Chia sẻ</button>
+                <button class="add-to-calendar-btn" id="addToCalendarBtn">Thêm vào lịch</button>
+                <div class="atcb" id="addToCalendarConfig" style="display:none;">
+                {
+                    "name":"Khai Trương Showroom CLB Doanh nhân Quảng Trị",
+                    "description":"CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ\n\nLễ Khai Trương Showroom – Ra mắt không gian trưng bày sản phẩm hội viên\n\nĐịa điểm: Hoàng Long – 3 Phạm Văn Hai – TP.HCM\n\nLiên hệ:\n- Ban Thư ký CLB: 0961012945\n- Chủ trì Showroom (Mr. Lê Văn Cầu): 0903939815",
+                    "startDate":"2026-07-11",
+                    "endDate":"2026-07-11",
+                    "startTime":"17:00",
+                    "endTime":"21:00",
+                    "location":"Hoàng Long – Số 3 Phạm Văn Hai – TP.HCM",
+                    "options":["Apple","Google","iCal","Microsoft365","MicrosoftTeams","Outlook.com","Yahoo"],
+                    "timeZone":"Asia/Ho_Chi_Minh",
+                    "iCalFileName":"Showroom-CLB-Doanh-nhan-Quang-Tri",
+                    "listStyle":"modal",
+                    "trigger":"click"
+                }
+                </div>
+                <button onclick="exportToPNG()">Xuất ảnh</button>
+                <button onclick="exportToPDF()">Xuất PDF</button>
+                <button onclick="exportToVCard()">Xuất vCard</button>
+                <button onclick="window.open('https://lazinet.com/bizcards/hoangminhphung-lazinet.html?chat=true', '_blank', 'noopener,noreferrer')">Góp ý</button>
+                <p style="width:100%; text-align:center; margin:10px 0 0 0;"><b>Nhập</b> <i class="bi bi-arrow-right"></i> <b>Xuất PDF</b></p>
+                <input type="text" id="guestNameInput" placeholder="Nhập tên khách mời" class="guest-input">
+                <input type="text" id="companyNameInput" placeholder="Nhập tên doanh nghiệp" class="guest-input">
+                <button onclick="document.getElementById('guestImageInput').click()" class="image-upload-btn">Chọn hình</button>
             </div>
-            <button onclick="exportToPNG()">Xuất ảnh</button>
-            <button onclick="exportToPDF()">Xuất PDF</button>
-            <button onclick="exportToVCard()">Xuất vCard</button>
-            <button onclick="window.open('https://lazinet.com/bizcards/hoangminhphung-lazinet.html?chat=true', '_blank', 'noopener,noreferrer')">Góp ý</button>
-            <p style="width:100%; text-align:center; margin:10px 0 0 0;"><b>Nhập</b> <i class="bi bi-arrow-right"></i> <b>Xuất PDF</b></p>
-            <input type="text" id="guestNameInput" placeholder="Nhập tên khách mời" class="guest-input">
-            <input type="text" id="companyNameInput" placeholder="Nhập tên doanh nghiệp" class="guest-input">
-            <button onclick="document.getElementById('guestImageInput').click()" class="image-upload-btn">Chọn hình</button>
         </div>
     </div>
 
@@ -385,6 +429,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         const { jsPDF } = window.jspdf;
+
+        function toggleExportPanel() {
+            const panel = document.getElementById('exportPanel');
+            const label = document.getElementById('toggleLabel');
+            const collapsed = panel.classList.toggle('collapsed');
+            label.innerHTML = collapsed ? '☰&nbsp;&nbsp;Công cụ' : '✕&nbsp;&nbsp;Đóng';
+            if (window.innerWidth <= 992) {
+                document.body.style.paddingBottom = collapsed ? '50px' : '320px';
+            }
+        }
 
         function disableEffectsBeforeExport() {
             const style = document.createElement('style');
