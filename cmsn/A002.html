@@ -566,8 +566,75 @@ footer {
 /* ─── RESPONSIVE ─── */
 @media(max-width:640px) {
   .btn-row { flex-direction:column; align-items:center; }
-  .btn-dl,.btn-share,.btn-zalo { width:min(280px,80vw); justify-content:center; }
+  .btn-dl,.btn-share,.btn-zalo,.btn-video { width:min(280px,80vw); justify-content:center; }
 }
+
+/* ─── REFERRAL CODE ─── */
+.aff-code {
+  display:block;
+  font-size:clamp(1.6rem,5vw,2.5rem); font-weight:900;
+  letter-spacing:.22em; font-family:'Be Vietnam Pro',monospace;
+  background:linear-gradient(90deg,var(--gold-lt) 0%,var(--gold-ll) 30%,#fff 50%,var(--gold-ll) 70%,var(--gold-lt) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  background-size:300% 100%;
+  animation:shimCode 3s linear infinite;
+  margin:10px 0 6px; text-shadow:none;
+}
+@keyframes shimCode {
+  0%   { background-position:300% center; }
+  100% { background-position:-100% center; }
+}
+.aff-code-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  gap:4px; padding:10px 18px;
+  background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.25);
+  border-radius:12px; margin:8px 0;
+}
+.aff-code-label {
+  font-size:.65rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(245,158,11,.65);
+}
+.aff-code-copy {
+  background:none; border:none; cursor:pointer; color:rgba(255,255,255,.35);
+  font-size:.72rem; font-family:inherit; padding:2px 6px;
+  display:flex; align-items:center; gap:5px; transition:color .2s;
+}
+.aff-code-copy:hover { color:var(--gold-ll); }
+
+/* ─── MUSIC BUTTON (floating) ─── */
+.music-btn {
+  position:fixed; bottom:24px; right:24px; z-index:500;
+  width:52px; height:52px; border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  border:none; color:var(--white); font-size:1.05rem;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 18px rgba(30,64,175,.5); transition:all .25s;
+  font-family:inherit;
+}
+.music-btn:hover { transform:scale(1.1); box-shadow:0 6px 24px rgba(30,64,175,.65); }
+#nextTrackBtn { right:80px; background:linear-gradient(135deg,#334155,#1e3a5f); }
+.music-btn.playing {
+  background:linear-gradient(135deg,var(--gold),var(--gold-lt));
+  box-shadow:0 4px 18px rgba(217,119,6,.5);
+  animation:musicPulse 1.8s ease-in-out infinite;
+}
+.music-btn.playing:hover { box-shadow:0 6px 24px rgba(217,119,6,.65); }
+@keyframes musicPulse {
+  0%,100% { transform:scale(1); }
+  50%     { transform:scale(1.08); }
+}
+
+/* ─── VIDEO EXPORT BUTTON ─── */
+.btn-video {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 22px; border-radius:var(--r-full);
+  background:linear-gradient(135deg,rgba(30,64,175,.22),rgba(14,116,144,.1));
+  color:var(--blue-ll); font-weight:700; font-size:.84rem;
+  border:1.5px solid rgba(59,130,246,.35);
+  backdrop-filter:blur(8px); cursor:pointer; transition:all .22s;
+  font-family:inherit;
+}
+.btn-video:hover { background:rgba(59,130,246,.28); transform:translateY(-2px); border-color:rgba(59,130,246,.6); }
 </style>
 </head>
 <body>
@@ -652,6 +719,12 @@ footer {
       <i class="fas fa-comment-dots"></i>
       Zalo anh Dũng
     </a>
+    <button class="btn-video" id="videoBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+      </svg>
+      Xuất Video
+    </button>
   </div>
 </section>
 
@@ -742,6 +815,13 @@ footer {
     <img src="../news/img/logos/qr_qtbc_hathyo.png" alt="Mã QR mua sắm HATHYO – CLB Doanh Nhân Quảng Trị">
     <div class="qr-gift-caption">
       Mã ưu đãi mua sắm cho Thành viên CLB DNQT
+      <div class="aff-code-wrap">
+        <span class="aff-code-label">Mã giới thiệu</span>
+        <span class="aff-code">AFF5M3TP9QJ</span>
+        <button class="aff-code-copy" onclick="navigator.clipboard.writeText('AFF5M3TP9QJ').then(()=>showToast('Đã sao chép mã AFF5M3TP9QJ ⭐'))">
+          <i class="fas fa-copy"></i> Sao chép mã
+        </button>
+      </div>
       <span>Truy cập <strong><a href="https://hathyo.com/login?step=register&referralCode=AFF5M3TP9QJ" class="qr-gift-caption" target="_blank" rel="noopener">hathyo.com</a></strong> · Giới thiệu bởi CLB Doanh Nhân Quảng Trị</span>
     </div>
     <a href="https://hathyo.com/login?step=register&referralCode=AFF5M3TP9QJ" class="gift-cta" target="_blank" rel="noopener">
@@ -770,6 +850,14 @@ footer {
     <a href="https://qtbc.vn/m.html?c=A002" target="_blank">qtbc.vn/m.html?c=A002</a>
   </p>
 </footer>
+
+<!-- Floating music button -->
+<button class="music-btn" id="nextTrackBtn" title="Đổi bài nhạc" onclick="nextTrack()">
+  <i class="fas fa-forward-step"></i>
+</button>
+<button class="music-btn" id="musicBtn" title="Bật nhạc sinh nhật" onclick="toggleMusic()">
+  <i class="fas fa-music"></i>
+</button>
 
 <!-- Export overlay -->
 <div id="export-overlay">
@@ -991,6 +1079,416 @@ document.getElementById('exportBtn').addEventListener('click', async function ()
     hero.querySelectorAll('.cl-f').forEach(el => { el.style.animation = ''; });
     toHide.forEach(el => { if (el) el.style.visibility = ''; });
     overlay.classList.remove('active');
+  }
+});
+
+/* ═══ MP3 BIRTHDAY MUSIC ═══ */
+const _TRACKS = [
+  '/cmsn/hpbd-music/nastelbom-happy-birthday-495860.mp3',
+  '/cmsn/hpbd-music/the_mountain-happy-birthday-508020.mp3',
+  '/cmsn/hpbd-music/atlasaudio-birthday-491022.mp3',
+  '/cmsn/hpbd-music/the_mountain-birthday-490600.mp3',
+  '/cmsn/hpbd-music/the_mountain-happy-birthday-513146.mp3',
+];
+let _trackIdx = Math.floor(Math.random() * _TRACKS.length);
+const _audio = new Audio(_TRACKS[_trackIdx]);
+_audio.loop = true;
+_audio.volume = 0.78;
+
+let _audioCtx = null, _audioDst = null, _hbPlaying = false;
+
+/* ── Setup Web Audio routing (needed for video capture) ── */
+function _setupAudioCtx() {
+  if (_audioCtx) {
+    if (_audioCtx.state === 'suspended') _audioCtx.resume();
+    return;
+  }
+  _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const src = _audioCtx.createMediaElementSource(_audio);
+  _audioDst = _audioCtx.createMediaStreamDestination();
+  src.connect(_audioDst);
+  src.connect(_audioCtx.destination);
+  if (_audioCtx.state === 'suspended') _audioCtx.resume();
+}
+
+function nextTrack() {
+  _trackIdx = (_trackIdx + 1) % _TRACKS.length;
+  const wasPlaying = !_audio.paused;
+  _audio.src = _TRACKS[_trackIdx];
+  _audio.currentTime = 0;
+  if (wasPlaying) {
+    if (_audioCtx && _audioCtx.state === 'suspended') _audioCtx.resume();
+    _audio.play().catch(() => {});
+  }
+}
+
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+  if (_hbPlaying) {
+    _audio.pause();
+    _hbPlaying = false;
+    btn.innerHTML = '<i class="fas fa-music"></i>';
+    btn.title = 'Bật nhạc'; btn.classList.remove('playing');
+  } else {
+    _setupAudioCtx();
+    _audio.play().then(() => {
+      _hbPlaying = true;
+      btn.innerHTML = '<i class="fas fa-pause"></i>';
+      btn.title = 'Tắt nhạc'; btn.classList.add('playing');
+    }).catch(() => {});
+  }
+}
+
+/* ── Auto-play on load / first gesture ── */
+{
+  const _ab = document.getElementById('musicBtn');
+  _ab.innerHTML = '<i class="fas fa-pause"></i>';
+  _ab.classList.add('playing'); _ab.title = 'Tắt nhạc';
+  _hbPlaying = true;
+  let _started = false;
+
+  function _tryAutoStart() {
+    if (_started || !_hbPlaying) return;
+    _started = true;
+    _setupAudioCtx();
+    _audio.play().catch(() => { _started = false; });
+  }
+  /* Chỉ khởi động sau gesture thực sự — Chrome block AudioContext nếu không có user gesture */
+  document.addEventListener('click',      _tryAutoStart);
+  document.addEventListener('touchstart', _tryAutoStart);
+  document.addEventListener('scroll',     _tryAutoStart, { once: true });
+}
+
+/* ═══ VIDEO EXPORT ═══ */
+document.getElementById('videoBtn').addEventListener('click', async function () {
+  if (typeof MediaRecorder === 'undefined') {
+    alert('Trình duyệt này chưa hỗ trợ xuất video.\nVui lòng dùng Chrome hoặc Edge phiên bản mới nhất.');
+    return;
+  }
+
+  const overlay  = document.getElementById('export-overlay');
+  const overlayP = overlay.querySelector('p');
+  const toHide2  = [
+    document.getElementById('cnv'),
+    document.getElementById('bokeh'),
+    document.getElementById('petals'),
+    document.getElementById('sparklefield'),
+    document.getElementById('musicBtn'),
+  ];
+
+  const wasPlaying = _hbPlaying;
+  if (_hbPlaying) { _audio.pause(); _hbPlaying = false; }
+
+  overlay.classList.add('active');
+  overlayP.textContent = 'Đang render toàn trang…';
+
+  try {
+    /* 1. Force desktop viewport */
+    const viewMeta = document.querySelector('meta[name=viewport]');
+    const origMeta = viewMeta.content;
+    viewMeta.content = 'width=1280';
+    await new Promise(r => setTimeout(r, 380));
+
+    /* 1b. Measure element positions NOW (before any style mutations) */
+    const HC_SCALE = 2;
+    function _elT(sel) {
+      const el = document.querySelector(sel);
+      if (!el) return 0;
+      return el.getBoundingClientRect().top + window.scrollY;
+    }
+    function _elB(sel) {
+      const el = document.querySelector(sel);
+      if (!el) return 0;
+      const r = el.getBoundingClientRect();
+      return r.top + r.height + window.scrollY;
+    }
+    const _msr = {
+      datechip:   _elT('.date-chip'),
+      btnRowBot:  _elB('.btn-row'),
+      namecard:   _elT('#namecard'),
+      namecardBot:_elB('#namecard'),
+      facts:      _elT('#facts'),
+      factsBot:   _elB('#facts'),
+      wishpre:    _elT('.wish-pre'),
+      gifteyebrow:_elT('.gift-eyebrow'),
+    };
+
+    toHide2.forEach(el => { if (el) el.style.visibility = 'hidden'; });
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
+
+    /* 1c. Freeze CSS animations so nothing is mid-fade or pre-delay */
+    const _fzStyle = document.createElement('style');
+    _fzStyle.id = '_vid_freeze';
+    _fzStyle.textContent = [
+      '*, *::before, *::after {',
+      '  animation: none !important;',
+      '  animation-delay: 0s !important;',
+      '  transition: none !important;',
+      '}',
+      '.from-badge, .photo-shell, .hb-label, .hb-lines,',
+      '.hb-l1, .hb-l2, .date-chip, .name-wrap, .msg-card,',
+      '.candles, .btn-row, .cl-f, .reveal, .namecard-link,',
+      '.fc, .wish-ring, .qr-gift-wrap, .aff-code, .music-btn {',
+      '  opacity: 1 !important;',
+      '  transform: none !important;',
+      '}',
+    ].join('\n');
+    document.head.appendChild(_fzStyle);
+
+    /* 1d. Fix gradient text — html2canvas can't render -webkit-background-clip:text */
+    const _gradEls = [];
+    document.querySelectorAll('.hb-l1, .hb-l2, .aff-code, .sec-h em').forEach(el => {
+      _gradEls.push({
+        el,
+        wft: el.style.webkitTextFillColor, bg: el.style.background,
+        bgs: el.style.backgroundSize, clip: el.style.webkitBackgroundClip,
+        bclip: el.style.backgroundClip, filt: el.style.filter,
+      });
+      el.style.webkitTextFillColor  = el.closest('#facts') ? '#1d4ed8' : '#ffffff';
+      el.style.background           = 'none';
+      el.style.backgroundSize       = '';
+      el.style.webkitBackgroundClip = 'unset';
+      el.style.backgroundClip       = 'unset';
+      el.style.filter               = 'none';
+    });
+
+    await new Promise(r => requestAnimationFrame(r));
+    await new Promise(r => requestAnimationFrame(r));
+    await new Promise(r => setTimeout(r, 220));
+
+    /* 2. Capture full page at 2× (Retina-quality) */
+    const fullCanvas = await html2canvas(document.body, {
+      scale:       HC_SCALE,
+      windowWidth: 1280,
+      useCORS:     true,
+      allowTaint:  true,
+      backgroundColor: '#020d1c',
+      scrollX: 0, scrollY: 0,
+      logging: false,
+      ignoreElements: el =>
+        el.id === 'cnv' || el.id === 'bokeh' || el.id === 'petals' ||
+        el.id === 'sparklefield' || el.id === 'export-overlay' || el.id === 'musicBtn',
+    });
+
+    /* Restore */
+    _gradEls.forEach(({ el, wft, bg, bgs, clip, bclip, filt }) => {
+      el.style.webkitTextFillColor  = wft   || '';
+      el.style.background           = bg    || '';
+      el.style.backgroundSize       = bgs   || '';
+      el.style.webkitBackgroundClip = clip  || '';
+      el.style.backgroundClip       = bclip || '';
+      el.style.filter               = filt  || '';
+    });
+    document.getElementById('_vid_freeze')?.remove();
+    viewMeta.content = origMeta;
+
+    /* 3. Output canvas 1280×720 */
+    const W = 1280, H = 720;
+    const out = document.createElement('canvas');
+    out.width = W; out.height = H;
+    const ctx2 = out.getContext('2d');
+
+    const cW = fullCanvas.width, cH = fullCanvas.height;
+    const drawScale = W / cW;           // = 1280/(1280×2) = 0.5
+    const winH      = H / drawScale;   // = 720/0.5 = 1440 source px ≡ 720 CSS px
+    const maxScroll = Math.max(0, cH - winH);
+
+    /* 4. Build user-specified waypoints (canvas px) */
+    const _c = v => Math.min(Math.max(0, v * HC_SCALE), maxScroll); // CSS px → canvas px, clamped
+    const _cb = (cssB, prevY) => Math.min(Math.max(prevY, (cssB - winH / HC_SCALE) * HC_SCALE), maxScroll);
+
+    const _wp_top      = 0;
+    const _wp_datechip = _c(_msr.datechip);
+    const _wp_btnbot   = _cb(_msr.btnRowBot, _wp_datechip);
+    const _wp_namecard = _c(_msr.namecard);
+    const _wp_namebot  = _cb(_msr.namecardBot, _wp_namecard);
+    const _wp_facts    = _c(_msr.facts);
+    const _wp_factsbot = _cb(_msr.factsBot, _wp_facts);
+    const _wp_wishpre  = _c(_msr.wishpre);
+    const _wp_giftey   = _c(_msr.gifteyebrow);
+    const _wp_end      = maxScroll;
+
+    const wps = [
+      { y: _wp_top,      hold: 5   },
+      { y: _wp_datechip, hold: 5   },
+      { y: _wp_btnbot,   hold: 2.5 },
+      { y: _wp_namecard, hold: 5   },
+      { y: _wp_namebot,  hold: 1.5 },
+      { y: _wp_facts,    hold: 3   },
+      { y: _wp_factsbot, hold: 1   },
+      { y: _wp_wishpre,  hold: 5   },
+      { y: _wp_giftey,   hold: 5   },
+      { y: _wp_end,      hold: 2.5 },
+      { y: _wp_top,      hold: 5   }, // scroll back to top
+    ];
+
+    /* 5. Audio — loop so it covers the full video duration */
+    _setupAudioCtx();
+    const origVol  = _audio.volume;
+    const origLoop = _audio.loop;
+    _audio.loop = true;
+    _audio.currentTime = 0;
+    await _audio.play();
+
+    /* 6. Build timeline — speed-based transition durations */
+    function _transDur(y0, y1, slow) {
+      const cssDist = Math.abs(y1 - y0) / HC_SCALE;
+      if (cssDist < 10) return 0.8;
+      return Math.max(1.5, cssDist / (slow ? 300 : 380));
+    }
+
+    const tl = []; let tCur = 0;
+    for (let i = 0; i < wps.length; i++) {
+      tl.push({ t0: tCur, t1: tCur + wps[i].hold, type: 'hold', y: wps[i].y });
+      tCur += wps[i].hold;
+      if (i < wps.length - 1) {
+        // slow reading speed for facts scroll and return-to-top
+        const slowTrans = (i === 5) || (i === 9);
+        const dt = _transDur(wps[i].y, wps[i+1].y, slowTrans);
+        tl.push({ t0: tCur, t1: tCur + dt, type: 'move', y0: wps[i].y, y1: wps[i+1].y });
+        tCur += dt;
+      }
+    }
+    const totalDur = tCur;
+
+    function _getY(t) {
+      for (const seg of tl) {
+        if (t <= seg.t1) {
+          if (seg.type === 'hold') return seg.y;
+          const p = (t - seg.t0) / (seg.t1 - seg.t0);
+          return seg.y0 + (seg.y1 - seg.y0) * (-(Math.cos(Math.PI * p) - 1) / 2);
+        }
+      }
+      return maxScroll;
+    }
+
+    /* 7. Combined stream → recorder */
+    const mime = ['video/webm;codecs=vp9','video/webm','video/mp4']
+      .find(m => { try { return MediaRecorder.isTypeSupported(m); } catch(e){ return false; } })
+      || 'video/webm';
+    const vStream  = out.captureStream(30);
+    const combined = new MediaStream([
+      ...vStream.getVideoTracks(),
+      ...(_audioDst ? _audioDst.stream.getAudioTracks() : []),
+    ]);
+    const recorder = new MediaRecorder(combined, { mimeType: mime, videoBitsPerSecond: 10_000_000 });
+    const chunks   = [];
+    recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+    const recDone = new Promise(resolve => {
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: mime });
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        a.href = url; a.download = 'thiep-sinh-nhat-ho-xuan-dung-06-07.webm';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 8000);
+        resolve();
+      };
+    });
+
+    /* 8. Vignette */
+    const vign = ctx2.createRadialGradient(W*.5, H*.5, W*.3, W*.5, H*.5, W*.72);
+    vign.addColorStop(0, 'rgba(0,0,0,0)');
+    vign.addColorStop(1, 'rgba(0,0,0,.38)');
+
+    /* 9. Particle / confetti system drawn on top of video frames */
+    const _PCS = ['#f59e0b','#3b82f6','#22d3ee','#fcd34d','#93c5fd','#fbbf24','#fff','#67e8f9','#fb923c'];
+    const _pts = [];
+    function _spawnPts(cx, cy, n) {
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const s = 1.8 + Math.random() * 4.5;
+        _pts.push({
+          x: cx + (Math.random()-.5)*60, y: cy + (Math.random()-.5)*30,
+          vx: Math.cos(a)*s, vy: Math.sin(a)*s - 2.2,
+          life: 1, decay: .013 + Math.random()*.024,
+          sz: 3 + Math.random()*7,
+          col: _PCS[Math.floor(Math.random()*_PCS.length)],
+          sq: Math.random() > .45,
+        });
+      }
+    }
+    function _drawPts(ctx) {
+      ctx.save();
+      for (let i = _pts.length-1; i >= 0; i--) {
+        const p = _pts[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vy += .11; p.vx *= .99;
+        p.life -= p.decay;
+        if (p.life <= 0) { _pts.splice(i, 1); continue; }
+        ctx.globalAlpha = p.life * .88;
+        ctx.fillStyle = p.col;
+        if (p.sq) {
+          const sz = p.sz * p.life;
+          ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.life * 5.5);
+          ctx.fillRect(-sz/2, -sz/2, sz, sz); ctx.restore();
+        } else {
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.sz * p.life * .5, 0, Math.PI*2); ctx.fill();
+        }
+      }
+      ctx.restore();
+    }
+
+    /* 10. Pre-draw + start recording */
+    ctx2.drawImage(fullCanvas, 0, 0, cW, winH, 0, 0, W, H);
+    ctx2.fillStyle = vign; ctx2.fillRect(0, 0, W, H);
+
+    overlayP.textContent = `Đang ghi video (~${Math.ceil(totalDur)}s)…`;
+    recorder.start(200);
+    await new Promise(r => setTimeout(r, 400));
+
+    /* 11. Animation loop */
+    const _t0 = performance.now();
+    let _lastSpawn = 0;
+    function frame(now) {
+      const elapsed = (now - _t0) / 1000;
+      const prog    = Math.min(elapsed / totalDur, 1);
+      const srcY    = Math.min(_getY(elapsed), maxScroll);
+
+      ctx2.clearRect(0, 0, W, H);
+      ctx2.drawImage(fullCanvas, 0, srcY, cW, winH, 0, 0, W, H);
+      ctx2.fillStyle = vign; ctx2.fillRect(0, 0, W, H);
+
+      /* spawn confetti burst ~every 0.65s */
+      if (now - _lastSpawn > 650) {
+        _lastSpawn = now;
+        _spawnPts(W * (.12 + Math.random() * .76), H * (.12 + Math.random() * .76), 12);
+      }
+      _drawPts(ctx2);
+
+      if (prog < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        overlayP.textContent = 'Đang xử lý video…';
+        const _fv = setInterval(() => {
+          _audio.volume = Math.max(0, _audio.volume - .07);
+          if (_audio.volume <= 0) clearInterval(_fv);
+        }, 60);
+        setTimeout(() => { _audio.pause(); recorder.stop(); }, 1100);
+      }
+    }
+    requestAnimationFrame(frame);
+
+    await recDone;
+
+  } catch (err) {
+    alert('Lỗi xuất video: ' + err.message);
+    console.error(err);
+  } finally {
+    toHide2.forEach(el => { if (el) el.style.visibility = ''; });
+    if (typeof origVol  !== 'undefined') _audio.volume = origVol;
+    if (typeof origLoop !== 'undefined') _audio.loop   = origLoop;
+    _audio.pause();
+    overlayP.textContent = 'Đang xuất ảnh thiệp…';
+    overlay.classList.remove('active');
+    if (wasPlaying) {
+      _hbPlaying = true;
+      _audio.currentTime = 0;
+      _audio.play().catch(() => {});
+      const mb = document.getElementById('musicBtn');
+      mb.innerHTML = '<i class="fas fa-pause"></i>';
+      mb.classList.add('playing');
+    }
   }
 });
 </script>
