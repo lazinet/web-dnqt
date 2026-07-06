@@ -1384,9 +1384,16 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
     }
 
     /* 7. Combined stream → recorder */
-    const mime = ['video/webm;codecs=vp9','video/webm','video/mp4']
-      .find(m => { try { return MediaRecorder.isTypeSupported(m); } catch(e){ return false; } })
+    const mime = [
+      'video/mp4;codecs="avc1.42E01E,mp4a.40.2"',
+      'video/mp4;codecs=h264,aac',
+      'video/mp4',
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp9',
+      'video/webm',
+    ].find(m => { try { return MediaRecorder.isTypeSupported(m); } catch(e){ return false; } })
       || 'video/webm';
+    const _ext = mime.startsWith('video/mp4') ? 'mp4' : 'webm';
     const vStream  = out.captureStream(30);
     const combined = new MediaStream([
       ...vStream.getVideoTracks(),
@@ -1400,7 +1407,7 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
         const blob = new Blob(chunks, { type: mime });
         const url  = URL.createObjectURL(blob);
         const a    = document.createElement('a');
-        a.href = url; a.download = 'thiep-sinh-nhat-ho-xuan-dung-06-07.webm';
+        a.href = url; a.download = `thiep-sinh-nhat-ho-xuan-dung-06-07.${_ext}`;
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 8000);
         resolve();
