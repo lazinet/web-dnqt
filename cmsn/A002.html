@@ -1450,7 +1450,52 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
       ctx.restore();
     }
 
-    /* 10. Pre-draw + start recording */
+    /* 10. Bokeh + petal overlay — pre-rendered to OffscreenCanvas sprites */
+    const _BC2 = ['rgba(59,130,246,.9)','rgba(217,119,6,.85)','rgba(147,197,253,.9)',
+                  'rgba(255,255,255,.8)','rgba(34,211,238,.9)','rgba(250,204,21,.85)'];
+    // Fewer bokeh (24 vs 38) — each is just an arc, cheap
+    const _bks = Array.from({length:24}, (_,i) => ({
+      x: Math.random() * W, sz: Math.random() * 7 + 2,
+      dur: 11 + Math.random() * 15, phase: Math.random(),
+      col: _BC2[i % _BC2.length],
+    }));
+    function _drawBokeh(ctx, t) {
+      ctx.save();
+      for (const b of _bks) {
+        const p = ((t / b.dur) + b.phase) % 1;
+        const a = p < 0.12 ? p / 0.12 : p < 0.88 ? 1 - (p - 0.12) / 0.76 * 0.5 : 0.5 * (1 - (p - 0.88) / 0.12);
+        ctx.globalAlpha = a * 0.65;
+        ctx.fillStyle = b.col;
+        ctx.beginPath(); ctx.arc(b.x, H * (1 - p * 1.05), b.sz * 0.5, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // Petal sprites — pre-render each emoji ONCE to OffscreenCanvas → drawImage per frame (fast)
+    const _ICO2 = ['⭐','✨','💫','🌟','⚡','💎','🔷','🏅'];
+    const _spks = Array.from({length:14}, (_,i) => {
+      const sz = Math.round(14 + Math.random() * 16);
+      const pad = Math.ceil(sz * 1.5);
+      const oc  = new OffscreenCanvas(pad, pad);
+      const ox  = oc.getContext('2d');
+      ox.font = `${sz}px serif`; ox.textAlign = 'center'; ox.textBaseline = 'middle';
+      ox.fillText(_ICO2[i % _ICO2.length], pad / 2, pad / 2);
+      return { oc, pad, xPct: Math.random() * 100, dx: (Math.random() - 0.5) * 25,
+               dur: 9 + Math.random() * 14, phase: Math.random() };
+    });
+    function _drawSpks(ctx, t) {
+      ctx.save();
+      for (const s of _spks) {
+        const p = ((t / s.dur) + s.phase) % 1;
+        const y = H * (1.1 - p * 1.4);
+        const a = p < 0.05 ? (p / 0.05) * 0.85 : p < 0.5 ? 0.85 - (p - 0.05) / 0.45 * 0.25 : 0.6 * (1 - (p - 0.5) / 0.5);
+        ctx.globalAlpha = Math.max(0, a);
+        ctx.drawImage(s.oc, s.xPct / 100 * W + s.dx * Math.sin(p * Math.PI) - s.pad / 2, y - s.pad / 2);
+      }
+      ctx.restore();
+    }
+
+    /* 11. Pre-draw + start recording */
     ctx2.drawImage(fullCanvas, 0, 0, cW, winH, 0, 0, W, H);
     ctx2.fillStyle = vign; ctx2.fillRect(0, 0, W, H);
 
@@ -1458,10 +1503,12 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
     recorder.start(200);
     await new Promise(r => setTimeout(r, 400));
 
-    /* 11. Animation loop */
+    /* 12. Fixed-rate animation loop — setInterval 30fps đảm bảo frame rate ổn định */
     const _t0 = performance.now();
     let _lastSpawn = 0;
-    function frame(now) {
+    let _frameTimer;
+    function frame() {
+      const now     = performance.now();
       const elapsed = (now - _t0) / 1000;
       const prog    = Math.min(elapsed / totalDur, 1);
       const srcY    = Math.min(_getY(elapsed), maxScroll);
@@ -1470,6 +1517,9 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
       ctx2.drawImage(fullCanvas, 0, srcY, cW, winH, 0, 0, W, H);
       ctx2.fillStyle = vign; ctx2.fillRect(0, 0, W, H);
 
+      _drawBokeh(ctx2, elapsed);
+      _drawSpks(ctx2, elapsed);
+
       /* spawn confetti burst ~every 0.65s */
       if (now - _lastSpawn > 650) {
         _lastSpawn = now;
@@ -1477,9 +1527,8 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
       }
       _drawPts(ctx2);
 
-      if (prog < 1) {
-        requestAnimationFrame(frame);
-      } else {
+      if (prog >= 1) {
+        clearInterval(_frameTimer);
         overlayP.textContent = 'Đang xử lý video…';
         const _fv = setInterval(() => {
           _audio.volume = Math.max(0, _audio.volume - .07);
@@ -1488,7 +1537,7 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
         setTimeout(() => { _audio.pause(); recorder.stop(); }, 1100);
       }
     }
-    requestAnimationFrame(frame);
+    _frameTimer = setInterval(frame, 1000 / 30); // 30fps cố định
 
     await recDone;
 
