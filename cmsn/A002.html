@@ -1139,7 +1139,7 @@ function toggleMusic() {
   }
 }
 
-/* ── Auto-play on load / first gesture ── */
+/* ── Auto-play: thử ngay khi load, fallback sau gesture ── */
 {
   const _ab = document.getElementById('musicBtn');
   _ab.innerHTML = '<i class="fas fa-pause"></i>';
@@ -1153,7 +1153,11 @@ function toggleMusic() {
     _setupAudioCtx();
     _audio.play().catch(() => { _started = false; });
   }
-  /* Chỉ khởi động sau gesture thực sự — Chrome block AudioContext nếu không có user gesture */
+
+  // Thử play ngay (không cần AudioContext — chỉ cần audio HTML5)
+  _audio.play().then(() => { _started = true; }).catch(() => {});
+
+  // Fallback nếu browser block autoplay
   document.addEventListener('click',      _tryAutoStart);
   document.addEventListener('touchstart', _tryAutoStart);
   document.addEventListener('scroll',     _tryAutoStart, { once: true });
@@ -1174,6 +1178,7 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
     document.getElementById('petals'),
     document.getElementById('sparklefield'),
     document.getElementById('musicBtn'),
+    document.getElementById('nextTrackBtn'),
   ];
 
   const wasPlaying = _hbPlaying;
@@ -1187,30 +1192,22 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
     const viewMeta = document.querySelector('meta[name=viewport]');
     const origMeta = viewMeta.content;
     viewMeta.content = 'width=1280';
-    await new Promise(r => setTimeout(r, 380));
+    await new Promise(r => setTimeout(r, 500)); // enough for full reflow
 
-    /* 1b. Measure element positions NOW (before any style mutations) */
+    /* 1b. Measure element positions as fractions of page height (before any style mutations) */
     const HC_SCALE = 2;
-    function _elT(sel) {
-      const el = document.querySelector(sel);
-      if (!el) return 0;
-      return el.getBoundingClientRect().top + window.scrollY;
-    }
-    function _elB(sel) {
-      const el = document.querySelector(sel);
-      if (!el) return 0;
-      const r = el.getBoundingClientRect();
-      return r.top + r.height + window.scrollY;
-    }
+    const _pgH = Math.max(1, document.documentElement.scrollHeight);
+    const _fT = sel => { const el = document.querySelector(sel); return el ? (el.getBoundingClientRect().top              + window.scrollY) / _pgH : 0; };
+    const _fB = sel => { const el = document.querySelector(sel); if (!el) return 0; const r = el.getBoundingClientRect(); return (r.top + r.height + window.scrollY) / _pgH; };
     const _msr = {
-      datechip:   _elT('.date-chip'),
-      btnRowBot:  _elB('.btn-row'),
-      namecard:   _elT('#namecard'),
-      namecardBot:_elB('#namecard'),
-      facts:      _elT('#facts'),
-      factsBot:   _elB('#facts'),
-      wishpre:    _elT('.wish-pre'),
-      gifteyebrow:_elT('.gift-eyebrow'),
+      datechip:    _fT('.date-chip'),
+      videoBtnBot: _fB('#videoBtn'),   // bottom of video-export button
+      namecard:    _fT('#namecard'),
+      namecardBot: _fB('#namecard'),
+      facts:       _fT('#facts'),
+      factsBot:    _fB('#facts'),
+      wish:        _fT('#wish'),       // wish-pre is inside #wish
+      gift:        _fT('#gift-qr'),    // gift-eyebrow is inside #gift-qr
     };
 
     toHide2.forEach(el => { if (el) el.style.visibility = 'hidden'; });
@@ -1267,7 +1264,8 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
       logging: false,
       ignoreElements: el =>
         el.id === 'cnv' || el.id === 'bokeh' || el.id === 'petals' ||
-        el.id === 'sparklefield' || el.id === 'export-overlay' || el.id === 'musicBtn',
+        el.id === 'sparklefield' || el.id === 'export-overlay' ||
+        el.id === 'musicBtn' || el.id === 'nextTrackBtn',
     });
 
     /* Restore */
@@ -1293,36 +1291,54 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
     const winH      = H / drawScale;   // = 720/0.5 = 1440 source px ≡ 720 CSS px
     const maxScroll = Math.max(0, cH - winH);
 
-    /* 4. Build user-specified waypoints (canvas px) */
-    const _c = v => Math.min(Math.max(0, v * HC_SCALE), maxScroll); // CSS px → canvas px, clamped
-    const _cb = (cssB, prevY) => Math.min(Math.max(prevY, (cssB - winH / HC_SCALE) * HC_SCALE), maxScroll);
+    /* 4. Build waypoints — exact scroll kịch bản */
+    // frac → srcY: element at viewport top (clamped to maxScroll)
+    const _sy  = frac => Math.min(Math.max(0, frac * cH), maxScroll);
+    // frac (bottom) → srcY where section bottom aligns with viewport bottom
+    // never scrolls backward (prevY is floor)
+    const _syB = (fracB, prevY) => Math.min(Math.max(prevY, fracB * cH - winH), maxScroll);
 
-    const _wp_top      = 0;
-    const _wp_datechip = _c(_msr.datechip);
-    const _wp_btnbot   = _cb(_msr.btnRowBot, _wp_datechip);
-    const _wp_namecard = _c(_msr.namecard);
-    const _wp_namebot  = _cb(_msr.namecardBot, _wp_namecard);
-    const _wp_facts    = _c(_msr.facts);
-    const _wp_factsbot = _cb(_msr.factsBot, _wp_facts);
-    const _wp_wishpre  = _c(_msr.wishpre);
-    const _wp_giftey   = _c(_msr.gifteyebrow);
-    const _wp_end      = maxScroll;
+    //  0  top         → dừng 5s
+    //  1  date-chip   → dừng 5s  │ 1→2 slow: kéo nhẹ đến btn-video cuối màn
+    //  2  btn-video↓  → dừng 3s
+    //  3  namecard    → dừng 5s  │ 3→4 slow: kéo qua phần dưới
+    //  4  namecard↓   → dừng 0s
+    //  5  facts       → dừng 5s  │ 5→6 very slow: kéo cho đọc hết
+    //  6  facts↓      → dừng 0s
+    //  7  wish-pre    → dừng 5s
+    //  8  gift-eyebrow→ dừng 5s  │ 8→9 slow: kéo nhẹ đến hết html
+    //  9  maxScroll   → dừng 0s
+    // 10  top (return)→ dừng 5s
 
-    const wps = [
-      { y: _wp_top,      hold: 5   },
-      { y: _wp_datechip, hold: 5   },
-      { y: _wp_btnbot,   hold: 2.5 },
-      { y: _wp_namecard, hold: 5   },
-      { y: _wp_namebot,  hold: 1.5 },
-      { y: _wp_facts,    hold: 3   },
-      { y: _wp_factsbot, hold: 1   },
-      { y: _wp_wishpre,  hold: 5   },
-      { y: _wp_giftey,   hold: 5   },
-      { y: _wp_end,      hold: 2.5 },
-      { y: _wp_top,      hold: 5   }, // scroll back to top
+    const _wp = [
+      0,                                                         // 0  top
+      _sy(_msr.datechip),                                        // 1  date-chip tại top
+      Math.max(_sy(_msr.datechip), _syB(_msr.videoBtnBot, 0)),  // 2  btn-video cuối màn
+      _sy(_msr.namecard),                                        // 3  namecard tại top
+      _syB(_msr.namecardBot, _sy(_msr.namecard)),                // 4  namecard bottom
+      _sy(_msr.facts),                                           // 5  facts tại top
+      _syB(_msr.factsBot,    _sy(_msr.facts)),                   // 6  facts bottom
+      _sy(_msr.wish),                                            // 7  wish-pre tại top
+      _sy(_msr.gift),                                            // 8  gift-eyebrow tại top
+      maxScroll,                                                 // 9  cuối trang
+      0,                                                         // 10 quay về top
     ];
 
-    /* 5. Audio — loop so it covers the full video duration */
+    const wps = [
+      { y: _wp[0],  hold: 5   },
+      { y: _wp[1],  hold: 5   },
+      { y: _wp[2],  hold: 3   },
+      { y: _wp[3],  hold: 5   },
+      { y: _wp[4],  hold: 0   },
+      { y: _wp[5],  hold: 5   },
+      { y: _wp[6],  hold: 0   },
+      { y: _wp[7],  hold: 5   },
+      { y: _wp[8],  hold: 5   },
+      { y: _wp[9],  hold: 0   },
+      { y: _wp[10], hold: 5   },
+    ];
+
+    /* 5. Audio — loop để bao full video */
     _setupAudioCtx();
     const origVol  = _audio.volume;
     const origLoop = _audio.loop;
@@ -1330,11 +1346,18 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
     _audio.currentTime = 0;
     await _audio.play();
 
-    /* 6. Build timeline — speed-based transition durations */
-    function _transDur(y0, y1, slow) {
-      const cssDist = Math.abs(y1 - y0) / HC_SCALE;
-      if (cssDist < 10) return 0.8;
-      return Math.max(1.5, cssDist / (slow ? 300 : 380));
+    /* 6. Build timeline
+       TRANS_MODE per transition index (0=normal 1=slow 2=fast):
+       0→1 normal | 1→2 slow | 2→3 normal | 3→4 slow |
+       4→5 normal | 5→6 vslow| 6→7 normal | 7→8 normal|
+       8→9 slow   | 9→10 fast */
+    const _TMODE = [0, 1, 0, 1, 0, 2, 0, 0, 1, 3]; // 2=vslow, 3=fast
+
+    function _transDur(y0, y1, mode) {
+      const d = Math.abs(y1 - y0) / HC_SCALE; // CSS px distance
+      if (d < 6) return 0.5;
+      const spd = mode === 1 ? 220 : mode === 2 ? 130 : mode === 3 ? 800 : 380;
+      return Math.max(1.2, d / spd);
     }
 
     const tl = []; let tCur = 0;
@@ -1342,9 +1365,7 @@ document.getElementById('videoBtn').addEventListener('click', async function () 
       tl.push({ t0: tCur, t1: tCur + wps[i].hold, type: 'hold', y: wps[i].y });
       tCur += wps[i].hold;
       if (i < wps.length - 1) {
-        // slow reading speed for facts scroll and return-to-top
-        const slowTrans = (i === 5) || (i === 9);
-        const dt = _transDur(wps[i].y, wps[i+1].y, slowTrans);
+        const dt = _transDur(wps[i].y, wps[i+1].y, _TMODE[i] ?? 0);
         tl.push({ t0: tCur, t1: tCur + dt, type: 'move', y0: wps[i].y, y1: wps[i+1].y });
         tCur += dt;
       }
