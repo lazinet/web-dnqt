@@ -601,14 +601,32 @@
     },
     "KS": {
       "code": "KS",
-      "standalone": true,
-      "instances": [
-        "KS-1",
-        "KS-2"
-      ],
+      "standalone": false,
+      "name": "Kệ khung sắt KS, sâu 50 x ngang 120 x cao 50",
+      "mountPosition": "Lưng tường",
       "width": 120,
       "height": 50,
-      "depth": 50
+      "depth": 50,
+      "rows": [
+        {
+          "row": 0,
+          "y": 0.0,
+          "height": 50.0,
+          "type": "display",
+          "cells": [
+            "KS1"
+          ]
+        },
+        {
+          "row": 1,
+          "y": 50.0,
+          "height": 50.0,
+          "type": "display",
+          "cells": [
+            "KS2"
+          ]
+        }
+      ]
     },
     "KT": {
       "code": "KT",
@@ -616,8 +634,8 @@
       "instances": [
         "KT"
       ],
-      "width": 120,
-      "height": 80,
+      "width": 166,
+      "height": 86,
       "depth": 10
     }
   },
@@ -634,12 +652,22 @@
       "height": 160,
       "depth": 10,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A004",
+      "brand": "MINH KY LAWFIRM",
+      "company": "Công ty Luật TNHH MTV Minh Kỳ",
+      "bioOwner": "ThS. Luật sư Lê Viết Kỳ - Tổng Thư ký CLB Doanh nhân Quảng Trị, Giám đốc Công ty Luật TNHH MTV Minh Kỳ.",
+      "bioCompany": "Minh Kỳ (MK Lawfirm) cung cấp dịch vụ pháp lý toàn diện: tư vấn pháp lý tổng thể, tranh tụng dân sự - hình sự - kinh doanh thương mại, pháp lý thuê ngoài cho doanh nghiệp, lao động - xuất khẩu lao động, M&A - đầu tư - FDI.",
+      "products": [
+        {
+          "img": "members/A004/mklawfirm.vn.png",
+          "name": "Dịch vụ pháp lý toàn diện",
+          "desc": ">> Pháp lý Cá nhân & Doanh nghiệp: Tư vấn và đại diện pháp lý toàn diện: hợp đồng, tranh chấp, hôn nhân, thừa kế, bất động sản.\n>> Tố tụng Hình sự, Dân sự, Hành chính, KDTM: Tư vấn và đại diện pháp lý toàn diện: hợp đồng, tranh chấp, hôn nhân, thừa kế, bất động sản.\n>> Pháp lý Doanh nghiệp & FDI: Tư vấn và đại diện pháp lý toàn diện: hợp đồng, tranh chấp, hôn nhân, thừa kế, bất động sản.\n>> M&A, Đầu tư & Sở hữu Trí tuệ: Tư vấn và đại diện pháp lý toàn diện: hợp đồng, tranh chấp, hôn nhân, thừa kế, bất động sản.\n>> Lao động & Xuất khẩu Lao động: Tư vấn và đại diện pháp lý toàn diện: hợp đồng, tranh chấp, hôn nhân, thừa kế, bất động sản.\n>> Thuế & Trọn vòng đời Doanh nghiệp: Tư vấn và đại diện pháp lý toàn diện: hợp đồng, tranh chấp, hôn nhân, thừa kế, bất động sản.\n>> Đại diện ngoài Tố tụng: Tư vấn và đại diện pháp lý toàn diện: hợp đồng, tranh chấp, hôn nhân, thừa kế, bất động sản.\n>> Giải thể & Phá sản Doanh nghiệp: Tư vấn và đại diện pháp lý toàn diện: hợp đồng, tranh chấp, hôn nhân, thừa kế, bất động sản.",
+          "price": 0,
+          "qty": 1,
+          "atShowroom": false,
+          "atHathyo": false
+        }
+      ]
     },
     "S2": {
       "code": "S2",
@@ -653,12 +681,22 @@
       "height": 160,
       "depth": 10,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "VƯƠNG QUỐC HOA",
+      "brand": "VƯƠNG QUỐC HOA",
+      "company": "VƯƠNG QUỐC HOA",
+      "bioOwner": "Chị Phượng xinh đẹp",
+      "bioCompany": "VƯƠNG QUỐC HOA",
+      "products": [
+        {
+          "img": "members/VuongQuocHoa/1475033081_vuongquochoa-logo-05.png",
+          "name": "Dịch vụ hoa cao cấp",
+          "desc": null,
+          "price": null,
+          "qty": null,
+          "atShowroom": false,
+          "atHathyo": false
+        }
+      ]
     },
     "S3": {
       "code": "S3",
@@ -672,7 +710,7 @@
       "height": 160,
       "depth": 10,
       "note": "Phía trong mặt kính cửa, góc tiếp giáp với mặt T",
-      "bizCode": null,
+      "bizCode": "A123",
       "brand": null,
       "company": null,
       "bioOwner": null,
@@ -691,11 +729,11 @@
       "height": 150,
       "depth": 5,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A043",
+      "brand": "Cơ khí Hưng Thịnh",
+      "company": "Công ty TNHH Xây dựng Sản xuất Cơ khí Hưng Thịnh",
+      "bioOwner": "Ông Lê Văn Hưng - Giám đốc Công ty TNHH Xây dựng Sản xuất Cơ khí Hưng Thịnh, thành lập năm 2002.",
+      "bioCompany": "Hưng Thịnh có hơn 20 năm kinh nghiệm gia công cơ khí và xây dựng kết cấu thép, đã thực hiện hàng trăm dự án nhà xưởng và hạ tầng kỹ thuật trên toàn quốc. Sản phẩm chủ lực: hệ thống kết cấu thép nhà xưởng, kèo thép tiền chế, lan can, cầu thang thoát hiểm, hệ thống mái Canopy.",
       "products": []
     },
     "TC1": {
@@ -878,22 +916,58 @@
       "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
       "products": [
         {
-          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-cao-cap-ion-green-lon-330ml-600x600_w256.webp",
-          "name": "ION GREEN - Nước uống ion kiềm",
-          "desc": "Nước uống ion kiềm đóng lon 330ml, thương hiệu BIDRICO.",
-          "price": 123000,
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
           "qty": 10,
           "atShowroom": true,
-          "atHathyo": true
+          "atHathyo": false
         },
         {
-          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-960g_w256.webp",
-          "name": "Rau câu hương vị trái cây BIDRICO",
-          "desc": "Rau câu hương vị trái cây, túi 960g, thương hiệu BIDRICO.",
-          "price": 111000,
-          "qty": 20,
-          "atShowroom": false,
-          "atHathyo": true
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
         }
       ]
     },
@@ -908,12 +982,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T03": {
       "code": "T03",
@@ -926,12 +1055,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T04": {
       "code": "T04",
@@ -962,12 +1146,31 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A054",
+      "brand": "Tín Đạt",
+      "company": "Công ty TNHH Công nghệ Viễn thông Tín Đạt",
+      "bioOwner": "Ông Nguyễn Thái Trinh - Giám đốc Công ty TNHH Công nghệ Viễn thông Tín Đạt, thành lập năm 2016.",
+      "bioCompany": "Tín Đạt là nhà nhập khẩu và phân phối bộ đàm, máy tuần tra, máy dò kim loại, đồng thời cung cấp giải pháp an ninh - điện nhẹ trọn gói (tư vấn, thiết kế, thi công, bảo trì) tại khu vực TP.HCM.",
+      "products": [
+        {
+          "img": "members/A054/LS-V6-2-600x800.jpg",
+          "name": "Bộ đàm Lisheng LS-V6",
+          "desc": "Lisheng LS-V6 là bộ đàm cầm tay nhỏ gọn, thẩm mỹ, dải tần UHF 400–470 MHz, công suất phát 2.5 W, phù hợp cho nhà hàng, khách sạn, văn phòng, tòa nhà và đội bảo vệ.\n\nTrang bị pin Li-ion 2200 mAh cho thời gian sử dụng thực tế đến ~12 giờ, âm thanh to rõ, bắt sóng ổn định, vỏ ABS bền bỉ chống va đập.\nGiải pháp liên lạc gọn nhẹ, dễ dùng và tiết kiệm cho doanh nghiệp.",
+          "price": 950000,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A054/主图-6200E1-300x300-1.webp",
+          "name": "Máy tuần tra bảo vệ Z-6200E",
+          "desc": "Máy tuần tra bảo vệ Z-6200E là thiết bị quản lý hành trình tuần tra chuyên nghiệp, sử dụng công nghệ RFID 125kHz không tiếp xúc, giúp ghi nhận dữ liệu nhanh chóng chỉ với thao tác quét thẻ.\n\nSản phẩm được thiết kế bằng hợp kim nhôm siêu bền, chống nước – chống va đập chuẩn IP67, tích hợp đèn pin 5 chế độ sáng hỗ trợ làm việc ban đêm.\n\nZ-6200E có thể lưu trữ tới 80.000 bản ghi tuần tra, hoạt động ổn định tới 30 ngày mỗi lần sạc, phù hợp cho các khu công nghiệp, nhà máy, khách sạn, tòa nhà, hoặc đội bảo vệ chuyên nghiệp.",
+          "price": 3500000,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "T06": {
       "code": "T06",
@@ -980,12 +1183,31 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A054",
+      "brand": "Tín Đạt",
+      "company": "Công ty TNHH Công nghệ Viễn thông Tín Đạt",
+      "bioOwner": "Ông Nguyễn Thái Trinh - Giám đốc Công ty TNHH Công nghệ Viễn thông Tín Đạt, thành lập năm 2016.",
+      "bioCompany": "Tín Đạt là nhà nhập khẩu và phân phối bộ đàm, máy tuần tra, máy dò kim loại, đồng thời cung cấp giải pháp an ninh - điện nhẹ trọn gói (tư vấn, thiết kế, thi công, bảo trì) tại khu vực TP.HCM.",
+      "products": [
+        {
+          "img": "members/A054/主图-6200E1-300x300-1.webp",
+          "name": "Máy tuần tra bảo vệ Z-6200E",
+          "desc": "Máy tuần tra bảo vệ Z-6200E là thiết bị quản lý hành trình tuần tra chuyên nghiệp, sử dụng công nghệ RFID 125kHz không tiếp xúc, giúp ghi nhận dữ liệu nhanh chóng chỉ với thao tác quét thẻ.\n\nSản phẩm được thiết kế bằng hợp kim nhôm siêu bền, chống nước – chống va đập chuẩn IP67, tích hợp đèn pin 5 chế độ sáng hỗ trợ làm việc ban đêm.\n\nZ-6200E có thể lưu trữ tới 80.000 bản ghi tuần tra, hoạt động ổn định tới 30 ngày mỗi lần sạc, phù hợp cho các khu công nghiệp, nhà máy, khách sạn, tòa nhà, hoặc đội bảo vệ chuyên nghiệp.",
+          "price": 3500000,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A054/LS-V6-2-600x800.jpg",
+          "name": "Bộ đàm Lisheng LS-V6",
+          "desc": "Lisheng LS-V6 là bộ đàm cầm tay nhỏ gọn, thẩm mỹ, dải tần UHF 400–470 MHz, công suất phát 2.5 W, phù hợp cho nhà hàng, khách sạn, văn phòng, tòa nhà và đội bảo vệ.\n\nTrang bị pin Li-ion 2200 mAh cho thời gian sử dụng thực tế đến ~12 giờ, âm thanh to rõ, bắt sóng ổn định, vỏ ABS bền bỉ chống va đập.\nGiải pháp liên lạc gọn nhẹ, dễ dùng và tiết kiệm cho doanh nghiệp.",
+          "price": 950000,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "T07": {
       "code": "T07",
@@ -998,11 +1220,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A026",
+      "brand": "Bình Minh Safety",
+      "company": "Công ty TNHH Bình Minh Safety",
+      "bioOwner": "Bà Võ Thị Nhân - Ban Văn hóa Thể thao & Từ thiện CLB Doanh nhân Quảng Trị, Giám đốc Kinh doanh Công ty TNHH Bình Minh Safety.",
+      "bioCompany": "Bình Minh Safety chuyên sản xuất đồng phục và thiết bị bảo hộ lao động, cung cấp giải pháp tổng thể về an toàn lao động và phòng cháy chữa cháy: đồng phục công sở, bảo hộ lao động, thiết bị cách điện, phao cứu sinh, hệ thống báo cháy.",
       "products": []
     },
     "T08": {
@@ -1016,11 +1238,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A026",
+      "brand": "Bình Minh Safety",
+      "company": "Công ty TNHH Bình Minh Safety",
+      "bioOwner": "Bà Võ Thị Nhân - Ban Văn hóa Thể thao & Từ thiện CLB Doanh nhân Quảng Trị, Giám đốc Kinh doanh Công ty TNHH Bình Minh Safety.",
+      "bioCompany": "Bình Minh Safety chuyên sản xuất đồng phục và thiết bị bảo hộ lao động, cung cấp giải pháp tổng thể về an toàn lao động và phòng cháy chữa cháy: đồng phục công sở, bảo hộ lao động, thiết bị cách điện, phao cứu sinh, hệ thống báo cháy.",
       "products": []
     },
     "T09": {
@@ -1034,11 +1256,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A026",
+      "brand": "Bình Minh Safety",
+      "company": "Công ty TNHH Bình Minh Safety",
+      "bioOwner": "Bà Võ Thị Nhân - Ban Văn hóa Thể thao & Từ thiện CLB Doanh nhân Quảng Trị, Giám đốc Kinh doanh Công ty TNHH Bình Minh Safety.",
+      "bioCompany": "Bình Minh Safety chuyên sản xuất đồng phục và thiết bị bảo hộ lao động, cung cấp giải pháp tổng thể về an toàn lao động và phòng cháy chữa cháy: đồng phục công sở, bảo hộ lao động, thiết bị cách điện, phao cứu sinh, hệ thống báo cháy.",
       "products": []
     },
     "T10": {
@@ -1052,12 +1274,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T11": {
       "code": "T11",
@@ -1070,12 +1347,67 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T12": {
       "code": "T12",
@@ -1088,12 +1420,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A024",
+      "brand": "Thực phẩm An Phát",
+      "company": "Công ty TNHH Thương mại và Dịch vụ Thực phẩm An Phát",
+      "bioOwner": "Bà Lê Thanh Diệu Ly - Ban Đối ngoại CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH Thương mại và Dịch vụ Thực phẩm An Phát.",
+      "bioCompany": "An Phát chuyên sản xuất và cung ứng các dòng sản phẩm cao cấp: Rượu (Rượu Yến Thượng Uyển, Rượu Mắc ca vẩy vàng 24k), Tổ Yến Sào nguyên chất, Trà thảo mộc (trà gạo lứt tâm sen, trà gạo lứt móng rồng) và set quà tặng doanh nghiệp.",
+      "products": [
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014111.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - Tổ Yến 750ml",
+          "price": 1800000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014152.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - Tổ Yến 500ml",
+          "price": 1100000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014337.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - 750ml",
+          "price": 500000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "T13": {
       "code": "T13",
@@ -1106,11 +1466,11 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A081",
+      "brand": "HELI GITF",
+      "company": "Công ty TNHH TMDV Quà tặng Heli Gift",
+      "bioOwner": "Ông Lê Thanh Hiền - Giám đốc Kinh doanh Công ty TNHH TMDV Quà tặng Heli Gift.",
+      "bioCompany": "HeLi Gift cung cấp giải pháp quà tặng doanh nghiệp và dịch vụ thiết kế, in ấn: set quà tặng VIP, cúp vinh danh sự kiện, bình giữ nhiệt, túi canvas, áo mưa, mũ bảo hiểm in logo, quy trình khép kín từ ý tưởng đến giao hàng toàn quốc.",
       "products": []
     },
     "T14": {
@@ -1124,11 +1484,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A036",
+      "brand": "LINH SAN",
+      "company": "Hộ Doanh nghiệp Cá nhân Linh San",
+      "bioOwner": "Linh San - Chủ Hộ kinh doanh cá nhân Linh San; Đại sứ Áo dài 2021, Top 15 Miss Teen 2022; ca sĩ, người mẫu và performer.",
+      "bioCompany": "Hệ sinh thái kinh doanh gồm Tinh La Flower (thiết kế hoa khai trương, sinh nhật, sự kiện, kỷ niệm) và Linh San Band (cung cấp ca sĩ, MC, người mẫu, band nhạc, dancer, PG cho sự kiện), trụ sở tại KĐT Vinhomes Grand Park, TP.HCM.",
       "products": []
     },
     "T15": {
@@ -1142,11 +1502,11 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A026",
+      "brand": "Bình Minh Safety",
+      "company": "Công ty TNHH Bình Minh Safety",
+      "bioOwner": "Bà Võ Thị Nhân - Ban Văn hóa Thể thao & Từ thiện CLB Doanh nhân Quảng Trị, Giám đốc Kinh doanh Công ty TNHH Bình Minh Safety.",
+      "bioCompany": "Bình Minh Safety chuyên sản xuất đồng phục và thiết bị bảo hộ lao động, cung cấp giải pháp tổng thể về an toàn lao động và phòng cháy chữa cháy: đồng phục công sở, bảo hộ lao động, thiết bị cách điện, phao cứu sinh, hệ thống báo cháy.",
       "products": []
     },
     "T16": {
@@ -1160,12 +1520,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T17": {
       "code": "T17",
@@ -1178,12 +1593,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T18": {
       "code": "T18",
@@ -1196,12 +1666,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T19": {
       "code": "T19",
@@ -1214,12 +1739,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A024",
+      "brand": "Thực phẩm An Phát",
+      "company": "Công ty TNHH Thương mại và Dịch vụ Thực phẩm An Phát",
+      "bioOwner": "Bà Lê Thanh Diệu Ly - Ban Đối ngoại CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH Thương mại và Dịch vụ Thực phẩm An Phát.",
+      "bioCompany": "An Phát chuyên sản xuất và cung ứng các dòng sản phẩm cao cấp: Rượu (Rượu Yến Thượng Uyển, Rượu Mắc ca vẩy vàng 24k), Tổ Yến Sào nguyên chất, Trà thảo mộc (trà gạo lứt tâm sen, trà gạo lứt móng rồng) và set quà tặng doanh nghiệp.",
+      "products": [
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014152.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - Tổ Yến 500ml",
+          "price": 1100000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014111.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - Tổ Yến 750ml",
+          "price": 1800000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014337.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - 750ml",
+          "price": 500000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "T20": {
       "code": "T20",
@@ -1232,11 +1785,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A081",
+      "brand": "HELI GITF",
+      "company": "Công ty TNHH TMDV Quà tặng Heli Gift",
+      "bioOwner": "Ông Lê Thanh Diệu Ly - Ban Đối ngoại CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH Thương mại và Dịch vụ Thực phẩm An Phát.",
+      "bioCompany": "HeLi Gift cung cấp giải pháp quà tặng doanh nghiệp và dịch vụ thiết kế, in ấn: set quà tặng VIP, cúp vinh danh sự kiện, bình giữ nhiệt, túi canvas, áo mưa, mũ bảo hiểm in logo, quy trình khép kín từ ý tưởng đến giao hàng toàn quốc.",
       "products": []
     },
     "T21": {
@@ -1250,11 +1803,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A081",
+      "brand": "HELI GITF",
+      "company": "Công ty TNHH TMDV Quà tặng Heli Gift",
+      "bioOwner": "Ông Lê Thanh Diệu Ly - Ban Đối ngoại CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH Thương mại và Dịch vụ Thực phẩm An Phát.",
+      "bioCompany": "HeLi Gift cung cấp giải pháp quà tặng doanh nghiệp và dịch vụ thiết kế, in ấn: set quà tặng VIP, cúp vinh danh sự kiện, bình giữ nhiệt, túi canvas, áo mưa, mũ bảo hiểm in logo, quy trình khép kín từ ý tưởng đến giao hàng toàn quốc.",
       "products": []
     },
     "T22": {
@@ -1268,11 +1821,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A036",
+      "brand": "LINH SAN",
+      "company": "Hộ Doanh nghiệp Cá nhân Linh San",
+      "bioOwner": "Linh San - Chủ Hộ kinh doanh cá nhân Linh San; Đại sứ Áo dài 2021, Top 15 Miss Teen 2022; ca sĩ, người mẫu và performer.",
+      "bioCompany": "Hệ sinh thái kinh doanh gồm Tinh La Flower (thiết kế hoa khai trương, sinh nhật, sự kiện, kỷ niệm) và Linh San Band (cung cấp ca sĩ, MC, người mẫu, band nhạc, dancer, PG cho sự kiện), trụ sở tại KĐT Vinhomes Grand Park, TP.HCM.",
       "products": []
     },
     "T23": {
@@ -1286,12 +1839,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
+      "bizCode": "A029",
+      "brand": "Trần Lan Clean",
+      "company": "Công ty TNHH Sản xuất và TM Nông sản sạch Trần Lan",
+      "bioOwner": "Bà Trần Thị Lan - Giám đốc Công ty TNHH Sản xuất và TM Nông sản sạch Trần Lan.",
       "bioCompany": null,
-      "products": []
+      "products": [
+        {
+          "img": "members/A029/aTYOoyFC9F_22e1e777-8510-45a3-88c2-788a21ef4f36.webp",
+          "name": "MỲ SỢI KHÔ RAU CỦ - TRẦN LAN",
+          "desc": "Mỳ sợi khô rau củ được sản xuất từ bột mì kết hợp bột rau củ tự nhiên, mang đến sợi mì thơm ngon, màu sắc tự nhiên và giàu dinh dưỡng.\n\nSản phẩm không phẩm màu – không chất bảo quản – không phụ gia, phù hợp cho mọi đối tượng sử dụng.\nTham khảo https://hathyo.com/product/141",
+          "price": 50000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A029/VNb0vDW1Rl_b620c8ec-484c-4a8b-afb5-a191289dcafe.webp",
+          "name": "TRÀ TÍA TÔ - TRẦN LAN",
+          "desc": "rà tía tô Trần Lan là sản phẩm trà thảo mộc tự nhiên, được làm từ 100% lá tía tô tuyển chọn sấy khô hoặc sấy lạnh. Trà giữ được hương thơm thảo mộc đặc trưng, vị thanh mát, hỗ trợ thanh lọc cơ thể, giải cảm, làm đẹp da và cải thiện sức khỏe hiệu quả.\nTham khảo thêm: https://hathyo.com/product/149",
+          "price": 80000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A029/Screenshot 2026-07-10 225817.png",
+          "name": "Nhiều sản phẩm Lan Trần Clean",
+          "desc": "Nhiều sản phẩm, hãy xem thêm ở https://hathyo.com/merchant/44\n🌿 TINH BỘT NGHỆ VÀNG NGUYÊN CHẤT – TRẦN LAN (110.000 ₫)\n🌸 BỘT SEN QUÊ DINH DƯỠNG (120.000 ₫)\nBỘT SẮN DÂY - TRẦN LAN (120.000 ₫)\n🌿 BỘT MÈ ĐEN – ĐẬU ĐEN XANH LÒNG (120.000 ₫)\n🔥36% (120.000 ₫)\n🌾 BÁNH CỐM DINH DƯỠNG MIX HẠT - TRẦN LAN (125.000 ₫)\n🌿 BỘT TÍA TÔ SẤY LẠNH NGUYÊN CHẤT (160.000 ₫)\nNGŨ CỐC ĂN LIỀN- GRANOLA (160.000 ₫)\n🥜 BÁNH THUYỀN MIX HẠT DINH DƯỠNG – GIÒN NGON KHÓ CƯỠNG (175.000 ₫)\n🌿 RONG BIỂN MIX HẠT DINH DƯỠNG - TRẦN LAN (175.000 ₫)\nNGŨ CỐC CAO CẤP TRẦN LAN - 100% THIÊN NHIÊN (180.000 ₫)",
+          "price": 200000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "T24": {
       "code": "T24",
@@ -1304,12 +1885,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
+      "bizCode": "A029",
+      "brand": "Trần Lan Clean",
+      "company": "Công ty TNHH Sản xuất và TM Nông sản sạch Trần Lan",
+      "bioOwner": "Bà Trần Thị Lan - Giám đốc Công ty TNHH Sản xuất và TM Nông sản sạch Trần Lan.",
       "bioCompany": null,
-      "products": []
+      "products": [
+        {
+          "img": "members/A029/VNb0vDW1Rl_b620c8ec-484c-4a8b-afb5-a191289dcafe.webp",
+          "name": "TRÀ TÍA TÔ - TRẦN LAN",
+          "desc": "rà tía tô Trần Lan là sản phẩm trà thảo mộc tự nhiên, được làm từ 100% lá tía tô tuyển chọn sấy khô hoặc sấy lạnh. Trà giữ được hương thơm thảo mộc đặc trưng, vị thanh mát, hỗ trợ thanh lọc cơ thể, giải cảm, làm đẹp da và cải thiện sức khỏe hiệu quả.\nTham khảo thêm: https://hathyo.com/product/149",
+          "price": 80000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A029/aTYOoyFC9F_22e1e777-8510-45a3-88c2-788a21ef4f36.webp",
+          "name": "MỲ SỢI KHÔ RAU CỦ - TRẦN LAN",
+          "desc": "Mỳ sợi khô rau củ được sản xuất từ bột mì kết hợp bột rau củ tự nhiên, mang đến sợi mì thơm ngon, màu sắc tự nhiên và giàu dinh dưỡng.\n\nSản phẩm không phẩm màu – không chất bảo quản – không phụ gia, phù hợp cho mọi đối tượng sử dụng.\nTham khảo https://hathyo.com/product/141",
+          "price": 50000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A029/Screenshot 2026-07-10 225817.png",
+          "name": "Nhiều sản phẩm Lan Trần Clean",
+          "desc": "Nhiều sản phẩm, hãy xem thêm ở https://hathyo.com/merchant/44\n🌿 TINH BỘT NGHỆ VÀNG NGUYÊN CHẤT – TRẦN LAN (110.000 ₫)\n🌸 BỘT SEN QUÊ DINH DƯỠNG (120.000 ₫)\nBỘT SẮN DÂY - TRẦN LAN (120.000 ₫)\n🌿 BỘT MÈ ĐEN – ĐẬU ĐEN XANH LÒNG (120.000 ₫)\n🔥36% (120.000 ₫)\n🌾 BÁNH CỐM DINH DƯỠNG MIX HẠT - TRẦN LAN (125.000 ₫)\n🌿 BỘT TÍA TÔ SẤY LẠNH NGUYÊN CHẤT (160.000 ₫)\nNGŨ CỐC ĂN LIỀN- GRANOLA (160.000 ₫)\n🥜 BÁNH THUYỀN MIX HẠT DINH DƯỠNG – GIÒN NGON KHÓ CƯỠNG (175.000 ₫)\n🌿 RONG BIỂN MIX HẠT DINH DƯỠNG - TRẦN LAN (175.000 ₫)\nNGŨ CỐC CAO CẤP TRẦN LAN - 100% THIÊN NHIÊN (180.000 ₫)",
+          "price": 200000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "T25": {
       "code": "T25",
@@ -1322,12 +1931,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T26": {
       "code": "T26",
@@ -1340,12 +2004,67 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A001",
+      "brand": "BIDRICO",
+      "company": "Công ty TNHH SX&TM Tân Quang Minh",
+      "bioOwner": "Ông Nguyễn Đặng Hiến - Chủ tịch CLB Doanh nhân Quảng Trị, Tổng Giám đốc Công ty TNHH SX&TM Tân Quang Minh (thương hiệu BIDRICO).",
+      "bioCompany": "BIDRICO thành lập năm 1992, nhà máy rộng 15.000 m² tại KCN Vĩnh Lộc, TP.HCM, 12 dây chuyền tiệt trùng UHT hiện đại. Sản phẩm: nước giải khát đóng chai/lon, nước yến, nước có ga và không ga, nước tăng lực, nước ion kiềm, gia công OEM. Hơn 6.000 đại lý toàn quốc, xuất khẩu 15+ quốc gia.",
+      "products": [
+        {
+          "img": "members/A001/yen-sao-nha-dam-bidrico-500ml-moi.jpg.webp",
+          "name": "Nước yến sào nha đam Bidrico chai",
+          "desc": "Nước yến sào nha đam Bidrico là sự kết hợp tuyệt vời giữa yến sào nguyên chất và nha đam tươi mát, thơm ngon và bổ dưỡng. Sản phẩm yến sào nha đam đóng chai 500ml được Bidrico sản xuất trên dây chuyền khép kín và công nghệ hiện đại, đảm bảo an toàn chất lượng từ khâu nguyên liệu đến thành phẩm. Không chỉ tạo cảm giác thanh mát và ngọt ngào, sản phẩm còn có tác dụng tuyệt vời cho sức khỏe và sắc đẹp.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-rau-cau-huong-vi-trai-cay-bidrico-tui-470g.png",
+          "name": "Rau câu hương vị trái cây Bidrico",
+          "desc": "Rau câu trái cây Bidrico túi 470g là sự kết hợp từ bột rau câu, thạch dừa dai dai, giòn giòn và vị chua chua ngọt ngọt từ các loại trái cây: Bắp, chuối, ổi, khóm, xoài, mãng cầu, dừa, cam, dưa… Sự hoà quyện này mang lại một trải nghiệm thú vị và ngon miệng, phù hợp với từng khẩu vị của mọi thành viên trong gia đình.\n\nSản phẩm được làm từ thành phần tự nhiên, an toàn và không chứa chất DEHP (Hoá chất hữu cơ gây hại cho sức khoẻ). Đồng thời sản xuất trên dây chuyền hiện đại để đảm bảo chất lượng và giữ được hương vị thơm ngon tự nhiên của trái cây.\n\nThạch rau câu là một món ăn nhẹ và mát, không có chất béo, ít calo nên sẽ tạo cho bạn cảm giác no lâu hơn và hạn chế tiêu thụ các thức ăn khác nên rất được ưa chuộng.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-chanh-muoi-restore-chai-495ml-1-600x600.png",
+          "name": "Nước chanh muối Restore chai",
+          "desc": "Nước chanh muối Restore vinh dự là sản phẩm chủ lực Tp.Hồ Chí Minh giai đoạn 2018-2020 và 2021-2025. Đồng thời là sản phẩm, dịch vụ tiêu biểu TP.HCM năm 2017 – 2023 và Sản phẩm công nghiệp và công nghiệp hỗ trợ tiêu biểu TP.HCM năm 2022 – 2024.\n\nThông tin sản phẩm nước chanh muối Restore\nNước chanh Muối Restore là nước giải khát được sản xuất từ nước cốt chanh muối, ủ theo phương pháp truyền thống từ trái chanh giấy tươi, được bào bỏ lớp vỏ mỏng và rửa qua nhiều lần bằng nước sạch, rồi đem ngâm với nước muối. Tiếp đó, chanh ngâm muối được mang đi phơi nắng từ 2-6 tháng, cuối cùng bỏ trái và chỉ thu lấy cốt chanh muối. Cùng với công nghệ máy móc hiện đại, dây chuyền sản xuất khép kín tạo ra nước chanh muối Restore trong suốt, không màu.\nNước chanh muối Restore tăng thêm 11% cốt chanh muối\nCó gaz nhẹ, phù hợp với nhiều đối tượng sử dụng",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/HINH-DAI-DIEN-NUOC-UONG-BIDRICO-CHAI-500ML-MOI-1-600x600.jpg",
+          "name": "Nước uống Bidrico chai",
+          "desc": "Nước uống Bidrico chai 500ml hân hạnh là nước uống chính thức tại hội nghị cấp cao APEC 2017.\n\nThông tin sản phẩm nước uống Bidrico chai 500ml\n– Nước uống Bidrico (Gồm chai 500ml, chai 350ml, bình 19l vòi, bình 19l up) được sản xuất theo tiêu chuẩn QCVN 6-1:2010BYT. Quy trình sản xuất luôn tuân thủ những tiêu chuẩn nghiêm ngặt về quản lý chất lượng theo quy trình ISO 9001:2015, HACCP và các quy định của Ban Quản Lý An Toàn Thực Phẩm – Sở Y Tế Tp. Hồ Chí Minh. \n\n– Dung tích và thiết kế nhỏ gọn thích hợp để sử dụng tại văn phòng, sự kiện, du lịch, dã ngoại.\n\n– Sử dụng đều đặn nước uống Bidrico hàng ngày có lợi cho sức khoẻ như: Giải khát; Tăng năng lượng; giảm căng thẳng mệt mỏi; Cơ bắp khoẻ mạnh; Giảm cân…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-nuoc-uong-ion-kiem-ion-green-chai-500ml.png",
+          "name": "Nước uống ion kiềm cao cấp ION GREEN chai",
+          "desc": "Nước ion kiềm cao cấp Ion Green được tạo ra từ công nghệ điện phân hiện đại Nhật Bản với thành phần nước ion kiềm 100%, tính kiềm tự nhiên như rau xanh sạch, giàu hydrogen và các vi khoáng tự nhiên. Sản phẩm đạt chuẩn an toàn vệ sinh thực phẩm ISO, HACCP, cGMP, Halal.\n\nCác loại nước uống ion kiềm Ion Green\nBình ion kiềm Ion Green 19l up/đa năng: Tiết kiệm cho gia đình, văn phòng, trường học.\nChai nước ion kiềm Ion Green 350ml, 500ml: Tiện lợi khi sử dụng cho các buổi hội họp, sự kiện, văn phòng, trường học, du lịch, thể thao…\nLon nước ion kiềm Ion Green 330ml: Phù hợp cho các buổi họp, hội nghị, tiếp khách, du lịch…",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A001/hinh-dai-dien-ca-phe-den-espresso-bi-coffee-lon-180ml-600x600.png",
+          "name": "Cà phê đen Bi-coffee lon 180ml",
+          "desc": "Cà phê đen Bi-coffee được chế biến từ những hạt cà phê đã qua chọn lọc kỹ càng, cùng với công thức pha chế tinh tế và công nghệ sản xuất hiện đại. Cà phê đen Bi-coffee 180ml là dòng sản phẩm pha sẵn tiện lợi, giữ được vị đắng tự nhiên và hương thơm lôi cuốn chuẩn gu phái mạnh.",
+          "price": 0,
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "T27": {
       "code": "T27",
@@ -1358,12 +2077,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A024",
+      "brand": "Thực phẩm An Phát",
+      "company": "Công ty TNHH Thương mại và Dịch vụ Thực phẩm An Phát",
+      "bioOwner": "Bà Lê Thanh Diệu Ly - Ban Đối ngoại CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH Thương mại và Dịch vụ Thực phẩm An Phát.",
+      "bioCompany": "An Phát chuyên sản xuất và cung ứng các dòng sản phẩm cao cấp: Rượu (Rượu Yến Thượng Uyển, Rượu Mắc ca vẩy vàng 24k), Tổ Yến Sào nguyên chất, Trà thảo mộc (trà gạo lứt tâm sen, trà gạo lứt móng rồng) và set quà tặng doanh nghiệp.",
+      "products": [
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014337.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - 750ml",
+          "price": 500000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014111.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - Tổ Yến 750ml",
+          "price": 1800000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A024/Screenshot 2026-07-11 014152.png",
+          "name": null,
+          "desc": "Rượu Thượng Uyển Mắc Ca - Tổ Yến 500ml",
+          "price": 1100000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "T28": {
       "code": "T28",
@@ -1376,11 +2123,11 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A081",
+      "brand": "HELI GITF",
+      "company": "Công ty TNHH TMDV Quà tặng Heli Gift",
+      "bioOwner": "Bà Lê Thanh Hiền - Giám đốc Kinh doanh Công ty TNHH TMDV Quà tặng Heli Gift.",
+      "bioCompany": "HeLi Gift cung cấp giải pháp quà tặng doanh nghiệp và dịch vụ thiết kế, in ấn: set quà tặng VIP, cúp vinh danh sự kiện, bình giữ nhiệt, túi canvas, áo mưa, mũ bảo hiểm in logo, quy trình khép kín từ ý tưởng đến giao hàng toàn quốc.",
       "products": []
     },
     "T29": {
@@ -1412,12 +2159,40 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
+      "bizCode": "A029",
+      "brand": "Trần Lan Clean",
+      "company": "Công ty TNHH Sản xuất và TM Nông sản sạch Trần Lan",
+      "bioOwner": "Bà Trần Thị Lan - Giám đốc Công ty TNHH Sản xuất và TM Nông sản sạch Trần Lan.",
       "bioCompany": null,
-      "products": []
+      "products": [
+        {
+          "img": "members/A029/Screenshot 2026-07-10 225817.png",
+          "name": "Nhiều sản phẩm Lan Trần Clean",
+          "desc": "Nhiều sản phẩm, hãy xem thêm ở https://hathyo.com/merchant/44\n🌿 TINH BỘT NGHỆ VÀNG NGUYÊN CHẤT – TRẦN LAN (110.000 ₫)\n🌸 BỘT SEN QUÊ DINH DƯỠNG (120.000 ₫)\nBỘT SẮN DÂY - TRẦN LAN (120.000 ₫)\n🌿 BỘT MÈ ĐEN – ĐẬU ĐEN XANH LÒNG (120.000 ₫)\n🔥36% (120.000 ₫)\n🌾 BÁNH CỐM DINH DƯỠNG MIX HẠT - TRẦN LAN (125.000 ₫)\n🌿 BỘT TÍA TÔ SẤY LẠNH NGUYÊN CHẤT (160.000 ₫)\nNGŨ CỐC ĂN LIỀN- GRANOLA (160.000 ₫)\n🥜 BÁNH THUYỀN MIX HẠT DINH DƯỠNG – GIÒN NGON KHÓ CƯỠNG (175.000 ₫)\n🌿 RONG BIỂN MIX HẠT DINH DƯỠNG - TRẦN LAN (175.000 ₫)\nNGŨ CỐC CAO CẤP TRẦN LAN - 100% THIÊN NHIÊN (180.000 ₫)",
+          "price": 200000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A029/VNb0vDW1Rl_b620c8ec-484c-4a8b-afb5-a191289dcafe.webp",
+          "name": "TRÀ TÍA TÔ - TRẦN LAN",
+          "desc": "rà tía tô Trần Lan là sản phẩm trà thảo mộc tự nhiên, được làm từ 100% lá tía tô tuyển chọn sấy khô hoặc sấy lạnh. Trà giữ được hương thơm thảo mộc đặc trưng, vị thanh mát, hỗ trợ thanh lọc cơ thể, giải cảm, làm đẹp da và cải thiện sức khỏe hiệu quả.\nTham khảo thêm: https://hathyo.com/product/149",
+          "price": 80000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A029/aTYOoyFC9F_22e1e777-8510-45a3-88c2-788a21ef4f36.webp",
+          "name": "MỲ SỢI KHÔ RAU CỦ - TRẦN LAN",
+          "desc": "Mỳ sợi khô rau củ được sản xuất từ bột mì kết hợp bột rau củ tự nhiên, mang đến sợi mì thơm ngon, màu sắc tự nhiên và giàu dinh dưỡng.\n\nSản phẩm không phẩm màu – không chất bảo quản – không phụ gia, phù hợp cho mọi đối tượng sử dụng.\nTham khảo https://hathyo.com/product/141",
+          "price": 50000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "FC01": {
       "code": "FC01",
@@ -1610,11 +2385,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A003",
+      "brand": "Nhà sách Khang Việt",
+      "company": "Công ty TNHH MTV Dịch vụ Văn hóa Khang Việt",
+      "bioOwner": "Ông Hoàng Toàn - Cố vấn CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH MTV Dịch vụ Văn hóa Khang Việt.",
+      "bioCompany": "Khang Việt là đơn vị phát hành sách và thương mại điện tử uy tín hàng đầu Việt Nam (khangvietbook.com.vn), hoạt động từ năm 2013. Thế mạnh cốt lõi là sách giáo dục - sách tham khảo, sách giải và luyện thi THPT Quốc gia từ Mầm non đến THPT.",
       "products": []
     },
     "F02": {
@@ -1628,11 +2403,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A003",
+      "brand": "Nhà sách Khang Việt",
+      "company": "Công ty TNHH MTV Dịch vụ Văn hóa Khang Việt",
+      "bioOwner": "Ông Hoàng Toàn - Cố vấn CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH MTV Dịch vụ Văn hóa Khang Việt.",
+      "bioCompany": "Khang Việt là đơn vị phát hành sách và thương mại điện tử uy tín hàng đầu Việt Nam (khangvietbook.com.vn), hoạt động từ năm 2013. Thế mạnh cốt lõi là sách giáo dục - sách tham khảo, sách giải và luyện thi THPT Quốc gia từ Mầm non đến THPT.",
       "products": []
     },
     "F03": {
@@ -1646,7 +2421,7 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
+      "bizCode": "Herbal (Ngọc Linh)",
       "brand": null,
       "company": null,
       "bioOwner": null,
@@ -1664,7 +2439,7 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
+      "bizCode": "Herbal (Ngọc Linh)",
       "brand": null,
       "company": null,
       "bioOwner": null,
@@ -1682,12 +2457,31 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "Nhật Chi Food",
+      "brand": "Nhật Chi Food",
+      "company": "Công ty TNHH Sản xuất Thương mại và Dịch vụ Nhật Chi Food (Nhật Chi Food)",
+      "bioOwner": "Người Thổi Hồn Vào Sứ Mệnh Nhật Chi Food\nĐứng sau hành trình định hình và phát triển của Nhật Chi Food là chị Trần Thị Lan Chi – Giám đốc công ty, một người con ưu tú của mảnh đất Quảng Trị giàu truyền thống và nghị lực. Sinh ra và lớn lên từ vùng đất miền Trung đầy nắng gió, nơi con người luôn gắn bó mật thiết với ruộng đồng và trân quý từng sản vật của thiên nhiên, chị Lan Chi mang trong mình sự kiên cường, chân thành cùng niềm đam mê cháy bỏng với nông sản Việt. Chính tình yêu quê hương và khát vọng nâng tầm giá trị nông sản đã trở thành kim chỉ nam để chị sáng lập nên Nhật Chi Food, với lời cam kết trọn vẹn về một thương hiệu “Tự nhiên – Sạch – An toàn”.\n\nĐối với chị Lan Chi, mỗi sản phẩm trao đến tay người tiêu dùng không chỉ là nguồn dinh dưỡng lành mạnh, mà còn là cái tâm của người làm nghề và sự tử tế đối với sức khỏe cộng đồng. Bằng tư duy nhạy bén của một người lãnh đạo hiện đại kết hợp với sự tỉ mỉ, khắt khe trong khâu kiểm soát chất lượng từ nông trại đến bàn ăn, chị đã và đang dẫn dắt Nhật Chi Food trở thành điểm tựa niềm tin vững chắc cho mọi gia đình Việt, lan tỏa xu hướng sống xanh và nâng cao chất lượng cuộc sống bền vững.",
+      "bioCompany": "Công ty TNHH Sản xuất Thương mại và Dịch vụ Nhật Chi Food (Nhật Chi Food) là một doanh nghiệp chuyên cung cấp các sản phẩm nông sản chất lượng cao, mang đến giá trị dinh dưỡng và sức khỏe cho người tiêu dùng. Với phương châm “Tự nhiên – Sạch – An toàn”, Nhật Chi Food tự hào mang đến các sản phẩm được chế biến từ nguyên liệu nông sản tươi sạch, không chất bảo quản, đảm bảo an toàn thực phẩm.",
+      "products": [
+        {
+          "img": "members/NhatChiFood/4jsaOoO9MO_z7862280686839_a3402fcd3429092fdde25e8c88d73abb.webp",
+          "name": "Chuối sấy dẻo mix hạt",
+          "desc": "Chuối sấy dẻo mix hạt được làm từ chuối mật mốc, hạnh nhân lát, hạt bí xanh, xoài, mè, dừa.\nXem thêm: https://hathyo.com/product/196\n\nCác sản phẩm khác >> Xem thêm: https://hathyo.com/merchant/48\nChuối sấy dẻo cắt lát (30.000 ₫)\nMì sợi rau củ (45.000 ₫)\nChuối sấy dẻo nguyên quả (60.000 ₫)\nChuối sấy dẻo mix hạt (75.000 ₫)\nBột đậu xanh rau má (95.000 ₫)\nBột gừng (110.000 ₫)\nBánh hạt dinh dưỡng (140.000 ₫)\nBột chuối xanh (170.000 ₫)\nNgũ cốc dinh dưỡng mẹ thỏ (220.000 ₫)",
+          "price": 75000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/NhatChiFood/Screenshot 2026-07-11 020646.png",
+          "name": "Nhiều sản phẩm của Nhật Chi Food",
+          "desc": "Các sản phẩm của Nhật Chi Food được trưng bày và cũng bán trên https://hathyo.com/merchant/48, gồm:\n>> Chuối sấy dẻo cắt lát (30.000 ₫)\n>> Mì sợi rau củ (45.000 ₫)\n>> Chuối sấy dẻo nguyên quả (60.000 ₫)\n>> Chuối sấy dẻo mix hạt (75.000 ₫)\n>> Bột đậu xanh rau má (95.000 ₫)\n>> Bột gừng (110.000 ₫)\n>> Bánh hạt dinh dưỡng (140.000 ₫)\n>> Bột chuối xanh (170.000 ₫)\n>> Ngũ cốc dinh dưỡng mẹ thỏ (220.000 ₫)",
+          "price": 200000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "F06": {
       "code": "F06",
@@ -1700,12 +2494,31 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A040",
+      "brand": "Rượu Trường Chinh",
+      "company": "HKD Cơ sở Sản xuất Rượu truyền thống Trường Chinh",
+      "bioOwner": "Ông Phạm Ngọc Chinh - Chủ hộ Kinh doanh Cơ sở Sản xuất Rượu truyền thống Trường Chinh.",
+      "bioCompany": "Rượu Trường Chinh là thương hiệu rượu truyền thống tại Quảng Bình, đạt chứng nhận OCOP và Sản phẩm Công nghiệp Nông thôn tiêu biểu; lọc sạch độc tố, hạ thổ trong chum sành. Ngoài rượu nếp trắng còn cung cấp thảo dược quý: Sâm Ngọc Linh, Sâm Cau rừng Trường Sơn, Tam Thất, Ba Kích, Sim rừng Quảng Hợp.",
+      "products": [
+        {
+          "img": "members/A040/ZqV8VHTEpp_sim20tim.webp",
+          "name": "Rượu Sim",
+          "desc": "Rượu Sim được ngâm ủ từ những trái sim tuyển chọn, mang hương thơm ngọt dịu đặc trưng, vị êm dễ uống. Được ngâm trong chum sành suốt 1 năm trước khi đưa ra thị trường, sản phẩm phù hợp cho các buổi gặp gỡ, tiệc tùng và làm quà biếu.",
+          "price": 182000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A040/Screenshot 2026-07-11 005731.png",
+          "name": "Nhiều loại rượu truyền thống Trường Chinh",
+          "desc": ">> Rượu sim\n>> Rượu ngũ quả\n>> Rượu sâm cau\n>> Rượu gạo\n>> Rượu nếp\nXem thêm: https://hathyo.com/merchant/53",
+          "price": 285000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "F07": {
       "code": "F07",
@@ -1718,12 +2531,31 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A040",
+      "brand": "Rượu Trường Chinh",
+      "company": "HKD Cơ sở Sản xuất Rượu truyền thống Trường Chinh",
+      "bioOwner": "Ông Phạm Ngọc Chinh - Chủ hộ Kinh doanh Cơ sở Sản xuất Rượu truyền thống Trường Chinh.",
+      "bioCompany": "Rượu Trường Chinh là thương hiệu rượu truyền thống tại Quảng Bình, đạt chứng nhận OCOP và Sản phẩm Công nghiệp Nông thôn tiêu biểu; lọc sạch độc tố, hạ thổ trong chum sành. Ngoài rượu nếp trắng còn cung cấp thảo dược quý: Sâm Ngọc Linh, Sâm Cau rừng Trường Sơn, Tam Thất, Ba Kích, Sim rừng Quảng Hợp.",
+      "products": [
+        {
+          "img": "members/A040/Screenshot 2026-07-11 005731.png",
+          "name": "Nhiều loại rượu truyền thống Trường Chinh",
+          "desc": ">> Rượu sim\n>> Rượu ngũ quả\n>> Rượu sâm cau\n>> Rượu gạo\n>> Rượu nếp\nXem thêm: https://hathyo.com/merchant/53",
+          "price": 285000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A040/ZqV8VHTEpp_sim20tim.webp",
+          "name": "Rượu Sim",
+          "desc": "Rượu Sim được ngâm ủ từ những trái sim tuyển chọn, mang hương thơm ngọt dịu đặc trưng, vị êm dễ uống. Được ngâm trong chum sành suốt 1 năm trước khi đưa ra thị trường, sản phẩm phù hợp cho các buổi gặp gỡ, tiệc tùng và làm quà biếu.",
+          "price": 182000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "F08": {
       "code": "F08",
@@ -1736,7 +2568,7 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
+      "bizCode": "Sâm Hepius",
       "brand": null,
       "company": null,
       "bioOwner": null,
@@ -1790,11 +2622,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A003",
+      "brand": "Nhà sách Khang Việt",
+      "company": "Công ty TNHH MTV Dịch vụ Văn hóa Khang Việt",
+      "bioOwner": "Ông Hoàng Toàn - Cố vấn CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH MTV Dịch vụ Văn hóa Khang Việt.",
+      "bioCompany": "Khang Việt là đơn vị phát hành sách và thương mại điện tử uy tín hàng đầu Việt Nam (khangvietbook.com.vn), hoạt động từ năm 2013. Thế mạnh cốt lõi là sách giáo dục - sách tham khảo, sách giải và luyện thi THPT Quốc gia từ Mầm non đến THPT.",
       "products": []
     },
     "F12": {
@@ -1808,11 +2640,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A003",
+      "brand": "Nhà sách Khang Việt",
+      "company": "Công ty TNHH MTV Dịch vụ Văn hóa Khang Việt",
+      "bioOwner": "Ông Hoàng Toàn - Cố vấn CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH MTV Dịch vụ Văn hóa Khang Việt.",
+      "bioCompany": "Khang Việt là đơn vị phát hành sách và thương mại điện tử uy tín hàng đầu Việt Nam (khangvietbook.com.vn), hoạt động từ năm 2013. Thế mạnh cốt lõi là sách giáo dục - sách tham khảo, sách giải và luyện thi THPT Quốc gia từ Mầm non đến THPT.",
       "products": []
     },
     "F13": {
@@ -1826,10 +2658,10 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
+      "bizCode": "A103",
       "brand": null,
-      "company": null,
-      "bioOwner": null,
+      "company": "Công ty Cổ phần Công nghệ Thực phẩm Đất Việt",
+      "bioOwner": "Ông Nguyễn Minh Vương - Công ty Cổ phần Công nghệ Thực phẩm Đất Việt.",
       "bioCompany": null,
       "products": []
     },
@@ -1844,12 +2676,31 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "Nhật Chi Food",
+      "brand": "Nhật Chi Food",
+      "company": "Công ty TNHH Sản xuất Thương mại và Dịch vụ Nhật Chi Food (Nhật Chi Food)",
+      "bioOwner": "Người Thổi Hồn Vào Sứ Mệnh Nhật Chi Food\nĐứng sau hành trình định hình và phát triển của Nhật Chi Food là chị Trần Thị Lan Chi – Giám đốc công ty, một người con ưu tú của mảnh đất Quảng Trị giàu truyền thống và nghị lực. Sinh ra và lớn lên từ vùng đất miền Trung đầy nắng gió, nơi con người luôn gắn bó mật thiết với ruộng đồng và trân quý từng sản vật của thiên nhiên, chị Lan Chi mang trong mình sự kiên cường, chân thành cùng niềm đam mê cháy bỏng với nông sản Việt. Chính tình yêu quê hương và khát vọng nâng tầm giá trị nông sản đã trở thành kim chỉ nam để chị sáng lập nên Nhật Chi Food, với lời cam kết trọn vẹn về một thương hiệu “Tự nhiên – Sạch – An toàn”.\n\nĐối với chị Lan Chi, mỗi sản phẩm trao đến tay người tiêu dùng không chỉ là nguồn dinh dưỡng lành mạnh, mà còn là cái tâm của người làm nghề và sự tử tế đối với sức khỏe cộng đồng. Bằng tư duy nhạy bén của một người lãnh đạo hiện đại kết hợp với sự tỉ mỉ, khắt khe trong khâu kiểm soát chất lượng từ nông trại đến bàn ăn, chị đã và đang dẫn dắt Nhật Chi Food trở thành điểm tựa niềm tin vững chắc cho mọi gia đình Việt, lan tỏa xu hướng sống xanh và nâng cao chất lượng cuộc sống bền vững.",
+      "bioCompany": "Công ty TNHH Sản xuất Thương mại và Dịch vụ Nhật Chi Food (Nhật Chi Food) là một doanh nghiệp chuyên cung cấp các sản phẩm nông sản chất lượng cao, mang đến giá trị dinh dưỡng và sức khỏe cho người tiêu dùng. Với phương châm “Tự nhiên – Sạch – An toàn”, Nhật Chi Food tự hào mang đến các sản phẩm được chế biến từ nguyên liệu nông sản tươi sạch, không chất bảo quản, đảm bảo an toàn thực phẩm.",
+      "products": [
+        {
+          "img": "members/NhatChiFood/Screenshot 2026-07-11 020646.png",
+          "name": "Nhiều sản phẩm của Nhật Chi Food",
+          "desc": "Các sản phẩm của Nhật Chi Food được trưng bày và cũng bán trên https://hathyo.com/merchant/48, gồm:\n>> Chuối sấy dẻo cắt lát (30.000 ₫)\n>> Mì sợi rau củ (45.000 ₫)\n>> Chuối sấy dẻo nguyên quả (60.000 ₫)\n>> Chuối sấy dẻo mix hạt (75.000 ₫)\n>> Bột đậu xanh rau má (95.000 ₫)\n>> Bột gừng (110.000 ₫)\n>> Bánh hạt dinh dưỡng (140.000 ₫)\n>> Bột chuối xanh (170.000 ₫)\n>> Ngũ cốc dinh dưỡng mẹ thỏ (220.000 ₫)",
+          "price": 200000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/NhatChiFood/4jsaOoO9MO_z7862280686839_a3402fcd3429092fdde25e8c88d73abb.webp",
+          "name": "Chuối sấy dẻo mix hạt",
+          "desc": "Chuối sấy dẻo mix hạt được làm từ chuối mật mốc, hạnh nhân lát, hạt bí xanh, xoài, mè, dừa.\nXem thêm: https://hathyo.com/product/196\n\nCác sản phẩm khác >> Xem thêm: https://hathyo.com/merchant/48\nChuối sấy dẻo cắt lát (30.000 ₫)\nMì sợi rau củ (45.000 ₫)\nChuối sấy dẻo nguyên quả (60.000 ₫)\nChuối sấy dẻo mix hạt (75.000 ₫)\nBột đậu xanh rau má (95.000 ₫)\nBột gừng (110.000 ₫)\nBánh hạt dinh dưỡng (140.000 ₫)\nBột chuối xanh (170.000 ₫)\nNgũ cốc dinh dưỡng mẹ thỏ (220.000 ₫)",
+          "price": 75000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "F15": {
       "code": "F15",
@@ -1862,11 +2713,11 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A063",
+      "brand": "Hóa mỹ phẩm Linda",
+      "company": "Công ty TNHH Hóa Mỹ Phẩm Linda",
+      "bioOwner": "Ông Phạm Huy - Giám đốc Công ty TNHH Hóa Mỹ Phẩm Linda (Bình Phước).",
+      "bioCompany": "Linda sản xuất và kinh doanh sản phẩm giặt rửa gia dụng: nước giặt hương nước hoa (Hoa hồng Pháp, Downy Đam mê), nước rửa chén chiết xuất hương chanh, nước lau sàn hương sả chanh tự nhiên.",
       "products": []
     },
     "F16": {
@@ -1880,7 +2731,7 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
+      "bizCode": "Sâm Hepius",
       "brand": null,
       "company": null,
       "bioOwner": null,
@@ -1898,11 +2749,11 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A058",
+      "brand": "Toàn Thành Phát",
+      "company": "Công ty TNHH Đầu tư Xây dựng Toàn Thành Phát",
+      "bioOwner": "Ông Nguyễn Ngọc Linh - Phó Giám đốc & Sáng lập Công ty TNHH Đầu tư Xây dựng Toàn Thành Phát.",
+      "bioCompany": "Toàn Thành Phát chuyên tư vấn thiết kế và thi công công trình dân dụng, công nghiệp và thương mại, trụ sở tại Quận Bình Tân và văn phòng tại Khu đô thị Vạn Phúc (Thủ Đức), với các dự án tiêu biểu như Staff House Côn Đảo.",
       "products": []
     },
     "F18": {
@@ -1952,12 +2803,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A019",
+      "brand": "NEW OCEAN WAVE VN",
+      "company": "Công ty TNHH Tư vấn KD Dịch vụ New Ocean Wave Việt Nam",
+      "bioOwner": "Bà Nguyễn Thị Thanh Thuỷ - Ban Giao Thương CLB Doanh nhân Quảng Trị, CEO & Founder Công ty TNHH Tư vấn KD Dịch vụ New Ocean Wave Việt Nam.",
+      "bioCompany": "New Ocean Wave Việt Nam thành lập tháng 3/2019, chuyên nghiên cứu, sản xuất và nhập khẩu đồ uống (có cồn và không cồn) và thực phẩm có lợi cho sức khỏe, ưu tiên nguyên liệu tự nhiên, đầy đủ giấy phép công bố sản phẩm.",
+      "products": [
+        {
+          "img": "members/A019/176237683.png",
+          "name": "Rượu đông trùng hạ thảo Mộc Thủy Tửu chai tròn 625 mL",
+          "desc": "Rượu Đông Trùng Hạ Thảo MỘC THỦY TỬU\nCho sức khoẻ tốt hơn mỗi ngày\nThể tích thực ở 32oC: 625ml; độ cồn: 31%\n\nTHÀNH PHẦN: Rượu gạo: 95%; Đông Trùng Hạ Thảo: 3%; Linh Chi Nguyên Bào Tử, Táo đỏ Hàn Quốc, Kỷ Tử: 2%\nCÔNG DỤNG: Uống trực tiếp trước khi ngủ, tăng sức đề kháng, giúp giảm mỡ trong máu, khỏe thận, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 490000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A019/07.png",
+          "name": "Rượu đông trùng Hạ thảo Mộc Thuỷ Tửu_ Sâm Hàn 500ml",
+          "desc": "RƯỢU ĐÔNG TRÙNG HẠ THẢO\nMỘC THỦY TỬU SÂM HÀN\nThể tích thực: 500ml - Độ cồn: 27-31%\n\nTHÀNH PHẦN: Rượu gạo: 88%; Sâm hàn Quốc: 7%; Đông Trùng Hạ Thảo: 3%; Nấm Linh Chi Nhật Nguyên Bào Tử, Kỷ Tử, Táo đỏ: 2%\nCÔNG DỤNG: giúp ăn ngon miệng hơn, tăng sức đề kháng, khoẻ trong người, khoẻ thận, điều tiết giảm mỡ trong máu, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 730000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A019/banner.jpg",
+          "name": "Rượu đông trùng hạ thảo Mộc Thủy Tửu chai tròn 625 mL",
+          "desc": "Rượu Đông Trùng Hạ Thảo MỘC THỦY TỬU\nCho sức khoẻ tốt hơn mỗi ngày\nThể tích thực ở 32oC: 625ml; độ cồn: 31%\n\nTHÀNH PHẦN: Rượu gạo: 88-95%; Đông Trùng Hạ Thảo: 3%; Linh Chi Nguyên Bào Tử, Táo đỏ Hàn Quốc, Kỷ Tử: 2%\nCÔNG DỤNG: Uống trực tiếp trước khi ngủ, tăng sức đề kháng, giúp giảm mỡ trong máu, khỏe thận, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 730000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "F21": {
       "code": "F21",
@@ -1970,12 +2849,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A019",
+      "brand": "NEW OCEAN WAVE VN",
+      "company": "Công ty TNHH Tư vấn KD Dịch vụ New Ocean Wave Việt Nam",
+      "bioOwner": "Bà Nguyễn Thị Thanh Thuỷ - Ban Giao Thương CLB Doanh nhân Quảng Trị, CEO & Founder Công ty TNHH Tư vấn KD Dịch vụ New Ocean Wave Việt Nam.",
+      "bioCompany": "New Ocean Wave Việt Nam thành lập tháng 3/2019, chuyên nghiên cứu, sản xuất và nhập khẩu đồ uống (có cồn và không cồn) và thực phẩm có lợi cho sức khỏe, ưu tiên nguyên liệu tự nhiên, đầy đủ giấy phép công bố sản phẩm.",
+      "products": [
+        {
+          "img": "members/A019/07.png",
+          "name": "Rượu đông trùng Hạ thảo Mộc Thuỷ Tửu_ Sâm Hàn 500ml",
+          "desc": "RƯỢU ĐÔNG TRÙNG HẠ THẢO\nMỘC THỦY TỬU SÂM HÀN\nThể tích thực: 500ml - Độ cồn: 27-31%\n\nTHÀNH PHẦN: Rượu gạo: 88%; Sâm hàn Quốc: 7%; Đông Trùng Hạ Thảo: 3%; Nấm Linh Chi Nhật Nguyên Bào Tử, Kỷ Tử, Táo đỏ: 2%\nCÔNG DỤNG: giúp ăn ngon miệng hơn, tăng sức đề kháng, khoẻ trong người, khoẻ thận, điều tiết giảm mỡ trong máu, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 730000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A019/176237683.png",
+          "name": "Rượu đông trùng hạ thảo Mộc Thủy Tửu chai tròn 625 mL",
+          "desc": "Rượu Đông Trùng Hạ Thảo MỘC THỦY TỬU\nCho sức khoẻ tốt hơn mỗi ngày\nThể tích thực ở 32oC: 625ml; độ cồn: 31%\n\nTHÀNH PHẦN: Rượu gạo: 95%; Đông Trùng Hạ Thảo: 3%; Linh Chi Nguyên Bào Tử, Táo đỏ Hàn Quốc, Kỷ Tử: 2%\nCÔNG DỤNG: Uống trực tiếp trước khi ngủ, tăng sức đề kháng, giúp giảm mỡ trong máu, khỏe thận, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 490000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A019/banner.jpg",
+          "name": "Rượu đông trùng hạ thảo Mộc Thủy Tửu chai tròn 625 mL",
+          "desc": "Rượu Đông Trùng Hạ Thảo MỘC THỦY TỬU\nCho sức khoẻ tốt hơn mỗi ngày\nThể tích thực ở 32oC: 625ml; độ cồn: 31%\n\nTHÀNH PHẦN: Rượu gạo: 88-95%; Đông Trùng Hạ Thảo: 3%; Linh Chi Nguyên Bào Tử, Táo đỏ Hàn Quốc, Kỷ Tử: 2%\nCÔNG DỤNG: Uống trực tiếp trước khi ngủ, tăng sức đề kháng, giúp giảm mỡ trong máu, khỏe thận, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 730000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "F22": {
       "code": "F22",
@@ -1988,11 +2895,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A072",
+      "brand": "An Bảo Minh",
+      "company": "Công ty TNHH Thiết bị An Bảo Minh",
+      "bioOwner": "Ông Trần Trình - Giám đốc Công ty TNHH Thiết bị An Bảo Minh, thành lập năm 2012.",
+      "bioCompany": "An Bảo Minh tư vấn, thi công và lắp đặt hệ thống camera quan sát và thiết bị an ninh, với các dự án cho Bệnh viện Chợ Rẫy, Tân Huê Viên, Tổng công ty 28. Sản phẩm chủ lực: Camera AVTECH (Đài Loan).",
       "products": []
     },
     "F23": {
@@ -2006,7 +2913,7 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
+      "bizCode": "A122",
       "brand": null,
       "company": null,
       "bioOwner": null,
@@ -2024,7 +2931,7 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
+      "bizCode": "A122",
       "brand": null,
       "company": null,
       "bioOwner": null,
@@ -2042,11 +2949,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A042",
+      "brand": "Tân Xuân Group",
+      "company": "Công ty TNHH Thương mại Đầu tư Tân Xuân Group",
+      "bioOwner": "Ông Nguyễn Thanh Quân - Giám đốc Công ty TNHH Thương mại Đầu tư Tân Xuân Group.",
+      "bioCompany": "Tân Xuân Group chuyên cung cấp giải pháp tôn mạ chất lượng cao với nhãn hiệu Tôn Sky, đạt tiêu chuẩn kỹ thuật Nhật Bản (JIS G3321, G3322), phục vụ thị trường xây dựng dân dụng và công nghiệp trong nước và quốc tế.",
       "products": []
     },
     "F26": {
@@ -2060,11 +2967,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A042",
+      "brand": "Tân Xuân Group",
+      "company": "Công ty TNHH Thương mại Đầu tư Tân Xuân Group",
+      "bioOwner": "Ông Nguyễn Thanh Quân - Giám đốc Công ty TNHH Thương mại Đầu tư Tân Xuân Group.",
+      "bioCompany": "Tân Xuân Group chuyên cung cấp giải pháp tôn mạ chất lượng cao với nhãn hiệu Tôn Sky, đạt tiêu chuẩn kỹ thuật Nhật Bản (JIS G3321, G3322), phục vụ thị trường xây dựng dân dụng và công nghiệp trong nước và quốc tế.",
       "products": []
     },
     "F27": {
@@ -2078,11 +2985,11 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A042",
+      "brand": "Tân Xuân Group",
+      "company": "Công ty TNHH Thương mại Đầu tư Tân Xuân Group",
+      "bioOwner": "Ông Nguyễn Thanh Quân - Giám đốc Công ty TNHH Thương mại Đầu tư Tân Xuân Group.",
+      "bioCompany": "Tân Xuân Group chuyên cung cấp giải pháp tôn mạ chất lượng cao với nhãn hiệu Tôn Sky, đạt tiêu chuẩn kỹ thuật Nhật Bản (JIS G3321, G3322), phục vụ thị trường xây dựng dân dụng và công nghiệp trong nước và quốc tế.",
       "products": []
     },
     "F28": {
@@ -2132,12 +3039,40 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A019",
+      "brand": "NEW OCEAN WAVE VN",
+      "company": "Công ty TNHH Tư vấn KD Dịch vụ New Ocean Wave Việt Nam",
+      "bioOwner": "Bà Nguyễn Thị Thanh Thuỷ - Ban Giao Thương CLB Doanh nhân Quảng Trị, CEO & Founder Công ty TNHH Tư vấn KD Dịch vụ New Ocean Wave Việt Nam.",
+      "bioCompany": "New Ocean Wave Việt Nam thành lập tháng 3/2019, chuyên nghiên cứu, sản xuất và nhập khẩu đồ uống (có cồn và không cồn) và thực phẩm có lợi cho sức khỏe, ưu tiên nguyên liệu tự nhiên, đầy đủ giấy phép công bố sản phẩm.",
+      "products": [
+        {
+          "img": "members/A019/banner.jpg",
+          "name": "Rượu đông trùng hạ thảo Mộc Thủy Tửu chai tròn 625 mL",
+          "desc": "Rượu Đông Trùng Hạ Thảo MỘC THỦY TỬU\nCho sức khoẻ tốt hơn mỗi ngày\nThể tích thực ở 32oC: 625ml; độ cồn: 31%\n\nTHÀNH PHẦN: Rượu gạo: 88-95%; Đông Trùng Hạ Thảo: 3%; Linh Chi Nguyên Bào Tử, Táo đỏ Hàn Quốc, Kỷ Tử: 2%\nCÔNG DỤNG: Uống trực tiếp trước khi ngủ, tăng sức đề kháng, giúp giảm mỡ trong máu, khỏe thận, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 730000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A019/176237683.png",
+          "name": "Rượu đông trùng hạ thảo Mộc Thủy Tửu chai tròn 625 mL",
+          "desc": "Rượu Đông Trùng Hạ Thảo MỘC THỦY TỬU\nCho sức khoẻ tốt hơn mỗi ngày\nThể tích thực ở 32oC: 625ml; độ cồn: 31%\n\nTHÀNH PHẦN: Rượu gạo: 95%; Đông Trùng Hạ Thảo: 3%; Linh Chi Nguyên Bào Tử, Táo đỏ Hàn Quốc, Kỷ Tử: 2%\nCÔNG DỤNG: Uống trực tiếp trước khi ngủ, tăng sức đề kháng, giúp giảm mỡ trong máu, khỏe thận, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 490000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/A019/07.png",
+          "name": "Rượu đông trùng Hạ thảo Mộc Thuỷ Tửu_ Sâm Hàn 500ml",
+          "desc": "RƯỢU ĐÔNG TRÙNG HẠ THẢO\nMỘC THỦY TỬU SÂM HÀN\nThể tích thực: 500ml - Độ cồn: 27-31%\n\nTHÀNH PHẦN: Rượu gạo: 88%; Sâm hàn Quốc: 7%; Đông Trùng Hạ Thảo: 3%; Nấm Linh Chi Nhật Nguyên Bào Tử, Kỷ Tử, Táo đỏ: 2%\nCÔNG DỤNG: giúp ăn ngon miệng hơn, tăng sức đề kháng, khoẻ trong người, khoẻ thận, điều tiết giảm mỡ trong máu, tăng cường sinh lực. Không đau đầu vào sáng hôm sau. Uống ngon hơn khi ướp lạnh.",
+          "price": 730000,
+          "qty": 100,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "F31": {
       "code": "F31",
@@ -2168,7 +3103,7 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
+      "bizCode": "A122",
       "brand": null,
       "company": null,
       "bioOwner": null,
@@ -2204,11 +3139,11 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A042",
+      "brand": "Tân Xuân Group",
+      "company": "Công ty TNHH Thương mại Đầu tư Tân Xuân Group",
+      "bioOwner": "Ông Nguyễn Thanh Quân - Giám đốc Công ty TNHH Thương mại Đầu tư Tân Xuân Group.",
+      "bioCompany": "Tân Xuân Group chuyên cung cấp giải pháp tôn mạ chất lượng cao với nhãn hiệu Tôn Sky, đạt tiêu chuẩn kỹ thuật Nhật Bản (JIS G3321, G3322), phục vụ thị trường xây dựng dân dụng và công nghiệp trong nước và quốc tế.",
       "products": []
     },
     "LC1": {
@@ -2227,7 +3162,17 @@
       "company": null,
       "bioOwner": null,
       "bioCompany": null,
-      "products": []
+      "products": [
+        {
+          "img": "members/A059/v82cUPXX8w_2%20(5).webp",
+          "name": "Bột ngũ cốc gia đình",
+          "desc": "Bột mịn, dễ pha, uống liền là thấy no nhẹ.Phù hợp cho cả nhà từ sáng đến bữa phụ.Tiện lợi – dinh dưỡng – dễ mang theo.\n>> Xem thêm: https://hathyo.com/product/229\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 199800,
+          "qty": null,
+          "atShowroom": false,
+          "atHathyo": false
+        }
+      ]
     },
     "LC2": {
       "code": "LC2",
@@ -2276,12 +3221,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A053",
+      "brand": "BRULE COFFEE",
+      "company": "Công ty TNHH Thương mại Brule Coffee",
+      "bioOwner": "Bà Lê Thị Phương Nhi - Giám đốc Kinh doanh Công ty TNHH Thương mại Brule Coffee.",
+      "bioCompany": "Brule Coffee là cà phê đặc sản từ cao nguyên Khe Sanh (Hướng Hóa, Quảng Trị), chăm sóc thủ công bởi đồng bào Vân Kiều, 100% nguyên chất, rang tươi mỗi tuần. Sản phẩm: cà phê rang xay & nguyên hạt, cà phê phin giấy, cà phê hòa tan, cà phê nhân xanh, trà vỏ cà phê Cascara.",
+      "products": [
+        {
+          "img": "members/A053/pq6y1vnkjZ_8.webp",
+          "name": "Cà phê ARIEU phin giấy - ARIEU Coffee drip bag",
+          "desc": "B’RULE ARIEU COFFEE \nCÀ PHÊ ĐẶC SẢN CHẤT LƯỢNG CAO - 100% ARABICA NGUYÊN CHẤT\n\nSản xuất từ vùng nguyên liệu KHE SANH – QUẢNG TRỊ,\nnơi đồng bào Vân Kiều chăm sóc trong từng mùa sương núi\nXem thêm: https://hathyo.com/product/164",
+          "price": 189000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A053/9daukWAPhD_B'RULE20COFFEE%20500G.webp",
+          "name": "Cà phê SARY - SARY Coffee",
+          "desc": "B’RULE SARY COFFEE\nKhe Sanh, Quảng Trị\ncoffee chất lượng cao\nXem thêm: https://hathyo.com/product/169",
+          "price": 241500,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A053/Screenshot 2026-07-11 002329.png",
+          "name": "Nhiều sản phẩm cà phê Brule",
+          "desc": "https://hathyo.com/merchant/47\nTRÀ VỎ CÀ PHÊ ĐẶC SẢN B’RU CASCARA\nCà phê Ủ lạnh B'RULE NRANG - Cold brew B'RULE Coffee\nCà phê Ủ lạnh B'RULE ARIEU - Cold brew B'RULE Coffee\nCà phê NRANG phin giấy - NRANG Coffee drip bag\nCà phê ARIEU phin giấy - ARIEU Coffee drip bag\nCombo 2 Hộp Cà Phê Hòa Tan Laura Coffee Nhật Kim Anh (2 Vị Đông Trùng + Nấm Linh Chi, Hộp 10 Gói)\nCà phê ROBUSTA - ROBUSTA Coffee\nCà phê LEE - LEE Coffee\nCà Phê LIBERICA Đặc sản - 100% LIBERICA nguyên chất\nCà Phê ARABICA Đặc sản - 100% ARABICA nguyên chất\nCà phê SARY - SARY Coffee\n[Combo 4 Hộp] - Cà phê Laura Nhật Kim Anh 2 đông trùng + 2 linh chi",
+          "price": 0,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L02": {
       "code": "L02",
@@ -2294,12 +3267,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A053",
+      "brand": "BRULE COFFEE",
+      "company": "Công ty TNHH Thương mại Brule Coffee",
+      "bioOwner": "Bà Lê Thị Phương Nhi - Giám đốc Kinh doanh Công ty TNHH Thương mại Brule Coffee.",
+      "bioCompany": "Brule Coffee là cà phê đặc sản từ cao nguyên Khe Sanh (Hướng Hóa, Quảng Trị), chăm sóc thủ công bởi đồng bào Vân Kiều, 100% nguyên chất, rang tươi mỗi tuần. Sản phẩm: cà phê rang xay & nguyên hạt, cà phê phin giấy, cà phê hòa tan, cà phê nhân xanh, trà vỏ cà phê Cascara.",
+      "products": [
+        {
+          "img": "members/A053/9daukWAPhD_B'RULE20COFFEE%20500G.webp",
+          "name": "Cà phê SARY - SARY Coffee",
+          "desc": "B’RULE SARY COFFEE\nKhe Sanh, Quảng Trị\ncoffee chất lượng cao\nXem thêm: https://hathyo.com/product/169",
+          "price": 241500,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A053/pq6y1vnkjZ_8.webp",
+          "name": "Cà phê ARIEU phin giấy - ARIEU Coffee drip bag",
+          "desc": "B’RULE ARIEU COFFEE \nCÀ PHÊ ĐẶC SẢN CHẤT LƯỢNG CAO - 100% ARABICA NGUYÊN CHẤT\n\nSản xuất từ vùng nguyên liệu KHE SANH – QUẢNG TRỊ,\nnơi đồng bào Vân Kiều chăm sóc trong từng mùa sương núi\nXem thêm: https://hathyo.com/product/164",
+          "price": 189000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A053/Screenshot 2026-07-11 002329.png",
+          "name": "Nhiều sản phẩm cà phê Brule",
+          "desc": "https://hathyo.com/merchant/47\nTRÀ VỎ CÀ PHÊ ĐẶC SẢN B’RU CASCARA\nCà phê Ủ lạnh B'RULE NRANG - Cold brew B'RULE Coffee\nCà phê Ủ lạnh B'RULE ARIEU - Cold brew B'RULE Coffee\nCà phê NRANG phin giấy - NRANG Coffee drip bag\nCà phê ARIEU phin giấy - ARIEU Coffee drip bag\nCombo 2 Hộp Cà Phê Hòa Tan Laura Coffee Nhật Kim Anh (2 Vị Đông Trùng + Nấm Linh Chi, Hộp 10 Gói)\nCà phê ROBUSTA - ROBUSTA Coffee\nCà phê LEE - LEE Coffee\nCà Phê LIBERICA Đặc sản - 100% LIBERICA nguyên chất\nCà Phê ARABICA Đặc sản - 100% ARABICA nguyên chất\nCà phê SARY - SARY Coffee\n[Combo 4 Hộp] - Cà phê Laura Nhật Kim Anh 2 đông trùng + 2 linh chi",
+          "price": 0,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L03": {
       "code": "L03",
@@ -2312,12 +3313,40 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A053",
+      "brand": "BRULE COFFEE",
+      "company": "Công ty TNHH Thương mại Brule Coffee",
+      "bioOwner": "Bà Lê Thị Phương Nhi - Giám đốc Kinh doanh Công ty TNHH Thương mại Brule Coffee.",
+      "bioCompany": "Brule Coffee là cà phê đặc sản từ cao nguyên Khe Sanh (Hướng Hóa, Quảng Trị), chăm sóc thủ công bởi đồng bào Vân Kiều, 100% nguyên chất, rang tươi mỗi tuần. Sản phẩm: cà phê rang xay & nguyên hạt, cà phê phin giấy, cà phê hòa tan, cà phê nhân xanh, trà vỏ cà phê Cascara.",
+      "products": [
+        {
+          "img": "members/A053/Screenshot 2026-07-11 002329.png",
+          "name": "Nhiều sản phẩm cà phê Brule",
+          "desc": "https://hathyo.com/merchant/47\nTRÀ VỎ CÀ PHÊ ĐẶC SẢN B’RU CASCARA\nCà phê Ủ lạnh B'RULE NRANG - Cold brew B'RULE Coffee\nCà phê Ủ lạnh B'RULE ARIEU - Cold brew B'RULE Coffee\nCà phê NRANG phin giấy - NRANG Coffee drip bag\nCà phê ARIEU phin giấy - ARIEU Coffee drip bag\nCombo 2 Hộp Cà Phê Hòa Tan Laura Coffee Nhật Kim Anh (2 Vị Đông Trùng + Nấm Linh Chi, Hộp 10 Gói)\nCà phê ROBUSTA - ROBUSTA Coffee\nCà phê LEE - LEE Coffee\nCà Phê LIBERICA Đặc sản - 100% LIBERICA nguyên chất\nCà Phê ARABICA Đặc sản - 100% ARABICA nguyên chất\nCà phê SARY - SARY Coffee\n[Combo 4 Hộp] - Cà phê Laura Nhật Kim Anh 2 đông trùng + 2 linh chi",
+          "price": 0,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A053/pq6y1vnkjZ_8.webp",
+          "name": "Cà phê ARIEU phin giấy - ARIEU Coffee drip bag",
+          "desc": "B’RULE ARIEU COFFEE \nCÀ PHÊ ĐẶC SẢN CHẤT LƯỢNG CAO - 100% ARABICA NGUYÊN CHẤT\n\nSản xuất từ vùng nguyên liệu KHE SANH – QUẢNG TRỊ,\nnơi đồng bào Vân Kiều chăm sóc trong từng mùa sương núi\nXem thêm: https://hathyo.com/product/164",
+          "price": 189000,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A053/9daukWAPhD_B'RULE20COFFEE%20500G.webp",
+          "name": "Cà phê SARY - SARY Coffee",
+          "desc": "B’RULE SARY COFFEE\nKhe Sanh, Quảng Trị\ncoffee chất lượng cao\nXem thêm: https://hathyo.com/product/169",
+          "price": 241500,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L04": {
       "code": "L04",
@@ -2330,12 +3359,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A059",
+      "brand": "Thiện Bảo",
+      "company": "Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo",
+      "bioOwner": "Bà Lê Thị Phượng - Giám đốc Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo.",
+      "bioCompany": "Thiện Bảo sản xuất và cung ứng thực phẩm dinh dưỡng có nguồn gốc tự nhiên từ Quảng Trị: ngũ cốc 20 loại hạt, bột dinh dưỡng mầm ngũ cốc & rau củ, tinh bột sắn dây, bột gừng hữu cơ sấy lạnh, trà gừng mật ong, mì rau củ.",
+      "products": [
+        {
+          "img": "members/A059/0fVgTF95q2_IMG_3678.webp",
+          "name": "Mì trứng vàng",
+          "desc": "Sợi mì vàng tự nhiên từ trứng và nghệ.Thơm ngon,dễ ăn,nấu nhanh trong vài phút.Phù hợp cho bữa ăn tiện lợi của cả nhà\n>> Xem thêm: https://hathyo.com/product/226\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 43200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/XqUsXPJ5Ze_z7891286000264_974ff36ff4a438819ce46a2e15a87732%20(1).webp",
+          "name": "Bột sắn dây",
+          "desc": "Bột săn dây tự nhiên,mát lành dễ uống.Pha nhanh, uống nóng hay lạnh đều hợp.Món quen thuộc trong căn bếp gia đình\n>> Xem thêm: https://hathyo.com/product/228\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 70200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/CkKrtEUbm0_5.webp",
+          "name": "Mì rau củ cầu vòng",
+          "desc": "Mì rau củ cầu vồng được làm từ rau củ tự nhiên,màu sắc đẹp mắt.Sợi mì dai mềm,dễ nấu,bé và người lớn điều thích.Không phẩm màu và chất phụ gia khác\n>> Xem thêm: https://hathyo.com/product/225\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 86400,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/x10rYWUnsT_71DB9A5E-C189-46B0-B273-EF53835D0D08.webp",
+          "name": "Muối mè đen đường hoa dừa",
+          "desc": "Muối mè đen đường hoa dừa là sự hòa quyện giữa mè đen rang thơm,hạnh nhân,hạt điều,muối hầm và đường hoa dừa, tạo vị mặn ngọt hài hòa.Dùng chấm trái cây, ăn cùng cơm, xôi,cháo, rau luộc rất bắt vị.\n>> Xem thêm: https://hathyo.com/product/231\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/lqLOuQpm9A_z7803696189903_23022a5feb6a1603ff405362dd917f96%20(1).webp",
+          "name": "Gừng thẻ vị nguyên bản",
+          "desc": "Mứt gừng thẻ được làm từ gừng sẻ và đường phèn, sên dẻo vừa, vị cay nhẹ – ngọt dịu.Thích hợp nhâm nhi cùng trà, giúp ấm bụng, đặc biệt ngon khi thời tiết se lạnh.\n>> Xem thêm: https://hathyo.com/product/227\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/QFy6bpX94s_2.webp",
+          "name": "Mầm ngũ cốc rau củ",
+          "desc": "Mầm ngũ cốc được làm từ các loại hạt nảy mầm và rau củ,xay mịn, dễ pha uống.Thích hợp dùng hằng ngày cho người lớn, người làm việc mệt mỏi hoặc cần bổ sung dinh dưỡng nhẹ nhàng.\n>> Xem thêm: https://hathyo.com/product/230\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 129600,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L05": {
       "code": "L05",
@@ -2348,12 +3432,67 @@
       "height": 40.0,
       "depth": 50,
       "note": "Ô đôi",
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A059",
+      "brand": "Thiện Bảo",
+      "company": "Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo",
+      "bioOwner": "Bà Lê Thị Phượng - Giám đốc Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo.",
+      "bioCompany": "Thiện Bảo sản xuất và cung ứng thực phẩm dinh dưỡng có nguồn gốc tự nhiên từ Quảng Trị: ngũ cốc 20 loại hạt, bột dinh dưỡng mầm ngũ cốc & rau củ, tinh bột sắn dây, bột gừng hữu cơ sấy lạnh, trà gừng mật ong, mì rau củ.",
+      "products": [
+        {
+          "img": "members/A059/XqUsXPJ5Ze_z7891286000264_974ff36ff4a438819ce46a2e15a87732%20(1).webp",
+          "name": "Bột sắn dây",
+          "desc": "Bột săn dây tự nhiên,mát lành dễ uống.Pha nhanh, uống nóng hay lạnh đều hợp.Món quen thuộc trong căn bếp gia đình\n>> Xem thêm: https://hathyo.com/product/228\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 70200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/0fVgTF95q2_IMG_3678.webp",
+          "name": "Mì trứng vàng",
+          "desc": "Sợi mì vàng tự nhiên từ trứng và nghệ.Thơm ngon,dễ ăn,nấu nhanh trong vài phút.Phù hợp cho bữa ăn tiện lợi của cả nhà\n>> Xem thêm: https://hathyo.com/product/226\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 43200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/CkKrtEUbm0_5.webp",
+          "name": "Mì rau củ cầu vòng",
+          "desc": "Mì rau củ cầu vồng được làm từ rau củ tự nhiên,màu sắc đẹp mắt.Sợi mì dai mềm,dễ nấu,bé và người lớn điều thích.Không phẩm màu và chất phụ gia khác\n>> Xem thêm: https://hathyo.com/product/225\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 86400,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/x10rYWUnsT_71DB9A5E-C189-46B0-B273-EF53835D0D08.webp",
+          "name": "Muối mè đen đường hoa dừa",
+          "desc": "Muối mè đen đường hoa dừa là sự hòa quyện giữa mè đen rang thơm,hạnh nhân,hạt điều,muối hầm và đường hoa dừa, tạo vị mặn ngọt hài hòa.Dùng chấm trái cây, ăn cùng cơm, xôi,cháo, rau luộc rất bắt vị.\n>> Xem thêm: https://hathyo.com/product/231\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/lqLOuQpm9A_z7803696189903_23022a5feb6a1603ff405362dd917f96%20(1).webp",
+          "name": "Gừng thẻ vị nguyên bản",
+          "desc": "Mứt gừng thẻ được làm từ gừng sẻ và đường phèn, sên dẻo vừa, vị cay nhẹ – ngọt dịu.Thích hợp nhâm nhi cùng trà, giúp ấm bụng, đặc biệt ngon khi thời tiết se lạnh.\n>> Xem thêm: https://hathyo.com/product/227\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/QFy6bpX94s_2.webp",
+          "name": "Mầm ngũ cốc rau củ",
+          "desc": "Mầm ngũ cốc được làm từ các loại hạt nảy mầm và rau củ,xay mịn, dễ pha uống.Thích hợp dùng hằng ngày cho người lớn, người làm việc mệt mỏi hoặc cần bổ sung dinh dưỡng nhẹ nhàng.\n>> Xem thêm: https://hathyo.com/product/230\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 129600,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L06": {
       "code": "L06",
@@ -2366,12 +3505,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A059",
+      "brand": "Thiện Bảo",
+      "company": "Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo",
+      "bioOwner": "Bà Lê Thị Phượng - Giám đốc Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo.",
+      "bioCompany": "Thiện Bảo sản xuất và cung ứng thực phẩm dinh dưỡng có nguồn gốc tự nhiên từ Quảng Trị: ngũ cốc 20 loại hạt, bột dinh dưỡng mầm ngũ cốc & rau củ, tinh bột sắn dây, bột gừng hữu cơ sấy lạnh, trà gừng mật ong, mì rau củ.",
+      "products": [
+        {
+          "img": "members/A059/CkKrtEUbm0_5.webp",
+          "name": "Mì rau củ cầu vòng",
+          "desc": "Mì rau củ cầu vồng được làm từ rau củ tự nhiên,màu sắc đẹp mắt.Sợi mì dai mềm,dễ nấu,bé và người lớn điều thích.Không phẩm màu và chất phụ gia khác\n>> Xem thêm: https://hathyo.com/product/225\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 86400,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/0fVgTF95q2_IMG_3678.webp",
+          "name": "Mì trứng vàng",
+          "desc": "Sợi mì vàng tự nhiên từ trứng và nghệ.Thơm ngon,dễ ăn,nấu nhanh trong vài phút.Phù hợp cho bữa ăn tiện lợi của cả nhà\n>> Xem thêm: https://hathyo.com/product/226\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 43200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/XqUsXPJ5Ze_z7891286000264_974ff36ff4a438819ce46a2e15a87732%20(1).webp",
+          "name": "Bột sắn dây",
+          "desc": "Bột săn dây tự nhiên,mát lành dễ uống.Pha nhanh, uống nóng hay lạnh đều hợp.Món quen thuộc trong căn bếp gia đình\n>> Xem thêm: https://hathyo.com/product/228\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 70200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/x10rYWUnsT_71DB9A5E-C189-46B0-B273-EF53835D0D08.webp",
+          "name": "Muối mè đen đường hoa dừa",
+          "desc": "Muối mè đen đường hoa dừa là sự hòa quyện giữa mè đen rang thơm,hạnh nhân,hạt điều,muối hầm và đường hoa dừa, tạo vị mặn ngọt hài hòa.Dùng chấm trái cây, ăn cùng cơm, xôi,cháo, rau luộc rất bắt vị.\n>> Xem thêm: https://hathyo.com/product/231\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/lqLOuQpm9A_z7803696189903_23022a5feb6a1603ff405362dd917f96%20(1).webp",
+          "name": "Gừng thẻ vị nguyên bản",
+          "desc": "Mứt gừng thẻ được làm từ gừng sẻ và đường phèn, sên dẻo vừa, vị cay nhẹ – ngọt dịu.Thích hợp nhâm nhi cùng trà, giúp ấm bụng, đặc biệt ngon khi thời tiết se lạnh.\n>> Xem thêm: https://hathyo.com/product/227\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/QFy6bpX94s_2.webp",
+          "name": "Mầm ngũ cốc rau củ",
+          "desc": "Mầm ngũ cốc được làm từ các loại hạt nảy mầm và rau củ,xay mịn, dễ pha uống.Thích hợp dùng hằng ngày cho người lớn, người làm việc mệt mỏi hoặc cần bổ sung dinh dưỡng nhẹ nhàng.\n>> Xem thêm: https://hathyo.com/product/230\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 129600,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L07": {
       "code": "L07",
@@ -2384,12 +3578,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A059",
+      "brand": "Thiện Bảo",
+      "company": "Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo",
+      "bioOwner": "Bà Lê Thị Phượng - Giám đốc Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo.",
+      "bioCompany": "Thiện Bảo sản xuất và cung ứng thực phẩm dinh dưỡng có nguồn gốc tự nhiên từ Quảng Trị: ngũ cốc 20 loại hạt, bột dinh dưỡng mầm ngũ cốc & rau củ, tinh bột sắn dây, bột gừng hữu cơ sấy lạnh, trà gừng mật ong, mì rau củ.",
+      "products": [
+        {
+          "img": "members/A059/x10rYWUnsT_71DB9A5E-C189-46B0-B273-EF53835D0D08.webp",
+          "name": "Muối mè đen đường hoa dừa",
+          "desc": "Muối mè đen đường hoa dừa là sự hòa quyện giữa mè đen rang thơm,hạnh nhân,hạt điều,muối hầm và đường hoa dừa, tạo vị mặn ngọt hài hòa.Dùng chấm trái cây, ăn cùng cơm, xôi,cháo, rau luộc rất bắt vị.\n>> Xem thêm: https://hathyo.com/product/231\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/0fVgTF95q2_IMG_3678.webp",
+          "name": "Mì trứng vàng",
+          "desc": "Sợi mì vàng tự nhiên từ trứng và nghệ.Thơm ngon,dễ ăn,nấu nhanh trong vài phút.Phù hợp cho bữa ăn tiện lợi của cả nhà\n>> Xem thêm: https://hathyo.com/product/226\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 43200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/XqUsXPJ5Ze_z7891286000264_974ff36ff4a438819ce46a2e15a87732%20(1).webp",
+          "name": "Bột sắn dây",
+          "desc": "Bột săn dây tự nhiên,mát lành dễ uống.Pha nhanh, uống nóng hay lạnh đều hợp.Món quen thuộc trong căn bếp gia đình\n>> Xem thêm: https://hathyo.com/product/228\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 70200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/CkKrtEUbm0_5.webp",
+          "name": "Mì rau củ cầu vòng",
+          "desc": "Mì rau củ cầu vồng được làm từ rau củ tự nhiên,màu sắc đẹp mắt.Sợi mì dai mềm,dễ nấu,bé và người lớn điều thích.Không phẩm màu và chất phụ gia khác\n>> Xem thêm: https://hathyo.com/product/225\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 86400,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/lqLOuQpm9A_z7803696189903_23022a5feb6a1603ff405362dd917f96%20(1).webp",
+          "name": "Gừng thẻ vị nguyên bản",
+          "desc": "Mứt gừng thẻ được làm từ gừng sẻ và đường phèn, sên dẻo vừa, vị cay nhẹ – ngọt dịu.Thích hợp nhâm nhi cùng trà, giúp ấm bụng, đặc biệt ngon khi thời tiết se lạnh.\n>> Xem thêm: https://hathyo.com/product/227\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/QFy6bpX94s_2.webp",
+          "name": "Mầm ngũ cốc rau củ",
+          "desc": "Mầm ngũ cốc được làm từ các loại hạt nảy mầm và rau củ,xay mịn, dễ pha uống.Thích hợp dùng hằng ngày cho người lớn, người làm việc mệt mỏi hoặc cần bổ sung dinh dưỡng nhẹ nhàng.\n>> Xem thêm: https://hathyo.com/product/230\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 129600,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L08": {
       "code": "L08",
@@ -2402,12 +3651,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A059",
+      "brand": "Thiện Bảo",
+      "company": "Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo",
+      "bioOwner": "Bà Lê Thị Phượng - Giám đốc Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo.",
+      "bioCompany": "Thiện Bảo sản xuất và cung ứng thực phẩm dinh dưỡng có nguồn gốc tự nhiên từ Quảng Trị: ngũ cốc 20 loại hạt, bột dinh dưỡng mầm ngũ cốc & rau củ, tinh bột sắn dây, bột gừng hữu cơ sấy lạnh, trà gừng mật ong, mì rau củ.",
+      "products": [
+        {
+          "img": "members/A059/lqLOuQpm9A_z7803696189903_23022a5feb6a1603ff405362dd917f96%20(1).webp",
+          "name": "Gừng thẻ vị nguyên bản",
+          "desc": "Mứt gừng thẻ được làm từ gừng sẻ và đường phèn, sên dẻo vừa, vị cay nhẹ – ngọt dịu.Thích hợp nhâm nhi cùng trà, giúp ấm bụng, đặc biệt ngon khi thời tiết se lạnh.\n>> Xem thêm: https://hathyo.com/product/227\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/0fVgTF95q2_IMG_3678.webp",
+          "name": "Mì trứng vàng",
+          "desc": "Sợi mì vàng tự nhiên từ trứng và nghệ.Thơm ngon,dễ ăn,nấu nhanh trong vài phút.Phù hợp cho bữa ăn tiện lợi của cả nhà\n>> Xem thêm: https://hathyo.com/product/226\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 43200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/XqUsXPJ5Ze_z7891286000264_974ff36ff4a438819ce46a2e15a87732%20(1).webp",
+          "name": "Bột sắn dây",
+          "desc": "Bột săn dây tự nhiên,mát lành dễ uống.Pha nhanh, uống nóng hay lạnh đều hợp.Món quen thuộc trong căn bếp gia đình\n>> Xem thêm: https://hathyo.com/product/228\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 70200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/CkKrtEUbm0_5.webp",
+          "name": "Mì rau củ cầu vòng",
+          "desc": "Mì rau củ cầu vồng được làm từ rau củ tự nhiên,màu sắc đẹp mắt.Sợi mì dai mềm,dễ nấu,bé và người lớn điều thích.Không phẩm màu và chất phụ gia khác\n>> Xem thêm: https://hathyo.com/product/225\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 86400,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/x10rYWUnsT_71DB9A5E-C189-46B0-B273-EF53835D0D08.webp",
+          "name": "Muối mè đen đường hoa dừa",
+          "desc": "Muối mè đen đường hoa dừa là sự hòa quyện giữa mè đen rang thơm,hạnh nhân,hạt điều,muối hầm và đường hoa dừa, tạo vị mặn ngọt hài hòa.Dùng chấm trái cây, ăn cùng cơm, xôi,cháo, rau luộc rất bắt vị.\n>> Xem thêm: https://hathyo.com/product/231\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/QFy6bpX94s_2.webp",
+          "name": "Mầm ngũ cốc rau củ",
+          "desc": "Mầm ngũ cốc được làm từ các loại hạt nảy mầm và rau củ,xay mịn, dễ pha uống.Thích hợp dùng hằng ngày cho người lớn, người làm việc mệt mỏi hoặc cần bổ sung dinh dưỡng nhẹ nhàng.\n>> Xem thêm: https://hathyo.com/product/230\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 129600,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L09": {
       "code": "L09",
@@ -2420,12 +3724,67 @@
       "height": 40.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A059",
+      "brand": "Thiện Bảo",
+      "company": "Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo",
+      "bioOwner": "Bà Lê Thị Phượng - Giám đốc Công ty TNHH Sản xuất Thương mại Thực phẩm Thiện Bảo.",
+      "bioCompany": "Thiện Bảo sản xuất và cung ứng thực phẩm dinh dưỡng có nguồn gốc tự nhiên từ Quảng Trị: ngũ cốc 20 loại hạt, bột dinh dưỡng mầm ngũ cốc & rau củ, tinh bột sắn dây, bột gừng hữu cơ sấy lạnh, trà gừng mật ong, mì rau củ.",
+      "products": [
+        {
+          "img": "members/A059/QFy6bpX94s_2.webp",
+          "name": "Mầm ngũ cốc rau củ",
+          "desc": "Mầm ngũ cốc được làm từ các loại hạt nảy mầm và rau củ,xay mịn, dễ pha uống.Thích hợp dùng hằng ngày cho người lớn, người làm việc mệt mỏi hoặc cần bổ sung dinh dưỡng nhẹ nhàng.\n>> Xem thêm: https://hathyo.com/product/230\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 129600,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/0fVgTF95q2_IMG_3678.webp",
+          "name": "Mì trứng vàng",
+          "desc": "Sợi mì vàng tự nhiên từ trứng và nghệ.Thơm ngon,dễ ăn,nấu nhanh trong vài phút.Phù hợp cho bữa ăn tiện lợi của cả nhà\n>> Xem thêm: https://hathyo.com/product/226\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 43200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/XqUsXPJ5Ze_z7891286000264_974ff36ff4a438819ce46a2e15a87732%20(1).webp",
+          "name": "Bột sắn dây",
+          "desc": "Bột săn dây tự nhiên,mát lành dễ uống.Pha nhanh, uống nóng hay lạnh đều hợp.Món quen thuộc trong căn bếp gia đình\n>> Xem thêm: https://hathyo.com/product/228\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 70200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/CkKrtEUbm0_5.webp",
+          "name": "Mì rau củ cầu vòng",
+          "desc": "Mì rau củ cầu vồng được làm từ rau củ tự nhiên,màu sắc đẹp mắt.Sợi mì dai mềm,dễ nấu,bé và người lớn điều thích.Không phẩm màu và chất phụ gia khác\n>> Xem thêm: https://hathyo.com/product/225\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 86400,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/x10rYWUnsT_71DB9A5E-C189-46B0-B273-EF53835D0D08.webp",
+          "name": "Muối mè đen đường hoa dừa",
+          "desc": "Muối mè đen đường hoa dừa là sự hòa quyện giữa mè đen rang thơm,hạnh nhân,hạt điều,muối hầm và đường hoa dừa, tạo vị mặn ngọt hài hòa.Dùng chấm trái cây, ăn cùng cơm, xôi,cháo, rau luộc rất bắt vị.\n>> Xem thêm: https://hathyo.com/product/231\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        },
+        {
+          "img": "members/A059/lqLOuQpm9A_z7803696189903_23022a5feb6a1603ff405362dd917f96%20(1).webp",
+          "name": "Gừng thẻ vị nguyên bản",
+          "desc": "Mứt gừng thẻ được làm từ gừng sẻ và đường phèn, sên dẻo vừa, vị cay nhẹ – ngọt dịu.Thích hợp nhâm nhi cùng trà, giúp ấm bụng, đặc biệt ngon khi thời tiết se lạnh.\n>> Xem thêm: https://hathyo.com/product/227\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 97200,
+          "qty": 1000,
+          "atShowroom": true,
+          "atHathyo": true
+        }
+      ]
     },
     "L10": {
       "code": "L10",
@@ -2443,7 +3802,17 @@
       "company": null,
       "bioOwner": null,
       "bioCompany": null,
-      "products": []
+      "products": [
+        {
+          "img": "members/A059/9TwBaLvSLW_1.webp",
+          "name": "Trà gạo lứt hoa cúc",
+          "desc": "Gạo lứt rang thơm hòa cùng hoa cúc dịu nhẹ.Uống là thấy dễ chịu,thư giãn tinh thần\n>> Xem thêm: https://hathyo.com/product/232\n\nMì trứng vàng (43.200 ₫)\nBột sắn dây (70.200 ₫)\nMì rau củ cầu vòng (86.400 ₫)\nMuối mè đen đường hoa dừa (97.200 ₫)\nGừng thẻ vị nguyên bản (97.200 ₫)\nMầm ngũ cốc rau củ (129.600 ₫)\nTrà gạo lứt hoa cúc (183.600 ₫)\nBột ngũ cốc gia đình (199.800 ₫)",
+          "price": 183600,
+          "qty": null,
+          "atShowroom": false,
+          "atHathyo": false
+        }
+      ]
     },
     "N01": {
       "code": "N01",
@@ -2456,11 +3825,11 @@
       "height": 50.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A047",
+      "brand": "Viet Duc Home",
+      "company": "Công ty TNHH Sản xuất Thương mại Việt Đức Home",
+      "bioOwner": "Ông Lê Minh Quý - Phó Giám đốc Công ty TNHH Sản xuất Thương mại Việt Đức Home.",
+      "bioCompany": "Việt Đức Home chuyên sản xuất, thiết kế và thi công trọn gói cửa công nghiệp và nội thất cao cấp, với hệ thống 10 showroom từ TP.HCM, Đồng Nai, Bình Dương đến Vũng Tàu và Phú Quốc. Sản phẩm: cửa gỗ Carbon, cửa Composite Than Tre, cửa nhựa ABS Hàn Quốc, cửa chống cháy, tủ bếp Acrylic/Picomat/gỗ công nghiệp An Cường.",
       "products": []
     },
     "N02": {
@@ -2474,11 +3843,11 @@
       "height": 50.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A047",
+      "brand": "Viet Duc Home",
+      "company": "Công ty TNHH Sản xuất Thương mại Việt Đức Home",
+      "bioOwner": "Ông Lê Minh Quý - Phó Giám đốc Công ty TNHH Sản xuất Thương mại Việt Đức Home.",
+      "bioCompany": "Việt Đức Home chuyên sản xuất, thiết kế và thi công trọn gói cửa công nghiệp và nội thất cao cấp, với hệ thống 10 showroom từ TP.HCM, Đồng Nai, Bình Dương đến Vũng Tàu và Phú Quốc. Sản phẩm: cửa gỗ Carbon, cửa Composite Than Tre, cửa nhựa ABS Hàn Quốc, cửa chống cháy, tủ bếp Acrylic/Picomat/gỗ công nghiệp An Cường.",
       "products": []
     },
     "N03": {
@@ -2492,11 +3861,11 @@
       "height": 50.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A047",
+      "brand": "Viet Duc Home",
+      "company": "Công ty TNHH Sản xuất Thương mại Việt Đức Home",
+      "bioOwner": "Ông Lê Minh Quý - Phó Giám đốc Công ty TNHH Sản xuất Thương mại Việt Đức Home.",
+      "bioCompany": "Việt Đức Home chuyên sản xuất, thiết kế và thi công trọn gói cửa công nghiệp và nội thất cao cấp, với hệ thống 10 showroom từ TP.HCM, Đồng Nai, Bình Dương đến Vũng Tàu và Phú Quốc. Sản phẩm: cửa gỗ Carbon, cửa Composite Than Tre, cửa nhựa ABS Hàn Quốc, cửa chống cháy, tủ bếp Acrylic/Picomat/gỗ công nghiệp An Cường.",
       "products": []
     },
     "N04": {
@@ -2510,11 +3879,11 @@
       "height": 50.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A047",
+      "brand": "Viet Duc Home",
+      "company": "Công ty TNHH Sản xuất Thương mại Việt Đức Home",
+      "bioOwner": "Ông Lê Minh Quý - Phó Giám đốc Công ty TNHH Sản xuất Thương mại Việt Đức Home.",
+      "bioCompany": "Việt Đức Home chuyên sản xuất, thiết kế và thi công trọn gói cửa công nghiệp và nội thất cao cấp, với hệ thống 10 showroom từ TP.HCM, Đồng Nai, Bình Dương đến Vũng Tàu và Phú Quốc. Sản phẩm: cửa gỗ Carbon, cửa Composite Than Tre, cửa nhựa ABS Hàn Quốc, cửa chống cháy, tủ bếp Acrylic/Picomat/gỗ công nghiệp An Cường.",
       "products": []
     },
     "N05": {
@@ -2528,11 +3897,11 @@
       "height": 50.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A047",
+      "brand": "Viet Duc Home",
+      "company": "Công ty TNHH Sản xuất Thương mại Việt Đức Home",
+      "bioOwner": "Ông Lê Minh Quý - Phó Giám đốc Công ty TNHH Sản xuất Thương mại Việt Đức Home.",
+      "bioCompany": "Việt Đức Home chuyên sản xuất, thiết kế và thi công trọn gói cửa công nghiệp và nội thất cao cấp, với hệ thống 10 showroom từ TP.HCM, Đồng Nai, Bình Dương đến Vũng Tàu và Phú Quốc. Sản phẩm: cửa gỗ Carbon, cửa Composite Than Tre, cửa nhựa ABS Hàn Quốc, cửa chống cháy, tủ bếp Acrylic/Picomat/gỗ công nghiệp An Cường.",
       "products": []
     },
     "N06": {
@@ -2546,11 +3915,11 @@
       "height": 50.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A047",
+      "brand": "Viet Duc Home",
+      "company": "Công ty TNHH Sản xuất Thương mại Việt Đức Home",
+      "bioOwner": "Ông Lê Minh Quý - Phó Giám đốc Công ty TNHH Sản xuất Thương mại Việt Đức Home.",
+      "bioCompany": "Việt Đức Home chuyên sản xuất, thiết kế và thi công trọn gói cửa công nghiệp và nội thất cao cấp, với hệ thống 10 showroom từ TP.HCM, Đồng Nai, Bình Dương đến Vũng Tàu và Phú Quốc. Sản phẩm: cửa gỗ Carbon, cửa Composite Than Tre, cửa nhựa ABS Hàn Quốc, cửa chống cháy, tủ bếp Acrylic/Picomat/gỗ công nghiệp An Cường.",
       "products": []
     },
     "N07": {
@@ -2563,11 +3932,11 @@
       "width": 40.0,
       "height": 50.0,
       "depth": 50,
-      "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
+      "note": "Để tạm",
+      "bizCode": "A070",
+      "brand": "TVP GROUP",
+      "company": "Công ty Nhôm kính TVP Group",
+      "bioOwner": "Ông Lê Chí Trung - Giám đốc Công ty Nhôm kính TVP Group.",
       "bioCompany": null,
       "products": []
     },
@@ -2581,11 +3950,11 @@
       "width": 40.0,
       "height": 50.0,
       "depth": 50,
-      "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
+      "note": "Để tạm",
+      "bizCode": "A070",
+      "brand": "TVP GROUP",
+      "company": "Công ty Nhôm kính TVP Group",
+      "bioOwner": "Ông Lê Chí Trung - Giám đốc Công ty Nhôm kính TVP Group.",
       "bioCompany": null,
       "products": []
     },
@@ -2599,11 +3968,11 @@
       "width": 40.0,
       "height": 50.0,
       "depth": 50,
-      "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
+      "note": "Để tạm",
+      "bizCode": "A070",
+      "brand": "TVP GROUP",
+      "company": "Công ty Nhôm kính TVP Group",
+      "bioOwner": "Ông Lê Chí Trung - Giám đốc Công ty Nhôm kính TVP Group.",
       "bioCompany": null,
       "products": []
     },
@@ -2870,11 +4239,11 @@
       "height": 50.0,
       "depth": 30,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A047",
+      "brand": "Viet Duc Home",
+      "company": "Công ty TNHH Sản xuất Thương mại Việt Đức Home",
+      "bioOwner": "Ông Lê Minh Quý - Phó Giám đốc Công ty TNHH Sản xuất Thương mại Việt Đức Home.",
+      "bioCompany": "Việt Đức Home chuyên sản xuất, thiết kế và thi công trọn gói cửa công nghiệp và nội thất cao cấp, với hệ thống 10 showroom từ TP.HCM, Đồng Nai, Bình Dương đến Vũng Tàu và Phú Quốc. Sản phẩm: cửa gỗ Carbon, cửa Composite Than Tre, cửa nhựa ABS Hàn Quốc, cửa chống cháy, tủ bếp Acrylic/Picomat/gỗ công nghiệp An Cường.",
       "products": []
     },
     "X02": {
@@ -2888,11 +4257,11 @@
       "height": 50.0,
       "depth": 30,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A047",
+      "brand": "Viet Duc Home",
+      "company": "Công ty TNHH Sản xuất Thương mại Việt Đức Home",
+      "bioOwner": "Ông Lê Minh Quý - Phó Giám đốc Công ty TNHH Sản xuất Thương mại Việt Đức Home.",
+      "bioCompany": "Việt Đức Home chuyên sản xuất, thiết kế và thi công trọn gói cửa công nghiệp và nội thất cao cấp, với hệ thống 10 showroom từ TP.HCM, Đồng Nai, Bình Dương đến Vũng Tàu và Phú Quốc. Sản phẩm: cửa gỗ Carbon, cửa Composite Than Tre, cửa nhựa ABS Hàn Quốc, cửa chống cháy, tủ bếp Acrylic/Picomat/gỗ công nghiệp An Cường.",
       "products": []
     },
     "X03": {
@@ -2905,48 +4274,48 @@
       "width": 40.0,
       "height": 50.0,
       "depth": 30,
-      "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
+      "note": "Để tạm",
+      "bizCode": "A070",
+      "brand": "TVP GROUP",
+      "company": "Công ty Nhôm kính TVP Group",
+      "bioOwner": "Ông Lê Chí Trung - Giám đốc Công ty Nhôm kính TVP Group.",
       "bioCompany": null,
       "products": []
     },
-    "KS-1": {
-      "code": "KS-1",
+    "KS1": {
+      "code": "KS1",
       "block": "KS",
-      "kind": "standalone",
+      "kind": "display",
       "row": 0,
-      "x": 0,
-      "y": 0,
-      "width": 120,
-      "height": 50,
+      "x": 0.0,
+      "y": 0.0,
+      "width": 120.0,
+      "height": 50.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A034",
+      "brand": "Thuận Thắng",
+      "company": "Công ty TNHH Nội thất Nhôm kính Thuận Thắng",
+      "bioOwner": "Ông Hoàng Đức Thắng - Giám đốc Công ty TNHH Nội thất Nhôm kính Thuận Thắng.",
+      "bioCompany": "Thuận Thắng chuyên sản xuất, thiết kế và thi công các sản phẩm nhôm kính cao cấp: cửa nhôm Xingfa, cửa kính cường lực, vách kính, lan can kính, cầu thang kính, mái kính nghệ thuật, giếng trời.",
       "products": []
     },
-    "KS-2": {
-      "code": "KS-2",
+    "KS2": {
+      "code": "KS2",
       "block": "KS",
-      "kind": "standalone",
-      "row": 0,
-      "x": 0,
-      "y": 0,
-      "width": 120,
-      "height": 50,
+      "kind": "display",
+      "row": 1,
+      "x": 0.0,
+      "y": 50.0,
+      "width": 120.0,
+      "height": 50.0,
       "depth": 50,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
+      "bizCode": "A034",
+      "brand": "Thuận Thắng",
+      "company": "Công ty TNHH Nội thất Nhôm kính Thuận Thắng",
+      "bioOwner": "Ông Hoàng Đức Thắng - Giám đốc Công ty TNHH Nội thất Nhôm kính Thuận Thắng.",
+      "bioCompany": "Thuận Thắng chuyên sản xuất, thiết kế và thi công các sản phẩm nhôm kính cao cấp: cửa nhôm Xingfa, cửa kính cường lực, vách kính, lan can kính, cầu thang kính, mái kính nghệ thuật, giếng trời.",
       "products": []
     },
     "KT": {
@@ -2956,16 +4325,26 @@
       "row": 0,
       "x": 0,
       "y": 0,
-      "width": 120,
-      "height": 80,
+      "width": 166,
+      "height": 86,
       "depth": 10,
       "note": null,
-      "bizCode": null,
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "bizCode": "A027",
+      "brand": "Song Ngọc Constructions",
+      "company": "Công ty TNHH Cơ khí Xây dựng Song Ngọc",
+      "bioOwner": "Ông Nguyễn Khắc Tuệ - Ban Đối ngoại CLB Doanh nhân Quảng Trị, Giám đốc Công ty TNHH Cơ khí Xây dựng Song Ngọc, thành lập năm 2013.",
+      "bioCompany": "Song Ngọc là nhà thầu thi công công nghiệp và hạ tầng cảng biển: nhà xưởng, năng lượng tái tạo, công trình thủy lợi, cầu cảng (Cảng Mỹ Thủy, Cảng Phước Đông), cơ khí và chống ăn mòn, với hơn 200 khách hàng trong và ngoài nước.",
+      "products": [
+        {
+          "img": "members/A027/ATUE_H1024.webp",
+          "name": "Cơ khí & Xây dựng",
+          "desc": ">> Xây dựng Nhà máy & Nhà xưởng\n>> Hạ tầng Cầu, Cảng & Đê kè\n>> Cấu kiện đúc sẵn & Cơ khí\n>> Hệ thống chống ăn mòn biển\n>> Tư vấn thiết kế công trình thủy\n>> Thi công xây dựng & Cơ giới\n>> San lấp & Cho thuê thiết bị\n>> Cung ứng nhân công kỹ thuật",
+          "price": 0,
+          "qty": 1,
+          "atShowroom": false,
+          "atHathyo": false
+        }
+      ]
     }
   }
 }

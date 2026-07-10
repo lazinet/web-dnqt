@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Showroom 3D | CLB Doanh Nhân Quảng Trị</title>
 <meta name="description" content="Tham quan Showroom CLB Doanh Nhân Quảng Trị qua mô hình 3D tương tác — khám phá từng gian trưng bày và kết nối trực tiếp với doanh nhân.">
+<link id="favicon" rel="icon" type="image/webp" href="assets/logos/logo_2026_W256.webp">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -88,11 +89,14 @@
   .profile-link{display:inline-flex;align-items:center;gap:7px;margin-top:12px;color:#fff;background:linear-gradient(135deg,var(--primary),#1a7ab8);padding:9px 15px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none}
   .profile-link:hover{box-shadow:0 6px 18px rgba(25,101,143,.4)}
   .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .prod-grid.single-col{grid-template-columns:1fr}
   .prod-card{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;overflow:hidden}
   .prod-card img{width:100%;height:88px;object-fit:contain;background:rgba(255,255,255,.9);display:block}
+  .prod-grid.single-col .prod-card img{height:160px}
   .prod-card .pc-body{padding:9px 10px}
   .prod-card .pc-name{font-size:12px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:4px}
-  .prod-card .pc-desc{font-size:11px;color:var(--muted);line-height:1.4}
+  .prod-card .pc-desc{font-size:11px;color:var(--muted);line-height:1.4;white-space:pre-line}
+  .pc-desc .pc-link{color:var(--secondary);text-decoration:underline;font-weight:600}
   .pc-badges{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
   .pc-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;background:rgba(34,197,94,.18);color:#4ade80;border:1px solid rgba(74,222,128,.3)}
   .pc-buy-row{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
@@ -291,8 +295,29 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 /* ======================================================================
    CONFIG
    ====================================================================== */
-const GAS_URL = "https://script.google.com/macros/s/AKfycbyWm9xpWVrDDYFOlk-2-TYUU9WrYy9GfADCszBVBxXHXeKSKEqaeeEA9BsMPNLrtDDogQ/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyozvhTuBrNDus5GlCJ7Bv5AM_GhQ7cz9kbXNZ9Nqh-XwjwLQS-Lm0snuNFHh-duIwh7g/exec";
 const M = cm => cm / 100; // cm -> m (Three.js units = meters)
+// Anh san pham trong Table.xlsx co the la duong dan cuc bo (vd "members/A001/x.webp",
+// giong quy uoc trong m.html) HOAC 1 URL tuyet doi (http/https) lay tu nguon ngoai -
+// giu nguyen URL tuyet doi, chi encodeURI cho duong dan cuc bo.
+function resolveImgUrl(path) {
+  if (!path) return '';
+  return /^https?:\/\//i.test(path) ? path : encodeURI(path);
+}
+
+// Mo ta san pham co the chua link tho (vd hathyo.com/product/123) - bien no
+// thanh <a> bam duoc, hien ten mien (vd "hathyo.com") thay vi in ca link dai.
+function linkifyDesc(text) {
+  if (!text) return '';
+  return text.replace(/https?:\/\/[^\s<]+/g, url => {
+    const trailMatch = url.match(/[),.;:!?]+$/);
+    const clean = trailMatch ? url.slice(0, -trailMatch[0].length) : url;
+    const trail = trailMatch ? trailMatch[0] : '';
+    let label;
+    try { label = new URL(clean).hostname.replace(/^www\./, ''); } catch (e) { label = clean; }
+    return '<a class="pc-link" href="' + clean + '" target="_blank" rel="noopener">' + label + '</a>' + trail;
+  });
+}
 
 let sessionId = 'showroom_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
 let msgs = [];
@@ -526,6 +551,60 @@ function emptyCellTexture() {
     ctx.font = '600 22px Inter, sans-serif';
     ctx.fillText('Trống', s / 2, s / 2 + 8);
   });
+}
+
+// Anh san pham: nen trang phu day truoc, roi "contain"-fit anh vao giua (scale
+// deu ca 2 chieu, khong giam), giu dung ty le khung hinh cua mat o (faceW x
+// faceH) de khong bi cam giac gian/meo khi mat o khong vuong.
+function loadContainFitTexture(url, faceW, faceH, onReady) {
+  if (!url) return;
+  const img = new Image();
+  // Chi dat crossOrigin cho URL tuyet doi (ngoai) - anh cuc bo cung goc thi
+  // khong can, dat vao co the khien mot so server/trinh duyet xu ly chat hon
+  // (vd sai Content-Type) ma khong co loi ich gi cho tai nguyen cung goc.
+  if (/^https?:\/\//i.test(url)) img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    const canvasW = 512;
+    const canvasH = Math.max(1, Math.round(canvasW * (faceH / faceW)));
+    const canvas = document.createElement('canvas');
+    canvas.width = canvasW; canvas.height = canvasH;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvasW, canvasH);
+    const scale = Math.min(canvasW / img.naturalWidth, canvasH / img.naturalHeight);
+    const dw = img.naturalWidth * scale, dh = img.naturalHeight * scale;
+    ctx.drawImage(img, (canvasW - dw) / 2, (canvasH - dh) / 2, dw, dh);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    onReady(tex);
+  };
+  img.onerror = () => { /* giu nguyen mau trang neu anh khong tai duoc (vd CORS, 404) */ };
+  img.src = url;
+}
+
+// O da co chu (bizCode) nhung chua co san pham: hien ten thuong hieu co dinh
+// tren nen trang, thay vi de trong cho toi khi re chuot moi biet ai dang giu o.
+function makeBrandLabelTexture(brand, faceW, faceH) {
+  const canvasW = 512;
+  const canvasH = Math.max(1, Math.round(canvasW * (faceH / faceW)));
+  const canvas = document.createElement('canvas');
+  canvas.width = canvasW; canvas.height = canvasH;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvasW, canvasH);
+  ctx.fillStyle = '#19658F';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  let fontSize = Math.round(canvasH * 0.16);
+  ctx.font = '800 ' + fontSize + 'px Inter, sans-serif';
+  while (ctx.measureText(brand).width > canvasW * 0.86 && fontSize > 12) {
+    fontSize -= 2;
+    ctx.font = '800 ' + fontSize + 'px Inter, sans-serif';
+  }
+  ctx.fillText(brand, canvasW / 2, canvasH / 2);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
 }
 
 const MAT = {
@@ -898,11 +977,21 @@ function addCubbyCell(group, placer, cell) {
   const right = placer.place(lx + w - t / 2, d / 2, ly + h / 2);
   group.add(boxMesh(MAT.woodOpen, M(t), M(h), M(d), M(right.x), M(right.y), M(right.z), placer.rotationY));
 
-  // noi dung ben trong (anh san pham hoac placeholder "Trong")
-  const contentMat = cell.bizCode ? productPreviewMaterial(cell) : MAT.empty;
-  const cpos = placer.place(lx + w / 2, d - t - 0.5, ly + h / 2);
-  const content = boxMesh(contentMat, M(w - 6), M(h - 6), M(0.5), M(cpos.x), M(cpos.y), M(cpos.z), placer.rotationY);
-  group.add(content);
+  if (cell.bizCode) {
+    // Da co doanh nghiep: dong kin o lai thanh 1 hop hoan chinh - mat truoc VA
+    // mat sau la anh san pham/ten thuong hieu (spanning het chieu sau d), cong
+    // voi 4 mat go ben tren la du 6 mat kin, khong con nhin xuyen qua duoc nua.
+    const contentMat = productPreviewMaterial(cell);
+    const cpos = placer.place(lx + w / 2, d / 2, ly + h / 2);
+    const content = boxMesh(contentMat, M(w - 6), M(h - 6), M(d), M(cpos.x), M(cpos.y), M(cpos.z), placer.rotationY);
+    group.add(content);
+  } else {
+    // O chua co doanh nghiep: giu "ong rong" - 1 tam mong "Trong" gan mat sau,
+    // van nhin xuyen qua duoc (vd xuyen qua tuong kinh phia sau ra ngoai duong).
+    const cpos = placer.place(lx + w / 2, d - t - 0.5, ly + h / 2);
+    const content = boxMesh(MAT.empty, M(w - 6), M(h - 6), M(0.5), M(cpos.x), M(cpos.y), M(cpos.z), placer.rotationY);
+    group.add(content);
+  }
 
   registerInteractive(group, placer, cell);
 }
@@ -1003,10 +1092,19 @@ function addCabinetCell(group, placer, cell, materialOverride, opts) {
   opts = opts || {};
   const { x: lx, y: ly, width: w, height: h, depth: d } = cell;
   const c = placer.place(lx + w / 2, d / 2, ly + h / 2);
-  group.add(boxMesh(materialOverride || MAT.woodCabinet, M(w - 0.6), M(h - 0.6), M(d), M(c.x), M(c.y), M(c.z), placer.rotationY));
-  // duong net cua tu (mat cua hoi lom vao)
-  const doorPos = placer.place(lx + w / 2, d - 0.6, ly + h / 2);
-  group.add(boxMesh(MAT.woodDoor, M(w - 4), M(h - 4), M(0.6), M(doorPos.x), M(doorPos.y), M(doorPos.z), placer.rotationY));
+  // Khoi tu chinh nay phu het chieu sau d, nen mat truoc cua no (o d) luon
+  // nam NGOAI (gan nguoi xem hon) mat truoc cua tam "duong net cua tu" ben
+  // duoi (o d-0.3) - vi vay noi dung can hien thi (anh san pham/thuong hieu)
+  // phai gan vao DAY, khong phai vao tam duong net, neu khong se bi chinh
+  // khoi nay che khuat hoan toan.
+  group.add(boxMesh(opts.contentMaterial || materialOverride || MAT.woodCabinet, M(w - 0.6), M(h - 0.6), M(d), M(c.x), M(c.y), M(c.z), placer.rotationY));
+  if (!opts.contentMaterial) {
+    // duong net cua tu (mat cua hoi lom vao) - chi la trang tri go, luon bi
+    // khoi tu chinh o tren che khuat tu ben ngoai; chi thay khi tu la go don
+    // gian (khong co noi dung rieng can hien thi).
+    const doorPos = placer.place(lx + w / 2, d - 0.6, ly + h / 2);
+    group.add(boxMesh(MAT.woodDoor, M(w - 4), M(h - 4), M(0.6), M(doorPos.x), M(doorPos.y), M(doorPos.z), placer.rotationY));
+  }
   if (!opts.noHandle) {
     const handlePos = placer.place(lx + w - 8, d - 1.2, ly + h / 2);
     group.add(boxMesh(MAT.metalGray, M(1.2), M(6), M(1.2), M(handlePos.x), M(handlePos.y), M(handlePos.z), placer.rotationY));
@@ -1028,16 +1126,39 @@ function productPreviewMaterial(cell) {
   const key = '_prodmat_' + cell.code;
   if (MAT[key]) return MAT[key];
   const prod = (cell.products || [])[0];
-  let mat;
+  const brand = cell.brand || cell.company || '';
+  let result;
+
   if (prod && prod.img) {
-    const tex = new THREE.TextureLoader().load(encodeURI(prod.img));
-    tex.colorSpace = THREE.SRGBColorSpace;
-    mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.8 });
+    // Ca mat truoc (+z) VA mat sau (-z) deu dung anh san pham (thay vi chi 1
+    // mat) de o co cam giac day/dac chu khong phai 1 to giay mong khi xoay 3D.
+    // Cac mat con lai (canh) phu trang de dong bo voi nen trang cua anh.
+    const side = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.9 });
+    const photoMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.9 });
+    result = [side, side, side, side, photoMat, photoMat];
+    // Anh cross-origin tu server KHONG gui Access-Control-Allow-Origin khong the
+    // dung lam texture WebGL - du co nap thanh cong o tang network, trinh duyet
+    // van se tu dong thay du lieu pixel bang mau den luc day len GPU (co che
+    // chong ro ri du lieu qua texImage2D). Giu crossOrigin='anonymous' de it
+    // nhat request that bai som va ro rang, roi fallback ve nen trang thay vi
+    // hien den thui (xem loadContainFitTexture).
+    loadContainFitTexture(resolveImgUrl(prod.img), cell.width, cell.height, tex => {
+      photoMat.map = tex;
+      photoMat.needsUpdate = true;
+    });
+  } else if (brand) {
+    // Da co chu gian hang nhung chua co san pham: hien ten thuong hieu co dinh
+    // tren nen trang (ca 2 mat truoc/sau) thay vi de trong cho toi khi re chuot.
+    const side = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.9 });
+    const labelTex = makeBrandLabelTexture(brand, cell.width, cell.height);
+    const labelMat = new THREE.MeshStandardMaterial({ color: '#ffffff', map: labelTex, roughness: 0.9 });
+    result = [side, side, side, side, labelMat, labelMat];
   } else {
-    mat = new THREE.MeshStandardMaterial({ color: '#dfe6ee', roughness: 0.9 });
+    result = new THREE.MeshStandardMaterial({ color: '#dfe6ee', roughness: 0.9 });
   }
-  MAT[key] = mat;
-  return mat;
+
+  MAT[key] = result;
+  return result;
 }
 
 function buildBlockFromData(blockCode, placer, tableData) {
@@ -1054,10 +1175,15 @@ function buildBlockFromData(blockCode, placer, tableData) {
     const inst = block.instances[0];
     const cell = tableData.cells[inst];
     const c = { ...cell, x: 0, y: baseY };
+    // Neu o "hop ky thuat" (KT/KS) da duoc gan doanh nghiep thuc (bizCode), hien
+    // anh san pham/ten thuong hieu ngay tren mat cua thay vi go trang tri co
+    // dinh - truoc day KT/KS chi la prop trang tri nen chua can, gio da co du
+    // lieu thuc thi phai hien nhu moi o khac.
+    const contentMaterial = c.bizCode ? productPreviewMaterial(c) : null;
     if (blockCode === 'KT') {
-      addCabinetCell(group, placer, c, MAT.woodDoor, { noHandle: true });
+      addCabinetCell(group, placer, c, MAT.woodDoor, { noHandle: true, contentMaterial });
     } else {
-      addCabinetCell(group, placer, c, MAT.metalGray);
+      addCabinetCell(group, placer, c, MAT.metalGray, { contentMaterial });
     }
     return;
   }
@@ -1541,16 +1667,18 @@ function openDetailPanel(code) {
 
     const grid = document.getElementById('ph-prod-grid');
     grid.innerHTML = '';
-    (cell.products || []).forEach(p => {
+    const prodList = cell.products || [];
+    grid.classList.toggle('single-col', prodList.length === 1);
+    prodList.forEach(p => {
       const badges = [];
       if (p.atShowroom) badges.push('<span class="pc-badge">Có tại Showroom</span>');
       if (p.atHathyo) badges.push('<span class="pc-badge">Có trên HATHYO</span>');
       const card = document.createElement('div');
       card.className = 'prod-card';
       card.innerHTML =
-        (p.img ? '<img src="' + encodeURI(p.img) + '" alt="">' : '') +
+        (p.img ? '<img src="' + resolveImgUrl(p.img) + '" alt="">' : '') +
         '<div class="pc-body"><div class="pc-name">' + (p.name || '') + '</div>' +
-        '<div class="pc-desc">' + (p.desc || '') + '</div>' +
+        '<div class="pc-desc">' + linkifyDesc(p.desc || '') + '</div>' +
         '<div class="pc-badges">' + badges.join('') + '</div>' +
         '<div class="pc-buy-row"><button class="pc-buy-btn buy"><i class="fa fa-cart-shopping"></i>MUA</button></div></div>';
       card.querySelector('.pc-buy-btn').onclick = () => openBuyModal(p, cell);
@@ -1634,7 +1762,7 @@ function hathyoColHTML() {
 function openBuyModal(product, cell) {
   buyContext = { cell, product };
   const img = document.getElementById('buy-prod-img');
-  img.src = product.img ? encodeURI(product.img) : '';
+  img.src = product.img ? resolveImgUrl(product.img) : '';
   img.classList.toggle('hidden', !product.img);
   document.getElementById('buy-prod-name').textContent = product.name || '';
   document.getElementById('buy-prod-owner').textContent = cell.brand || cell.company || '';
@@ -1695,7 +1823,17 @@ function sendChat() {
   const aName = document.getElementById('assistant-name').textContent || 'Showroom';
   hist.insertAdjacentHTML('beforeend', '<div id="' + lid + '" class="msg bot msg-typing">' + aName + ' đang trả lời ...</div>');
   hist.scrollTop = 99999;
-  gasPost({ action: 'chat', source: currentSource, sessionId: sessionId, messages: msgs })
+  // Gui kem context cua o dang chon (tu Table.json) de GAS dung ngay khi
+  // khong tim thay Member_ID that trong sheet Members (vd o chua co bizCode
+  // nhung da duoc dien brand/products rieng trong Table.xlsx).
+  const context = currentCell ? {
+    brand: currentCell.brand || '',
+    company: currentCell.company || '',
+    bioOwner: currentCell.bioOwner || '',
+    bioCompany: currentCell.bioCompany || '',
+    products: (currentCell.products || []).map(p => ({ name: p.name, desc: p.desc, price: p.price })),
+  } : null;
+  gasPost({ action: 'chat', source: currentSource, sessionId: sessionId, messages: msgs, context: context })
     .then(json => {
       const el = document.getElementById(lid); if (el) el.remove();
       const reply = json.response || 'Xin lỗi, hệ thống đang gặp sự cố.';
