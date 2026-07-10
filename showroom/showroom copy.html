@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Showroom 3D | CLB Doanh Nhân Quảng Trị</title>
+<meta name="description" content="Tham quan Showroom CLB Doanh Nhân Quảng Trị qua mô hình 3D tương tác — khám phá từng gian trưng bày và kết nối trực tiếp với doanh nhân.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"
+}}
+</script>
+<style>
+  :root {
+    --primary: #19658F;
+    --secondary: #F15E22;
+    --bg: #060d1a;
+    --glass: rgba(10,20,40,0.72);
+    --surface: rgba(255,255,255,0.055);
+    --border: rgba(255,255,255,0.09);
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --r: 16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--bg)}
+  body{font-family:'Inter',sans-serif;color:var(--text)}
+  .hidden{display:none!important}
+  #scene-container{position:fixed;inset:0}
+  #scene-container canvas{display:block;width:100%;height:100%}
+
+  /* ===== LOADING ===== */
+  #loading{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s ease}
+  #loading.out{opacity:0;pointer-events:none}
+  .spinner{width:52px;height:52px;border-radius:50%;border:4px solid var(--border);border-top-color:var(--secondary);animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #loading p{color:var(--muted);font-size:14px}
+  #loading .brand{font-weight:800;font-size:19px;color:#fff}
+
+  /* ===== TOP BAR ===== */
+  #topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:14px;padding:12px 18px;background:linear-gradient(180deg,rgba(6,13,26,.82),rgba(6,13,26,0));pointer-events:none}
+  #topbar > *{pointer-events:auto}
+  #topbar .brand{font-weight:800;font-size:15px;color:#fff;white-space:nowrap;display:flex;align-items:center;gap:8px}
+  #topbar .brand i{color:var(--secondary)}
+  #scenes-bar{display:flex;gap:7px;flex-wrap:wrap;flex:1}
+  .scene-btn{background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--text);padding:7px 13px;border-radius:20px;font-size:12.5px;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit;white-space:nowrap}
+  .scene-btn:hover{background:rgba(255,255,255,.16)}
+  .scene-btn.active{background:var(--secondary);border-color:var(--secondary);color:#fff}
+  #home-link{color:var(--text);text-decoration:none;font-size:13px;background:rgba(255,255,255,.08);border:1px solid var(--border);padding:8px 12px;border-radius:20px;white-space:nowrap}
+  #home-link:hover{background:rgba(255,255,255,.16)}
+
+  /* ===== HINT ===== */
+  #hint{position:fixed;left:18px;bottom:18px;z-index:40;background:rgba(10,20,40,.6);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:12px;padding:9px 14px;font-size:12.5px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap;max-width:90vw}
+  #hint span{white-space:nowrap}
+  #hint i{color:var(--secondary);margin-right:4px}
+
+  /* ===== GENERAL INQUIRY BUTTON ===== */
+  #general-btn{position:fixed;right:18px;bottom:18px;z-index:40;background:linear-gradient(135deg,var(--primary),#1a7ab8);color:#fff;border:none;padding:13px 20px;border-radius:30px;font-weight:700;font-size:13.5px;cursor:pointer;box-shadow:0 6px 20px rgba(25,101,143,.45);display:flex;align-items:center;gap:8px;font-family:inherit}
+  #general-btn:hover{transform:translateY(-2px)}
+
+  /* ===== TOOLTIP ===== */
+  #tooltip{position:fixed;z-index:45;pointer-events:none;background:rgba(10,20,40,.92);border:1px solid var(--border);border-radius:8px;padding:6px 11px;font-size:12.5px;font-weight:600;color:#fff;transform:translate(-50%,-130%);white-space:nowrap;transition:opacity .12s}
+  #tooltip .sub{font-weight:400;color:var(--muted);font-size:11px}
+
+  /* ===== DETAIL PANEL ===== */
+  #detail-panel{position:fixed;top:0;right:0;height:100%;width:420px;max-width:92vw;background:var(--glass);backdrop-filter:blur(22px);border-left:1px solid var(--border);z-index:80;transform:translateX(100%);transition:transform .4s cubic-bezier(.19,1,.22,1);overflow-y:auto;overflow-x:hidden}
+  #detail-panel.open{transform:translateX(0)}
+  #detail-panel::-webkit-scrollbar{width:6px}
+  #detail-panel::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px}
+  .panel-head{position:sticky;top:0;z-index:2;background:rgba(8,16,32,.92);backdrop-filter:blur(10px);padding:18px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border)}
+  .panel-head h2{font-size:18px;font-weight:800;color:#fff}
+  .panel-head .code{font-size:12px;color:var(--secondary);font-weight:700;letter-spacing:.03em}
+  .panel-head .sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+  #panel-close{background:rgba(255,255,255,.08);border:1px solid var(--border);color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;flex-shrink:0;font-size:14px}
+  #panel-close:hover{background:rgba(255,255,255,.18)}
+  .panel-body{padding:20px}
+  .section-box{background:rgba(25,101,143,.55);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:18px;margin-bottom:16px}
+  .section-title{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:800;color:#fff;margin-bottom:13px}
+  .section-title i{color:var(--secondary)}
+  .empty-state{color:var(--muted);font-size:13.5px;text-align:center;padding:22px 10px;line-height:1.6}
+  .empty-state i{font-size:26px;display:block;margin-bottom:10px;color:var(--secondary);opacity:.7}
+  .bio-text{font-size:13.5px;line-height:1.65;color:var(--text)}
+  .bio-text + .bio-text{margin-top:10px}
+  .profile-link{display:inline-flex;align-items:center;gap:7px;margin-top:12px;color:#fff;background:linear-gradient(135deg,var(--primary),#1a7ab8);padding:9px 15px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none}
+  .profile-link:hover{box-shadow:0 6px 18px rgba(25,101,143,.4)}
+  .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .prod-card{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .prod-card img{width:100%;height:88px;object-fit:contain;background:rgba(255,255,255,.9);display:block}
+  .prod-card .pc-body{padding:9px 10px}
+  .prod-card .pc-name{font-size:12px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:4px}
+  .prod-card .pc-desc{font-size:11px;color:var(--muted);line-height:1.4}
+  .pc-badges{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+  .pc-badge{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;background:rgba(34,197,94,.18);color:#4ade80;border:1px solid rgba(74,222,128,.3)}
+  .pc-buy-row{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
+  .pc-buy-btn{font-size:10.5px;font-weight:700;padding:5px 9px;border-radius:6px;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
+  .pc-buy-btn.showroom{background:var(--primary);color:#fff}
+  .pc-buy-btn.hathyo{background:var(--secondary);color:#fff}
+
+  /* ===== PURCHASE MODALS ===== */
+  .modal-overlay{position:fixed;inset:0;z-index:150;background:rgba(4,8,18,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px}
+  .modal-box{background:rgba(13,25,50,.98);border:1px solid var(--border);border-radius:18px;max-width:400px;width:100%;padding:26px 24px;text-align:center;position:relative}
+  .modal-box .modal-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.08);border:1px solid var(--border);color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer}
+  .modal-box h3{font-size:16px;font-weight:800;color:#fff;margin-bottom:6px}
+  .modal-box p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+  .modal-box img.qr{width:190px;height:190px;object-fit:contain;background:#fff;border-radius:12px;padding:10px;margin:0 auto 14px}
+  .modal-box .modal-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;font-weight:700;font-size:13.5px;text-decoration:none;color:#fff}
+  .modal-box .modal-cta.hathyo{background:linear-gradient(135deg,var(--secondary),#ff8248)}
+  .modal-box .modal-cta.showroom{background:linear-gradient(135deg,var(--primary),#1a7ab8)}
+  .modal-box .referral-code{font-family:monospace;font-size:15px;font-weight:800;color:var(--secondary);background:rgba(241,94,34,.12);border:1px dashed var(--secondary);border-radius:8px;padding:8px 14px;margin-bottom:14px;display:inline-block}
+
+  /* ===== CHAT (ported from m.html) ===== */
+  .chat-box{display:flex;flex-direction:column;height:340px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .chat-hist{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:var(--primary) transparent}
+  .chat-hist::-webkit-scrollbar{width:3px}
+  .chat-hist::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px}
+  .msg{max-width:86%;padding:9px 13px;border-radius:16px;font-size:13.5px;line-height:1.55;animation:msgIn .3s ease}
+  @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  .msg.bot{align-self:flex-start;background:rgba(255,255,255,.07);color:var(--text);border-bottom-left-radius:4px;border:1px solid var(--border)}
+  .msg.user{align-self:flex-end;background:var(--primary);color:#fff;border-bottom-right-radius:4px}
+  .chat-in{padding:10px;border-top:1px solid var(--border);display:flex;gap:8px;background:rgba(0,0,0,.18)}
+  .chat-in input{flex:1;padding:9px 12px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13.5px;outline:none;transition:.3s;font-family:inherit}
+  .chat-in input:focus{border-color:var(--primary);background:rgba(25,101,143,.1)}
+  .send-btn{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0%,#e8eef2 25%,#c0cdd6 55%,#8fa3b1 100%);box-shadow:0 0 8px 2px rgba(200,220,235,.6);color:#19658F;border:none;cursor:pointer;font-size:15px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+  .online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-left:7px;box-shadow:0 0 0 2px rgba(34,197,94,.3);animation:pulse-online 1.8s ease-in-out infinite;vertical-align:middle}
+  @keyframes pulse-online{0%,100%{opacity:1}50%{opacity:.4}}
+  .msg-typing{color:var(--muted);font-style:italic}
+
+  /* ===== CONTACT FORM (ported from m.html) ===== */
+  .contact-form{display:flex;flex-direction:column;gap:10px}
+  .contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:9px 12px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13.5px;outline:none;transition:.3s;font-family:inherit}
+  .contact-form select option{background:#0d2040;color:#fff}
+  .contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{border-color:var(--primary);background:rgba(25,101,143,.08);box-shadow:0 0 0 3px rgba(25,101,143,.12)}
+  .btn-submit{background:linear-gradient(135deg,var(--primary),#1a7ab8);color:#fff;border:none;padding:11px;border-radius:8px;font-size:13.5px;font-weight:700;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit}
+  .btn-submit:hover{box-shadow:0 6px 20px rgba(25,101,143,.42)}
+  .btn-submit:disabled{opacity:.6;cursor:not-allowed}
+
+  #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(15,30,60,.96);backdrop-filter:blur(20px);color:#fff;padding:13px 22px;border-radius:12px;border:1px solid var(--border);font-size:14px;font-weight:600;transition:transform .4s cubic-bezier(.175,.885,.32,1.275);z-index:9999;pointer-events:none;white-space:nowrap}
+  #toast.show{transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:640px){
+    #topbar{flex-wrap:wrap}
+    #scenes-bar{order:3;width:100%}
+    #hint{display:none}
+    .prod-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="brand"><i class="fa fa-cube"></i>&nbsp;Showroom CLB Doanh Nhân Quảng Trị</div>
+  <div class="spinner"></div>
+  <p id="loading-msg">Đang tải dữ liệu gian trưng bày...</p>
+</div>
+
+<div id="scene-container"></div>
+
+<div id="topbar">
+  <a id="home-link" href="../index.html"><i class="fa fa-house"></i>&nbsp; Trang chủ</a>
+  <div class="brand"><i class="fa fa-cube"></i> Showroom 3D</div>
+  <div id="scenes-bar"></div>
+</div>
+
+<div id="hint">
+  <span><i class="fa fa-arrows-rotate"></i>Kéo trái chuột để xoay</span>
+  <span><i class="fa fa-up-down-left-right"></i>Kéo phải chuột (hoặc giữ Shift) để di chuyển</span>
+  <span><i class="fa fa-magnifying-glass"></i>Cuộn để phóng to / thu nhỏ về phía con trỏ</span>
+  <span><i class="fa fa-hand-pointer"></i>Bấm vào ô trưng bày để xem chi tiết</span>
+</div>
+
+<button id="general-btn"><i class="fa fa-comments"></i> Hỏi đáp chung / Liên hệ</button>
+
+<div id="tooltip" class="hidden"></div>
+
+<div id="detail-panel">
+  <div class="panel-head">
+    <div>
+      <div class="code" id="ph-code">—</div>
+      <h2 id="ph-title">Chọn một gian trưng bày</h2>
+      <div class="sub" id="ph-sub"></div>
+    </div>
+    <button id="panel-close"><i class="fa fa-xmark"></i></button>
+  </div>
+  <div class="panel-body">
+    <div id="ph-empty" class="section-box hidden">
+      <div class="empty-state">
+        <i class="fa fa-box-open"></i>
+        Ô này chưa có thông tin gian hàng.<br>Dữ liệu sẽ được cập nhật khi doanh nhân đăng ký trưng bày.
+      </div>
+    </div>
+
+    <div id="ph-info" class="section-box hidden">
+      <h3 class="section-title"><i class="fa fa-building"></i> Thông tin gian hàng</h3>
+      <div class="bio-text" id="ph-bio-owner"></div>
+      <div class="bio-text" id="ph-bio-company"></div>
+      <a id="ph-profile-link" class="profile-link hidden" href="#" target="_blank" rel="noopener">
+        <i class="fa fa-id-card"></i> Xem hồ sơ đầy đủ
+      </a>
+    </div>
+
+    <div id="ph-products" class="section-box hidden">
+      <h3 class="section-title"><i class="fa fa-box-open"></i> Sản phẩm</h3>
+      <div class="prod-grid" id="ph-prod-grid"></div>
+    </div>
+
+    <div class="section-box" style="margin-bottom:0">
+      <h3 class="section-title" style="flex-wrap:wrap"><i class="fa fa-robot"></i>&nbsp;Trò chuyện cùng&nbsp;<span id="assistant-name" style="color:var(--secondary)">Showroom</span><span class="online-dot" title="Đang online"></span></h3>
+      <div class="chat-box">
+        <div class="chat-hist" id="chatHistory">
+          <div class="msg bot">Dạ em chào anh/chị! Em có thể hỗ trợ thông tin gì về gian trưng bày này ạ?</div>
+        </div>
+        <div class="chat-in">
+          <input type="text" id="chatInput" placeholder="Nhập câu hỏi của bạn ...">
+          <button class="send-btn" id="sendBtn"><i class="fa fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-box" style="margin-bottom:0">
+      <h3 class="section-title"><i class="fa fa-envelope"></i> Gửi Tin Nhắn Nhanh</h3>
+      <form id="contactForm" class="contact-form">
+        <input type="text" id="fName" placeholder="Họ và tên (*)" required>
+        <input type="tel" id="fMobile" placeholder="Số điện thoại (*)" required>
+        <input type="email" id="fEmail" placeholder="Email liên hệ">
+        <select id="fPurpose">
+          <option value="" disabled selected>Mục đích liên hệ</option>
+          <option>Đặt hàng</option>
+          <option>Chào hàng</option>
+          <option>Đặt lịch hẹn</option>
+          <option>Giao lưu kết nối</option>
+          <option>Giới thiệu khách hàng</option>
+          <option>Giới thiệu đối tác</option>
+          <option>Gửi lời góp ý</option>
+          <option>Khác</option>
+        </select>
+        <input type="text" id="fTitle" placeholder="Tiêu đề tin nhắn">
+        <textarea id="fMessage" rows="4" placeholder="Nội dung tin nhắn (*)" required></textarea>
+        <button type="submit" class="btn-submit" id="btnSubmit">Gửi Thông Tin <i class="fa fa-arrow-right"></i></button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<div id="modal-showroom" class="modal-overlay hidden">
+  <div class="modal-box">
+    <button class="modal-close" data-close-modal><i class="fa fa-xmark"></i></button>
+    <h3><i class="fa fa-store"></i> Mua tại Showroom</h3>
+    <p>Quét mã QR để chuyển khoản cho CLB Doanh Nhân Quảng Trị, hoặc đến trực tiếp quầy Showroom để mua sản phẩm này.</p>
+    <img class="qr" src="../assets/img/qr/stkclb.png" alt="QR tài khoản CLB Doanh Nhân Quảng Trị">
+  </div>
+</div>
+
+<div id="modal-hathyo" class="modal-overlay hidden">
+  <div class="modal-box">
+    <button class="modal-close" data-close-modal><i class="fa fa-xmark"></i></button>
+    <h3><i class="fa fa-shopping-bag"></i> Mua trên HATHYO</h3>
+    <p>Quét mã QR hoặc truy cập HATHYO với mã giới thiệu của CLB Doanh Nhân Quảng Trị — hàng tận gốc, lộc tận tay, ủng hộ doanh nghiệp thành viên đồng hương!</p>
+    <img class="qr" src="../news/img/logos/qr_qtbc_hathyo.png" alt="Mã QR mua sắm HATHYO – CLB Doanh Nhân Quảng Trị">
+    <div class="referral-code">AFF5M3TP9QJ</div>
+    <br>
+    <a class="modal-cta hathyo" href="https://hathyo.com/login?step=register&referralCode=AFF5M3TP9QJ" target="_blank" rel="noopener">
+      <i class="fa fa-shopping-bag"></i> Mua trên HATHYO
+    </a>
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* ======================================================================
+   CONFIG
+   ====================================================================== */
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyWm9xpWVrDDYFOlk-2-TYUU9WrYy9GfADCszBVBxXHXeKSKEqaeeEA9BsMPNLrtDDogQ/exec";
+const M = cm => cm / 100; // cm -> m (Three.js units = meters)
+
+let sessionId = 'showroom_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+let msgs = [];
+let currentSource = 'SHOWROOM-GENERAL';
+let currentCell = null;
+
+/* ======================================================================
+   UTILS (ported from m.html)
+   ====================================================================== */
+function toast(msg, dur) {
+  dur = dur || 3200;
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(function () { t.classList.remove('show'); }, dur);
+}
+
+function gasGet(params) {
+  const url = GAS_URL + '?' + new URLSearchParams(params).toString();
+  const ctrl = new AbortController();
+  const tid = setTimeout(function () { ctrl.abort(); }, 13000);
+  return fetch(url, { signal: ctrl.signal }).then(function (r) { clearTimeout(tid); return r.json(); });
+}
+
+function gasPost(data) {
+  return fetch(GAS_URL, { method: 'POST', body: JSON.stringify(data) }).then(function (r) { return r.json(); });
+}
+
+/* ======================================================================
+   ROOM GEOMETRY (cm) - suy ra tu Table.xlsx + so do mat bang
+   Ngu giac: P0 goc sau-trai, P1 goc sau-phai, P2 goc truoc-phai,
+   P3 diem tuong kinh, P4 diem tuong trai het thang (bat dau vat cheo)
+   ====================================================================== */
+// "Xoay 70 do" (tu phuong ngang) = 20 do tu phuong doc - huong tu P4 den P3.
+const T_ANGLE_FROM_VERTICAL = 20 * Math.PI / 180;
+const T_DIR = [Math.sin(T_ANGLE_FROM_VERTICAL), Math.cos(T_ANGLE_FROM_VERTICAL)];
+const GLASS_G_LEN = 250;    // Kinh G ~250cm (do lai theo yeu cau nguoi dung)
+const GLASS_T_LEN = 552;    // Kinh T (xien) ~552cm - dai hon tu T (405cm)
+const T_CABINET_LEN = 405;
+const T_STANDEE_GAP = GLASS_T_LEN - T_CABINET_LEN; // ~147cm gan cua, cho 2 standee 60cm
+
+const P4 = [0, GLASS_G_LEN];
+const P3 = [P4[0] + T_DIR[0] * GLASS_T_LEN, P4[1] + T_DIR[1] * GLASS_T_LEN];
+
+// Chieu sau tuong phai 800cm (khong phai 580 nhu tinh tu tong cac khoi - giua
+// L va TL/KS con mot khoang tuong trong ~220cm khong co chu thich).
+const ROOM = {
+  P0: [0, 0], P1: [590, 0], P2: [590, 800], P3, P4,
+  wallHeight: 300,
+};
+
+/* Wall placer: tra ve ham place(lx,lz,ly) -> the gioi (cm), va rotationY (rad)
+   anchor = goc tai lx=0,lz=0 (diem tua vao tuong); intoRoom = huong vao trong phong */
+function makeWallPlacer(anchor, intoRoom) {
+  const ir = new THREE.Vector2(intoRoom[0], intoRoom[1]).normalize();
+  const along = new THREE.Vector2(ir.y, -ir.x); // rotate -90
+  const rotationY = Math.atan2(-along.y, along.x);
+  return {
+    rotationY,
+    place(lx, lz, ly) {
+      return {
+        x: anchor[0] + along.x * lx + ir.x * lz,
+        z: anchor[1] + along.y * lx + ir.y * lz,
+        y: ly || 0,
+      };
+    },
+  };
+}
+
+// Nhu makeWallPlacer, nhung nhan truc tiep CA "along" (doc theo tuong) LAN
+// "intoRoom" (vao trong phong) thay vi tu suy along=rotate(intoRoom,-90) - vi
+// phep suy do chi la MOT trong 2 huong vuong goc co the co, khong luon la
+// huong "doc theo do dai thuc te cua tuong" (gap loi voi Cua: rotate(-90) cho
+// along nguoc voi P3->P2, day standee S3 ra ngoai pham vi cua that).
+function makeExplicitPlacer(anchor, along, intoRoom) {
+  const al = new THREE.Vector2(along[0], along[1]).normalize();
+  const ir = new THREE.Vector2(intoRoom[0], intoRoom[1]).normalize();
+  const rotationY = Math.atan2(-al.y, al.x);
+  return {
+    rotationY,
+    place(lx, lz, ly) {
+      return { x: anchor[0] + al.x * lx + ir.x * lz, z: anchor[1] + al.y * lx + ir.y * lz, y: ly || 0 };
+    },
+  };
+}
+
+function shiftPlacer(basePlacer, dlx) {
+  return { rotationY: basePlacer.rotationY, place(lx, lz, ly) { return basePlacer.place(lx + dlx, lz, ly); } };
+}
+
+function shiftPlacerDepth(basePlacer, dlz) {
+  return { rotationY: basePlacer.rotationY, place(lx, lz, ly) { return basePlacer.place(lx, lz + dlz, ly); } };
+}
+
+// Tren tuong phai, thu tu tu sau ra truoc: hop ky thuat(0-80) - L(80-200) -
+// [khoang tuong trong ~220cm, khong co t u/ke] - TL/KS(420-540) - X(540-600) -
+// N+KT(600-720) - hop ky thuat(720-800)
+const T_DIAG_INTO_ROOM = [T_DIR[1], -T_DIR[0]]; // vuong goc T_DIR, huong vao trong phong
+// Tu T (405cm) truot sat ve phia goc giao voi kinh G (P4) - lx=0 bat dau tu P3
+// (gan cua) nen phai dich +T_STANDEE_GAP de tu nam o dau kia (gan P4), chua lai
+// ~147cm trong o dau gan cua cho 2 standee (xem WALL_PLACERS.T_STANDEE ben duoi).
+const T_BASE_PLACER = makeWallPlacer(ROOM.P3, T_DIAG_INTO_ROOM);
+// Mat cua (Cua): tu P3 huong ve P2, dung cho standee S3 (dat sat goc T/Cua)
+const CUA_DIR = new THREE.Vector2(ROOM.P2[0] - ROOM.P3[0], ROOM.P2[1] - ROOM.P3[1]).normalize();
+const CUA_INTO_ROOM = [CUA_DIR.y, -CUA_DIR.x];
+const WALL_PLACERS = {
+  F: makeWallPlacer([50, 0], [0, 1]),
+  G: makeWallPlacer([0, 170], [1, 0]),
+  L: makeWallPlacer([590, 190], [-1, 0]), // giua hop ky thuat (0-80) va TL/KS (420)
+  TLKS: makeWallPlacer([590, 420], [-1, 0]),
+  X: makeWallPlacer([590, 540], [-1, 0]),
+  N: makeWallPlacer([590, 600], [-1, 0]),
+  T: shiftPlacer(T_BASE_PLACER, T_STANDEE_GAP),
+  T_STANDEE: T_BASE_PLACER,
+  CUA: makeExplicitPlacer(ROOM.P3, [CUA_DIR.x, CUA_DIR.y], CUA_INTO_ROOM),
+};
+
+// "Toan canh" la 1 chuoi 2 doan: bat dau tu ben ngoai, 45 do tren troi xuong,
+// chinh dien mat T (de thay ro chu tren mai) - roi ha dan xuong phuong ngang,
+// nhin thang chinh dien vao mat T. Stage2 cung la diem dung cho nut bam thuong.
+const TOAN_CANH_STAGE1 = { pos: [-3.29, 6.56, 6.63], target: [1.5, 1.5, 5.0] };
+const TOAN_CANH_STAGE2 = { pos: [-2.82, 1.4, 6.46], target: [0.944, 1.4, 5.09] };
+
+const CAMERA_HOTSPOTS = {
+  'Toàn cảnh': TOAN_CANH_STAGE2,
+  'Tủ T': { pos: [3.3, 1.7, 4.3], target: [0.9, 1.3, 5.1] },
+  'Tủ F - Cà phê': { pos: [3.2, 1.6, 1.3], target: [3.2, 1.5, 0.3] },
+  'Góc G': { pos: [2.1, 1.7, 1.6], target: [0.2, 1.4, 1.1] },
+  'Bàn máy tính': { pos: [3.87, 1.5, 1.6], target: [3.87, 1.15, 0.3] }, // gan sat day F de xem ky tung o
+  'Bàn họp': { pos: [1.1, 2.3, 5.7], target: [2.96, 0.9, 3.43] },
+  'Kệ N & X': { pos: [3.0, 1.8, 6.9], target: [5.7, 1.3, 6.1] },
+};
+
+/* ======================================================================
+   PROCEDURAL TEXTURES
+   ====================================================================== */
+function canvasTexture(size, draw) {
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  draw(ctx, size);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+function makeWoodTexture(base, grain) {
+  const tex = canvasTexture(256, (ctx, s) => {
+    ctx.fillStyle = base;
+    ctx.fillRect(0, 0, s, s);
+    for (let i = 0; i < 40; i++) {
+      const y = Math.random() * s;
+      ctx.strokeStyle = grain;
+      ctx.globalAlpha = 0.08 + Math.random() * 0.12;
+      ctx.lineWidth = 1 + Math.random() * 2;
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      for (let x = 0; x <= s; x += 16) {
+        ctx.lineTo(x, y + Math.sin(x * 0.05 + i) * 4 + (Math.random() - 0.5) * 3);
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  });
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  return tex;
+}
+
+function makeFloorTexture() {
+  const tex = canvasTexture(512, (ctx, s) => {
+    ctx.fillStyle = '#c9cdd2';
+    ctx.fillRect(0, 0, s, s);
+    const plankW = s / 6;
+    for (let i = 0; i <= 6; i++) {
+      ctx.strokeStyle = 'rgba(120,128,138,.35)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(i * plankW, 0); ctx.lineTo(i * plankW, s); ctx.stroke();
+    }
+    for (let i = 0; i < 900; i++) {
+      ctx.fillStyle = `rgba(150,155,162,${Math.random() * 0.15})`;
+      ctx.fillRect(Math.random() * s, Math.random() * s, 30 + Math.random() * 40, 1.5);
+    }
+  });
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(ROOM.P1[0] / 120, ROOM.P2[1] / 120);
+  return tex;
+}
+
+function makeCeilingBeamTexture() {
+  return makeWoodTexture('#4a2e22', '#2c1810');
+}
+
+function makeStandeeTexture() {
+  return canvasTexture(512, (ctx, s) => {
+    const grad = ctx.createLinearGradient(0, 0, s, 0);
+    grad.addColorStop(0, '#0fb8c9');
+    grad.addColorStop(0.55, '#19658F');
+    grad.addColorStop(1, '#F15E22');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, s, s);
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 40px Inter, sans-serif';
+    ctx.fillText('SHOWROOM', s / 2, s * 0.42);
+    ctx.font = 'bold 26px Inter, sans-serif';
+    ctx.fillText('CLB DOANH NHÂN', s / 2, s * 0.58);
+    ctx.fillText('QUẢNG TRỊ', s / 2, s * 0.68);
+  });
+}
+
+function makeClubNameTexture() {
+  const c = document.createElement('canvas');
+  c.width = 640; c.height = 220;
+  const ctx = c.getContext('2d');
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '800 56px Inter, sans-serif';
+  ctx.fillStyle = '#E64D22'; ctx.fillText('CÂU LẠC BỘ', 320, 38);
+  ctx.fillStyle = '#195982'; ctx.fillText('DOANH NHÂN', 320, 108);
+  ctx.fillStyle = '#195982'; ctx.fillText('QUẢNG TRỊ', 320, 178);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+function emptyCellTexture() {
+  return canvasTexture(256, (ctx, s) => {
+    ctx.fillStyle = 'rgba(0,0,0,0)';
+    ctx.clearRect(0, 0, s, s);
+    ctx.fillStyle = 'rgba(255,255,255,.35)';
+    ctx.textAlign = 'center';
+    ctx.font = '600 22px Inter, sans-serif';
+    ctx.fillText('Trống', s / 2, s / 2 + 8);
+  });
+}
+
+const MAT = {
+  woodOpen: new THREE.MeshStandardMaterial({ map: makeWoodTexture('#caa06e', '#8a6339'), roughness: 0.75, metalness: 0.05 }),
+  woodCabinet: new THREE.MeshStandardMaterial({ map: makeWoodTexture('#b8895a', '#7a5330'), roughness: 0.7, metalness: 0.05 }),
+  woodDoor: new THREE.MeshStandardMaterial({ color: '#a37a4d', roughness: 0.6, metalness: 0.05 }),
+  cap: new THREE.MeshStandardMaterial({ map: makeWoodTexture('#c9a06a', '#8a6339'), roughness: 0.8 }),
+  wallSolid: new THREE.MeshStandardMaterial({ color: '#f3f1ec', roughness: 0.95 }),
+  wallAccent: new THREE.MeshStandardMaterial({ color: '#e7e3da', roughness: 0.9 }),
+  glass: new THREE.MeshPhysicalMaterial({ color: '#bfe3f0', transparent: true, opacity: 0.22, roughness: 0.05, metalness: 0, side: THREE.DoubleSide }),
+  ceiling: new THREE.MeshStandardMaterial({ color: '#fbfbf9', roughness: 1 }),
+  beam: new THREE.MeshStandardMaterial({ map: makeCeilingBeamTexture(), roughness: 0.6 }),
+  columnDark: new THREE.MeshStandardMaterial({ map: makeWoodTexture('#5b3826', '#301c12'), roughness: 0.65 }),
+  metalGray: new THREE.MeshStandardMaterial({ color: '#8a8f96', roughness: 0.4, metalness: 0.6 }),
+  metalBlack: new THREE.MeshStandardMaterial({ color: '#1a1a1e', roughness: 0.35, metalness: 0.5 }),
+  screen: new THREE.MeshStandardMaterial({ color: '#0a0a0c', roughness: 0.2, metalness: 0.3, emissive: '#0d1a2a', emissiveIntensity: 0.4 }),
+  tableLight: new THREE.MeshStandardMaterial({ map: makeWoodTexture('#e3c99a', '#c9a870'), roughness: 0.5 }),
+  white: new THREE.MeshStandardMaterial({ color: '#f4f4f4', roughness: 0.5 }),
+  chairBlack: new THREE.MeshStandardMaterial({ color: '#17181c', roughness: 0.6 }),
+  hitbox: new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.001, depthWrite: false }),
+  highlight: new THREE.MeshBasicMaterial({ color: '#F15E22', transparent: true, opacity: 0.22, side: THREE.DoubleSide, depthWrite: false }),
+  empty: new THREE.MeshStandardMaterial({ map: emptyCellTexture(), transparent: true, roughness: 1 }),
+  standee: new THREE.MeshStandardMaterial({ map: makeStandeeTexture(), roughness: 0.6 }),
+};
+
+const boxGeo = new THREE.BoxGeometry(1, 1, 1);
+function boxMesh(mat, w, h, d, x, y, z, ry) {
+  const m = new THREE.Mesh(boxGeo, mat);
+  m.scale.set(Math.max(w, 0.001), Math.max(h, 0.001), Math.max(d, 0.001));
+  m.position.set(x, y, z);
+  if (ry) m.rotation.y = ry;
+  m.castShadow = m.receiveShadow = true;
+  return m;
+}
+
+/* ======================================================================
+   SCENE / CAMERA / RENDERER
+   ====================================================================== */
+const scene = new THREE.Scene();
+const SKY_COLOR = 0xaee0f7; // troi ban ngay sang, de nhin xuyen kinh thay ben ngoai
+scene.background = new THREE.Color(SKY_COLOR);
+scene.fog = new THREE.Fog(SKY_COLOR, 22, 45);
+
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.05, 100);
+const startHS = TOAN_CANH_STAGE1; // khoi dong tu goc 45 do ben ngoai, se tu ha xuong Stage2
+camera.position.set(...startHS.pos);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.getElementById('scene-container').appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 0.4;
+controls.maxDistance = 16;
+controls.maxPolarAngle = Math.PI * 0.49;
+controls.zoomToCursor = true; // cho phep zoom sat vao bat ky mat tuong nao (L/F/G...) dang tro chuot toi, khong chi vao target co dinh
+controls.enablePan = true;
+controls.panSpeed = 1.6; // di chuyen (pan) nhanh hon de de dang tiep can moi khu vuc (ban may tinh, day F...)
+controls.screenSpacePanning = true;
+controls.target.set(...startHS.target);
+
+/* ---- Lights (den trong sang ruc ro, troi ngoai cung sang ban ngay) ---- */
+scene.add(new THREE.HemisphereLight(0xffffff, 0xb9c4d6, 0.9));
+const ambient = new THREE.AmbientLight(0xfff4e0, 0.55);
+scene.add(ambient);
+const sun = new THREE.DirectionalLight(0xfff6e6, 0.85);
+sun.position.set(M(300), M(500), M(-200));
+sun.castShadow = true;
+sun.shadow.mapSize.set(1024, 1024);
+scene.add(sun);
+
+const downlightPositions = [
+  [150, 150], [150, 400], [150, 650], [300, 150], [300, 400], [300, 650], [450, 150], [450, 400], [450, 650],
+];
+downlightPositions.forEach(([x, z]) => {
+  const pl = new THREE.PointLight(0xfff2df, 1.5, 7, 2);
+  pl.position.set(M(x), M(ROOM.wallHeight) - 0.1, M(z));
+  scene.add(pl);
+});
+
+/* ---- Ben ngoai showroom: san + bau troi sang ban ngay, nhin xuyen kinh thay duoc ---- */
+function buildExterior() {
+  const groundSize = 60;
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(groundSize, groundSize),
+    new THREE.MeshStandardMaterial({ color: '#c7cdd3', roughness: 1 })
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.set(M(ROOM.P1[0] / 2), -0.03, M(ROOM.P2[1] / 2));
+  scene.add(ground);
+}
+buildExterior();
+
+/* ======================================================================
+   ROOM SHELL: floor, walls, ceiling
+   ====================================================================== */
+const roomPts = [ROOM.P0, ROOM.P1, ROOM.P2, ROOM.P3, ROOM.P4];
+
+// Bien phia "truoc" cua phong tai 1 hoanh do x cho truoc (doan cheo P4->P3 roi
+// doan P3->P2) - dung de cat xa tran cho khong loi ra ngoai kinh (nhat la doan
+// cheo T, vi mat kinh T khong con vuong goc voi tuong sau nua).
+function frontBoundaryZ(x) {
+  if (x <= ROOM.P3[0]) {
+    const t = (x - ROOM.P4[0]) / (ROOM.P3[0] - ROOM.P4[0]);
+    return ROOM.P4[1] + t * (ROOM.P3[1] - ROOM.P4[1]);
+  }
+  const t = (x - ROOM.P3[0]) / (ROOM.P2[0] - ROOM.P3[0]);
+  return ROOM.P3[1] + t * (ROOM.P2[1] - ROOM.P3[1]);
+}
+
+function buildFloorAndCeiling() {
+  // Luu y: THREE.Shape(x,y) khi rotation.x=-90deg map world Z = -y_shape (bi lat
+  // dau). Dung 2 shape rieng (mot lat dau z, mot khong) de floor/ceiling cung
+  // khop toa do voi tuong/khoi - tranh loi san bi lat ra ngoai sau tuong.
+  const ceilShape = new THREE.Shape(roomPts.map(p => new THREE.Vector2(M(p[0]), M(p[1]))));
+  const floorShape = new THREE.Shape(roomPts.map(p => new THREE.Vector2(M(p[0]), -M(p[1]))));
+
+  const floor = new THREE.Mesh(new THREE.ShapeGeometry(floorShape), new THREE.MeshStandardMaterial({ map: makeFloorTexture(), roughness: 0.85 }));
+  floor.rotation.x = -Math.PI / 2;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  const ceil = new THREE.Mesh(new THREE.ShapeGeometry(ceilShape), MAT.ceiling);
+  ceil.rotation.x = Math.PI / 2;
+  ceil.position.y = M(ROOM.wallHeight);
+  scene.add(ceil);
+
+  // dark wood ceiling beams (decorative, matching anh thuc te) - cat theo bien
+  // truoc cua phong (frontBoundaryZ) de khong loi ra ngoai kinh (vd doan cheo T)
+  const beamMargin = 15, beamBackZ = 20;
+  [150, 300, 450].forEach(x => {
+    const frontZ = frontBoundaryZ(x) - beamMargin;
+    const len = frontZ - beamBackZ;
+    const centerZ = (beamBackZ + frontZ) / 2;
+    scene.add(boxMesh(MAT.beam, M(18), M(20), M(len), M(x), M(ROOM.wallHeight) - M(10), M(centerZ)));
+  });
+
+  // da vien (day 10cm) chay quanh toan bo showroom, sat duoi tran - tao cam
+  // giac khung chac chan, ngoai 3 thanh da chinh o tren
+  const edgeY = ROOM.wallHeight - 5;
+  [[ROOM.P0, ROOM.P1], [ROOM.P1, ROOM.P2], [ROOM.P2, ROOM.P3], [ROOM.P3, ROOM.P4], [ROOM.P4, ROOM.P0]].forEach(([a, b]) => {
+    const dx = b[0] - a[0], dz = b[1] - a[1];
+    const len = Math.hypot(dx, dz);
+    const angle = Math.atan2(dx, dz);
+    const midX = (a[0] + b[0]) / 2, midZ = (a[1] + b[1]) / 2;
+    const trim = boxMesh(MAT.beam, M(15), M(10), M(len), M(midX), M(edgeY), M(midZ));
+    trim.rotation.y = angle;
+    scene.add(trim);
+  });
+}
+
+const WALL_THICKNESS = 6;
+
+function addWallSegment(a, b, glass) {
+  const dx = b[0] - a[0], dz = b[1] - a[1];
+  const len = Math.hypot(dx, dz);
+  const angle = Math.atan2(dx, dz); // rotation around Y so wall runs along (dx,dz)
+  const midX = (a[0] + b[0]) / 2, midZ = (a[1] + b[1]) / 2;
+  const mat = glass ? MAT.glass : MAT.wallSolid;
+  const w = new THREE.Mesh(new THREE.BoxGeometry(M(WALL_THICKNESS), M(ROOM.wallHeight), M(len)), mat);
+  w.position.set(M(midX), M(ROOM.wallHeight) / 2, M(midZ));
+  w.rotation.y = angle;
+  w.receiveShadow = !glass;
+  scene.add(w);
+}
+
+// Diem cat tren canh tuong phai (P1->P2): tu mep kinh F (P1, z=0) den mep trai
+// (nhin chinh dien) cua tu L la kinh; con lai (da so) la tuong be tong.
+const RIGHT_WALL_GLASS_UNTIL = 190; // = WALL_PLACERS.L anchor z
+
+function buildWalls() {
+  // F (sau), G (trai), T (cheo), cua truoc deu la kinh - khop "T ep sat mat
+  // kinh canh huyen". Rieng tuong phai: doan dau (P1 den mep tu L) la kinh,
+  // phan con lai (da so, cho L/TL-KS/X/N/KT) la be tong dac.
+  addWallSegment(ROOM.P0, ROOM.P1, true);  // F
+  const rightSplit = [ROOM.P1[0], ROOM.P1[1] + RIGHT_WALL_GLASS_UNTIL];
+  addWallSegment(ROOM.P1, rightSplit, true);   // tuong phai - doan kinh dau tien
+  addWallSegment(rightSplit, ROOM.P2, false);  // tuong phai - be tong (L/TL-KS/X/N)
+  addWallSegment(ROOM.P2, ROOM.P3, true); // cua truoc
+  addWallSegment(ROOM.P3, ROOM.P4, true); // T
+  addWallSegment(ROOM.P4, ROOM.P0, true); // G
+}
+
+buildFloorAndCeiling();
+buildWalls();
+
+/* ======================================================================
+   DISPLAY BLOCKS - built generically from Table.json
+   ====================================================================== */
+const interactiveCells = []; // { mesh, code, cellData }
+const cellHighlights = new Map();
+const linkHitboxes = []; // { mesh, url } - vd link HATHYO/LAZINET tren mai
+
+function addCubbyCell(group, placer, cell) {
+  // "Ong rong": chi 4 mat go (tren/duoi/trai/phai) - truoc VA sau deu de trong,
+  // nhin xuyen suot duoc (vd xuyen qua tuong kinh phia sau ra ngoai duong).
+  const { x: lx, y: ly, width: w, height: h, depth: d } = cell;
+  const t = 2; // board thickness cm
+  const top = placer.place(lx + w / 2, d / 2, ly + h - t / 2);
+  group.add(boxMesh(MAT.woodOpen, M(w), M(t), M(d), M(top.x), M(top.y), M(top.z), placer.rotationY));
+  const bot = placer.place(lx + w / 2, d / 2, ly + t / 2);
+  group.add(boxMesh(MAT.woodOpen, M(w), M(t), M(d), M(bot.x), M(bot.y), M(bot.z), placer.rotationY));
+  const left = placer.place(lx + t / 2, d / 2, ly + h / 2);
+  group.add(boxMesh(MAT.woodOpen, M(t), M(h), M(d), M(left.x), M(left.y), M(left.z), placer.rotationY));
+  const right = placer.place(lx + w - t / 2, d / 2, ly + h / 2);
+  group.add(boxMesh(MAT.woodOpen, M(t), M(h), M(d), M(right.x), M(right.y), M(right.z), placer.rotationY));
+
+  // noi dung ben trong (anh san pham hoac placeholder "Trong")
+  const contentMat = cell.bizCode ? productPreviewMaterial(cell) : MAT.empty;
+  const cpos = placer.place(lx + w / 2, d - t - 0.5, ly + h / 2);
+  const content = boxMesh(contentMat, M(w - 6), M(h - 6), M(0.5), M(cpos.x), M(cpos.y), M(cpos.z), placer.rotationY);
+  group.add(content);
+
+  registerInteractive(group, placer, cell);
+}
+
+function registerInteractive(group, placer, cell) {
+  const { x: lx, y: ly, width: w, height: h, depth: d } = cell;
+  const hp = placer.place(lx + w / 2, d + 1, ly + h / 2);
+  const hit = boxMesh(MAT.hitbox, M(w), M(h), M(4), M(hp.x), M(hp.y), M(hp.z), placer.rotationY);
+  group.add(hit);
+  const hl = boxMesh(MAT.highlight, M(w + 1), M(h + 1), M(1), M(hp.x), M(hp.y), M(hp.z), placer.rotationY);
+  hl.visible = false;
+  group.add(hl);
+  interactiveCells.push({ mesh: hit, code: cell.code });
+  cellHighlights.set(cell.code, hl);
+}
+
+function addCabinetCell(group, placer, cell, materialOverride, opts) {
+  opts = opts || {};
+  const { x: lx, y: ly, width: w, height: h, depth: d } = cell;
+  const c = placer.place(lx + w / 2, d / 2, ly + h / 2);
+  group.add(boxMesh(materialOverride || MAT.woodCabinet, M(w - 0.6), M(h - 0.6), M(d), M(c.x), M(c.y), M(c.z), placer.rotationY));
+  // duong net cua tu (mat cua hoi lom vao)
+  const doorPos = placer.place(lx + w / 2, d - 0.6, ly + h / 2);
+  group.add(boxMesh(MAT.woodDoor, M(w - 4), M(h - 4), M(0.6), M(doorPos.x), M(doorPos.y), M(doorPos.z), placer.rotationY));
+  if (!opts.noHandle) {
+    const handlePos = placer.place(lx + w - 8, d - 1.2, ly + h / 2);
+    group.add(boxMesh(MAT.metalGray, M(1.2), M(6), M(1.2), M(handlePos.x), M(handlePos.y), M(handlePos.z), placer.rotationY));
+  }
+  registerInteractive(group, placer, cell);
+}
+
+function addStandeeCell(group, placer, cell) {
+  const { x: lx, y: ly, width: w, height: h, depth: d } = cell;
+  const contentMat = cell.bizCode ? productPreviewMaterial(cell) : MAT.standee;
+  const bp = placer.place(lx + w / 2, d / 2, ly + h / 2);
+  group.add(boxMesh(contentMat, M(w), M(h), M(d), M(bp.x), M(bp.y), M(bp.z), placer.rotationY));
+  const base = placer.place(lx + w / 2, d / 2 + 8, 2);
+  group.add(boxMesh(MAT.metalGray, M(w), M(4), M(d + 16), M(base.x), M(base.y), M(base.z), placer.rotationY));
+  registerInteractive(group, placer, cell);
+}
+
+function productPreviewMaterial(cell) {
+  const key = '_prodmat_' + cell.code;
+  if (MAT[key]) return MAT[key];
+  const prod = (cell.products || [])[0];
+  let mat;
+  if (prod && prod.img) {
+    const tex = new THREE.TextureLoader().load(encodeURI(prod.img));
+    tex.colorSpace = THREE.SRGBColorSpace;
+    mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.8 });
+  } else {
+    mat = new THREE.MeshStandardMaterial({ color: '#dfe6ee', roughness: 0.9 });
+  }
+  MAT[key] = mat;
+  return mat;
+}
+
+function buildBlockFromData(blockCode, placer, tableData) {
+  const block = tableData.blocks[blockCode];
+  if (!block) return;
+  const group = new THREE.Group();
+  scene.add(group);
+
+  if (block.standalone) {
+    // Ghi chu: sheet Chia O co 2 dong 'KS' (cung 1 vi tri vat ly theo so do mat
+    // bang) - chi dung the hien dau tien de tranh chong lan; day la bat thuong
+    // du lieu can nguoi dung ra soat lai trong Table.xlsx, khong tu suy dien vi tri thu 2.
+    const baseY = blockCode === 'KT' ? 200 : 0;
+    const inst = block.instances[0];
+    const cell = tableData.cells[inst];
+    const c = { ...cell, x: 0, y: baseY };
+    if (blockCode === 'KT') {
+      addCabinetCell(group, placer, c, MAT.woodDoor, { noHandle: true });
+    } else {
+      addCabinetCell(group, placer, c, MAT.metalGray);
+    }
+    return;
+  }
+
+  block.rows.forEach(row => {
+    if (row.type === 'cap') {
+      const c = placer.place(block.width / 2, block.depth ? block.depth / 2 : 25, row.y + row.height / 2);
+      group.add(boxMesh(MAT.cap, M(block.width), M(row.height), M(block.depth || 50), M(c.x), M(c.y), M(c.z), placer.rotationY));
+      return;
+    }
+    row.cells.forEach(code => {
+      const cell = tableData.cells[code];
+      if (row.type === 'cabinet') addCabinetCell(group, placer, cell);
+      else addCubbyCell(group, placer, cell);
+    });
+  });
+}
+
+async function loadShowroomData() {
+  const res = await fetch('design/Table.json');
+  if (!res.ok) throw new Error('Không tải được Table.json');
+  return res.json();
+}
+
+/* ======================================================================
+   FIXTURES khong nam trong Table.xlsx (hardcode - kien truc co dinh)
+   ====================================================================== */
+function buildFixtures() {
+  // cot
+  scene.add(boxMesh(MAT.columnDark, M(50), M(300), M(50), M(25), M(150), M(25), 0));
+  scene.add(boxMesh(MAT.columnDark, M(60), M(300), M(60), M(127.5), M(150), M(202), 0));
+  scene.add(boxMesh(MAT.columnDark, M(60), M(300), M(60), M(300), M(150), M(202), 0));
+
+  // bon rua mat (bon + voi nuoc + guong nho tren tuong trai)
+  const sinkX = 20, sinkZ = 205; // giua G (ket thuc z=170) va diem vat cheo P4 (z=250)
+  const sinkGeo = new THREE.CylinderGeometry(M(24), M(19), M(13), 28);
+  const sink = new THREE.Mesh(sinkGeo, MAT.white);
+  sink.position.set(M(sinkX), M(82), M(sinkZ));
+  sink.castShadow = sink.receiveShadow = true;
+  scene.add(sink);
+  scene.add(boxMesh(MAT.metalGray, M(7), M(82), M(7), M(sinkX), M(41), M(sinkZ), 0));
+  // voi nuoc
+  scene.add(boxMesh(MAT.metalGray, M(2.5), M(16), M(2.5), M(sinkX + 6), M(96), M(sinkZ - 10), 0));
+  scene.add(boxMesh(MAT.metalGray, M(2.5), M(2.5), M(10), M(sinkX + 6), M(104), M(sinkZ - 5), 0));
+  // guong tren bon rua
+  scene.add(boxMesh(MAT.glass, M(1), M(50), M(36), M(6), M(150), M(sinkZ), 0));
+
+  // ban may tinh + tam chan ban (dung anh that)
+  scene.add(boxMesh(MAT.tableLight, M(120), M(4), M(60), M(387), M(75), M(202), 0));
+  scene.add(boxMesh(MAT.metalBlack, M(4), M(72), M(4), M(332), M(38), M(177), 0));
+  scene.add(boxMesh(MAT.metalBlack, M(4), M(72), M(4), M(442), M(38), M(177), 0));
+  scene.add(boxMesh(MAT.metalBlack, M(4), M(72), M(4), M(332), M(38), M(227), 0));
+  scene.add(boxMesh(MAT.metalBlack, M(4), M(72), M(4), M(442), M(38), M(227), 0));
+  const panelTex = new THREE.TextureLoader().load(encodeURI('table_pannel/Chắn bàn 120cm x 24cm - Ảnh RGB.png'));
+  panelTex.colorSpace = THREE.SRGBColorSpace;
+  const panelMat = new THREE.MeshStandardMaterial({ map: panelTex, roughness: 0.6, side: THREE.DoubleSide });
+  scene.add(boxMesh(panelMat, M(120), M(24), M(1.5), M(387), M(75 + 12), M(231), 0));
+
+  // TV lon gan mat truoc cot giua (huong ra phia cua/ban hop, KHONG quay ve phia ca phe)
+  const colGiuaFrontZ = 202 + 30 + 3; // mat truoc cot (z=232) + nhich ra 3cm
+  scene.add(boxMesh(MAT.screen, M(160), M(100), M(6), M(300), M(160), M(colGiuaFrontZ), 0));
+  scene.add(boxMesh(MAT.metalBlack, M(168), M(6), M(6), M(300), M(212), M(colGiuaFrontZ), 0));
+
+  // ban hop lon (co chan) + 6 ghe xoay tron huong vao ban
+  const tableCenter = [296, 343];
+  scene.add(boxMesh(MAT.tableLight, M(120), M(5), M(200), M(296), M(75), M(343), 0));
+  [[257, 263], [257, 423], [335, 263], [335, 423]].forEach(([x, z]) => {
+    scene.add(boxMesh(MAT.metalGray, M(5), M(72.5), M(5), M(x), M(36.25), M(z), 0));
+  });
+  [289, 343, 397].forEach(z => {
+    [205, 400].forEach(x => addChair(x, z, tableCenter));
+  });
+
+  // tivi LED TL, gan tren KS (KS duoc dung sinh tu Table.json, xem buildBlockFromData)
+  const ksP = WALL_PLACERS.TLKS;
+  const tlC = ksP.place(60, 5, 145);
+  scene.add(boxMesh(MAT.screen, M(120), M(70), M(6), M(tlC.x), M(tlC.y), M(tlC.z), ksP.rotationY));
+
+  // hop ky thuat (2 cai, tren tuong phai). Cai dau doi ve sat tu L (thay vi
+  // nam mot minh o goc tiep giap F/L) de khong bi cam giac chong lan voi F.
+  const rp0 = makeWallPlacer([590, 110], [-1, 0]); // sat truoc L (L bat dau tu z=190)
+  const c0 = rp0.place(40, 12, 40);
+  scene.add(boxMesh(MAT.metalGray, M(80), M(80), M(25), M(c0.x), M(c0.y), M(c0.z), rp0.rotationY));
+  const rp1 = makeWallPlacer([590, 720], [-1, 0]);
+  const c1 = rp1.place(40, 12, 40);
+  scene.add(boxMesh(MAT.metalGray, M(80), M(80), M(25), M(c1.x), M(c1.y), M(c1.z), rp1.rotationY));
+}
+
+// Standee S1/S2/S3 - lay tu Table.json (khong hardcode nua), xem showroom\design\Table.xlsx
+// dong 126-128. S1/S2 nam trong khoang trong gan cua cua tu T; S3 gan goc T/Cua.
+function buildStandeesFromData(data) {
+  const group = new THREE.Group();
+  scene.add(group);
+  // lx = canh trai cua standee (addStandeeCell tu cong them w/2 de ra tam)
+  const layout = {
+    S1: { placer: WALL_PLACERS.T_STANDEE, lx: 5 },
+    S2: { placer: WALL_PLACERS.T_STANDEE, lx: 70 },
+    // Trong phong, sat kinh vach cua, gon gang gan goc tiep giap cua/T (nhung
+    // khong dinh sat vao goc) - lui vao 35cm tu goc, chi day 18cm vao trong
+    // (vua qua khoi be day tuong kinh 6cm) de nam sat mat kinh, khong xa.
+    S3: { placer: shiftPlacerDepth(WALL_PLACERS.CUA, 18), lx: 35 },
+  };
+  Object.entries(layout).forEach(([code, { placer, lx }]) => {
+    const cell = data.cells[code];
+    if (!cell) return;
+    const c = { ...cell, x: lx, y: 0 };
+    addStandeeCell(group, placer, c);
+  });
+}
+
+function addChair(x, z, facingPoint) {
+  // ghe xoay van phong: de tron 5 chan, tru, dem tron, tua lung cong - quay mat vao ban
+  const angle = Math.atan2(facingPoint[0] - x, facingPoint[1] - z);
+  const g = new THREE.Group();
+  g.position.set(M(x), 0, M(z));
+  g.rotation.y = angle;
+
+  const baseGeo = new THREE.CylinderGeometry(M(20), M(20), M(2), 5);
+  g.add(new THREE.Mesh(baseGeo, MAT.chairBlack).translateY(M(1)));
+  const poleGeo = new THREE.CylinderGeometry(M(2.5), M(2.5), M(43), 12);
+  const pole = new THREE.Mesh(poleGeo, MAT.metalGray);
+  pole.position.y = M(23);
+  g.add(pole);
+  const seatGeo = new THREE.CylinderGeometry(M(21), M(21), M(6), 24);
+  const seat = new THREE.Mesh(seatGeo, MAT.chairBlack);
+  seat.position.y = M(46);
+  g.add(seat);
+  // tua lung: bo ro rang ve phia XA ban (local -Z = phia sau ghe, tiep giap
+  // lung nguoi ngoi), hoi nga ra sau mot chut cho tu nhien
+  const back = new THREE.Mesh(new THREE.BoxGeometry(M(36), M(42), M(4)), MAT.chairBlack);
+  back.position.set(0, M(70), M(-20));
+  back.rotation.x = -0.12;
+  g.add(back);
+  g.traverse(o => { if (o.isMesh) o.castShadow = o.receiveShadow = true; });
+  scene.add(g);
+}
+
+/* ======================================================================
+   CUA KINH LUA (2 canh 100cm) tren mat kinh truoc (P3-P2)
+   Dung nguoi dung ngoai, quay mat vao trong (forward = intoRoomFront), tinh
+   tay-phai theo cong thuc chuan camera/nguoi: right = (-Fz, Fx). Voi
+   forward=intoRoomFront=(doorDir.y,-doorDir.x), right = (doorDir.x,doorDir.y)
+   = doorDir - nghia la huong P3->P2 (doorDir) LA huong tay phai nguoi dung,
+   nen canh gan P2 la CANH PHAI (chu khong phai trai nhu ban dau).
+   => canh trai (logo) o phia P3/tu T; canh phai (ten CLB) o phia P2/tuong L.
+   ====================================================================== */
+function buildEntranceDoor() {
+  const doorDir = new THREE.Vector2(ROOM.P2[0] - ROOM.P3[0], ROOM.P2[1] - ROOM.P3[1]).normalize();
+  const intoRoomFront = new THREE.Vector2(doorDir.y, -doorDir.x);
+  const outward = intoRoomFront.clone().negate();
+  const doorCenter = [(ROOM.P2[0] + ROOM.P3[0]) / 2, (ROOM.P2[1] + ROOM.P3[1]) / 2];
+  // SUA LOI GOC: atan2(doorDir.x,doorDir.y) thuc ra cho local+X (chieu "rong"
+  // cua box) -> intoRoomFront (vuong goc tuong), KHONG PHAI doc theo tuong nhu
+  // tuong (da kiem lai bang nhan ma tran Ry). Cong thuc dung de local+X -> huong
+  // "d" bat ky la rotY=atan2(-d.y,d.x) (giong makeWallPlacer da kiem chung).
+  // Day la nguyen nhan khoa cua bi lam "tam op vuong goc mat cua" thay vi nam
+  // phang doc theo cua. rotYPlane (dung cho local+Z/phap tuyen mat phang, vd
+  // logo/chu) la CONG THUC KHAC (atan2(x,y) khong doi dau) - van dung tu truoc.
+  const rotY = Math.atan2(-doorDir.y, doorDir.x); // dung cho khung/hop (rong theo doc tuong)
+  const rotYPlane = Math.atan2(outward.x, outward.y); // mat phang quay ra ngoai (vuong goc tuong)
+
+  const leafH = 210;
+  const rightC = [doorCenter[0] + doorDir.x * 50, doorCenter[1] + doorDir.y * 50]; // ve phia P2 - canh PHAI (nhin tu ngoai)
+  const leftC = [doorCenter[0] - doorDir.x * 50, doorCenter[1] - doorDir.y * 50];  // ve phia P3 - canh TRAI
+
+  // khung/ray cua (goi y 2 canh lua, khong ve lai kinh vi tuong truoc da la kinh san)
+  [-100, 0, 100].forEach(off => {
+    const fx = doorCenter[0] + doorDir.x * off, fz = doorCenter[1] + doorDir.y * off;
+    scene.add(boxMesh(MAT.metalGray, M(3), M(leafH + 4), M(3), M(fx), M(leafH / 2), M(fz), rotY));
+  });
+
+  [leftC, rightC].forEach(center => {
+    // tay nam go, gan mep trong (sat vach giua 2 canh)
+    const inward = center === leftC ? 1 : -1;
+    const hx = center[0] + doorDir.x * (inward * 42) + outward.x * 3;
+    const hz = center[1] + doorDir.y * (inward * 42) + outward.y * 3;
+    scene.add(boxMesh(MAT.woodDoor, M(3), M(55), M(3), M(hx), M(120), M(hz), rotY));
+  });
+
+  // khoa thong minh (man hinh + van tay), dat dung o vach giua 2 canh cua.
+  // Kich thuoc thuc te: day(nhoi ra, truc outward)=2cm, rong(doc theo cua,
+  // truc rotY)=5cm, cao=15cm. rotY da sua dung nen w=5 gio dung la chieu doc cua.
+  const lockX = doorCenter[0] + outward.x * 1.5;
+  const lockZ = doorCenter[1] + outward.y * 1.5;
+  scene.add(boxMesh(MAT.metalBlack, M(5), M(15), M(2), M(lockX), M(115), M(lockZ), rotY));
+  scene.add(boxMesh(new THREE.MeshStandardMaterial({ color: '#bcd6ee', emissive: '#3a6a95', emissiveIntensity: 0.4 }), M(3.5), M(6), M(0.6), M(lockX), M(120), M(lockZ), rotY));
+  // cam bien van tay (dia tron nho, phia duoi man hinh)
+  const fp = new THREE.Mesh(new THREE.CylinderGeometry(M(1.6), M(1.6), M(1), 20), MAT.metalGray);
+  fp.rotation.x = Math.PI / 2;
+  fp.rotation.z = rotY;
+  fp.position.set(M(lockX), M(109), M(lockZ));
+  scene.add(fp);
+
+  // logo (canh TRAI, nhin tu ngoai vao) - 40x40cm, tam cach mat dat ~100cm.
+  // DoubleSide + 1 lop texture duy nhat => nhin tu trong ra se thay chu/logo BI NGUOC (dung nhu yeu cau).
+  const logoTex = new THREE.TextureLoader().load(encodeURI('../assets/logos/logo_2026_W512.webp'));
+  logoTex.colorSpace = THREE.SRGBColorSpace;
+  const logoMat = new THREE.MeshStandardMaterial({ map: logoTex, transparent: true, side: THREE.DoubleSide });
+  const logoMesh = new THREE.Mesh(new THREE.PlaneGeometry(M(40), M(40)), logoMat);
+  logoMesh.position.set(M(leftC[0] + outward.x * 2.5), M(120), M(leftC[1] + outward.y * 2.5));
+  logoMesh.rotation.y = rotYPlane;
+  scene.add(logoMesh);
+
+  // ten CLB 3 dong (canh PHAI, nhin tu ngoai vao) - cao 40cm, gan ngang logo
+  const nameTex = makeClubNameTexture();
+  const nameMat = new THREE.MeshStandardMaterial({ map: nameTex, transparent: true, side: THREE.DoubleSide });
+  const nameMesh = new THREE.Mesh(new THREE.PlaneGeometry(M(116), M(40)), nameMat);
+  nameMesh.position.set(M(rightC[0] + outward.x * 2.5), M(120), M(rightC[1] + outward.y * 2.5));
+  nameMesh.rotation.y = rotYPlane;
+  scene.add(nameMesh);
+}
+
+/* ======================================================================
+   MAI (ROOF) - nhin tu tren troi xuong, tam ton mau + 4 dong chu + link
+   ====================================================================== */
+function buildRoofSign() {
+  const roofY = ROOM.wallHeight + 3;
+
+  // 1) Tam mai chinh: dung hinh ngu giac cua showroom, mau ton dac #FFC0CB
+  // (khong ve chu len day - tach rieng bang hieu chu ra mot mat phang doc lap
+  // ben duoi, de tranh loi dinh huong UV tren hinh ngu giac tuy bien).
+  const positions = [];
+  for (let i = 1; i < roomPts.length - 1; i++) {
+    [roomPts[0], roomPts[i + 1], roomPts[i]].forEach(p => {
+      positions.push(M(p[0]), M(roofY), M(p[1]));
+    });
+  }
+  const roofGeo = new THREE.BufferGeometry();
+  roofGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  roofGeo.computeVertexNormals();
+  const roof = new THREE.Mesh(roofGeo, new THREE.MeshBasicMaterial({ color: '#FFC0CB', side: THREE.DoubleSide }));
+  scene.add(roof);
+
+  // 2) Bang hieu chu: 1 PlaneGeometry rieng, dat gan tuong L. Dung 2 phep xoay
+  // (rotation.x=-90 ROI rotation.y=-90) - ghep 2 phep xoay THUAN TUY khong bao
+  // gio tao anh guong (chi flip/UV sai moi tao guong) nen an toan de doi truc
+  // "chieu doc" tu X sang Z: local+X (chieu doc canvas, trai->phai binh thuong)
+  // -> world +Z (song song tuong L, dung nhu "mep tuong L la mep tren to giay"
+  // roi viet doc theo do); local+Y (dinh canvas, sau flipY) -> world +X (ve
+  // phia tuong L) - nen ve SHOWROOM o py NHO (dinh canvas) de no nam sat L.
+  const signW = 350 * 2.5, signH = 200 * 2.5; // signW doc theo Z (chieu doc chu), signH doc theo X (ve phia L) - x2.5 cho can doi
+  const cw = 900, ch = Math.round(cw * signH / signW);
+  const canvas = document.createElement('canvas');
+  canvas.width = cw; canvas.height = ch;
+  const ctx = canvas.getContext('2d');
+  // KHONG fill nen (de trong suot) - de mai mau hong FFC0CB (mesh rieng ben
+  // duoi) lo ra xung quanh chu, tranh tao 1 mieng hinh chu nhat dam mau de ra
+  // ngoai vien mai ngu giac.
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#006636';
+  ctx.font = '800 72px Inter, sans-serif';
+  ctx.fillText('SHOWROOM', cw / 2, 70);
+  ctx.fillStyle = '#E64D22';
+  ctx.font = '800 48px Inter, sans-serif';
+  ctx.fillText('CÂU LẠC BỘ', cw / 2, 175);
+  ctx.fillStyle = '#195982';
+  ctx.font = '800 40px Inter, sans-serif';
+  ctx.fillText('DOANH NHÂN QUẢNG TRỊ', cw / 2, 260);
+
+  // dong lien he: icon web + qtbc.vn - icon dia diem + dia chi
+  ctx.fillStyle = '#006636';
+  ctx.font = '600 26px Inter, sans-serif';
+  ctx.fillText('🌐 qtbc.vn　📍 Số 3 Phạm Văn Hai, Tân Sơn Hòa, HCM', cw / 2, 320);
+
+  // dong cuoi: "Mo hinh hoa boi HATHYO & LAZINET" - do rieng tung doan de tinh
+  // dung vi tri 2 tu co the click (HATHYO/LAZINET)
+  ctx.font = '600 22px Inter, sans-serif';
+  ctx.textAlign = 'left';
+  const ly = 365;
+  const prefix = 'Trực quan hóa 3D bởi ', mid = ' & ';
+  const wPrefix = ctx.measureText(prefix).width;
+  const wHathyo = ctx.measureText('HATHYO').width;
+  const wMid = ctx.measureText(mid).width;
+  const wLazinet = ctx.measureText('LAZINET').width;
+  let cx = cw / 2 - (wPrefix + wHathyo + wMid + wLazinet) / 2;
+  ctx.fillStyle = '#006636';
+  ctx.fillText(prefix, cx, ly); cx += wPrefix;
+  const hathyoX0 = cx; ctx.fillText('HATHYO', cx, ly); cx += wHathyo; const hathyoX1 = cx;
+  ctx.fillText(mid, cx, ly); cx += wMid;
+  const lazinetX0 = cx; ctx.fillText('LAZINET', cx, ly); cx += wLazinet; const lazinetX1 = cx;
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+
+  const signCx = ROOM.P1[0] - signH / 2 - 12; // cach tuong L ~12cm - dich sat L hon 1 ti
+  const signCz = ROOM.P2[1] / 2 - 30; // dich ve phia vach F (z nho) 1 ti
+  const signMesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(M(signW), M(signH)),
+    new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide })
+  );
+  // QUAN TRONG: rotation.x=-90 + rotation.y=-90 (thu truoc) la SAI - do nham lan
+  // thu tu ghep Euler (compose bang tay khong qua ma tran), khien tam bang bi
+  // dung thang len (phap tuyen ra ngang) thay vi nam phang. Da kiem lai bang
+  // nhan ma tran that su: voi thu tu THREE mac dinh 'XYZ' (R=Rx*Ry*Rz), can
+  // rotation.x=-90 + rotation.z=-90 (KHONG PHAI y) de giu phap tuyen +Y (nam
+  // phang) ma van xoay huong doc chu tu +X sang +Z (song song tuong L).
+  signMesh.rotation.x = -Math.PI / 2;
+  signMesh.rotation.z = -Math.PI / 2;
+  signMesh.position.set(M(signCx), M(roofY + 1), M(signCz));
+  scene.add(signMesh);
+
+  // canvas (px,py) -> the gioi (x,z): local+X(=(px/cw-0.5)*signW)->world +Z;
+  // local+Y(=(0.5-py/ch)*signH, sau flipY)->world +X
+  function canvasToWorld(px, py) {
+    const z = signCz + (px / cw - 0.5) * signW;
+    const x = signCx + (0.5 - py / ch) * signH;
+    return [x, z];
+  }
+  function addRoofLink(x0, x1, url) {
+    const [wx, wz0] = canvasToWorld(x0, ly);
+    const [, wz1] = canvasToWorld(x1, ly);
+    const len = Math.abs(wz1 - wz0);
+    const hit = new THREE.Mesh(new THREE.PlaneGeometry(M(60), M(len)), new THREE.MeshBasicMaterial({ visible: false }));
+    hit.rotation.x = -Math.PI / 2;
+    hit.position.set(M(wx), M(roofY + 2), M((wz0 + wz1) / 2));
+    scene.add(hit);
+    linkHitboxes.push({ mesh: hit, url });
+  }
+  addRoofLink(hathyoX0, hathyoX1, 'https://hathyo.com');
+  addRoofLink(lazinetX0, lazinetX1, 'https://lazinet.com');
+}
+
+/* ======================================================================
+   INIT
+   ====================================================================== */
+let tableData = null;
+
+loadShowroomData().then(data => {
+  tableData = data;
+  buildBlockFromData('F', WALL_PLACERS.F, data);
+  buildBlockFromData('G', WALL_PLACERS.G, data);
+  buildBlockFromData('T', WALL_PLACERS.T, data);
+  buildBlockFromData('L', WALL_PLACERS.L, data);
+  buildBlockFromData('X', WALL_PLACERS.X, data);
+  buildBlockFromData('N', WALL_PLACERS.N, data);
+  buildBlockFromData('KS', WALL_PLACERS.TLKS, data);
+  buildBlockFromData('KT', WALL_PLACERS.N, data);
+  buildFixtures();
+  buildStandeesFromData(data);
+  buildEntranceDoor();
+  buildRoofSign();
+  buildSceneButtons();
+  document.getElementById('loading').classList.add('out');
+  playToanCanhIntro();
+  if (location.search.includes('debugtop')) { if (camTween) cancelAnimationFrame(camTween); camera.position.set(4.8, 9, 4.3); controls.target.set(4.7, 1.2, 4.0); } // TEMP debug-only, removed after visual check
+  if (location.search.includes('debugdoor')) { if (camTween) cancelAnimationFrame(camTween); camera.position.set(3.6, 1.3, 8.9); controls.target.set(3.89, 1.15, 7.84); } // TEMP debug-only, removed after visual check
+}).catch(err => {
+  document.getElementById('loading-msg').textContent = 'Lỗi tải dữ liệu: ' + err.message;
+});
+
+/* ======================================================================
+   CAMERA HOTSPOT BUTTONS
+   ====================================================================== */
+let camTween = null;
+function tweenCamera(fromPos, fromTarget, toPos, toTarget, dur, onDone) {
+  const t0 = performance.now();
+  if (camTween) cancelAnimationFrame(camTween);
+  function step(now) {
+    const t = Math.min(1, (now - t0) / dur);
+    const e = 1 - Math.pow(1 - t, 3); // ease-out cubic
+    camera.position.lerpVectors(fromPos, toPos, e);
+    controls.target.lerpVectors(fromTarget, toTarget, e);
+    if (t < 1) { camTween = requestAnimationFrame(step); }
+    else if (onDone) onDone();
+  }
+  camTween = requestAnimationFrame(step);
+}
+
+function flyTo(hotspotName) {
+  const hs = CAMERA_HOTSPOTS[hotspotName];
+  if (!hs) return;
+  document.querySelectorAll('.scene-btn').forEach(b => b.classList.toggle('active', b.dataset.name === hotspotName));
+  if (hotspotName === 'Toàn cảnh') { playToanCanhIntro(); return; }
+  tweenCamera(camera.position.clone(), controls.target.clone(), new THREE.Vector3(...hs.pos), new THREE.Vector3(...hs.target), 1100);
+}
+
+// Nhay ve Stage1 (45 do, ngoai troi, thay ca mai) roi tu ha xuong Stage2
+// (phuong ngang, chinh dien mat T) - dung cho ca luc khoi dong trang lan bam nut.
+function playToanCanhIntro() {
+  camera.position.set(...TOAN_CANH_STAGE1.pos);
+  controls.target.set(...TOAN_CANH_STAGE1.target);
+  tweenCamera(
+    new THREE.Vector3(...TOAN_CANH_STAGE1.pos), new THREE.Vector3(...TOAN_CANH_STAGE1.target),
+    new THREE.Vector3(...TOAN_CANH_STAGE2.pos), new THREE.Vector3(...TOAN_CANH_STAGE2.target),
+    2200
+  );
+}
+
+function buildSceneButtons() {
+  const bar = document.getElementById('scenes-bar');
+  Object.keys(CAMERA_HOTSPOTS).forEach(name => {
+    const btn = document.createElement('button');
+    btn.className = 'scene-btn' + (name === 'Toàn cảnh' ? ' active' : '');
+    btn.textContent = name;
+    btn.dataset.name = name;
+    btn.onclick = () => flyTo(name);
+    bar.appendChild(btn);
+  });
+}
+
+/* ======================================================================
+   RAYCAST: hover + click
+   ====================================================================== */
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+let hoveredCode = null;
+const tooltipEl = document.getElementById('tooltip');
+
+function onPointerMove(e) {
+  pointer.x = (e.clientX / innerWidth) * 2 - 1;
+  pointer.y = -(e.clientY / innerHeight) * 2 + 1;
+  raycaster.setFromCamera(pointer, camera);
+  const hits = raycaster.intersectObjects(interactiveCells.map(c => c.mesh));
+  if (hits.length) {
+    const hitMesh = hits[0].object;
+    const found = interactiveCells.find(c => c.mesh === hitMesh);
+    if (found && found.code !== hoveredCode) {
+      if (hoveredCode) cellHighlights.get(hoveredCode).visible = false;
+      hoveredCode = found.code;
+      cellHighlights.get(hoveredCode).visible = true;
+    }
+    renderer.domElement.style.cursor = 'pointer';
+    const cell = tableData.cells[hoveredCode];
+    tooltipEl.classList.remove('hidden');
+    tooltipEl.style.left = e.clientX + 'px';
+    tooltipEl.style.top = e.clientY + 'px';
+    tooltipEl.innerHTML = (cell.brand || cell.code) + '<div class="sub">' + (cell.brand ? cell.code : 'Chưa có thông tin') + '</div>';
+  } else {
+    if (hoveredCode) { cellHighlights.get(hoveredCode).visible = false; hoveredCode = null; }
+    renderer.domElement.style.cursor = 'grab';
+    tooltipEl.classList.add('hidden');
+  }
+}
+
+function onClick() {
+  if (hoveredCode) { openDetailPanel(hoveredCode); return; }
+  raycaster.setFromCamera(pointer, camera);
+  const linkHits = raycaster.intersectObjects(linkHitboxes.map(l => l.mesh));
+  if (linkHits.length) {
+    const found = linkHitboxes.find(l => l.mesh === linkHits[0].object);
+    if (found) window.open(found.url, '_blank', 'noopener');
+  }
+}
+
+renderer.domElement.addEventListener('pointermove', onPointerMove);
+renderer.domElement.addEventListener('click', onClick);
+
+/* ======================================================================
+   DETAIL PANEL
+   ====================================================================== */
+const panel = document.getElementById('detail-panel');
+
+function resetChat(greeting) {
+  msgs = [];
+  document.getElementById('chatHistory').innerHTML = '<div class="msg bot">' + greeting + '</div>';
+}
+
+function openDetailPanel(code) {
+  const cell = tableData.cells[code];
+  currentCell = cell;
+  currentSource = cell.bizCode || ('CELL-' + code);
+  document.getElementById('ph-code').textContent = code + ' · Khối ' + cell.block;
+  document.getElementById('assistant-name').textContent = cell.brand || 'Showroom';
+
+  const hasBiz = !!cell.bizCode;
+  document.getElementById('ph-title').textContent = cell.brand || 'Ô trưng bày ' + code;
+  document.getElementById('ph-sub').textContent = cell.company || '';
+  document.getElementById('ph-empty').classList.toggle('hidden', hasBiz);
+  document.getElementById('ph-info').classList.toggle('hidden', !hasBiz);
+  document.getElementById('ph-products').classList.toggle('hidden', !hasBiz || !(cell.products || []).length);
+
+  if (hasBiz) {
+    document.getElementById('ph-bio-owner').textContent = cell.bioOwner || '';
+    document.getElementById('ph-bio-company').textContent = cell.bioCompany || '';
+    const link = document.getElementById('ph-profile-link');
+    link.href = '../m.html?c=' + encodeURIComponent(cell.bizCode);
+    link.classList.remove('hidden');
+
+    const grid = document.getElementById('ph-prod-grid');
+    grid.innerHTML = '';
+    (cell.products || []).forEach(p => {
+      const badges = [];
+      if (p.atShowroom) badges.push('<span class="pc-badge">Có tại Showroom</span>');
+      if (p.atHathyo) badges.push('<span class="pc-badge">Có trên HATHYO</span>');
+      const buyBtns = [];
+      if (p.atShowroom) buyBtns.push('<button class="pc-buy-btn showroom" data-buy="showroom"><i class="fa fa-store"></i>Mua tại Showroom</button>');
+      if (p.atHathyo) buyBtns.push('<button class="pc-buy-btn hathyo" data-buy="hathyo"><i class="fa fa-shopping-bag"></i>Mua trên HATHYO</button>');
+      const card = document.createElement('div');
+      card.className = 'prod-card';
+      card.innerHTML =
+        (p.img ? '<img src="' + encodeURI(p.img) + '" alt="">' : '') +
+        '<div class="pc-body"><div class="pc-name">' + (p.name || '') + '</div>' +
+        '<div class="pc-desc">' + (p.desc || '') + '</div>' +
+        '<div class="pc-badges">' + badges.join('') + '</div>' +
+        '<div class="pc-buy-row">' + buyBtns.join('') + '</div></div>';
+      card.querySelectorAll('[data-buy]').forEach(btn => {
+        btn.onclick = () => openModal(btn.dataset.buy === 'showroom' ? 'modal-showroom' : 'modal-hathyo');
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  resetChat(hasBiz
+    ? 'Dạ em chào anh/chị! Em có thể hỗ trợ thông tin gì về ' + (cell.brand || 'gian hàng này') + ' ạ?'
+    : 'Dạ em chào anh/chị! Ô này chưa có doanh nghiệp trưng bày, anh/chị cần Showroom hỗ trợ gì không ạ?');
+
+  panel.classList.add('open');
+}
+
+function openGeneralPanel() {
+  currentCell = null;
+  currentSource = 'SHOWROOM-GENERAL';
+  document.getElementById('ph-code').textContent = 'SHOWROOM';
+  document.getElementById('ph-title').textContent = 'Hỏi đáp chung / Liên hệ';
+  document.getElementById('ph-sub').textContent = 'CLB Doanh Nhân Quảng Trị';
+  document.getElementById('assistant-name').textContent = 'Showroom';
+  document.getElementById('ph-empty').classList.add('hidden');
+  document.getElementById('ph-info').classList.add('hidden');
+  document.getElementById('ph-products').classList.add('hidden');
+  resetChat('Dạ em chào anh/chị! Em có thể hỗ trợ thông tin chung gì về Showroom ạ?');
+  panel.classList.add('open');
+}
+
+document.getElementById('panel-close').onclick = () => panel.classList.remove('open');
+document.getElementById('general-btn').onclick = openGeneralPanel;
+
+/* ======================================================================
+   PURCHASE MODALS
+   ====================================================================== */
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+document.querySelectorAll('[data-close-modal]').forEach(btn => {
+  btn.onclick = () => btn.closest('.modal-overlay').classList.add('hidden');
+});
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.add('hidden'); });
+});
+
+/* ======================================================================
+   CHAT + FORM (ported from m.html, source = gian hang dang chon)
+   ====================================================================== */
+function sendChat() {
+  const inp = document.getElementById('chatInput');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = '';
+  appendMsg('user', text);
+  msgs.push({ role: 'user', content: text });
+  const lid = 'ld' + Date.now();
+  const hist = document.getElementById('chatHistory');
+  const aName = document.getElementById('assistant-name').textContent || 'Showroom';
+  hist.insertAdjacentHTML('beforeend', '<div id="' + lid + '" class="msg bot msg-typing">' + aName + ' đang trả lời ...</div>');
+  hist.scrollTop = 99999;
+  gasPost({ action: 'chat', source: currentSource, sessionId: sessionId, messages: msgs })
+    .then(json => {
+      const el = document.getElementById(lid); if (el) el.remove();
+      const reply = json.response || 'Xin lỗi, hệ thống đang gặp sự cố.';
+      appendMsg('bot', reply);
+      msgs.push({ role: 'assistant', content: reply });
+    })
+    .catch(() => {
+      const el = document.getElementById(lid); if (el) el.remove();
+      appendMsg('bot', 'Lỗi kết nối. Vui lòng thử lại.');
+    });
+}
+
+function appendMsg(role, text) {
+  const box = document.getElementById('chatHistory');
+  const html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\n/g, '<br>');
+  box.insertAdjacentHTML('beforeend', '<div class="msg ' + role + '">' + html + '</div>');
+  box.scrollTop = box.scrollHeight;
+}
+
+document.getElementById('sendBtn').onclick = sendChat;
+document.getElementById('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
+
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnSubmit');
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Đang gửi...'; btn.disabled = true;
+  gasPost({
+    action: 'submitForm',
+    source: currentSource,
+    sessionId: sessionId,
+    name: document.getElementById('fName').value,
+    mobile: document.getElementById('fMobile').value,
+    email: document.getElementById('fEmail').value,
+    purpose: document.getElementById('fPurpose').value,
+    title: document.getElementById('fTitle').value,
+    message: document.getElementById('fMessage').value,
+  })
+    .then(json => { toast(json.message || 'Đã gửi thông tin thành công!'); document.getElementById('contactForm').reset(); })
+    .catch(() => toast('Lỗi mạng! Vui lòng thử lại.'))
+    .finally(() => { btn.innerHTML = orig; btn.disabled = false; });
+});
+
+/* ======================================================================
+   RESIZE + RENDER LOOP
+   ====================================================================== */
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+renderer.domElement.style.cursor = 'grab';
+(function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+})();
+</script>
+</body>
+</html>
