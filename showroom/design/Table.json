@@ -2422,11 +2422,39 @@
       "depth": 50,
       "note": null,
       "bizCode": "Herbal (Ngọc Linh)",
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "brand": "Gold Herbal",
+      "company": "Công Ty Cổ Phần Dược Liệu Gold Herbal",
+      "bioOwner": "Ông Trần Ngọc Long - Giám Đốc, người dẫn dắt Công ty với tầm nhìn phát triển dược liệu Việt Nam bền vững, ứng dụng công nghệ hiện đại để mang sản phẩm thảo dược chất lượng cao đến cộng đồng.",
+      "bioCompany": "Gold Herbal là doanh nghiệp chuyên sản xuất cao khô hòa tan, trà dược liệu hòa tan (Chè vằng, Đinh lăng, Cà gai leo, Linh chi, Trà xanh...), thực phẩm bảo vệ sức khỏe, bột rau củ quả, trái cây sấy và gia công OEM/ODM theo chuẩn GMP-HS. Nhà máy hiện đại diện tích ~5.000m² tại Quảng Trị, ứng dụng công nghệ chiết xuất tuần hoàn chân không EECV, cam kết “Dược liệu xanh – Sức khỏe vàng”. Văn phòng: 151 Nguyễn Trãi, Phường Đông Hà, Quảng Trị.",
+      "products": [
+        {
+          "img": "members/GoldenHerbal/52774906-cao-kho-hoa-tan-gt.jpg",
+          "name": "Cao Khô Hòa Tan Chè Vằng Gold Herbal - Hộp 75g",
+          "desc": "Cao Khô Hòa Tan Chè Vằng Gold Herbal – tiện lợi, lợi sữa, thanh nhiệt, an toàn tự nhiên. Hộp 15 gói x 5g.",
+          "price": "Liên hệ",
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/GoldenHerbal/22927721-cao-kho-hoa-tan-ca-gai-leo-linh-chi.jpg",
+          "name": "Cao Khô Hòa Tan Cà Gai Leo Linh Chi",
+          "desc": "Giải pháp thảo dược hiện đại hỗ trợ sức khỏe gan mạnh mẽ từ Cà gai leo và Linh chi. Hộp 15 gói x 5g.",
+          "price": "Liên hệ",
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/GoldenHerbal/77239721-cao-kho-hoa-tan-dinh-lang-che-vang.jpg",
+          "name": "Cao Khô Hòa Tan Đinh Lăng Chè Vằng DILVANG",
+          "desc": "Sự hòa quyện Đinh lăng và Chè vằng, chăm sóc sức khỏe hàng ngày bằng công nghệ chiết xuất hiện đại. Hộp 15 gói x 5g.",
+          "price": "Liên hệ",
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "F04": {
       "code": "F04",
@@ -2440,11 +2468,39 @@
       "depth": 50,
       "note": null,
       "bizCode": "Herbal (Ngọc Linh)",
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "brand": "Gold Herbal",
+      "company": "Công Ty Cổ Phần Dược Liệu Gold Herbal",
+      "bioOwner": "Ông Trần Ngọc Long - Giám Đốc, người dẫn dắt Công ty với tầm nhìn phát triển dược liệu Việt Nam bền vững, ứng dụng công nghệ hiện đại để mang sản phẩm thảo dược chất lượng cao đến cộng đồng.",
+      "bioCompany": "Gold Herbal là doanh nghiệp chuyên sản xuất cao khô hòa tan, trà dược liệu hòa tan (Chè vằng, Đinh lăng, Cà gai leo, Linh chi, Trà xanh...), thực phẩm bảo vệ sức khỏe, bột rau củ quả, trái cây sấy và gia công OEM/ODM theo chuẩn GMP-HS. Nhà máy hiện đại diện tích ~5.000m² tại Quảng Trị, ứng dụng công nghệ chiết xuất tuần hoàn chân không EECV, cam kết “Dược liệu xanh – Sức khỏe vàng”. Văn phòng: 151 Nguyễn Trãi, Phường Đông Hà, Quảng Trị.",
+      "products": [
+        {
+          "img": "members/GoldenHerbal/22927721-cao-kho-hoa-tan-ca-gai-leo-linh-chi.jpg",
+          "name": "Cao Khô Hòa Tan Cà Gai Leo Linh Chi",
+          "desc": "Giải pháp thảo dược hiện đại hỗ trợ sức khỏe gan mạnh mẽ từ Cà gai leo và Linh chi. Hộp 15 gói x 5g.",
+          "price": "Liên hệ",
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/GoldenHerbal/77239721-cao-kho-hoa-tan-dinh-lang-che-vang.jpg",
+          "name": "Cao Khô Hòa Tan Đinh Lăng Chè Vằng DILVANG",
+          "desc": "Sự hòa quyện Đinh lăng và Chè vằng, chăm sóc sức khỏe hàng ngày bằng công nghệ chiết xuất hiện đại. Hộp 15 gói x 5g.",
+          "price": "Liên hệ",
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        },
+        {
+          "img": "members/GoldenHerbal/52774906-cao-kho-hoa-tan-gt.jpg",
+          "name": "Cao Khô Hòa Tan Chè Vằng Gold Herbal - Hộp 75g",
+          "desc": "Cao Khô Hòa Tan Chè Vằng Gold Herbal – tiện lợi, lợi sữa, thanh nhiệt, an toàn tự nhiên. Hộp 15 gói x 5g.",
+          "price": "Liên hệ",
+          "qty": 10,
+          "atShowroom": true,
+          "atHathyo": false
+        }
+      ]
     },
     "F05": {
       "code": "F05",
