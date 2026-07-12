@@ -711,11 +711,21 @@
       "depth": 10,
       "note": "Phía trong mặt kính cửa, góc tiếp giáp với mặt T",
       "bizCode": "A123",
-      "brand": null,
-      "company": null,
-      "bioOwner": null,
-      "bioCompany": null,
-      "products": []
+      "brand": "UP Design & Build",
+      "company": "CÔNG TY TNHH XÂY DỰNG & NỘI THẤT UP",
+      "bioOwner": "Chị Nguyễn Hồng Hạnh - Ban Giám đốc của CÔNG TY TNHH XÂY DỰNG & NỘI THẤT UP, là thành viên mới và rất tích cực của CLB Doanh nhân Quảng Trị.",
+      "bioCompany": "CÔNG TY TNHH XÂY DỰNG & NỘI THẤT UP\nThiết kế – Thi công – Hoàn thiện\nUP Design & Build cung cấp sản phẩm thi công xây dựng dân dụng, trang trí nội – ngoại thất được lập kế hoạch và tổ chức thực hiện khoa học, đáp ứng yêu cầu chất lượng và thẩm mỹ cao, nhằm mang lại giá trị sử dụng thực tế cao hơn giá trị đầu tư ban đầu.",
+      "products": [
+        {
+          "img": "members/A123/Standee _1m6x0,6m 2_W600.webp",
+          "name": null,
+          "desc": "TỔNG THẦU XÂY DỰNG\n\nThi công các công trình dân dụng:\nnhà phố, biệt thự\nThi công các công trình dịch vụ:\nnhà hàng, khách sạn, văn phòng, F&B…",
+          "price": 0,
+          "qty": 1,
+          "atShowroom": false,
+          "atHathyo": false
+        }
+      ]
     },
     "CKHT": {
       "code": "CKHT",
