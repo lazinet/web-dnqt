@@ -327,8 +327,10 @@
             border: 1px dashed var(--gold);
             font-size: 12.4px;
             font-weight: 800;
+            line-height: 1.5;
             color: var(--red);
             text-align: center;
+            text-wrap: balance;
         }
 
         /* ====================== KHỐI CUỐI: QR + KÝ TÊN ====================== */
@@ -642,6 +644,23 @@
             .tool-hint { transform: translateX(-50%); }
         }
 
+        /* ====== CO GIAN DU PHONG BANG CSS (khi JS khong chay duoc) ======
+           To A4 = 794 x 1123px. Chieu cao wrapper = 1123*scale + padding doc.
+           Xep tu rong den hep de breakpoint hep nhat thang the. */
+        @media (max-width: 810px) { .sheet { transform: scale(.95); } .sheet-wrapper { height: 1087px; } }
+        @media (max-width: 768px) { .sheet { transform: scale(.92); } .sheet-wrapper { height: 1053px; } }
+        @media (max-width: 720px) { .sheet { transform: scale(.85); } .sheet-wrapper { height: 975px; } }
+        @media (max-width: 680px) { .sheet { transform: scale(.80); } .sheet-wrapper { height: 918px; } }
+        @media (max-width: 640px) { .sheet { transform: scale(.75); } .sheet-wrapper { height: 862px; } }
+        @media (max-width: 600px) { .sheet { transform: scale(.70); } .sheet-wrapper { height: 806px; } }
+        @media (max-width: 560px) { .sheet { transform: scale(.65); } .sheet-wrapper { height: 750px; } }
+        @media (max-width: 520px) { .sheet { transform: scale(.60); } .sheet-wrapper { height: 694px; } }
+        @media (max-width: 480px) { .sheet { transform: scale(.55); } .sheet-wrapper { height: 638px; } }
+        @media (max-width: 440px) { .sheet { transform: scale(.50); } .sheet-wrapper { height: 582px; } }
+        @media (max-width: 400px) { .sheet { transform: scale(.46); } .sheet-wrapper { height: 537px; } }
+        @media (max-width: 370px) { .sheet { transform: scale(.42); } .sheet-wrapper { height: 492px; } }
+        @media (max-width: 340px) { .sheet { transform: scale(.38); } .sheet-wrapper { height: 447px; } }
+
         /* ====================== IN ====================== */
         @media print {
             body { padding: 0; background: #fff; opacity: 1 !important; animation: none !important; }
@@ -745,7 +764,7 @@
 
                 <p>Chúng tôi tin rằng, bằng sự chung sức và đồng lòng, Câu lạc bộ Doanh nhân Quảng Trị sẽ ngày càng vững mạnh, trở thành cầu nối tin cậy để các doanh nghiệp hợp tác, phát triển bền vững và cùng lan tỏa những giá trị tốt đẹp.</p>
 
-                <div class="highlight-line">Sự đồng hành của Quý vị là niềm vinh dự, là động lực góp phần làm nên thành công của chương trình!</div>
+                <div class="highlight-line">Sự đồng hành của Quý vị là niềm vinh dự, là động lực<br>góp phần làm nên thành công của chương trình!</div>
 
                 <p style="margin-top:8px">Kính chúc Quý Doanh nhân cùng gia đình dồi dào sức khỏe, hạnh phúc, thành công và thịnh vượng.</p>
 
@@ -758,7 +777,7 @@
                     <a href="https://qtbc.vn/invitations/261011-doanhnhanvietnam-ok.html" target="_blank" rel="noopener"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fqtbc.vn%2Finvitations%2F261011-doanhnhanvietnam-ok.html" alt="QR Thư mời chương trình"></a>
                     <div class="qr-copy">
                         <div class="qr-label">QUÉT MÃ XEM THƯ MỜI</div>
-                        <div class="qr-title">Chương trình Họp mặt &amp; Lễ kỷ niệm</div>
+                        <div class="qr-title">Chương trình Họp mặt<br>&amp; Lễ kỷ niệm</div>
                         <div class="qr-meta">
                             <i class="bi bi-clock-fill"></i> 16:00 Chủ Nhật, 11/10/2026<br>
                             <i class="bi bi-geo-alt-fill"></i> Nhà hàng Hoàng Long – Số 3 Phạm Văn Hai, P. Tân Sơn Hòa, TP.HCM
@@ -846,10 +865,18 @@
             sheet.style.transform = 'scale(' + scale + ')';
             wrap.style.height = (sheet.offsetHeight * scale + padY) + 'px';
         }
-        window.addEventListener('resize', fitSheet);
-        window.addEventListener('orientationchange', function () { setTimeout(fitSheet, 150); });
+        window.addEventListener('resize', function () { fitSheet(); syncToolbarPad(); });
+        window.addEventListener('orientationchange', function () { setTimeout(function () { fitSheet(); syncToolbarPad(); }, 150); });
 
         /* ---------- Thanh công cụ ---------- */
+        /* Chua khoang trong duoi dung bang chieu cao that cua thanh cong cu */
+        function syncToolbarPad() {
+            const bar = document.getElementById('toolbar');
+            if (!bar) return;
+            if (window.innerWidth > 768) { document.body.style.paddingBottom = ''; return; }
+            document.body.style.paddingBottom = (bar.offsetHeight + 14) + 'px';
+        }
+
         function toggleToolbar() {
             const bar = document.getElementById('toolbar');
             const label = document.getElementById('tbLabel');
@@ -859,9 +886,7 @@
             hideHint();
             label.textContent = collapsed ? 'CÔNG CỤ THƯ NGỎ' : 'ĐÓNG CÔNG CỤ';
             chev.textContent = collapsed ? '▲' : '✕';
-            if (window.innerWidth <= 768) {
-                document.body.style.paddingBottom = collapsed ? '66px' : '250px';
-            }
+            syncToolbarPad();
         }
 
         function hideHint() {
@@ -872,7 +897,15 @@
         document.addEventListener('click', hideHint);
 
         /* ---------- Xuất file ---------- */
-        const { jsPDF } = window.jspdf;
+        /* Lay thu vien luc bam nut, tranh loi lam chet ca script neu CDN hong */
+        function getJsPDF() { return (window.jspdf && window.jspdf.jsPDF) || null; }
+        function libReady() {
+            if (typeof html2canvas !== 'function' || !getJsPDF()) {
+                alert('Không tải được thư viện xuất file. Vui lòng kiểm tra kết nối mạng rồi thử lại.');
+                return false;
+            }
+            return true;
+        }
 
         function beforeExport() {
             const sheet = document.getElementById('sheet');
@@ -898,6 +931,10 @@
         }
 
         function exportToPNG() {
+            if (typeof html2canvas !== 'function') {
+                alert('Không tải được thư viện xuất ảnh. Vui lòng kiểm tra kết nối mạng rồi thử lại.');
+                return;
+            }
             const ctx = beforeExport();
             setTimeout(function () {
                 renderSheet().then(function (canvas) {
@@ -911,12 +948,14 @@
         }
 
         function exportToPDF() {
+            if (!libReady()) return;
+            const JsPDF = getJsPDF();
             const ctx = beforeExport();
             setTimeout(function () {
                 renderSheet().then(function (canvas) {
-                    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-                    const w = 210, h = (canvas.height * w) / canvas.width;
-                    pdf.addImage(canvas, 'PNG', 0, 0, w, h, '', 'FAST');
+                    const pdf = new JsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                    /* Ep dung 1 trang A4 210x297mm, khong tran sang trang 2 */
+                    pdf.addImage(canvas, 'PNG', 0, 0, 210, 297, '', 'FAST');
                     pdf.save('ThuNgo_TaiTro_QTBC_11102026.pdf');
                     afterExport(ctx);
                 }).catch(function () { afterExport(ctx); });
@@ -941,13 +980,21 @@
         }
 
         /* ---------- Khởi tạo ---------- */
+        function refresh() { fitSheet(); syncToolbarPad(); }
+
+        /* Chay ngay (script nam cuoi body nen DOM da san sang) roi lap lai o cac moc sau */
+        refresh();
         document.addEventListener('DOMContentLoaded', function () {
             document.body.style.opacity = '1';
-            fitSheet();
-            setTimeout(fitSheet, 350);
-            window.addEventListener('load', fitSheet);
-            if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitSheet); }
+            refresh();
+            setTimeout(refresh, 300);
+            setTimeout(refresh, 1200);
         });
+        window.addEventListener('load', refresh);
+        if (document.fonts && document.fonts.ready) { document.fonts.ready.then(refresh); }
+        if (window.ResizeObserver) {
+            try { new ResizeObserver(syncToolbarPad).observe(document.getElementById('toolbar')); } catch (e) {}
+        }
     </script>
 
     <script>
