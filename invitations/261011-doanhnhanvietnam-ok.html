@@ -221,6 +221,7 @@
         .export-buttons #exportBtns button:hover { background: #E67E22; transform: translateY(-3px); }
         .export-buttons #exportBtns button:last-child { background-color: #F15E22; font-size: 16px; padding: 14px 30px; }
         .export-toggle { display: none; }
+        .tool-hint { display: none; }
 
         /* Responsive cho card */
         @media (max-width: 1200px) {
@@ -235,13 +236,13 @@
         @media (max-width: 768px) {
             .card { transform: scale(0.65); }
             .card-wrapper { padding: 10px; }
-            body { padding-bottom: 50px; }
+            body { padding-bottom: 68px; }
         }
 
         @media (max-width: 576px) {
             .card { transform: scale(0.5); }
             .card-wrapper { padding: 5px; }
-            body { padding-bottom: 50px; }
+            body { padding-bottom: 68px; }
         }
 
         @media (max-width: 480px) {
@@ -250,21 +251,103 @@
 
         /* Responsive cho nút: toggle + collapse trên mobile */
         @media (max-width: 768px) {
+            /* ---- NUT CONG CU: HIEU UNG GAY CHU Y ---- */
             .export-toggle {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 6px;
-                background: none;
-                border: none;
-                color: #19658F;
-                font-size: 11px;
-                font-weight: 700;
-                padding: 7px 20px 5px;
+                gap: 8px;
+                position: relative;
+                width: calc(100% - 4px);
+                margin: 8px 2px 7px;
+                padding: 12px 18px;
+                border: 0;
+                border-radius: 999px;
                 cursor: pointer;
-                width: 100%;
-                letter-spacing: 0.5px;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 13.5px;
+                font-weight: 900;
+                letter-spacing: .6px;
+                color: #fff;
+                background: linear-gradient(100deg, #B33000 0%, #FF4500 26%, #FF8A3D 44%, #FFC83D 56%, #FF4500 76%, #B33000 100%);
+                background-size: 260% 100%;
+                box-shadow: 0 7px 20px rgba(255,69,0,.5), 0 2px 6px rgba(0,0,0,.18);
+                text-shadow: 0 1px 2px rgba(0,0,0,.22);
+                animation: tgSheen 3.2s linear infinite, tgBreathe 2.2s ease-in-out infinite;
             }
+            /* vong sang lan toa */
+            .export-toggle::before {
+                content: "";
+                position: absolute;
+                inset: -3px;
+                border-radius: 999px;
+                border: 2px solid rgba(255,138,61,.95);
+                animation: tgHalo 2.2s ease-out infinite;
+                pointer-events: none;
+            }
+            /* cham nhap nhay */
+            .export-toggle::after {
+                content: "";
+                position: absolute;
+                top: 8px; right: 15px;
+                width: 9px; height: 9px;
+                border-radius: 50%;
+                background: #FFC83D;
+                box-shadow: 0 0 0 0 rgba(255,200,61,.9);
+                animation: tgDot 1.5s ease-out infinite;
+            }
+            .export-toggle .chev { display: inline-block; font-size: 12px; animation: tgBob 1s ease-in-out infinite; }
+
+            /* da mo roi thi thoi nhay */
+            .export-buttons:not(.collapsed) .export-toggle,
+            .export-buttons.seen .export-toggle {
+                animation: none;
+                background: linear-gradient(135deg, #2A5C9A, #19658F);
+                box-shadow: 0 3px 9px rgba(0,0,0,.25);
+            }
+            .export-buttons:not(.collapsed) .export-toggle::before,
+            .export-buttons.seen .export-toggle::before,
+            .export-buttons:not(.collapsed) .export-toggle::after,
+            .export-buttons.seen .export-toggle::after { display: none; }
+            .export-buttons:not(.collapsed) .export-toggle .chev,
+            .export-buttons.seen .export-toggle .chev { animation: none; }
+
+            /* bong bong goi y + mui ten nhay chia vao nut */
+            .tool-hint {
+                display: block;
+                position: fixed;
+                left: 50%;
+                bottom: 74px;
+                z-index: 101;
+                padding: 8px 16px;
+                border-radius: 999px;
+                background: linear-gradient(135deg, #2A5C9A, #19658F);
+                color: #fff;
+                font-size: 12px;
+                font-weight: 800;
+                white-space: nowrap;
+                box-shadow: 0 8px 20px rgba(0,0,0,.35);
+                animation: tgHintBob 1.6s ease-in-out infinite;
+                pointer-events: none;
+            }
+            .tool-hint::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                bottom: -6px;
+                margin-left: -6px;
+                border: 6px solid transparent;
+                border-top-color: #19658F;
+                border-bottom: 0;
+            }
+            .tool-hint .hint-arrow {
+                display: inline-block;
+                margin-left: 4px;
+                font-size: 13px;
+                color: #FFC83D;
+                animation: tgArrow .9s ease-in-out infinite;
+            }
+            .tool-hint.gone { display: none; }
             .export-buttons {
                 display: flex;
                 flex-direction: column;
@@ -305,6 +388,30 @@
                 font-size: 12px;
                 padding: 10px 6px;
             }
+        }
+
+        @keyframes tgSheen { from { background-position: 0% 50%; } to { background-position: 260% 50%; } }
+        @keyframes tgBreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.035); } }
+        @keyframes tgHalo {
+            0%   { opacity: .95; transform: scale(1); }
+            70%  { opacity: 0;   transform: scale(1.14); }
+            100% { opacity: 0;   transform: scale(1.14); }
+        }
+        @keyframes tgDot {
+            0%   { box-shadow: 0 0 0 0 rgba(255,200,61,.9); }
+            70%  { box-shadow: 0 0 0 11px rgba(255,200,61,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,200,61,0); }
+        }
+        @keyframes tgBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        @keyframes tgArrow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+        @keyframes tgHintBob {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50%     { transform: translateX(-50%) translateY(-6px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .export-toggle, .export-toggle::before, .export-toggle::after,
+            .export-toggle .chev, .tool-hint, .tool-hint .hint-arrow { animation: none !important; }
+            .tool-hint { transform: translateX(-50%); }
         }
 
         @media print {
@@ -447,7 +554,7 @@
                     </div>
                 </div>
                 <div class="footer-item">
-                    <p class="recipient" style="text-align: center; text-decoration: underline;">Quét QR để đăng ký tham dự</p>
+                    <p class="recipient" style="text-align: center; text-decoration: underline;">Quét QR để tham dự</p>
                     <a href="https://forms.gle/eae3XkVFSUFu7LpAA" target="_blank" rel="noopener"><img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fforms.gle%2Feae3XkVFSUFu7LpAA" alt="QR đăng ký tham dự"></a>
                     <a href="https://forms.gle/eae3XkVFSUFu7LpAA" target="_blank" rel="noopener" style="font-size: 9px; display: block; text-align: center; text-decoration: none; color: inherit;">forms.gle/eae3XkVFSUFu7LpAA</a>
                     <p style="font-size: 8px; margin: 4px 0 0; text-align: center;"><i>Made by <a href="https://lazinet.com" style="color: inherit; text-decoration: none;"><span style="color: #ff6302;"><b>LAZI</b></span><span style="color: #0000ff;"><b>NET</b></span>.COM</a></i></p>
@@ -463,9 +570,11 @@
         </div>
     </div>
 
+    <div class="tool-hint" id="toolHint">Bấm để mở Công cụ: Đăng ký · Chia sẻ · PDF <span class="hint-arrow">▼</span></div>
+
     <div class="export-buttons collapsed" id="exportPanel">
         <button class="export-toggle" onclick="toggleExportPanel()" id="exportToggle">
-            <span id="toggleLabel">☰&nbsp;&nbsp;Công cụ</span>
+            <span class="chev" id="toggleChev">▲</span><span id="toggleLabel">CÔNG CỤ THƯ MỜI</span>
         </button>
         <div id="exportBtns">
             <button onclick="shareInvite()">Chia sẻ</button>
@@ -508,13 +617,24 @@
             confetti({ particleCount: 20, spread: 50, scalar: 2, shapes: ['star'], colors: ['#FFFFFF', '#FFD700'], origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight } });
         });
 
+        function hideHint() {
+            const h = document.getElementById('toolHint');
+            if (h) h.classList.add('gone');
+        }
+        setTimeout(hideHint, 9000);
+        document.addEventListener('click', hideHint);
+
         function toggleExportPanel() {
             const panel = document.getElementById('exportPanel');
             const label = document.getElementById('toggleLabel');
+            const chev = document.getElementById('toggleChev');
             const collapsed = panel.classList.toggle('collapsed');
-            label.innerHTML = collapsed ? '☰&nbsp;&nbsp;Công cụ' : '✕&nbsp;&nbsp;Đóng';
+            panel.classList.add('seen');
+            hideHint();
+            label.textContent = collapsed ? 'CÔNG CỤ THƯ MỜI' : 'ĐÓNG CÔNG CỤ';
+            if (chev) chev.textContent = collapsed ? '▲' : '✕';
             if (window.innerWidth <= 768) {
-                document.body.style.paddingBottom = collapsed ? '50px' : '240px';
+                document.body.style.paddingBottom = collapsed ? (panel.offsetHeight + 12) + 'px' : '250px';
             }
         }
 
