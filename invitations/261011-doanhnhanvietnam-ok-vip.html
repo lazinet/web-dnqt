@@ -33,6 +33,7 @@
     <link href="/assets/logos/logo_2026_W512.webp" rel="apple-touch-icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="/assets/css/lazinet-2026.css" rel="stylesheet">
 
     <script type="text/javascript">
         window.addeventatc = window.addeventatc || {};
@@ -289,10 +290,53 @@
         .tl-time { min-width: 104px; font-weight: 700; color: #F15E22; font-size: 13px; flex-shrink: 0; }
         .tl-sep { color: #ccc; font-size: 13px; margin: 0 6px; flex-shrink: 0; }
         .tl-text { color: #19658F; font-size: 14px; line-height: 1.6; font-weight: 500; }
+        /* ====== NUT NOI LAZINET: ha xuong duoi, van sat canh phai ====== */
+        .lazinet-contact-floating {
+            top: auto;
+            bottom: 92px;
+            transform: none;
+        }
+        /* 4 nut con von bung ra canh giua nut chinh -> neo lai cho bung LEN TREN,
+           neu khong chung se bi thanh cong cu o day che mat */
+        .lazinet-contact-floating .lazinet-contact-buttons {
+            top: auto;
+            bottom: 0;
+            transform: none;
+        }
+        @media (max-width: 992px) {
+            .lazinet-contact-floating { bottom: 120px; right: 14px; }
+        }
+        @media print {
+            .lazinet-contact-floating { display: none !important; }
+        }
     </style>
 </head>
 
 <body>
+    <!-- BONG BÓNG CHAT LAZINET -->
+    <div class="lazinet-contact-floating">
+        <div class="lazinet-contact-main-btn pulse">
+            <img src="/assets/img/logo-lazinet/lazinet_LogoOnly_extending.svg" alt="Contact Us">
+        </div>
+        <div class="lazinet-contact-buttons">
+            <div class="lazinet-contact-btn ai-bot" title="Chat với Chăm sóc Khách hàng LAZINET">
+                <img src="/assets/img/logo-lazinet/others/customer-care.svg" alt="Chăm sóc Khách hàng">
+                <span class="lazinet-contact-label">Góp ý với CSKH LAZINET</span>
+            </div>
+            <div class="lazinet-contact-btn messenger" title="Chat với LAZINET Messenger">
+                <img src="/assets/img/logo-lazinet/others/messenger.png" alt="Messenger">
+                <span class="lazinet-contact-label">Góp ý với LAZINET Messenger</span>
+            </div>
+            <div class="lazinet-contact-btn zalo" title="Chat với LAZINET Zalo 0908556220">
+                <img src="/assets/img/logo-lazinet/others/zalo.png" alt="Zalo">
+                <span class="lazinet-contact-label">Góp ý với LAZINET Zalo</span>
+            </div>
+            <div class="lazinet-contact-btn phone" title="Gọi ngay LAZINET 0908556220">
+                <img src="/assets/img/logo-lazinet/others/call.png" alt="Phone">
+                <span class="lazinet-contact-label">Gọi điện</span>
+            </div>
+        </div>
+    </div>
     <div class="card-container">
         <div class="card">
             <div class="corner-decoration corner-1"></div>
@@ -520,6 +564,42 @@
 
         document.getElementById('companyNameInput').addEventListener('input', function(e) {
             document.getElementById('companyNameDisplay').textContent = e.target.value || '[Chức vụ / Đơn vị]';
+        });
+    </script>
+    <script>
+        // BONG BÓNG CHAT LAZINET
+        document.addEventListener("DOMContentLoaded", function () {
+            const mainBtn = document.querySelector(".lazinet-contact-main-btn");
+            const contactButtons = document.querySelector(".lazinet-contact-buttons");
+            const contactBtns = document.querySelectorAll(".lazinet-contact-btn");
+            if (!mainBtn || !contactButtons) return;
+
+            mainBtn.addEventListener("click", function () {
+                this.classList.add("hidden");
+                contactButtons.classList.add("active");
+            });
+
+            contactBtns.forEach(function (btn) {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const type = this.classList[1];
+                    switch (type) {
+                        case "phone": window.open("tel:+84-908556220"); break;
+                        case "zalo": window.open("http://zalo.me/0908556220", "_blank"); break;
+                        case "messenger": window.open("https://m.me/61567050494124", "_blank"); break;
+                        case "ai-bot": window.open("https://lazinet.com/bizcards/hoangminhphung-lazinet.html?chat=true", "_blank"); break;
+                    }
+                    contactButtons.classList.remove("active");
+                    mainBtn.classList.remove("hidden");
+                });
+            });
+
+            document.addEventListener("click", function (e) {
+                if (!e.target.closest(".lazinet-contact-floating") && contactButtons.classList.contains("active")) {
+                    contactButtons.classList.remove("active");
+                    mainBtn.classList.remove("hidden");
+                }
+            });
         });
     </script>
 </body>

@@ -676,6 +676,25 @@
             .sheet-wrapper { padding: 0; height: auto !important; overflow: visible; }
             .sheet { transform: none !important; box-shadow: none; margin: 0; }
         }
+        /* ====== NUT NOI LAZINET: ha xuong duoi, van sat canh phai ====== */
+        .lazinet-contact-floating {
+            top: auto;
+            bottom: 92px;
+            transform: none;
+        }
+        /* 4 nut con von bung ra canh giua nut chinh -> neo lai cho bung LEN TREN,
+           neu khong chung se bi thanh cong cu o day che mat */
+        .lazinet-contact-floating .lazinet-contact-buttons {
+            top: auto;
+            bottom: 0;
+            transform: none;
+        }
+        @media (max-width: 992px) {
+            .lazinet-contact-floating { bottom: 120px; right: 14px; }
+        }
+        @media print {
+            .lazinet-contact-floating { display: none !important; }
+        }
     </style>
 </head>
 
