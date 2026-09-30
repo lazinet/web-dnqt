@@ -247,30 +247,6 @@
         }
         .subject .vv { color: var(--red); font-weight: 900; }
 
-        /* ====================== HUY HIỆU CỘT MỐC ====================== */
-        .milestones { display: flex; gap: 9px; margin-top: 8px; }
-        .ms {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 12px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #0B3C7D 0%, #12539F 55%, #1A5FB4 100%);
-            box-shadow: 0 6px 16px rgba(11,60,125,.25);
-        }
-        .ms.alt { background: linear-gradient(135deg, #A80C25 0%, #C8102E 52%, #E8442A 100%); box-shadow: 0 6px 16px rgba(200,16,46,.25); }
-        .ms-num {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px;
-            font-weight: 900;
-            color: var(--gold-lt);
-            line-height: 1;
-            flex-shrink: 0;
-        }
-        .ms-txt { font-size: 9.4px; font-weight: 800; letter-spacing: .5px; color: #fff; line-height: 1.4; }
-        .ms-txt small { display: block; font-size: 8.4px; font-weight: 600; color: rgba(255,255,255,.78); letter-spacing: .3px; margin-top: 1px; }
-
         /* ====================== THÂN THƯ ====================== */
         .salutation {
             margin-top: 10px;
@@ -303,35 +279,76 @@
             padding: 2px 9px 0 0;
         }
 
-        .motto {
+        /* ====================== KHOI THONG TIN (ban 2) ====================== */
+        .motto-inline { color: #B8860B; font-style: italic; font-weight: 800; }
+
+        .info-box {
+            margin-top: 9px;
+            border-radius: 9px;
+            border: 1px solid rgba(201,150,43,.55);
+            background: linear-gradient(135deg, #FFFDF6, #FFF7E9);
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(11,60,125,.07);
+        }
+        .info-head {
+            padding: 5px 12px 6px;
+            background: linear-gradient(135deg, #0B3C7D 0%, #1A5FB4 100%);
+            color: #fff;
+            font-size: 9.6px;
+            font-weight: 900;
+            letter-spacing: 1.7px;
+        }
+        .info-box.pay .info-head { background: linear-gradient(135deg, #A80C25 0%, #C8102E 55%, #E8442A 100%); }
+        .info-head i.bi { color: var(--gold-lt); }
+        .info-in { padding: 8px 12px 9px; font-size: 11.4px; line-height: 1.58; }
+        .info-in .k { color: var(--ink-mute); font-weight: 700; }
+        .info-in b { color: var(--navy); font-weight: 800; }
+        .info-row + .info-row { margin-top: 5px; }
+
+        .pkg { display: inline-flex; gap: 6px; flex-wrap: wrap; margin-top: 3px; vertical-align: middle; }
+        .pkg span { padding: 2px 9px 3px; border-radius: 4px; font-size: 9.8px; font-weight: 900; letter-spacing: .3px; }
+        .pkg .d { background: #DDE9FB; color: #0B3C7D; }
+        .pkg .g { background: #FFEEC2; color: #8A6206; }
+        .pkg .s { background: #E9EDF3; color: #56677E; }
+        .pkg .b { background: #F5E2D3; color: #8A4B1E; }
+        .pkg em { font-size: 9.6px; font-style: italic; color: var(--ink-mute); font-weight: 600; align-self: center; }
+
+        .bank-flex { display: flex; gap: 12px; align-items: center; }
+        .bank-qr {
+            width: 92px; height: 92px;
+            flex-shrink: 0;
+            background: #fff;
+            padding: 4px;
+            border: 1px solid var(--line);
+            border-radius: 7px;
             display: block;
-            margin: 7px auto;
-            padding: 5px 14px;
-            max-width: 80%;
-            border-left: 3px solid var(--gold);
-            border-right: 3px solid var(--gold);
-            background: linear-gradient(135deg, rgba(255,200,61,.11), rgba(247,128,29,.07));
-            font-family: 'Playfair Display', serif;
-            font-size: 14.5px;
+            cursor: pointer;
+        }
+        .bank-detail { flex: 1; min-width: 0; }
+        .bank-no { font-size: 15px; font-weight: 900; color: var(--red); letter-spacing: .6px; line-height: 1.25; }
+        .ck-note {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            background: #E6F7F1;
+            border: 1px dashed var(--green);
+            color: #0A7F5C;
+            font-size: 10px;
+            font-weight: 900;
+        }
+        .zoom-qr { display: block; margin-top: 4px; font-size: 9px; font-weight: 700; color: var(--navy-mid); cursor: pointer; text-decoration: none; }
+
+        .wish-line {
+            margin-top: 10px;
+            font-size: 12.4px;
+            font-weight: 800;
             font-style: italic;
-            font-weight: 700;
             color: var(--navy);
             text-align: center;
         }
 
-        .highlight-line {
-            margin-top: 7px;
-            padding: 6px 13px;
-            border-radius: 7px;
-            background: linear-gradient(135deg, #FFF6E3, #FFEFCC);
-            border: 1px dashed var(--gold);
-            font-size: 12.4px;
-            font-weight: 800;
-            line-height: 1.5;
-            color: var(--red);
-            text-align: center;
-            text-wrap: balance;
-        }
+        .place-date { font-size: 10.6px; font-style: italic; color: var(--ink-soft); margin-bottom: 3px; }
 
         /* ====================== KHỐI CUỐI: QR + KÝ TÊN ====================== */
         .closing-grid {
@@ -730,45 +747,53 @@
             </div>
 
             <div class="subject">
-                <span class="vv">V/v:</span> Kêu gọi tài trợ chương trình Kỷ niệm Ngày Doanh nhân Việt Nam<br>
-                và 1 năm thành lập Câu lạc bộ Doanh nhân Quảng Trị
+                <span class="vv">V/v:</span> Kêu gọi tài trợ Chương trình Kỷ niệm Ngày Doanh nhân Việt Nam (13/10)<br>
+                và 01 năm thành lập Câu lạc bộ Doanh nhân Quảng Trị
             </div>
 
-            <!-- ============ CỘT MỐC ============ -->
-            <div class="milestones">
-                <div class="ms">
-                    <div class="ms-num">81</div>
-                    <div class="ms-txt">NĂM NGÀY DOANH NHÂN VIỆT NAM<small>11/10/1945 &ndash; 11/10/2026</small></div>
-                </div>
-                <div class="ms alt">
-                    <div class="ms-num">01</div>
-                    <div class="ms-txt">NĂM THÀNH LẬP CÂU LẠC BỘ<small>Doanh nhân Quảng Trị (QTBC)</small></div>
-                </div>
-            </div>
-
-            <!-- ============ THÂN THƯ ============ -->
-            <div class="salutation">Kính thưa Quý Doanh nhân, Quý Hội viên!</div>
+            <!-- ============ THÂN THƯ (theo THƯ NGỎ phiên bản 2) ============ -->
+            <div class="salutation">Kính gửi: Quý Doanh nhân, Quý Hội viên và Quý Đối tác!</div>
 
             <div class="letter-body">
-                <p><span class="dropcap">N</span>hân dịp kỷ niệm <b>81 năm Ngày Doanh nhân Việt Nam</b> (13/10/1945 – 13/10/2026) và <b>1 năm thành lập Câu lạc bộ Doanh nhân Quảng Trị</b>, chúng ta cùng nhìn lại hành trình kết nối, đồng hành và phát triển với niềm tự hào, sự trân trọng và tinh thần hướng đến tương lai.</p>
+                <p><span class="dropcap">N</span>hân dịp kỷ niệm <b>81 năm Ngày Doanh nhân Việt Nam</b> (13/10/1945 &ndash; 13/10/2026) và <b>01 năm thành lập Câu lạc bộ Doanh nhân Quảng Trị</b>, Ban Điều hành xin gửi tới Quý vị lời chào trân trọng và lời chúc mừng tốt đẹp nhất.</p>
 
-                <p>Với phương châm:</p>
-                <div class="motto">“Kết nối &ndash; Giao thương &ndash; Phát triển”</div>
-                <p>các thành viên Câu lạc bộ đã cùng chung tay xây dựng cộng đồng doanh nhân đoàn kết, nghĩa tình, hỗ trợ nhau trong kinh doanh và lan tỏa những giá trị tích cực đến cộng đồng.</p>
+                <p>Nhìn lại hành trình 01 năm qua với phương châm <span class="motto-inline">&ldquo;Kết nối &ndash; Giao thương &ndash; Phát triển&rdquo;</span>, chúng ta cùng tự hào về một cộng đồng doanh nhân Quảng Trị đoàn kết, nghĩa tình, luôn đồng hành hỗ trợ nhau và lan tỏa nhiều giá trị tích cực.</p>
 
-                <p>Nhằm đánh dấu cột mốc ý nghĩa này, Ban Điều hành tổ chức chương trình kỷ niệm Ngày Doanh nhân Việt Nam và 1 năm thành lập Câu lạc bộ. Đây là dịp để gặp gỡ, tri ân, thắt chặt tình thân, mở rộng hợp tác và tạo thêm nhiều cơ hội phát triển cho các doanh nghiệp thành viên.</p>
+                <p>Nhằm đánh dấu cột mốc ý nghĩa này, Ban Điều hành tổ chức <b>Chương trình Kỷ niệm và Tri ân</b>. Đây là dịp để gặp gỡ, thắt chặt tình thân, kết nối giao thương và nâng tầm thương hiệu cho các doanh nghiệp thành viên.</p>
 
-                <p>Để chương trình được tổ chức chu đáo và thành công, Ban Điều hành trân trọng kêu gọi <b>Quý Doanh nhân, Quý Hội viên và Quý Đối tác</b> chung tay tài trợ, đồng hành cả về vật chất lẫn tinh thần. Mỗi sự đóng góp đều là nguồn động viên quý báu, thể hiện tình cảm, niềm tin và trách nhiệm đối với sự phát triển chung của Câu lạc bộ.</p>
+                <p>Để chương trình thành công rực rỡ, Ban Điều hành trân trọng kêu gọi <b>Quý Doanh nhân, Quý Hội viên và Quý Đối tác</b> chung tay tài trợ, đồng hành cùng sự kiện. Mỗi sự đóng góp đều là nguồn động viên quý báu, thể hiện tình cảm và niềm tin vào sự phát triển chung của Câu lạc bộ.</p>
 
-                <p>Ban Tổ chức cũng xây dựng <b>các gói tài trợ với quyền lợi tương ứng</b>, nhằm tri ân sự đồng hành của Quý vị thông qua các hoạt động quảng bá thương hiệu, truyền thông và kết nối tại chương trình.</p>
+                <div class="info-box">
+                    <div class="info-head"><i class="bi bi-calendar2-event-fill"></i> THÔNG TIN CHƯƠNG TRÌNH &amp; TÀI TRỢ</div>
+                    <div class="info-in">
+                        <div class="info-row"><span class="k">Thời gian:</span> <b>17h00 &ndash; 21h30, Chủ Nhật ngày 11/10/2026</b></div>
+                        <div class="info-row"><span class="k">Địa điểm:</span> <b>Nhà hàng Hoàng Long</b> &ndash; Số 03 Phạm Văn Hai, P. Tân Sơn Hòa, TP. Hồ Chí Minh</div>
+                        <div class="info-row"><span class="k">Các gói tài trợ:</span>
+                            <span class="pkg">
+                                <span class="d">KIM CƯƠNG</span><span class="g">VÀNG</span><span class="s">BẠC</span><span class="b">ĐỒNG</span>
+                                <em>(Chi tiết quyền lợi đính kèm)</em>
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-                <p>Chúng tôi tin rằng, bằng sự chung sức và đồng lòng, Câu lạc bộ Doanh nhân Quảng Trị sẽ ngày càng vững mạnh, trở thành cầu nối tin cậy để các doanh nghiệp hợp tác, phát triển bền vững và cùng lan tỏa những giá trị tốt đẹp.</p>
+                <div class="info-box pay">
+                    <div class="info-head"><i class="bi bi-bank2"></i> THÔNG TIN TIẾP NHẬN TÀI TRỢ</div>
+                    <div class="info-in">
+                        <div class="bank-flex">
+                            <img class="bank-qr" src="/assets/img/qr/stkclb.png" alt="QR tài khoản CLB Doanh nhân Quảng Trị – VietinBank 110681747939" onclick="openModal('bankModal')">
+                            <div class="bank-detail">
+                                <div><span class="k">Ngân hàng:</span> <b>VietinBank</b></div>
+                                <div class="bank-no">110681747939</div>
+                                <div><span class="k">Nội dung chuyển khoản:</span></div>
+                                <span class="ck-note">[Tên DN/Cá nhân] Tai tro Ky niem 1 nam CLB</span>
+                                <a class="zoom-qr" onclick="openModal('bankModal')"><i class="bi bi-zoom-in"></i> Bấm vào mã QR để phóng to &amp; quét</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="highlight-line">Sự đồng hành của Quý vị là niềm vinh dự, là động lực<br>góp phần làm nên thành công của chương trình!</div>
-
-                <p style="margin-top:8px">Kính chúc Quý Doanh nhân cùng gia đình dồi dào sức khỏe, hạnh phúc, thành công và thịnh vượng.</p>
-
-                <p><i>Trân trọng kính chào và hẹn gặp Quý vị tại chương trình!</i></p>
+                <div class="wish-line">Kính chúc Quý Doanh nhân cùng gia đình sức khỏe, hạnh phúc và thành công!</div>
             </div>
 
             <!-- ============ QR THƯ MỜI + KÝ TÊN ============ -->
@@ -779,15 +804,15 @@
                         <div class="qr-label">QUÉT MÃ XEM THƯ MỜI</div>
                         <div class="qr-title">Chương trình Họp mặt<br>&amp; Lễ kỷ niệm</div>
                         <div class="qr-meta">
-                            <i class="bi bi-clock-fill"></i> 16:00 Chủ Nhật, 11/10/2026<br>
-                            <i class="bi bi-geo-alt-fill"></i> Nhà hàng Hoàng Long – Số 3 Phạm Văn Hai, P. Tân Sơn Hòa, TP.HCM
+                            Xem chương trình chi tiết, sơ đồ &amp; đăng ký tham dự.
                         </div>
                         <a class="qr-url" href="https://qtbc.vn/invitations/261011-doanhnhanvietnam-ok.html" target="_blank" rel="noopener">qtbc.vn/invitations/261011-doanhnhanvietnam-ok</a>
                     </div>
                 </div>
 
                 <div class="sign-card">
-                    <div class="sign-org">TM. BAN ĐIỀU HÀNH<br>CÂU LẠC BỘ DOANH NHÂN QUẢNG TRỊ</div>
+                    <div class="place-date">TP. Hồ Chí Minh, ngày 30 tháng 09 năm 2026</div>
+                    <div class="sign-org">TM. BAN ĐIỀU HÀNH<br>CLB DOANH NHÂN QUẢNG TRỊ</div>
                     <div class="sign-role">CHỦ TỊCH</div>
                     <img class="sign-avatar" src="/assets/team/NDH.jpg" alt="Chủ tịch CLB Doanh nhân Quảng Trị">
                     <div class="sign-name">NGUYỄN ĐẶNG HIẾN</div>
@@ -810,13 +835,24 @@
         </div>
     </div>
 
-    <!-- QR phóng to -->
+    <!-- QR tài khoản CLB nhận tài trợ -->
+    <div class="modal" id="bankModal" onclick="if(event.target===this)closeModal('bankModal')">
+        <div class="modal-inner">
+            <div class="modal-close" onclick="closeModal('bankModal')">&times;</div>
+            <img src="/assets/img/qr/stkclb.png" alt="QR tài khoản CLB Doanh nhân Quảng Trị – VietinBank 110681747939">
+            <div class="cap">VietinBank · 110681747939 · CLB Doanh nhân Quảng Trị
+                <small>Nội dung: [Tên DN/Cá nhân] Tai tro Ky niem 1 nam CLB</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR thư mời chương trình -->
     <div class="modal" id="qrModal" onclick="if(event.target===this)closeModal('qrModal')">
         <div class="modal-inner">
             <div class="modal-close" onclick="closeModal('qrModal')">&times;</div>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https%3A%2F%2Fqtbc.vn%2Finvitations%2F261011-doanhnhanvietnam-ok.html" alt="QR Thư mời chương trình">
-            <div class="cap">Thư mời chương trình Họp mặt
-                <small>16:00 Chủ Nhật 11/10/2026 · Nhà hàng Hoàng Long, TP.HCM</small>
+            <div class="cap">Thư mời chương trình Kỷ niệm
+                <small>Chủ Nhật 11/10/2026 · Nhà hàng Hoàng Long, TP.HCM</small>
             </div>
         </div>
     </div>
@@ -829,7 +865,7 @@
         </button>
         <div id="tbBtns">
             <button onclick="shareLetter()"><i class="bi bi-share-fill"></i> Chia sẻ</button>
-            <button onclick="openModal('qrModal')"><i class="bi bi-qr-code"></i> Xem QR</button>
+            <button onclick="openModal('bankModal')"><i class="bi bi-bank2"></i> QR tài trợ</button>
             <button onclick="exportToPNG()"><i class="bi bi-image"></i> Xuất ảnh</button>
             <button onclick="exportToPDF()"><i class="bi bi-file-pdf"></i> Xuất PDF</button>
             <button onclick="window.open('https://lazinet.com/bizcards/hoangminhphung-lazinet.html?chat=true','_blank','noopener,noreferrer')"><i class="bi bi-chat-dots"></i> Góp ý</button>
