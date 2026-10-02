@@ -1,0 +1,20 @@
+Sở dụng template cmsn\A034.html để làm cmsn\A001.html chúc mừng sinh nhật lần thứ 77 của Giáo sư Nguyễn Đặng Hiến 04/10/2026 với thông tin A001 lấy từ m?c=A001 (lưu ý dữ liệu gọi từ GAS nên đợi 1 lúc khoảng 30 giây hoặc đến khi có dữ liệu)
+Xóa nội dung section 🎁 Tặng quà sinh nhật qua HATHYO
+Thay vào đó là album đẹp hơn cả kiểu trong news\san-tmdt-hathyo-khai-truong.html cho các ảnh sau
+D:\DNQT\web-dnqt\assets\background\MINT0118_w1920.webp
+D:\DNQT\web-dnqt\assets\background\MINT5256_w1920.webp
+D:\DNQT\web-dnqt\assets\background\MINT1056_w1920.webp
+D:\DNQT\web-dnqt\assets\background\MINT1046_w1920.webp
+D:\DNQT\web-dnqt\assets\background\MINT0792_w1920.webp
+D:\DNQT\web-dnqt\assets\background\251103_thamquan1\9.jpg
+D:\DNQT\web-dnqt\assets\background\251103_thamquan1\11.jpg
+D:\DNQT\web-dnqt\assets\background\251227_qualulutqt\1.jpg
+D:\DNQT\web-dnqt\assets\background\260120_tq3\2.jpg
+D:\DNQT\web-dnqt\assets\background\260201_office\9.jpg
+D:\DNQT\web-dnqt\assets\background\260201_office\10.jpg
+D:\DNQT\web-dnqt\assets\background\260321_tannien\post\000_top04.webp
+D:\DNQT\web-dnqt\assets\background\260321_tannien\post\000_top17.webp
+D:\DNQT\web-dnqt\assets\background\260321_tannien\post\2J1A6854_w1024.webp
+Sau album này và trước showroom, hãy chèn 1 banner cmsn\Cards\banner.jpg
+Thay chân bằng thiệp của LAZINET (lazinet.com) với màu như ở invitations\261011-doanhnhanvietnam-ok.html
+Lưu ý, Giáo sư Nguyễn Đặng Hiến là chủ tịch CLB, tôi muốn làm 1 thiệp sinh nhật siêu ấn tượng,tinh tế, sắc sảo, lung linh huyền ảo, đẳng cấp thiệp chúc mừng sinh nhật doanh nhân và lãnh đạo cao cấp
